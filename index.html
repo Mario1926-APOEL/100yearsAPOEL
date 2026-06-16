@@ -264,7 +264,7 @@
     {f:'2023',y:'2023',c:'Η ομάδα του 2023'},
     {f:'2026',y:'2026',c:'Ένας και μοναδικός — 2026'},
   ];
-  const src=p=>`images/${p.f}.jpg`;
+  const src=p=>`./${p.f}.jpg`;
 
   /* ---- HISTORY timeline (key milestones with a representative photo) ---- */
   const history=[
@@ -277,7 +277,7 @@
   ];
   document.getElementById('tl').innerHTML=history.map((e,i)=>`
     <div class="tl-row"><div class="tl-year serif">${e.y}</div>
-    <div class="tl-thumb" data-photo="${e.img}"><img src="images/${e.img}.jpg" alt="${e.h}" loading="lazy"></div>
+    <div class="tl-thumb" data-photo="${e.img}"><img src="./${e.img}.jpg" alt="${e.h}" loading="lazy"></div>
     <div class="tl-body"><h3>${e.h}</h3><p>${e.p}</p></div></div>`).join('');
 
   /* ---- GALLERY with decade filter ---- */
