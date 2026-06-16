@@ -111,7 +111,7 @@
 
   /* EVENTS */
   .ledger{border-top:1px solid var(--hair);}
-  .lrow{display:grid;grid-template-columns:90px 1fr auto;gap:24px;align-items:center;
+  .lrow{display:grid;grid-template-columns:90px 1fr auto auto;gap:24px;align-items:center;
     padding:24px 6px;border-bottom:1px solid var(--hair);transition:background .4s,padding-left .4s;}
   .lrow:hover{background:linear-gradient(90deg,rgba(212,175,55,.06),transparent);padding-left:18px;}
   .lrow .dt{font-family:"Bodoni MT",serif;font-weight:700;color:var(--gold-bright);text-align:center;line-height:1;}
@@ -121,6 +121,39 @@
   .lrow .ti p{color:var(--ash);font-weight:300;font-size:.9rem;margin-top:3px;}
   .lrow .pin{font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold-deep);
     border:1px solid var(--hair);padding:7px 12px;border-radius:30px;white-space:nowrap;}
+  .lrow{cursor:pointer;}
+  .lrow .more{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-bright);
+    opacity:0;transform:translateX(-6px);transition:opacity .35s,transform .35s;white-space:nowrap;}
+  .lrow:hover .more,.lrow:focus-visible .more{opacity:1;transform:none;}
+  .lrow:focus-visible{outline:1px solid var(--gold);outline-offset:-4px;}
+  @media(max-width:680px){.lrow{grid-template-columns:90px 1fr;}.lrow .pin,.lrow .more{grid-column:2;}}
+
+  /* EVENT MODAL */
+  .em{position:fixed;inset:0;z-index:95;background:rgba(5,5,4,.9);backdrop-filter:blur(6px);
+    display:none;align-items:center;justify-content:center;padding:24px;}
+  .em.open{display:flex;animation:emf .3s;}
+  @keyframes emf{from{opacity:0}to{opacity:1}}
+  .em-box{position:relative;max-width:540px;width:100%;background:linear-gradient(160deg,var(--bg2),#000);
+    border:1px solid var(--hair);padding:42px 38px 38px;max-height:88vh;overflow-y:auto;
+    box-shadow:0 30px 80px rgba(0,0,0,.6);animation:emrise .4s cubic-bezier(.2,.7,.2,1);}
+  @keyframes emrise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+  .em-close{position:absolute;top:16px;right:18px;background:none;border:none;color:var(--ash);
+    font-size:1.4rem;cursor:pointer;transition:color .25s;}
+  .em-close:hover{color:var(--gold-bright);}
+  .em-date{display:flex;align-items:baseline;gap:8px;font-family:"Bodoni MT",serif;color:var(--gold-bright);margin-bottom:10px;}
+  .em-day{font-size:2.6rem;font-weight:700;line-height:1;}
+  .em-mon{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--ash);}
+  .em-title{font-family:"Bodoni MT","Didot",Georgia,serif;font-weight:700;color:var(--gold);
+    font-size:1.6rem;line-height:1.1;margin-bottom:24px;}
+  .em-rows{border-top:1px solid var(--hair);margin-bottom:22px;}
+  .em-row{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid var(--hair);}
+  .em-k{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-deep);}
+  .em-v{color:var(--gold-bright);font-family:"Bodoni MT",Georgia,serif;font-size:1.05rem;text-align:right;}
+  .em-desc{color:var(--ash);font-weight:300;line-height:1.7;margin-bottom:22px;}
+  .em-list{list-style:none;display:flex;flex-direction:column;gap:10px;}
+  .em-list li{position:relative;padding-left:22px;color:var(--ash);font-weight:300;font-size:.95rem;}
+  .em-list li::before{content:"";position:absolute;left:0;top:.55em;width:7px;height:7px;
+    background:var(--gold);transform:rotate(45deg);}
 
   /* STORIES */
   .wrap2{display:grid;grid-template-columns:1fr 1fr;gap:40px;}
@@ -220,6 +253,13 @@
   <figure><img id="lbImg" src="" alt=""><figcaption id="lbCap"></figcaption></figure>
 </div>
 
+<div class="em" id="eventModal">
+  <div class="em-box">
+    <button class="em-close" id="emClose" aria-label="Κλείσιμο">✕</button>
+    <div id="emBody"></div>
+  </div>
+</div>
+
 <script>
   const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
 
@@ -317,14 +357,52 @@
 
   /* ---- EVENTS ---- */
   const events=[
-    {d:'08',m:'Μαρ',t:'Επετειακός Αγώνας 100 Χρόνων',p:'Η μεγάλη βραδιά του αιώνα.',pin:'Στάδιο ΓΣΠ · 19:00'},
-    {d:'21',m:'Μαρ',t:'Έκθεση Ιστορικού Υλικού & Τροπαίων',p:'Ένας αιώνας σε βιτρίνα.',pin:'Δημαρχείο Λευκωσίας'},
-    {d:'12',m:'Απρ',t:'Συνάντηση Παλαιμάχων',p:'Οι θρύλοι ξανά μαζί.',pin:'Λέσχη Φιλάθλων · 18:30'},
-    {d:'30',m:'Μαϊ',t:'Επετειακό Γκαλά & Βραβεύσεις',p:'Η κορύφωση των εορτασμών.',pin:'Γκαλά · 20:00'},
+    {d:'08',m:'Μαρ',t:'Επετειακός Αγώνας 100 Χρόνων',p:'Η μεγάλη βραδιά του αιώνα.',pin:'Στάδιο ΓΣΠ · 19:00',
+      full:'08 Μαρτίου 2026',time:'19:00 (πύλες 17:30)',venue:'Στάδιο ΓΣΠ, Λευκωσία',
+      desc:'Ο κορυφαίος αγώνας του εορταστικού έτους. Μια βραδιά αφιερωμένη σε έναν αιώνα ιστορίας, με τιμητικές εκδηλώσεις πριν και μετά τον αγώνα και τη συμμετοχή θρύλων του σωματείου.',
+      info:['Είσοδος με εισιτήριο','Τιμητική απονομή στο ημίχρονο','Επετειακά αναμνηστικά για τους πρώτους θεατές']},
+    {d:'21',m:'Μαρ',t:'Έκθεση Ιστορικού Υλικού & Τροπαίων',p:'Ένας αιώνας σε βιτρίνα.',pin:'Δημαρχείο Λευκωσίας',
+      full:'21 Μαρτίου 2026',time:'10:00 – 20:00',venue:'Δημαρχείο Λευκωσίας',
+      desc:'Μια μοναδική έκθεση με αυθεντικά τρόπαια, ιστορικές φωτογραφίες, φανέλες και ντοκουμέντα από το 1926 έως σήμερα. Ξεναγήσεις ανά τακτά διαστήματα.',
+      info:['Ελεύθερη είσοδος','Ξεναγήσεις: 11:00, 14:00, 17:00','Πωλητήριο επετειακών ειδών']},
+    {d:'12',m:'Απρ',t:'Συνάντηση Παλαιμάχων',p:'Οι θρύλοι ξανά μαζί.',pin:'Λέσχη Φιλάθλων · 18:30',
+      full:'12 Απριλίου 2026',time:'18:30',venue:'Λέσχη Φιλάθλων ΑΠΟΕΛ',
+      desc:'Παλαίμαχοι ποδοσφαιριστές από όλες τις δεκαετίες συναντιούνται ξανά για μια βραδιά αναμνήσεων, αφηγήσεων και τιμής σε όσους έγραψαν την ιστορία του συλλόγου.',
+      info:['Με πρόσκληση','Δείπνο & ομιλίες','Φωτογραφίες με τους παλαίμαχους']},
+    {d:'30',m:'Μαϊ',t:'Επετειακό Γκαλά & Βραβεύσεις',p:'Η κορύφωση των εορτασμών.',pin:'Γκαλά · 20:00',
+      full:'30 Μαΐου 2026',time:'20:00',venue:'Αίθουσα Εκδηλώσεων (TBA)',
+      desc:'Η μεγάλη επίσημη βραδιά κλεισίματος του εορταστικού έτους, με βραβεύσεις προσωπικοτήτων που σημάδεψαν την ιστορία του ΑΠΟΕΛ και παρουσία επισήμων.',
+      info:['Επίσημη ενδυμασία','Με πρόσκληση','Ζωντανή μουσική & δείπνο']},
   ];
-  document.getElementById('ledger').innerHTML=events.map(e=>`
-    <div class="lrow"><div class="dt"><b>${e.d}</b><i>${e.m}</i></div>
-    <div class="ti"><h3>${e.t}</h3><p>${e.p}</p></div><div class="pin">${e.pin}</div></div>`).join('');
+  document.getElementById('ledger').innerHTML=events.map((e,i)=>`
+    <div class="lrow" data-event="${i}" role="button" tabindex="0">
+      <div class="dt"><b>${e.d}</b><i>${e.m}</i></div>
+      <div class="ti"><h3>${e.t}</h3><p>${e.p}</p></div>
+      <div class="pin">${e.pin}</div>
+      <div class="more">Λεπτομέρειες ›</div></div>`).join('');
+
+  /* ---- EVENT MODAL ---- */
+  const em=document.getElementById('eventModal'),emBody=document.getElementById('emBody');
+  function openEvent(i){
+    const e=events[i];if(!e)return;
+    emBody.innerHTML=`
+      <div class="em-date"><span class="em-day">${e.d}</span><span class="em-mon">${e.m}</span></div>
+      <h3 class="em-title">${e.t}</h3>
+      <div class="em-rows">
+        <div class="em-row"><span class="em-k">Ημερομηνία</span><span class="em-v">${e.full}</span></div>
+        <div class="em-row"><span class="em-k">Ώρα</span><span class="em-v">${e.time}</span></div>
+        <div class="em-row"><span class="em-k">Τόπος</span><span class="em-v">${e.venue}</span></div>
+      </div>
+      <p class="em-desc">${e.desc}</p>
+      <ul class="em-list">${e.info.map(x=>`<li>${x}</li>`).join('')}</ul>`;
+    em.classList.add('open');document.body.style.overflow='hidden';
+  }
+  function closeEvent(){em.classList.remove('open');document.body.style.overflow='';}
+  document.getElementById('ledger').addEventListener('click',e=>{const r=e.target.closest('[data-event]');if(r)openEvent(+r.dataset.event);});
+  document.getElementById('ledger').addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.closest('[data-event]')){e.preventDefault();openEvent(+e.target.closest('[data-event]').dataset.event);}});
+  document.getElementById('emClose').onclick=closeEvent;
+  em.addEventListener('click',e=>{if(e.target===em)closeEvent();});
+  addEventListener('keydown',e=>{if(e.key==='Escape'&&em.classList.contains('open'))closeEvent();});
 
   /* ---- STORIES ---- */
   const stories=[{who:'Ανδρέας',txt:'Πήγα στο πρώτο μου παιχνίδι με τον παππού μου το 1996. Δεν ξέχασα ποτέ εκείνη την ατμόσφαιρα στις εξέδρες.'}];
