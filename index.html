@@ -109,24 +109,31 @@
   .lb-nav:hover{background:var(--gold);color:#070707;border-color:var(--gold)}
   #lbPrev{left:24px} #lbNext{right:24px}
 
-  /* EVENTS */
-  .ledger{border-top:1px solid var(--hair);}
-  .lrow{display:grid;grid-template-columns:90px 1fr auto auto;gap:24px;align-items:center;
-    padding:24px 6px;border-bottom:1px solid var(--hair);transition:background .4s,padding-left .4s;}
-  .lrow:hover{background:linear-gradient(90deg,rgba(212,175,55,.06),transparent);padding-left:18px;}
-  .lrow .dt{font-family:"Bodoni MT",serif;font-weight:700;color:var(--gold-bright);text-align:center;line-height:1;}
-  .lrow .dt b{display:block;font-size:1.9rem;}
-  .lrow .dt i{font-style:normal;font-size:.66rem;letter-spacing:.25em;text-transform:uppercase;color:var(--ash);}
-  .lrow .ti h3{color:var(--gold);font-size:1.15rem;font-weight:600;letter-spacing:.03em;}
-  .lrow .ti p{color:var(--ash);font-weight:300;font-size:.9rem;margin-top:3px;}
-  .lrow .pin{font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold-deep);
-    border:1px solid var(--hair);padding:7px 12px;border-radius:30px;white-space:nowrap;}
-  .lrow{cursor:pointer;}
-  .lrow .more{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-bright);
-    opacity:0;transform:translateX(-6px);transition:opacity .35s,transform .35s;white-space:nowrap;}
-  .lrow:hover .more,.lrow:focus-visible .more{opacity:1;transform:none;}
-  .lrow:focus-visible{outline:1px solid var(--gold);outline-offset:-4px;}
-  @media(max-width:680px){.lrow{grid-template-columns:90px 1fr;}.lrow .pin,.lrow .more{grid-column:2;}}
+  /* EVENTS — vertical cards grid */
+  .ledger{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .lrow{display:flex;flex-direction:column;border:1px solid var(--hair);background:linear-gradient(165deg,var(--bg2),#000);
+    padding:26px 22px 22px;cursor:pointer;position:relative;overflow:hidden;
+    transition:border-color .4s,transform .4s;min-height:280px;}
+  .lrow::after{content:"";position:absolute;left:0;right:0;top:0;height:3px;
+    background:linear-gradient(90deg,var(--gold-deep),var(--gold-bright),var(--gold-deep));
+    transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.2,.7,.2,1);}
+  .lrow:hover,.lrow:focus-visible{border-color:var(--gold);transform:translateY(-5px);}
+  .lrow:hover::after,.lrow:focus-visible::after{transform:scaleX(1);}
+  .lrow:focus-visible{outline:none;}
+  .lrow .dt{font-family:"Bodoni MT",serif;color:var(--gold-bright);line-height:1;margin-bottom:18px;
+    display:flex;align-items:baseline;gap:8px;}
+  .lrow .dt b{font-size:2.8rem;font-weight:700;}
+  .lrow .dt i{font-style:normal;font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:var(--ash);}
+  .lrow .ti{flex:1;}
+  .lrow .ti h3{color:var(--gold);font-size:1.12rem;font-weight:600;letter-spacing:.02em;line-height:1.25;margin-bottom:10px;}
+  .lrow .ti p{color:var(--ash);font-weight:300;font-size:.9rem;}
+  .lrow .pin{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-deep);
+    border-top:1px solid var(--hair);padding-top:14px;margin-top:16px;line-height:1.5;}
+  .lrow .more{font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-bright);
+    margin-top:12px;opacity:.55;transition:opacity .35s,letter-spacing .35s;}
+  .lrow:hover .more,.lrow:focus-visible .more{opacity:1;letter-spacing:.28em;}
+  @media(max-width:920px){.ledger{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:520px){.ledger{grid-template-columns:1fr;}.lrow{min-height:0;}}
 
   /* EVENT MODAL */
   .em{position:fixed;inset:0;z-index:95;background:rgba(5,5,4,.9);backdrop-filter:blur(6px);
