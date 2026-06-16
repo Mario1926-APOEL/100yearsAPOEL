@@ -35,6 +35,30 @@
   .scroll-hint{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:3;
     font-size:.6rem;letter-spacing:.4em;color:var(--gold-dim);text-transform:uppercase;
     opacity:0;animation:rise 1s 1.3s forwards,bob 2.4s 2s infinite;}
+
+  .hero-actions{margin-top:2.4em;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;opacity:0;animation:rise 1.2s .95s forwards;}
+  .hero-btn{border:1px solid var(--gold);color:var(--gold-bright);background:rgba(7,7,7,.35);
+    text-decoration:none;font-size:.72rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;
+    padding:15px 24px;transition:background .35s,color .35s,border-color .35s;backdrop-filter:blur(6px);}
+  .hero-btn:hover{background:var(--gold);color:#070707;border-color:var(--gold-bright)}
+  .hero-btn.secondary{border-color:var(--hair);color:var(--ash)}
+  .hero-btn.secondary:hover{color:#070707;background:var(--gold-bright)}
+
+  .next-event{border:1px solid var(--hair);background:linear-gradient(160deg,var(--bg2),#000);
+    margin-bottom:34px;padding:28px 30px;display:grid;grid-template-columns:1.25fr 1fr;gap:24px;align-items:center;
+    position:relative;overflow:hidden;}
+  .next-event::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,var(--gold-deep),var(--gold-bright),var(--gold-deep));}
+  .next-k{font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:8px;}
+  .next-title{font-family:"Bodoni MT","Didot",Georgia,serif;color:var(--gold-bright);font-size:clamp(1.7rem,4vw,2.8rem);line-height:1.05;}
+  .next-meta{color:var(--ash);margin-top:10px;font-weight:300;}
+  .countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+  .cd-box{border:1px solid var(--hair);padding:16px 10px;text-align:center;background:rgba(212,175,55,.04);}
+  .cd-box b{display:block;font-family:"Bodoni MT",serif;color:var(--gold-bright);font-size:2rem;line-height:1;}
+  .cd-box span{display:block;margin-top:7px;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-deep);}
+  .event-status{display:inline-block;margin-bottom:12px;border:1px solid var(--gold-deep);color:var(--gold-bright);
+    padding:5px 9px;font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;}
+  @media(max-width:760px){.next-event{grid-template-columns:1fr}.countdown{grid-template-columns:repeat(2,1fr)}}
+
   @keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
   @keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
 
@@ -204,19 +228,23 @@
     <div class="mega" id="mega">100<span class="mega-sub">Χρόνια Δόξας</span></div>
     <div class="club-line serif">ΑΠΟΕΛ</div>
     <div class="span-years">08 · Νοεμβρίου · 1926</div>
+    <div class="hero-actions">
+      <a class="hero-btn" href="#events" data-jump="events">Πρόγραμμα Εορτασμών</a>
+      <a class="hero-btn secondary" href="#history" data-jump="history">Η Ιστορία</a>
+    </div>
   </div>
   <div class="scroll-hint">Κυλήστε</div>
 </section>
 
 <nav>
-  <button class="active" data-tab="history">Ιστορία</button>
+  <button class="active" data-tab="events">Πρόγραμμα</button>
+  <button data-tab="history">Ιστορία</button>
   <button data-tab="gallery">Φωτογραφίες</button>
-  <button data-tab="events">Πρόγραμμα</button>
   <button data-tab="stories">Οι Ιστορίες σας</button>
 </nav>
 
 <main>
-  <section id="history" class="panel active">
+  <section id="history" class="panel">
     <div class="sec-head reveal"><div class="k">Ένας Αιώνας</div><h2 class="serif">Ιστορία</h2>
       <p class="lead">Από το 1926, μια ιστορία γραμμένη με χρυσό. Περάστε πάνω από κάθε στιγμή.</p></div>
     <div class="tl" id="tl"></div>
@@ -229,9 +257,10 @@
     <div class="mosaic reveal" id="mosaic"></div>
   </section>
 
-  <section id="events" class="panel">
+  <section id="events" class="panel active">
     <div class="sec-head reveal"><div class="k">Εορτασμοί</div><h2 class="serif">Πρόγραμμα</h2>
-      <p class="lead">Οι εκδηλώσεις για τα 100 χρόνια.</p></div>
+      <p class="lead">Όλες οι εκδηλώσεις για τον επετειακό εορτασμό των 100 χρόνων, με ημερομηνίες, χώρους και λεπτομέρειες.</p></div>
+    <div class="next-event reveal" id="nextEvent"></div>
     <div class="ledger reveal" id="ledger"></div>
   </section>
 
@@ -364,26 +393,46 @@
 
   /* ---- EVENTS ---- */
   const events=[
-    {d:'08',m:'Μαρ',t:'Επετειακός Αγώνας 100 Χρόνων',p:'Η μεγάλη βραδιά του αιώνα.',pin:'Στάδιο ΓΣΠ · 19:00',
+    {d:'08',m:'Μαρ',iso:'2026-03-08T19:00:00',status:'Ολοκληρώθηκε',t:'Επετειακός Αγώνας 100 Χρόνων',p:'Η μεγάλη βραδιά του αιώνα.',pin:'Στάδιο ΓΣΠ · 19:00',
       full:'08 Μαρτίου 2026',time:'19:00 (πύλες 17:30)',venue:'Στάδιο ΓΣΠ, Λευκωσία',
       desc:'Ο κορυφαίος αγώνας του εορταστικού έτους. Μια βραδιά αφιερωμένη σε έναν αιώνα ιστορίας, με τιμητικές εκδηλώσεις πριν και μετά τον αγώνα και τη συμμετοχή θρύλων του σωματείου.',
       info:['Είσοδος με εισιτήριο','Τιμητική απονομή στο ημίχρονο','Επετειακά αναμνηστικά για τους πρώτους θεατές']},
-    {d:'21',m:'Μαρ',t:'Έκθεση Ιστορικού Υλικού & Τροπαίων',p:'Ένας αιώνας σε βιτρίνα.',pin:'Δημαρχείο Λευκωσίας',
+    {d:'21',m:'Μαρ',iso:'2026-03-21T10:00:00',status:'Ολοκληρώθηκε',t:'Έκθεση Ιστορικού Υλικού & Τροπαίων',p:'Ένας αιώνας σε βιτρίνα.',pin:'Δημαρχείο Λευκωσίας',
       full:'21 Μαρτίου 2026',time:'10:00 – 20:00',venue:'Δημαρχείο Λευκωσίας',
       desc:'Μια μοναδική έκθεση με αυθεντικά τρόπαια, ιστορικές φωτογραφίες, φανέλες και ντοκουμέντα από το 1926 έως σήμερα. Ξεναγήσεις ανά τακτά διαστήματα.',
       info:['Ελεύθερη είσοδος','Ξεναγήσεις: 11:00, 14:00, 17:00','Πωλητήριο επετειακών ειδών']},
-    {d:'12',m:'Απρ',t:'Συνάντηση Παλαιμάχων',p:'Οι θρύλοι ξανά μαζί.',pin:'Λέσχη Φιλάθλων · 18:30',
+    {d:'12',m:'Απρ',iso:'2026-04-12T18:30:00',status:'Ολοκληρώθηκε',t:'Συνάντηση Παλαιμάχων',p:'Οι θρύλοι ξανά μαζί.',pin:'Λέσχη Φιλάθλων · 18:30',
       full:'12 Απριλίου 2026',time:'18:30',venue:'Λέσχη Φιλάθλων ΑΠΟΕΛ',
       desc:'Παλαίμαχοι ποδοσφαιριστές από όλες τις δεκαετίες συναντιούνται ξανά για μια βραδιά αναμνήσεων, αφηγήσεων και τιμής σε όσους έγραψαν την ιστορία του συλλόγου.',
       info:['Με πρόσκληση','Δείπνο & ομιλίες','Φωτογραφίες με τους παλαίμαχους']},
-    {d:'30',m:'Μαϊ',t:'Επετειακό Γκαλά & Βραβεύσεις',p:'Η κορύφωση των εορτασμών.',pin:'Γκαλά · 20:00',
+    {d:'30',m:'Μαϊ',iso:'2026-05-30T20:00:00',status:'Ολοκληρώθηκε',t:'Επετειακό Γκαλά & Βραβεύσεις',p:'Η κορύφωση των εορτασμών.',pin:'Γκαλά · 20:00',
       full:'30 Μαΐου 2026',time:'20:00',venue:'Αίθουσα Εκδηλώσεων (TBA)',
       desc:'Η μεγάλη επίσημη βραδιά κλεισίματος του εορταστικού έτους, με βραβεύσεις προσωπικοτήτων που σημάδεψαν την ιστορία του ΑΠΟΕΛ και παρουσία επισήμων.',
       info:['Επίσημη ενδυμασία','Με πρόσκληση','Ζωντανή μουσική & δείπνο']},
   ];
+
+  function renderNextEvent(){
+    const box=document.getElementById('nextEvent');
+    const now=new Date();
+    const upcoming=events.map(e=>({...e,date:new Date(e.iso)})).filter(e=>e.date>now).sort((a,b)=>a.date-b.date)[0];
+    const featured=upcoming||events[events.length-1];
+    box.innerHTML=`<div><div class="next-k">${upcoming?'Επόμενη εκδήλωση':'Πρόγραμμα εορτασμών'}</div>
+      <div class="next-title">${featured.t}</div><div class="next-meta">${featured.full} · ${featured.time} · ${featured.venue}</div></div>
+      <div class="countdown" id="countdown"><div class="cd-box"><b>—</b><span>Ημέρες</span></div><div class="cd-box"><b>—</b><span>Ώρες</span></div><div class="cd-box"><b>—</b><span>Λεπτά</span></div><div class="cd-box"><b>—</b><span>Δευτ.</span></div></div>`;
+    if(!upcoming)return;
+    const tick=()=>{
+      const diff=Math.max(0,featured.date-new Date());
+      const d=Math.floor(diff/86400000),h=Math.floor(diff/3600000)%24,m=Math.floor(diff/60000)%60,sec=Math.floor(diff/1000)%60;
+      document.getElementById('countdown').innerHTML=`<div class="cd-box"><b>${d}</b><span>Ημέρες</span></div><div class="cd-box"><b>${h}</b><span>Ώρες</span></div><div class="cd-box"><b>${m}</b><span>Λεπτά</span></div><div class="cd-box"><b>${sec}</b><span>Δευτ.</span></div>`;
+    };
+    tick();setInterval(tick,1000);
+  }
+  renderNextEvent();
+
   document.getElementById('ledger').innerHTML=events.map((e,i)=>`
     <div class="lrow" data-event="${i}" role="button" tabindex="0">
       <div class="dt"><b>${e.d}</b><i>${e.m}</i></div>
+      <span class="event-status">${e.status||'Ανακοινώθηκε'}</span>
       <div class="ti"><h3>${e.t}</h3><p>${e.p}</p></div>
       <div class="pin">${e.pin}</div>
       <div class="more">Λεπτομέρειες ›</div></div>`).join('');
@@ -455,6 +504,7 @@
   const btns=document.querySelectorAll('nav button'),panels=document.querySelectorAll('.panel');
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.12});
   function obs(){document.querySelectorAll('.panel.active .reveal').forEach(r=>io.observe(r));}
+  document.querySelectorAll('[data-jump]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const b=document.querySelector(`nav button[data-tab="${a.dataset.jump}"]`);if(b)b.click();}));
   btns.forEach(b=>b.addEventListener('click',()=>{
     btns.forEach(x=>x.classList.remove('active'));panels.forEach(p=>p.classList.remove('active'));
     b.classList.add('active');document.getElementById(b.dataset.tab).classList.add('active');
