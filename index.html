@@ -6,57 +6,31 @@
 <title>ΑΠΟΕΛ · ΕΝΑΣ ΑΙΩΝΑΣ · 1926–2026</title>
 <style>
   :root{
-    --bg:#070707;
-    --bg2:#0d0b07;
-    --gold:#d4af37;
-    --gold-bright:#f4d35e;
-    --gold-deep:#8a6d1c;
-    --gold-dim:rgba(212,175,55,.32);
-    --ash:#bdb6a6;
-    --hair:rgba(212,175,55,.16);
+    --bg:#070707;--bg2:#0d0b07;--gold:#d4af37;--gold-bright:#f4d35e;--gold-deep:#8a6d1c;
+    --gold-dim:rgba(212,175,55,.32);--ash:#bdb6a6;--hair:rgba(212,175,55,.16);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{
-    background:var(--bg);color:var(--ash);overflow-x:hidden;
-    font-family:"Helvetica Neue",Arial,sans-serif;line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
-  body::before{ /* grain + vignette atmosphere */
-    content:"";position:fixed;inset:0;pointer-events:none;z-index:1;
-    background:radial-gradient(120% 90% at 50% 0%,transparent 40%,rgba(0,0,0,.7) 100%);
-    mix-blend-mode:multiply;
-  }
+  body{background:var(--bg);color:var(--ash);overflow-x:hidden;
+    font-family:"Helvetica Neue",Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;
+    background:radial-gradient(120% 90% at 50% 0%,transparent 40%,rgba(0,0,0,.7) 100%);mix-blend-mode:multiply;}
   .serif{font-family:"Bodoni MT","Didot",Georgia,serif;}
 
-  /* ===== INTRO / HERO CANVAS ===== */
-  #hero{
-    position:relative;height:100vh;min-height:620px;display:flex;flex-direction:column;
-    align-items:center;justify-content:center;text-align:center;overflow:hidden;
-  }
+  /* HERO */
+  #hero{position:relative;height:100vh;min-height:620px;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;overflow:hidden;}
   #goldCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;}
   .hero-inner{position:relative;z-index:3;mix-blend-mode:screen;}
-  .eyebrow{
-    letter-spacing:.6em;font-size:.66rem;text-transform:uppercase;color:var(--gold);
-    margin-bottom:1.4em;opacity:0;animation:rise 1.1s .2s forwards;
-  }
-  .mega{
-    font-family:"Bodoni MT","Didot",Georgia,serif;font-weight:700;
-    font-size:clamp(7rem,32vw,22rem);line-height:.82;letter-spacing:-.02em;
-    background:linear-gradient(180deg,var(--gold-bright),var(--gold) 45%,var(--gold-deep));
+  .eyebrow{letter-spacing:.6em;font-size:.66rem;text-transform:uppercase;color:var(--gold);
+    margin-bottom:1.4em;opacity:0;animation:rise 1.1s .2s forwards;}
+  .mega{font-family:"Bodoni MT","Didot",Georgia,serif;font-weight:700;font-size:clamp(7rem,32vw,22rem);
+    line-height:.82;letter-spacing:-.02em;background:linear-gradient(180deg,var(--gold-bright),var(--gold) 45%,var(--gold-deep));
     -webkit-background-clip:text;background-clip:text;color:transparent;
-    filter:drop-shadow(0 2px 30px rgba(212,175,55,.35));
-    opacity:0;animation:rise 1.2s .35s forwards;cursor:default;user-select:none;
-  }
-  .mega-sub{
-    display:block;font-family:"Helvetica Neue",sans-serif;font-weight:300;
-    font-size:clamp(.9rem,3vw,1.4rem);letter-spacing:.5em;color:var(--ash);
-    -webkit-text-fill-color:var(--ash);margin-top:.6em;text-transform:uppercase;
-  }
-  .club-line{
-    margin-top:1.8em;font-size:clamp(1rem,4vw,1.6rem);letter-spacing:.35em;color:var(--gold);
-    opacity:0;animation:rise 1.2s .55s forwards;
-  }
+    filter:drop-shadow(0 2px 30px rgba(212,175,55,.35));opacity:0;animation:rise 1.2s .35s forwards;cursor:default;user-select:none;}
+  .mega-sub{display:block;font-family:"Helvetica Neue",sans-serif;font-weight:300;font-size:clamp(.9rem,3vw,1.4rem);
+    letter-spacing:.5em;color:var(--ash);-webkit-text-fill-color:var(--ash);margin-top:.6em;text-transform:uppercase;}
+  .club-line{margin-top:1.8em;font-size:clamp(1rem,4vw,1.6rem);letter-spacing:.35em;color:var(--gold);opacity:0;animation:rise 1.2s .55s forwards;}
   .span-years{margin-top:.8em;font-size:.85rem;letter-spacing:.5em;color:var(--ash);opacity:0;animation:rise 1.2s .75s forwards;}
   .scroll-hint{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:3;
     font-size:.6rem;letter-spacing:.4em;color:var(--gold-dim);text-transform:uppercase;
@@ -64,61 +38,78 @@
   @keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
   @keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
 
-  /* ===== NAV ===== */
+  /* NAV */
   nav{position:sticky;top:0;z-index:40;display:flex;justify-content:center;flex-wrap:wrap;
-    background:rgba(7,7,7,.82);backdrop-filter:blur(12px);border-top:1px solid var(--hair);
-    border-bottom:1px solid var(--hair);}
-  nav button{
-    background:none;border:none;color:var(--ash);cursor:pointer;font-family:inherit;
-    font-size:.72rem;font-weight:600;letter-spacing:.28em;text-transform:uppercase;
-    padding:20px 22px;position:relative;transition:color .35s;
-  }
-  nav button .idx{font-family:"Bodoni MT",serif;font-style:italic;color:var(--gold-deep);margin-right:.7em;transition:color .35s;}
-  nav button:hover,nav button:hover .idx{color:var(--gold-bright)}
+    background:rgba(7,7,7,.82);backdrop-filter:blur(12px);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);}
+  nav button{background:none;border:none;color:var(--ash);cursor:pointer;font-family:inherit;font-size:.72rem;
+    font-weight:600;letter-spacing:.28em;text-transform:uppercase;padding:20px 22px;position:relative;transition:color .35s;}
+  nav button:hover{color:var(--gold-bright)}
   nav button.active{color:var(--gold-bright)}
-  nav button.active .idx{color:var(--gold-bright)}
   nav button.active::after{content:"";position:absolute;left:22px;right:22px;bottom:12px;height:1px;
     background:linear-gradient(90deg,transparent,var(--gold-bright),transparent);}
   nav button:focus-visible{outline:1px solid var(--gold);outline-offset:-6px;}
 
-  /* ===== PANELS ===== */
-  main{position:relative;z-index:2;max-width:1040px;margin:0 auto;padding:80px 24px 120px;}
+  /* PANELS */
+  main{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:80px 24px 120px;}
   .panel{display:none}
   .panel.active{display:block}
   .reveal{opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1);}
   .reveal.in{opacity:1;transform:none}
   .sec-head{margin-bottom:64px;}
   .sec-head .k{font-family:"Bodoni MT",serif;font-style:italic;color:var(--gold-deep);font-size:1.1rem;letter-spacing:.1em;}
-  .sec-head h2{font-family:"Bodoni MT","Didot",Georgia,serif;font-weight:700;
-    font-size:clamp(2.4rem,8vw,5rem);line-height:.95;letter-spacing:-.02em;color:var(--gold-bright);margin-top:.1em;
-    background:linear-gradient(180deg,var(--gold-bright),var(--gold-deep));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+  .sec-head h2{font-family:"Bodoni MT","Didot",Georgia,serif;font-weight:700;font-size:clamp(2.4rem,8vw,5rem);
+    line-height:.95;letter-spacing:-.02em;margin-top:.1em;background:linear-gradient(180deg,var(--gold-bright),var(--gold-deep));
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
   .sec-head .lead{max-width:560px;margin-top:18px;color:var(--ash);font-weight:300;}
 
-  /* HISTORY — kinetic timeline */
+  /* HISTORY — timeline with photos */
   .tl{position:relative;}
-  .tl-row{display:grid;grid-template-columns:minmax(120px,180px) 1fr;gap:30px;
-    padding:34px 0;border-top:1px solid var(--hair);position:relative;}
+  .tl-row{display:grid;grid-template-columns:minmax(120px,160px) 220px 1fr;gap:26px;align-items:center;
+    padding:30px 0;border-top:1px solid var(--hair);position:relative;}
   .tl-row:last-child{border-bottom:1px solid var(--hair);}
   .tl-year{font-family:"Bodoni MT","Didot",Georgia,serif;font-weight:700;font-size:clamp(2rem,6vw,3.4rem);
     line-height:1;color:transparent;-webkit-text-stroke:1px var(--gold);transition:color .5s,-webkit-text-stroke .5s;letter-spacing:-.02em;}
   .tl-row:hover .tl-year{color:var(--gold-bright);-webkit-text-stroke:1px var(--gold-bright);}
+  .tl-thumb{aspect-ratio:4/3;border:1px solid var(--hair);overflow:hidden;background:#000;cursor:pointer;}
+  .tl-thumb img{width:100%;height:100%;object-fit:cover;filter:grayscale(.35) contrast(1.03);transition:transform .6s,filter .6s;}
+  .tl-thumb:hover img{transform:scale(1.06);filter:grayscale(0)}
   .tl-body h3{color:var(--gold);font-size:1.15rem;letter-spacing:.04em;font-weight:600;margin-bottom:6px;}
-  .tl-body p{color:var(--ash);font-weight:300;max-width:560px;}
+  .tl-body p{color:var(--ash);font-weight:300;max-width:520px;}
 
-  /* GALLERY — asymmetric mosaic */
+  /* GALLERY — mosaic of real photos */
+  .gtools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px;}
+  .gchip{background:transparent;border:1px solid var(--hair);color:var(--ash);border-radius:30px;padding:8px 16px;
+    font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;font-family:inherit;transition:.25s;}
+  .gchip:hover{color:var(--gold-bright);border-color:var(--gold-deep)}
+  .gchip.on{background:var(--gold);color:#070707;border-color:var(--gold);font-weight:600}
   .mosaic{column-count:3;column-gap:14px;}
   .frame{break-inside:avoid;margin-bottom:14px;border:1px solid var(--hair);position:relative;overflow:hidden;
-    background:linear-gradient(150deg,var(--bg2),#000);display:flex;align-items:flex-end;
-    aspect-ratio:var(--ar,3/4);transition:border-color .4s;}
+    background:#000;cursor:pointer;transition:border-color .4s;}
   .frame:hover{border-color:var(--gold)}
-  .frame::before{content:"";position:absolute;inset:0;
-    background:radial-gradient(120% 80% at 30% 10%,rgba(212,175,55,.14),transparent 60%);}
-  .frame span{position:relative;padding:14px 16px;font-family:"Bodoni MT",serif;font-style:italic;
-    color:var(--gold);font-size:1.05rem;z-index:2;}
-  .frame .num{position:absolute;top:10px;right:14px;font-size:.65rem;letter-spacing:.2em;color:var(--gold-deep);}
-  .gnote{margin-top:26px;font-size:.8rem;color:var(--gold-deep);letter-spacing:.06em;font-style:italic;font-family:"Bodoni MT",serif;}
+  .frame img{width:100%;display:block;filter:grayscale(.3) contrast(1.02);transition:transform .6s,filter .6s;}
+  .frame:hover img{transform:scale(1.04);filter:grayscale(0)}
+  .frame figcaption{position:absolute;left:0;right:0;bottom:0;padding:26px 14px 12px;z-index:2;
+    background:linear-gradient(transparent,rgba(0,0,0,.82));font-family:"Bodoni MT",serif;font-style:italic;
+    color:var(--gold-bright);font-size:1.02rem;}
+  .frame .yr{position:absolute;top:10px;left:14px;font-family:"Bodoni MT",serif;font-weight:700;
+    color:var(--gold-bright);font-size:.9rem;letter-spacing:.05em;z-index:2;text-shadow:0 1px 4px rgba(0,0,0,.8);}
 
-  /* EVENTS — ledger */
+  /* LIGHTBOX */
+  .lb{position:fixed;inset:0;z-index:90;background:rgba(5,5,4,.94);display:none;align-items:center;justify-content:center;padding:30px;}
+  .lb.open{display:flex;animation:lbf .3s}
+  @keyframes lbf{from{opacity:0}to{opacity:1}}
+  .lb figure{max-width:1000px;width:100%;text-align:center;}
+  .lb img{max-width:100%;max-height:78vh;border:1px solid var(--hair);box-shadow:0 20px 60px rgba(0,0,0,.6);}
+  .lb figcaption{margin-top:16px;font-family:"Bodoni MT",serif;font-style:italic;color:var(--gold-bright);font-size:1.2rem;}
+  .lb .lbyr{color:var(--gold-deep);font-style:normal;letter-spacing:.2em;font-size:.8rem;margin-right:.8em;}
+  .lb-x{position:fixed;top:22px;right:28px;background:none;border:none;color:var(--ash);font-size:1.8rem;cursor:pointer;z-index:91;}
+  .lb-x:hover{color:var(--gold-bright)}
+  .lb-nav{position:fixed;top:50%;transform:translateY(-50%);background:none;border:1px solid var(--hair);color:var(--gold-bright);
+    width:48px;height:48px;border-radius:50%;font-size:1.4rem;cursor:pointer;z-index:91;transition:.25s;}
+  .lb-nav:hover{background:var(--gold);color:#070707;border-color:var(--gold)}
+  #lbPrev{left:24px} #lbNext{right:24px}
+
+  /* EVENTS */
   .ledger{border-top:1px solid var(--hair);}
   .lrow{display:grid;grid-template-columns:90px 1fr auto;gap:24px;align-items:center;
     padding:24px 6px;border-bottom:1px solid var(--hair);transition:background .4s,padding-left .4s;}
@@ -133,17 +124,15 @@
 
   /* STORIES */
   .wrap2{display:grid;grid-template-columns:1fr 1fr;gap:40px;}
-  @media(max-width:760px){.wrap2{grid-template-columns:1fr}.mosaic{column-count:2}}
-  @media(max-width:460px){.mosaic{column-count:1}.tl-row{grid-template-columns:1fr}}
   .form label{display:block;font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-deep);margin:18px 0 8px;}
   .form input,.form textarea{width:100%;background:transparent;border:none;border-bottom:1px solid var(--hair);
     color:var(--gold-bright);font-family:"Bodoni MT",Georgia,serif;font-size:1.1rem;padding:10px 2px;transition:border-color .3s;}
   .form input::placeholder,.form textarea::placeholder{color:rgba(189,182,166,.35);font-style:italic;}
   .form input:focus,.form textarea:focus{outline:none;border-color:var(--gold-bright)}
   .form textarea{min-height:130px;resize:vertical;line-height:1.5;}
-  .submit{margin-top:30px;background:none;border:1px solid var(--gold);color:var(--gold-bright);
-    font-family:inherit;font-size:.7rem;font-weight:600;letter-spacing:.3em;text-transform:uppercase;
-    padding:16px 34px;cursor:pointer;position:relative;overflow:hidden;transition:color .4s;}
+  .submit{margin-top:30px;background:none;border:1px solid var(--gold);color:var(--gold-bright);font-family:inherit;
+    font-size:.7rem;font-weight:600;letter-spacing:.3em;text-transform:uppercase;padding:16px 34px;cursor:pointer;
+    position:relative;overflow:hidden;transition:color .4s;}
   .submit span{position:relative;z-index:2}
   .submit::before{content:"";position:absolute;inset:0;background:var(--gold);transform:translateY(101%);transition:transform .4s;}
   .submit:hover{color:#070707}
@@ -160,12 +149,14 @@
     font-size:.7rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold-deep);}
   footer b{color:var(--gold-bright);font-family:"Bodoni MT",serif;font-style:italic;font-weight:700;letter-spacing:.1em;}
 
+  @media(max-width:860px){.mosaic{column-count:2}.tl-row{grid-template-columns:90px 1fr;grid-template-areas:"y t" "i i" "b b";gap:14px}
+    .tl-year{grid-area:y}.tl-thumb{grid-area:i}.tl-body{grid-area:b}.tl-body h3{grid-area:t}}
+  @media(max-width:560px){.mosaic{column-count:1}.wrap2{grid-template-columns:1fr}}
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}.reveal{opacity:1;transform:none}}
 </style>
 </head>
 <body>
 
-<!-- ===== HERO ===== -->
 <section id="hero">
   <canvas id="goldCanvas"></canvas>
   <div class="hero-inner">
@@ -177,38 +168,33 @@
   <div class="scroll-hint">Κυλήστε</div>
 </section>
 
-<!-- ===== NAV ===== -->
 <nav>
-  <button class="active" data-tab="history"><span class="idx"></span>Ιστορία</button>
-  <button data-tab="gallery"><span class="idx"></span>Φωτογραφίες</button>
-  <button data-tab="events"><span class="idx"></span>Πρόγραμμα</button>
-  <button data-tab="stories"><span class="idx"></span>Οι Ιστορίες σας</button>
+  <button class="active" data-tab="history">Ιστορία</button>
+  <button data-tab="gallery">Φωτογραφίες</button>
+  <button data-tab="events">Πρόγραμμα</button>
+  <button data-tab="stories">Οι Ιστορίες σας</button>
 </nav>
 
 <main>
-  <!-- HISTORY -->
   <section id="history" class="panel active">
     <div class="sec-head reveal"><div class="k">Ένας Αιώνας</div><h2 class="serif">Ιστορία</h2>
-      <p class="lead">Από το 1926, μια ιστορία γραμμένη με χρυσό.</p></div>
+      <p class="lead">Από το 1926, μια ιστορία γραμμένη με χρυσό. Περάστε πάνω από κάθε στιγμή.</p></div>
     <div class="tl" id="tl"></div>
   </section>
 
-  <!-- GALLERY -->
   <section id="gallery" class="panel">
     <div class="sec-head reveal"><div class="k">Αναμνήσεις</div><h2 class="serif">Φωτογραφίες</h2>
-      <p class="lead">Εικόνες ενός αιώνα.</p></div>
+      <p class="lead">Εικόνες ενός αιώνα — από την εφημερίδα του 1932 ως σήμερα. Πατήστε για μεγέθυνση.</p></div>
+    <div class="gtools reveal" id="gtools"></div>
     <div class="mosaic reveal" id="mosaic"></div>
-    <p class="gnote"></p>
   </section>
 
-  <!-- EVENTS -->
   <section id="events" class="panel">
     <div class="sec-head reveal"><div class="k">Εορτασμοί</div><h2 class="serif">Πρόγραμμα</h2>
       <p class="lead">Οι εκδηλώσεις για τα 100 χρόνια.</p></div>
     <div class="ledger reveal" id="ledger"></div>
   </section>
 
-  <!-- STORIES -->
   <section id="stories" class="panel">
     <div class="sec-head reveal"><div class="k">Στιγμές</div><h2 class="serif">Οι Ιστορίες σας</h2>
       <p class="lead">Μοιραστείτε τη δική σας ανάμνηση.</p></div>
@@ -227,71 +213,109 @@
 
 <footer>Ένας Αιώνας Μαζί · <b>ΑΠΟΕΛ</b> · 1926 — 2026</footer>
 
+<div class="lb" id="lb">
+  <button class="lb-x" id="lbx" aria-label="Κλείσιμο">✕</button>
+  <button class="lb-nav" id="lbPrev" aria-label="Προηγούμενη">‹</button>
+  <button class="lb-nav" id="lbNext" aria-label="Επόμενη">›</button>
+  <figure><img id="lbImg" src="" alt=""><figcaption id="lbCap"></figcaption></figure>
+</div>
+
 <script>
-  /* ===== Interactive gold particle field ===== */
-  const cv=document.getElementById('goldCanvas'),cx=cv.getContext('2d');
-  let W,H,parts=[],mouse={x:-999,y:-999};
   const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-  function resize(){W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;init();}
-  function init(){
-    parts=[];const n=Math.min(110,Math.floor(W*H/14000));
-    for(let i=0;i<n;i++)parts.push({
-      x:Math.random()*W,y:Math.random()*H,
-      vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,
-      r:Math.random()*1.8+.4,a:Math.random()*.5+.2
-    });
-  }
-  function draw(){
-    cx.clearRect(0,0,W,H);
-    for(const p of parts){
-      // drift
-      p.x+=p.vx;p.y+=p.vy;
-      if(p.x<0||p.x>W)p.vx*=-1; if(p.y<0||p.y>H)p.vy*=-1;
-      // cursor attraction
-      const dx=mouse.x-p.x,dy=mouse.y-p.y,d=Math.hypot(dx,dy);
-      if(d<140){const f=(140-d)/140*0.6;p.x+=dx/d*f;p.y+=dy/d*f;}
-      cx.beginPath();cx.arc(p.x,p.y,p.r,0,7);
-      cx.fillStyle=`rgba(212,175,55,${p.a})`;cx.fill();
-    }
-    // connecting filaments
-    for(let i=0;i<parts.length;i++)for(let j=i+1;j<parts.length;j++){
-      const a=parts[i],b=parts[j],dd=Math.hypot(a.x-b.x,a.y-b.y);
-      if(dd<96){cx.strokeStyle=`rgba(212,175,55,${(1-dd/96)*.13})`;cx.lineWidth=.6;
-        cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(b.x,b.y);cx.stroke();}
-    }
-    requestAnimationFrame(draw);
-  }
-  addEventListener('resize',resize);
-  cv.addEventListener('mousemove',e=>{const r=cv.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;});
-  cv.addEventListener('mouseleave',()=>{mouse.x=mouse.y=-999;});
-  cv.addEventListener('touchmove',e=>{const r=cv.getBoundingClientRect(),t=e.touches[0];mouse.x=t.clientX-r.left;mouse.y=t.clientY-r.top;},{passive:true});
-  resize(); if(!reduce) draw(); else { cx.clearRect(0,0,W,H); for(const p of parts){cx.beginPath();cx.arc(p.x,p.y,p.r,0,7);cx.fillStyle=`rgba(212,175,55,${p.a})`;cx.fill();} }
 
-  /* ===== Mega "100" tilt parallax ===== */
-  const mega=document.getElementById('mega');
-  if(!reduce) addEventListener('mousemove',e=>{
-    const rx=(e.clientY/innerHeight-.5)*-8, ry=(e.clientX/innerWidth-.5)*10;
-    mega.style.transform=`perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg)`;
-  });
-
-  /* ===== Data ===== */
-  const history=[
-    {y:'1926',h:'Η Ίδρυση',p:'Γεννιέται ο ΑΠΟΕΛ στη Λευκωσία — η αρχή ενός θρύλου που μετράει έναν αιώνα.'},
-    {y:'1934',h:'Πρώτος Τίτλος',p:'Το πρώτο πρωτάθλημα Κύπρου. Το κιτρινομπλέ ανεβαίνει στην κορυφή.'},
-    {y:'1963',h:'Χρυσή Εποχή',p:'Διαδοχικές κατακτήσεις τίτλων και Κυπέλλων σε μια ακαταμάχητη δεκαετία.'},
-    {y:'2009',h:'Ευρωπαϊκή Νύχτα',p:'Ιστορική πρόκριση στους ομίλους του UEFA Champions League.'},
-    {y:'2012',h:'Στους «8» της Ευρώπης',p:'Η μεγάλη πορεία στους προημιτελικούς του Champions League.'},
-    {y:'2026',h:'Εκατό Χρόνια',p:'Έναν αιώνα ιστορίας, πάθους και πίστης. Ο εορτασμός μιας οικογένειας.'},
+  /* ---- PHOTO DATA (file -> year, caption) ---- */
+  const photos=[
+    {f:'1932',y:'1932',c:'Πρωτοσέλιδο «Ελευθερία» — πρωτάθλημα'},
+    {f:'1932_prwtathlima',y:'1932',c:'Η ομάδα του πρώτου πρωταθλήματος'},
+    {f:'1934',y:'1934',c:'Πρωταθλητές Κύπρου'},
+    {f:'1937',y:'1937',c:'Η ομάδα του 1937'},
+    {f:'1939',y:'1939',c:'Η ομάδα του 1939'},
+    {f:'1947',y:'1947',c:'Η ομάδα του 1947'},
+    {f:'1947_kypello',y:'1947',c:'Κατάκτηση Κυπέλλου'},
+    {f:'1949',y:'1949',c:'Η ομάδα του 1949'},
+    {f:'1959',y:'1959',c:'Η ομάδα του 1959'},
+    {f:'1962',y:'1962',c:'Η ομάδα του 1962'},
+    {f:'1963',y:'1963',c:'Χρυσή εποχή — 1963'},
+    {f:'1969',y:'1969',c:'Η ομάδα του 1969'},
+    {f:'1973',y:'1973',c:'Η ομάδα του 1973'},
+    {f:'1974',y:'1974',c:'Η ομάδα του 1974'},
+    {f:'1974_aethniki',y:'1974',c:'Εθνική στιγμή — 1974'},
+    {f:'1977',y:'1977',c:'Η ομάδα του 1977'},
+    {f:'1978_kypello',y:'1978',c:'Κατάκτηση Κυπέλλου'},
+    {f:'1986',y:'1986',c:'Η ομάδα του 1986'},
+    {f:'1990',y:'1990',c:'Η ομάδα του 1990'},
+    {f:'1991',y:'1991',c:'Η ομάδα του 1991'},
+    {f:'1996',y:'1996',c:'Η ομάδα του 1996'},
+    {f:'1999',y:'1999',c:'Η ομάδα του 1999'},
+    {f:'2002',y:'2002',c:'Στιγμή του 2002'},
+    {f:'2002_omada',y:'2002',c:'Η ομάδα του 2002'},
+    {f:'2003',y:'2003',c:'Η ομάδα του 2003'},
+    {f:'2009',y:'2009',c:'Ευρωπαϊκή νύχτα — 2009'},
+    {f:'2009_chelsea',y:'2009',c:'Απέναντι στην Chelsea'},
+    {f:'2010',y:'2010',c:'Η ομάδα του 2010'},
+    {f:'2011',y:'2011',c:'Η ομάδα του 2011'},
+    {f:'2011_zenit',y:'2011',c:'Απέναντι στη Zenit'},
+    {f:'2013',y:'2013',c:'Η ομάδα του 2013'},
+    {f:'2014',y:'2014',c:'Η ομάδα του 2014'},
+    {f:'2016',y:'2016',c:'Η ομάδα του 2016'},
+    {f:'2017',y:'2017',c:'Η ομάδα του 2017'},
+    {f:'2018',y:'2018',c:'Η ομάδα του 2018'},
+    {f:'2021',y:'2021',c:'Η ομάδα του 2021'},
+    {f:'2023',y:'2023',c:'Η ομάδα του 2023'},
+    {f:'2026',y:'2026',c:'Ένας και μοναδικός — 2026'},
   ];
-  document.getElementById('tl').innerHTML=history.map(e=>`
+  const src=p=>`images/${p.f}.jpg`;
+
+  /* ---- HISTORY timeline (key milestones with a representative photo) ---- */
+  const history=[
+    {y:'1926',h:'Η Ίδρυση',p:'Γεννιέται ο ΑΠΟΕΛ στη Λευκωσία — η αρχή ενός θρύλου που μετράει έναν αιώνα.',img:'1932'},
+    {y:'1934',h:'Πρώτος Τίτλος',p:'Το πρώτο πρωτάθλημα Κύπρου. Η κορυφή ανήκει στο σωματείο.',img:'1934'},
+    {y:'1963',h:'Χρυσή Εποχή',p:'Διαδοχικές κατακτήσεις τίτλων και Κυπέλλων σε μια ακαταμάχητη δεκαετία.',img:'1963'},
+    {y:'2009',h:'Ευρωπαϊκή Νύχτα',p:'Ιστορική πρόκριση στους ομίλους του UEFA Champions League.',img:'2009_chelsea'},
+    {y:'2011',h:'Στους «8» της Ευρώπης',p:'Η μεγάλη πορεία στους προημιτελικούς του Champions League.',img:'2011_zenit'},
+    {y:'2026',h:'Εκατό Χρόνια',p:'Έναν αιώνα ιστορίας, πάθους και πίστης. Ο εορτασμός μιας οικογένειας.',img:'2026'},
+  ];
+  document.getElementById('tl').innerHTML=history.map((e,i)=>`
     <div class="tl-row"><div class="tl-year serif">${e.y}</div>
+    <div class="tl-thumb" data-photo="${e.img}"><img src="images/${e.img}.jpg" alt="${e.h}" loading="lazy"></div>
     <div class="tl-body"><h3>${e.h}</h3><p>${e.p}</p></div></div>`).join('');
 
-  const caps=[['Η Πρώτη Ομάδα','3/4'],['Πρωταθλητές','1/1'],['Νύχτα Ευρώπης','3/4'],['Το ΓΣΠ','1/1'],
-    ['Οι Οπαδοί','3/4'],['Τρόπαια','1/1'],['Θρύλοι','3/4'],['Κιτρινομπλέ','1/1'],['Πάθος','3/4']];
-  document.getElementById('mosaic').innerHTML=caps.map((c,i)=>`
-    <div class="frame" style="--ar:${c[1]}"><span class="num">${String(i+1).padStart(2,'0')}</span><span>${c[0]}</span></div>`).join('');
+  /* ---- GALLERY with decade filter ---- */
+  const decadeOf=y=>{const n=+y;return Math.floor(n/10)*10;};
+  const decades=[...new Set(photos.map(p=>decadeOf(p.y)))].sort();
+  const gtools=document.getElementById('gtools');
+  gtools.innerHTML=`<button class="gchip on" data-d="all">Όλα</button>`+
+    decades.map(d=>`<button class="gchip" data-d="${d}">${d}s</button>`).join('');
+  const mosaic=document.getElementById('mosaic');
+  function drawGallery(d='all'){
+    const list=d==='all'?photos:photos.filter(p=>decadeOf(p.y)===+d);
+    mosaic.innerHTML=list.map(p=>`
+      <figure class="frame" data-photo="${p.f}">
+        <span class="yr">${p.y}</span>
+        <img src="${src(p)}" alt="${p.c}" loading="lazy">
+        <figcaption>${p.c}</figcaption>
+      </figure>`).join('');
+  }
+  drawGallery();
+  gtools.addEventListener('click',e=>{const b=e.target.closest('.gchip');if(!b)return;
+    document.querySelectorAll('.gchip').forEach(c=>c.classList.remove('on'));b.classList.add('on');drawGallery(b.dataset.d);});
 
+  /* ---- LIGHTBOX ---- */
+  const lb=document.getElementById('lb'),lbImg=document.getElementById('lbImg'),lbCap=document.getElementById('lbCap');
+  let order=[],cur=0;
+  function byFile(f){return photos.find(p=>p.f===f);}
+  function show(i){const p=order[i];if(!p)return;cur=i;lbImg.src=src(p);lbImg.alt=p.c;
+    lbCap.innerHTML=`<span class="lbyr">${p.y}</span>${p.c}`;}
+  function openLb(f){order=photos.slice();const i=order.findIndex(p=>p.f===f);show(i<0?0:i);lb.classList.add('open');}
+  document.addEventListener('click',e=>{const t=e.target.closest('[data-photo]');if(t)openLb(t.dataset.photo);});
+  document.getElementById('lbx').onclick=()=>lb.classList.remove('open');
+  document.getElementById('lbPrev').onclick=()=>show((cur-1+order.length)%order.length);
+  document.getElementById('lbNext').onclick=()=>show((cur+1)%order.length);
+  lb.addEventListener('click',e=>{if(e.target===lb)lb.classList.remove('open')});
+  addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;
+    if(e.key==='Escape')lb.classList.remove('open');if(e.key==='ArrowLeft')show((cur-1+order.length)%order.length);if(e.key==='ArrowRight')show((cur+1)%order.length);});
+
+  /* ---- EVENTS ---- */
   const events=[
     {d:'08',m:'Μαρ',t:'Επετειακός Αγώνας 100 Χρόνων',p:'Η μεγάλη βραδιά του αιώνα.',pin:'Στάδιο ΓΣΠ · 19:00'},
     {d:'21',m:'Μαρ',t:'Έκθεση Ιστορικού Υλικού & Τροπαίων',p:'Ένας αιώνας σε βιτρίνα.',pin:'Δημαρχείο Λευκωσίας'},
@@ -302,36 +326,55 @@
     <div class="lrow"><div class="dt"><b>${e.d}</b><i>${e.m}</i></div>
     <div class="ti"><h3>${e.t}</h3><p>${e.p}</p></div><div class="pin">${e.pin}</div></div>`).join('');
 
-  /* ===== Stories ===== */
-  const stories=[{who:'Ανδρέας',txt:'Πήγα στο πρώτο μου παιχνίδι με τον παππού μου το 1996. Δεν ξέχασα ποτέ εκείνο το ΠΟΡΤΟΚΑΛΙ στις εξέδρες.'}];
+  /* ---- STORIES ---- */
+  const stories=[{who:'Ανδρέας',txt:'Πήγα στο πρώτο μου παιχνίδι με τον παππού μου το 1996. Δεν ξέχασα ποτέ εκείνη την ατμόσφαιρα στις εξέδρες.'}];
   const wall=document.getElementById('wall');
   const esc=t=>t.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
-  function render(){
-    wall.innerHTML=stories.length?stories.map(s=>`
-      <div class="post"><div class="who"><span class="quote">“</span>${esc(s.who)}</div>
-      <div class="txt">${esc(s.txt)}</div></div>`).join('')
-      :'<div class="empty">Γίνετε ο πρώτος που θα γράψει στον τοίχο του αιώνα.</div>';
-  }
+  function render(){wall.innerHTML=stories.length?stories.map(s=>`
+    <div class="post"><div class="who"><span class="quote">“</span>${esc(s.who)}</div>
+    <div class="txt">${esc(s.txt)}</div></div>`).join('')
+    :'<div class="empty">Γίνετε ο πρώτος που θα γράψει στον τοίχο του αιώνα.</div>';}
   document.getElementById('postBtn').addEventListener('click',()=>{
     const n=document.getElementById('name').value.trim()||'Φίλαθλος';
     const t=document.getElementById('text').value.trim();
     if(!t){document.getElementById('text').focus();return;}
     stories.unshift({who:n,txt:t});
-    document.getElementById('name').value='';document.getElementById('text').value='';render();
-  });
+    document.getElementById('name').value='';document.getElementById('text').value='';render();});
   render();
 
-  /* ===== Tabs + scroll reveal ===== */
+  /* ---- Gold particle field ---- */
+  const cv=document.getElementById('goldCanvas'),cx=cv.getContext('2d');
+  let W,H,parts=[],mouse={x:-999,y:-999};
+  function resize(){W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;init();}
+  function init(){parts=[];const n=Math.min(110,Math.floor(W*H/14000));
+    for(let i=0;i<n;i++)parts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,r:Math.random()*1.8+.4,a:Math.random()*.5+.2});}
+  function draw(){cx.clearRect(0,0,W,H);
+    for(const p of parts){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
+      const dx=mouse.x-p.x,dy=mouse.y-p.y,d=Math.hypot(dx,dy);
+      if(d<140){const f=(140-d)/140*0.6;p.x+=dx/d*f;p.y+=dy/d*f;}
+      cx.beginPath();cx.arc(p.x,p.y,p.r,0,7);cx.fillStyle=`rgba(212,175,55,${p.a})`;cx.fill();}
+    for(let i=0;i<parts.length;i++)for(let j=i+1;j<parts.length;j++){const a=parts[i],b=parts[j],dd=Math.hypot(a.x-b.x,a.y-b.y);
+      if(dd<96){cx.strokeStyle=`rgba(212,175,55,${(1-dd/96)*.13})`;cx.lineWidth=.6;cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(b.x,b.y);cx.stroke();}}
+    requestAnimationFrame(draw);}
+  addEventListener('resize',resize);
+  cv.addEventListener('mousemove',e=>{const r=cv.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;});
+  cv.addEventListener('mouseleave',()=>{mouse.x=mouse.y=-999;});
+  cv.addEventListener('touchmove',e=>{const r=cv.getBoundingClientRect(),t=e.touches[0];mouse.x=t.clientX-r.left;mouse.y=t.clientY-r.top;},{passive:true});
+  resize();if(!reduce)draw();
+
+  const mega=document.getElementById('mega');
+  if(!reduce)addEventListener('mousemove',e=>{const rx=(e.clientY/innerHeight-.5)*-8,ry=(e.clientX/innerWidth-.5)*10;
+    mega.style.transform=`perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg)`;});
+
+  /* ---- Tabs + reveal ---- */
   const btns=document.querySelectorAll('nav button'),panels=document.querySelectorAll('.panel');
-  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.15});
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.12});
   function obs(){document.querySelectorAll('.panel.active .reveal').forEach(r=>io.observe(r));}
   btns.forEach(b=>b.addEventListener('click',()=>{
     btns.forEach(x=>x.classList.remove('active'));panels.forEach(p=>p.classList.remove('active'));
     b.classList.add('active');document.getElementById(b.dataset.tab).classList.add('active');
     document.querySelectorAll('.reveal').forEach(r=>r.classList.remove('in'));
-    window.scrollTo({top:document.querySelector('nav').offsetTop,behavior:'smooth'});
-    setTimeout(obs,60);
-  }));
+    window.scrollTo({top:document.querySelector('nav').offsetTop,behavior:'smooth'});setTimeout(obs,60);}));
   obs();
 </script>
 </body>
