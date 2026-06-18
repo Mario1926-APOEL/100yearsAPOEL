@@ -565,15 +565,13 @@
   addEventListener('keydown',e=>{if(e.key==='Escape'&&em.classList.contains('open'))closeEvent();});
 
   /* ---- STORIES ---- */
-  const stories=[{who:'Ανδρέας',who_en:'Andreas',txt:'Πήγα στο πρώτο μου παιχνίδι με τον παππού μου το 1996. Δεν ξέχασα ποτέ εκείνη την ατμόσφαιρα στις εξέδρες.',txt_en:'I went to my first match with my grandfather in 1996. I never forgot that atmosphere in the stands.',seed:true}];
+  const stories=[{who:'Ανδρέας',txt:'Πήγα στο πρώτο μου παιχνίδι με τον παππού μου το 1996. Δεν ξέχασα ποτέ εκείνη την ατμόσφαιρα στις εξέδρες.',seed:true}];
   const wall=document.getElementById('wall');
   const esc=t=>t.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
   function render(){
-    const who=s=>esc(LANG==='en'&&s.who_en?s.who_en:s.who);
-    const txt=s=>esc(LANG==='en'&&s.txt_en?s.txt_en:s.txt);
     wall.innerHTML=stories.length?stories.map(s=>`
-    <div class="post"><div class="who"><span class="quote">“</span>${who(s)}</div>
-    <div class="txt">${txt(s)}</div></div>`).join('')
+    <div class="post"><div class="who"><span class="quote">“</span>${esc(s.who)}</div>
+    <div class="txt">${esc(s.txt)}</div></div>`).join('')
     :`<div class="empty">${LANG==='el'?'Γίνετε ο πρώτος που θα γράψει στον τοίχο του αιώνα.':'Be the first to write on the wall of the century.'}</div>`;}
   document.getElementById('postBtn').addEventListener('click',()=>{
     const n=document.getElementById('name').value.trim()||(LANG==='el'?'Φίλαθλος':'Fan');
