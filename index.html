@@ -127,6 +127,41 @@
     -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
   .sec-head .lead{max-width:560px;margin-top:18px;color:var(--ash);font-weight:300;}
 
+  /* DEPARTMENTS / SPORTS */
+  .depts-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .dept{position:relative;border:1px solid var(--hair);border-radius:4px;padding:28px 20px;
+    background:linear-gradient(165deg,var(--bg2),var(--navy-deep));text-align:center;
+    transition:transform .35s,border-color .35s,box-shadow .35s;overflow:hidden;}
+  .dept::after{content:"";position:absolute;left:0;right:0;top:0;height:3px;
+    background:linear-gradient(90deg,var(--gold-deep),var(--gold-bright),var(--gold-deep));
+    transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+  .dept:hover{transform:translateY(-5px);border-color:var(--gold);box-shadow:0 16px 40px rgba(0,0,0,.45);}
+  .dept:hover::after{transform:scaleX(1);}
+  .dept-mark{display:block;width:34px;height:3px;margin:0 auto 16px;border-radius:2px;
+    background:linear-gradient(90deg,var(--gold-deep),var(--gold-bright),var(--gold-deep));}
+  .dept h3{color:var(--gold-bright);font-size:1.05rem;font-weight:600;letter-spacing:.02em;margin-bottom:6px;}
+  .dept-titles{display:flex;justify-content:center;gap:14px;margin-top:18px;padding-top:16px;
+    border-top:1px solid var(--hair);flex-wrap:wrap;}
+  .dt-badge{display:flex;flex-direction:column;align-items:center;line-height:1;}
+  .dt-badge b{font-family:"Bodoni MT","Didot",Georgia,serif;font-weight:700;font-size:1.7rem;color:var(--gold-bright);}
+  .dt-badge span{font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-deep);margin-top:5px;}
+  .dept-active{margin-top:18px;padding-top:16px;border-top:1px solid var(--hair);
+    font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue-bright);}
+  .titles-total{display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:34px 20px;margin-bottom:20px;border:1px solid var(--gold-deep);border-radius:4px;
+    background:linear-gradient(165deg,rgba(224,181,58,.08),var(--navy-deep));position:relative;overflow:hidden;}
+  .titles-total::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;
+    background:linear-gradient(90deg,var(--gold-deep),var(--gold-bright),var(--gold-deep));}
+  .titles-total .tt-num{font-family:"Bodoni MT","Didot",Georgia,serif;font-weight:700;
+    font-size:clamp(3rem,9vw,5rem);line-height:1;
+    background:linear-gradient(180deg,var(--gold-bright),var(--gold) 55%,var(--gold-deep));
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+  .titles-total .tt-label{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--ash);margin-top:12px;}
+  .dept-group-title{font-family:"Bodoni MT","Didot",Georgia,serif;font-style:italic;color:var(--gold-deep);
+    font-size:1.2rem;letter-spacing:.06em;margin:42px 0 20px;}
+  @media(max-width:880px){.depts-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:480px){.depts-grid{grid-template-columns:1fr;}}
+
   /* HISTORY — timeline with photos */
   .tl{position:relative;}
   .tl-row{display:grid;grid-template-columns:minmax(120px,160px) 220px 1fr;gap:26px;align-items:center;
@@ -320,6 +355,7 @@
 <nav>
   <button class="active" data-tab="events" data-el="Πρόγραμμα" data-en="Programme">Πρόγραμμα</button>
   <button data-tab="history" data-el="Ιστορία" data-en="History">Ιστορία</button>
+  <button data-tab="depts" data-el="Τμήματα" data-en="Departments">Τμήματα</button>
   <button data-tab="gallery" data-el="Φωτογραφίες" data-en="Photos">Φωτογραφίες</button>
   <button data-tab="stories" data-el="Οι Ιστορίες σας" data-en="Your Stories">Οι Ιστορίες σας</button>
 </nav>
@@ -329,6 +365,18 @@
     <div class="sec-head"><div class="k" data-el="Ένας Αιώνας" data-en="One Century">Ένας Αιώνας</div><h2 class="serif" data-el="Ιστορία" data-en="History">Ιστορία</h2>
       <p class="lead" data-el="Από το 1926, μια ιστορία γραμμένη με χρυσό. Περάστε πάνω από κάθε στιγμή." data-en="Since 1926, a story written in gold. Hover over each moment.">Από το 1926, μια ιστορία γραμμένη με χρυσό. Περάστε πάνω από κάθε στιγμή.</p></div>
     <div class="tl" id="tl"></div>
+  </section>
+
+  <section id="depts" class="panel">
+    <div class="sec-head"><div class="k" data-el="Ένα Σωματείο, Πολλά Αθλήματα" data-en="One Club, Many Sports">Ένα Σωματείο, Πολλά Αθλήματα</div><h2 class="serif" data-el="Τμήματα" data-en="Departments">Τμήματα</h2>
+      <p class="lead" data-el="Ο ΑΠΟΕΛ δεν είναι μόνο ποδόσφαιρο. Είναι ένα πολυαθλητικό σωματείο με ενεργά τμήματα σε πολλά αγωνίσματα." data-en="APOEL is more than football. It is a multi-sport club with active departments across many disciplines.">Ο ΑΠΟΕΛ δεν είναι μόνο ποδόσφαιρο. Είναι ένα πολυαθλητικό σωματείο με ενεργά τμήματα σε πολλά αγωνίσματα.</p></div>
+    <div class="reveal">
+      <div class="titles-total" id="titlesTotal"></div>
+      <div class="dept-group-title" data-el="Ομαδικά Αθλήματα" data-en="Team Sports">Ομαδικά Αθλήματα</div>
+      <div class="depts-grid" id="deptsMain"></div>
+      <div class="dept-group-title" data-el="Άλλα Αθλήματα" data-en="Other Sports">Άλλα Αθλήματα</div>
+      <div class="depts-grid" id="deptsOther"></div>
+    </div>
   </section>
 
   <section id="gallery" class="panel">
@@ -426,12 +474,22 @@
 
   /* ---- HISTORY timeline (key milestones with a representative photo) ---- */
   const history=[
-    {y:'1926',h:'Η Ίδρυση',h_en:'The Founding',p:'Γεννιέται ο ΑΠΟΕΛ στη Λευκωσία — η αρχή ενός θρύλου που μετράει έναν αιώνα.',p_en:'APOEL is born in Nicosia — the beginning of a legend spanning a century.',img:'1932'},
-    {y:'1934',h:'Πρώτος Τίτλος',h_en:'First Title',p:'Το πρώτο πρωτάθλημα Κύπρου. Η κορυφή ανήκει στο σωματείο.',p_en:'The first Cypriot championship. The summit belongs to the club.',img:'1934'},
-    {y:'1963',h:'Χρυσή Εποχή',h_en:'Golden Era',p:'Διαδοχικές κατακτήσεις τίτλων και Κυπέλλων σε μια ακαταμάχητη δεκαετία.',p_en:'Successive titles and cups in an unstoppable decade.',img:'1963'},
-    {y:'2009',h:'Ευρωπαϊκή Νύχτα',h_en:'European Night',p:'Ιστορική πρόκριση στους ομίλους του UEFA Champions League.',p_en:'Historic qualification to the UEFA Champions League group stage.',img:'2009_chelsea'},
-    {y:'2011',h:'Στους «8» της Ευρώπης',h_en:'The European Last 8',p:'Η μεγάλη πορεία στους προημιτελικούς του Champions League.',p_en:'The great run to the Champions League quarter-finals.',img:'2011_zenit'},
-    {y:'2026',h:'Εκατό Χρόνια',h_en:'One Hundred Years',p:'Έναν αιώνα ιστορίας, πάθους και πίστης. Ο εορτασμός μιας οικογένειας.',p_en:'A century of history, passion and faith. The celebration of a family.',img:'2026'},
+    {y:'1926',h:'Η Ίδρυση',h_en:'The Founding',p:'Στις 8 Νοεμβρίου 1926 ιδρύεται ο Ποδοσφαιρικός Όμιλος Ελλήνων Λευκωσίας (ΠΟΕΛ), με εμπνευστή τον Διομήδη Συμεωνίδη και πρωτεργάτη τον Γεώργιο Πούλια — η πρώτη μορφή του σωματείου.',p_en:'On 8 November 1926 the Football Club of Greeks of Nicosia (POEL) is founded, inspired by Diomidis Symeonidis and led by Georgios Poulias — the first form of the club.',img:'1932'},
+    {y:'1928',h:'Γεννιέται ο «ΑΠΟΕΛ»',h_en:'The Name APOEL is Born',p:'Σε συνέλευση του σωματείου αποφασίζεται η δημιουργία ομάδας στίβου και ο ΠΟΕΛ μετονομάζεται σε ΑΠΟΕΛ — Αθλητικός Ποδοσφαιρικός Όμιλος Ελλήνων Λευκωσίας. Τα μπλε-κίτρινα χρώματα συμβολίζουν την ελληνική και τη βυζαντινή σημαία.',p_en:'At a club assembly an athletics team is created and POEL is renamed APOEL — the Athletic Football Club of Greeks of Nicosia. The blue and yellow colours symbolise the Greek and Byzantine flags.',img:'1932_prwtathlima'},
+    {y:'1932',h:'Ο Πρώτος Τίτλος Πόλεων',h_en:'The First City Title',p:'Στο πρώτο ανεπίσημο πρωτάθλημα πόλεων, ο ΑΠΟΕΛ κατακτά τον τίτλο νικώντας 4-0 την ΑΕΛ στον τελικό. 80 οπαδοί ταξίδεψαν στη Λάρνακα με τα ποδήλατά τους για να δουν τον αγώνα.',p_en:'In the first unofficial city championship, APOEL takes the title with a 4-0 win over AEL in the final. 80 fans cycled to Larnaca to watch the match.',img:'1932'},
+    {y:'1936',h:'Πρώτο Παγκύπριο Πρωτάθλημα',h_en:'First All-Cyprus Championship',p:'Τη σεζόν 1935-36 ο ΑΠΟΕΛ κατακτά το πρώτο του επίσημο Παγκύπριο Πρωτάθλημα, σημειώνοντας μάλιστα ρεκόρ τερμάτων (52 γκολ) — η αρχή μιας θρυλικής παράδοσης νικών.',p_en:'In the 1935-36 season APOEL wins its first official All-Cyprus Championship, setting a goal-scoring record (52 goals) — the start of a legendary winning tradition.',img:'1937'},
+    {y:'1937',h:'Το Πρώτο Νταμπλ',h_en:'The First Double',p:'Τη σεζόν 1936-37 ο ΑΠΟΕΛ πετυχαίνει για πρώτη φορά το νταμπλ: κατακτά το πρωτάθλημα στη διαφορά τερμάτων και κερδίζει το Κύπελλο νικώντας 2-1 στον τελικό. Ακολουθούν τέσσερις συνεχόμενοι τίτλοι.',p_en:'In 1936-37 APOEL wins its first double: the league on goal difference and the Cup with a 2-1 final win. Four consecutive titles follow.',img:'1939'},
+    {y:'1949',h:'Αήττητη Κυριαρχία',h_en:'Unbeaten Dominance',p:'Με τρίτη συνεχόμενη αήττητη κατάκτηση πρωταθλήματος (1948-49) και το απόλυτο των βαθμών — 14 νίκες σε 14 αγώνες — ο ΑΠΟΕΛ γράφει μοναδικό ρεκόρ στην Κύπρο.',p_en:'With a third consecutive unbeaten league title (1948-49) and a perfect record — 14 wins in 14 games — APOEL sets a unique Cypriot record.',img:'1949'},
+    {y:'1963',h:'Πενταπλός Κυπελλούχος',h_en:'Five-Time Cup Winner',p:'Το 1962-63 ο ΑΠΟΕΛ κατακτά το Κύπελλο για 5η φορά νικώντας την Ανόρθωση στον τελικό. Ακολουθεί η κατάκτηση του 10ου πρωταθλήματος (1964-65) με νέο ρεκόρ επίθεσης (68 γκολ).',p_en:'In 1962-63 APOEL wins the Cup for a 5th time, beating Anorthosis in the final. Its 10th league title follows in 1964-65 with a new attacking record (68 goals).',img:'1963'},
+    {y:'1973',h:'Πρωτοπόρος του Νταμπλ',h_en:'Pioneer of the Double',p:'Τη σεζόν 1972-73 ο ΑΠΟΕΛ κατακτά το νταμπλ για 3η φορά και γίνεται η πρώτη ομάδα στην Κύπρο που το πετυχαίνει, κερδίζοντας το δικαίωμα συμμετοχής στην ελληνική Α΄ Εθνική.',p_en:'In 1972-73 APOEL wins the double for a 3rd time, becoming the first club in Cyprus to do so, earning a place in the Greek First Division.',img:'1973'},
+    {y:'1974',h:'Στις Δύσκολες Στιγμές',h_en:'In the Hardest of Times',p:'Στην Α΄ Εθνική Ελλάδος ο ΑΠΟΕΛ παραμένει στην κατηγορία (13η θέση) — κάτι που δεν πέτυχε καμία άλλη κυπριακή ομάδα. Η τουρκική εισβολή του 1974 σταματά τον θεσμό και σημαδεύει ολόκληρο το νησί.',p_en:'In the Greek First Division APOEL avoids relegation (13th) — a feat no other Cypriot club achieved. The 1974 Turkish invasion ends the institution and marks the entire island.',img:'1974_aethniki'},
+    {y:'1996',h:'Νταμπλ & Αήττητο',h_en:'Double & Unbeaten',p:'Τη σεζόν 1995-96 ο ΑΠΟΕΛ πετυχαίνει το νταμπλ για 4η φορά: κατακτά το πρωτάθλημα χωρίς ήττα και κερδίζει το Κύπελλο (15ο) νικώντας 2-0 την ΑΕΚ στον τελικό.',p_en:'In 1995-96 APOEL completes its 4th double: an unbeaten league title and a 15th Cup, beating AEK 2-0 in the final.',img:'1996'},
+    {y:'2009',h:'Ευρωπαϊκή Νύχτα',h_en:'European Night',p:'Το 2009-10 ο ΑΠΟΕΛ προκρίνεται για πρώτη φορά στους ομίλους του Champions League. Στον όμιλο με Chelsea, Porto και Atletico, αποσπά ισοπαλία 2-2 στο Λονδίνο αφήνοντας άριστες εντυπώσεις.',p_en:'In 2009-10 APOEL reaches the Champions League group stage for the first time. In a group with Chelsea, Porto and Atletico, it earns a 2-2 draw in London, leaving a fine impression.',img:'2009_chelsea'},
+    {y:'2011',h:'Στους «8» της Ευρώπης',h_en:'The European Last 8',p:'Το 2011-12 ο ΑΠΟΕΛ τερματίζει 1ος σε όμιλο με Ζενίτ, Σαχτάρ και Πόρτο, αποκλείει τη Λυόν στα πέναλτι και φτάνει στους «8» του Champions League — ένα από τα μεγαλύτερα κατορθώματα του κυπριακού ποδοσφαίρου.',p_en:'In 2011-12 APOEL finishes 1st in a group with Zenit, Shakhtar and Porto, knocks out Lyon on penalties and reaches the Champions League last 8 — one of the greatest feats in Cypriot football.',img:'2011_zenit'},
+    {y:'2014',h:'Το Πρώτο Τρεμπλ',h_en:'The First Treble',p:'Τη σεζόν 2013-14 ο ΑΠΟΕΛ πετυχαίνει για πρώτη φορά το τρεμπλ — Super Cup, Πρωτάθλημα και Κύπελλο (2-0 τον Ερμή) — και κατακτά το πρωτάθλημα σε δύο συνεχόμενες χρονιές για πρώτη φορά μετά από 65 χρόνια.',p_en:'In 2013-14 APOEL completes its first treble — Super Cup, League and Cup (2-0 over Ermis) — winning back-to-back titles for the first time in 65 years.',img:'2014'},
+    {y:'2018',h:'Εποχή Κυριαρχίας',h_en:'Era of Dominance',p:'Από το 2013 έως το 2019 ο ΑΠΟΕΛ κατακτά έξι συνεχόμενα πρωταθλήματα — μια πρωτοφανής περίοδος απόλυτης κυριαρχίας στο κυπριακό ποδόσφαιρο.',p_en:'From 2013 to 2019 APOEL wins six consecutive league titles — an unprecedented era of total dominance in Cypriot football.',img:'2018'},
+    {y:'2024',h:'Επιστροφή στον Θρόνο',h_en:'Return to the Throne',p:'Μετά από πέντε χρόνια, ο ΑΠΟΕΛ επιστρέφει στην κορυφή κατακτώντας το 29ο πρωτάθλημα της ιστορίας του (2023-24) και το Super Cup — ο πιο τιτλούχος σύλλογος της Κύπρου.',p_en:'After five years, APOEL returns to the top, winning its 29th league title (2023-24) and the Super Cup — the most decorated club in Cyprus.',img:'2023'},
+    {y:'2026',h:'Εκατό Χρόνια',h_en:'One Hundred Years',p:'Έναν αιώνα μετά την ίδρυση του 1926, ο ΑΠΟΕΛ — με 29 πρωταθλήματα, 21 Κύπελλα και 15 Super Cup — γιορτάζει 100 χρόνια ιστορίας, πάθους και πίστης. Ο εορτασμός μιας ολόκληρης οικογένειας.',p_en:'A century after its 1926 founding, APOEL — with 29 league titles, 21 Cups and 15 Super Cups — celebrates 100 years of history, passion and faith. The celebration of an entire family.',img:'2026'},
   ];
   function renderHistory(){
     document.getElementById('tl').innerHTML=history.map((e,i)=>{
@@ -442,6 +500,43 @@
     <div class="tl-body"><h3>${h}</h3><p>${p}</p></div></div>`;}).join('');
   }
   renderHistory();
+
+  /* ---- DEPARTMENTS / SPORTS ---- */
+  const deptsMain=[
+    {el:'Ποδόσφαιρο',en:'Football',titles:[{n:29,el:'Πρωταθλήματα',en:'Titles'},{n:21,el:'Κύπελλα',en:'Cups'},{n:15,el:'Super Cup',en:'Super Cups'}]},
+    {el:'Καλαθόσφαιρα',en:'Basketball',titles:[{n:11,el:'Πρωταθλήματα',en:'Titles'},{n:12,el:'Κύπελλα',en:'Cups'},{n:11,el:'Super Cup',en:'Super Cups'}]},
+    {el:'Πετόσφαιρα',en:'Volleyball',titles:[{n:11,el:'Πρωταθλήματα',en:'Titles'},{n:5,el:'Κύπελλα',en:'Cups'}]},
+    {el:'Πετόσφαιρα Γυναικών',en:'Womens Volleyball',titles:[{n:1,el:'Κύπελλο 1977',en:'Cup 1977'}]},
+    {el:'Χειρόσφαιρα',en:'Handball',titles:[]},
+    {el:'Χειρόσφαιρα Γυναικών',en:'Womens Handball',titles:[]},
+    {el:'Υδατοσφαίριση',en:'Water Polo',titles:[{n:6,el:'Πρωταθλήματα',en:'Titles'},{n:7,el:'Κύπελλα',en:'Cups'},{n:2,el:'Super Cup',en:'Super Cups'}]},
+    {el:'Φούτσαλ',en:'Futsal',titles:[{n:7,el:'Πρωταθλήματα',en:'Titles'},{n:5,el:'Κύπελλα',en:'Cups'},{n:1,el:'Super Cup',en:'Super Cup'}]},
+  ];
+  const deptsOther=[
+    {el:'Ομάδα Δρομέων',en:'Running Team',titles:[]},
+    {el:'Ποδηλασία',en:'Cycling',titles:[{n:18,el:'Πρωταθλήματα',en:'Titles'},{n:4,el:'Κύπελλα',en:'Cups'}]},
+    {el:'Μπόουλιγκ',en:'Bowling',titles:[]},
+    {el:'Πινγκ-Πονγκ',en:'Table Tennis',titles:[{n:10,el:'Πρωταθλήματα',en:'Titles'},{n:9,el:'Κύπελλα',en:'Cups'}]},
+  ];
+  function deptCard(d){
+    const name=LANG==='en'?d.en:d.el;
+    let honours='';
+    if(d.titles&&d.titles.length){
+      honours='<div class="dept-titles">'+d.titles.map(t=>
+        `<div class="dt-badge"><b>${t.n}</b><span>${LANG==='en'?t.en:t.el}</span></div>`).join('')+'</div>';
+    }else{
+      honours=`<div class="dept-active">${LANG==='en'?'Active department':'Ενεργό τμήμα'}</div>`;
+    }
+    return `<div class="dept"><span class="dept-mark"></span><h3>${name}</h3>${honours}</div>`;
+  }
+  function renderDepts(){
+    document.getElementById('deptsMain').innerHTML=deptsMain.map(deptCard).join('');
+    document.getElementById('deptsOther').innerHTML=deptsOther.map(deptCard).join('');
+    const total=[...deptsMain,...deptsOther].reduce((s,d)=>s+(d.titles||[]).reduce((a,t)=>a+t.n,0),0);
+    document.getElementById('titlesTotal').innerHTML=
+      `<div class="tt-num">${total}</div><div class="tt-label">${LANG==='en'?'Total titles across all departments':'Συνολικοί τίτλοι σε όλα τα τμήματα'}</div>`;
+  }
+  renderDepts();
 
   /* ---- GALLERY with decade filter ---- */
   const decadeOf=y=>{const n=+y;return Math.floor(n/10)*10;};
@@ -666,7 +761,7 @@
     const A=(id,el_,en_)=>{const x=document.getElementById(id);if(x)x.setAttribute('aria-label',l==='en'?en_:el_);};
     A('lbx','Κλείσιμο','Close');A('lbPrev','Προηγούμενη','Previous');A('lbNext','Επόμενη','Next');A('emClose','Κλείσιμο','Close');
     // re-run dynamic renders
-    renderGtools();drawGallery(curDecade);renderHistory();renderNextEvent();renderLedger();render();
+    renderGtools();drawGallery(curDecade);renderHistory();renderDepts();renderNextEvent();renderLedger();render();
     // keep active gallery chip highlighted
     document.querySelectorAll('.gchip').forEach(c=>c.classList.toggle('on',c.dataset.d===curDecade));
   }
