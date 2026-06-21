@@ -618,6 +618,7 @@ footer{
   <div class="scroll-hint" data-el="Κυλήστε" data-en="Scroll">Κυλήστε</div>
 </section>
 
+<div id="navAnchor" aria-hidden="true"></div>
 <nav>
   <button class="active" data-tab="events" data-el="Πρόγραμμα" data-en="Programme">Πρόγραμμα</button>
   <button data-tab="history" data-el="Ιστορία" data-en="History">Ιστορία</button>
@@ -1008,9 +1009,17 @@ footer{
   document.querySelectorAll('[data-jump]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const b=document.querySelector(`nav button[data-tab="${a.dataset.jump}"]`);if(b)b.click();}));
   btns.forEach(b=>b.addEventListener('click',()=>{
     btns.forEach(x=>x.classList.remove('active'));panels.forEach(p=>p.classList.remove('active'));
-    b.classList.add('active');document.getElementById(b.dataset.tab).classList.add('active');
+    b.classList.add('active');
+    const panel=document.getElementById(b.dataset.tab);
+    panel.classList.add('active');
     document.querySelectorAll('.reveal').forEach(r=>r.classList.remove('in'));
-    window.scrollTo({top:document.querySelector('nav').offsetTop,behavior:'smooth'});setTimeout(obs,60);}));
+    // jump to the fixed anchor just above the sticky nav, so the panel starts at the top
+    const anchor=document.getElementById('navAnchor');
+    if(anchor){
+      const y=anchor.getBoundingClientRect().top+window.pageYOffset;
+      window.scrollTo({top:Math.max(0,y),behavior:'auto'});
+    }
+    obs();}));
   obs();
 
   /* ---- LANGUAGE SWITCH ---- */
