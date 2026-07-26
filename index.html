@@ -97,6 +97,11 @@
   .next-k{font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:8px;}
   .next-title{font-family:"Bodoni MT","Didot",Georgia,serif;color:var(--gold-bright);font-size:clamp(1.7rem,4vw,2.8rem);line-height:1.05;}
   .next-meta{color:var(--ash);margin-top:10px;font-weight:300;}
+  .next-info{margin-top:18px;display:inline-block;background:linear-gradient(135deg,var(--gold-bright),var(--gold));
+    color:var(--navy-deep);text-decoration:none;font-size:.72rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
+    padding:12px 26px;border:none;cursor:pointer;font-family:inherit;
+    transition:transform .3s,box-shadow .3s,filter .3s;}
+  .next-info:hover{filter:brightness(1.08);box-shadow:0 8px 22px rgba(224,181,58,.35);transform:translateY(-2px);}
   .countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
   .cd-box{border:1px solid var(--hair);padding:16px 10px;text-align:center;background:rgba(212,175,55,.04);}
   .cd-box b{display:block;font-family:"Bodoni MT",serif;color:var(--gold-bright);font-size:2rem;line-height:1;}
@@ -246,6 +251,12 @@
   .lrow .status{position:relative;z-index:3;margin:14px 22px 0;align-self:flex-start;
     border:1px solid var(--gold-deep);color:var(--gold-bright);background:rgba(0,12,26,.4);
     padding:4px 10px;font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;}
+  /* Past event: subtle faded look; status pill in muted ash */
+  .lrow.past{opacity:.78;transition:opacity .35s,filter .35s;}
+  .lrow.past .bg{filter:grayscale(.35) contrast(.92);}
+  .lrow.past:hover{opacity:1;}
+  .lrow.past:hover .bg{filter:grayscale(0) contrast(1);}
+  .lrow .status.past{border-color:rgba(168,178,195,.35);color:var(--ash);background:rgba(0,12,26,.45);}
   .lrow .ticket{position:relative;z-index:3;margin:16px 22px 22px;display:block;text-align:center;
     background:linear-gradient(135deg,var(--gold-bright),var(--gold));color:var(--navy-deep);
     text-decoration:none;font-size:.72rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
@@ -296,6 +307,14 @@
 
   /* STORIES */
   .wrap2{display:grid;grid-template-columns:1fr 1fr;gap:40px;}
+  /* Stories - scrapbook wall style */
+  .stories-layout{display:grid;grid-template-columns:340px 1fr;gap:56px;align-items:start;}
+  .story-form{padding:28px 26px 32px;background:linear-gradient(160deg,rgba(21,32,60,.55),rgba(0,12,26,.35));
+    border:1px solid rgba(201,159,43,.18);position:relative;}
+  .story-form::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,var(--gold-deep),var(--gold-bright),var(--gold-deep));}
+  .story-form-title{font-family:"Bodoni MT","Didot",Georgia,serif;color:var(--gold-bright);
+    font-size:1.4rem;margin-bottom:8px;letter-spacing:.02em;}
   .form label{display:block;font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-deep);margin:18px 0 8px;}
   .form input,.form textarea{width:100%;background:transparent;border:none;border-bottom:1px solid var(--hair);
     color:var(--gold-bright);font-family:"Bodoni MT",Georgia,serif;font-size:1.1rem;padding:10px 2px;transition:border-color .3s;}
@@ -310,12 +329,30 @@
   .submit:hover{color:#070707}
   .submit:hover::before{transform:translateY(0)}
   .submit:focus-visible{outline:2px solid var(--gold-bright);outline-offset:3px;}
-  .wall{display:flex;flex-direction:column;gap:0;}
-  .post{padding:22px 0;border-bottom:1px solid var(--hair);}
-  .post .who{font-family:"Bodoni MT",serif;font-style:italic;color:var(--gold-bright);font-size:1.2rem;}
-  .post .txt{margin-top:8px;color:var(--ash);font-weight:300;white-space:pre-wrap;}
-  .post .quote{color:var(--gold-deep);font-family:"Bodoni MT",serif;font-size:2rem;line-height:0;}
-  .empty{color:var(--gold-deep);font-style:italic;font-family:"Bodoni MT",serif;padding:30px 0;}
+  /* Wall — masonry-style scrapbook of paper notes */
+  .wall{column-count:2;column-gap:22px;column-fill:balance;}
+  .post{display:inline-block;width:100%;break-inside:avoid;margin-bottom:32px;padding:26px 22px 16px;
+    background:linear-gradient(180deg,#f8f2df,#eee5cb);color:#1a2540;position:relative;
+    box-shadow:0 14px 34px rgba(0,0,0,.55),0 3px 8px rgba(0,0,0,.35),inset 0 -30px 40px rgba(157,120,60,.08);
+    transform:rotate(var(--tilt,0deg));transition:transform .35s,box-shadow .35s;}
+  .post:hover{transform:rotate(0) translateY(-4px);box-shadow:0 22px 46px rgba(0,0,0,.65),0 4px 10px rgba(0,0,0,.4);z-index:2;}
+  .post::before{content:"";position:absolute;top:-12px;left:50%;transform:translateX(-50%) rotate(-2deg);
+    width:74px;height:22px;background:linear-gradient(180deg,rgba(224,181,58,.85),rgba(201,159,43,.75));
+    border:1px solid rgba(140,105,30,.4);box-shadow:0 3px 8px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,235,180,.5);}
+  .post .who{font-family:"Bodoni MT","Didot",Georgia,serif;font-style:italic;color:#6b471a;
+    font-size:1.25rem;margin-top:6px;letter-spacing:.01em;}
+  .post .quote{color:#a17a2b;font-family:"Bodoni MT",serif;font-size:2rem;line-height:0;margin-right:2px;vertical-align:-.3em;}
+  .post .txt{margin-top:10px;color:#1e2b48;font-weight:400;font-family:Georgia,"Times New Roman",serif;
+    line-height:1.6;white-space:pre-wrap;font-size:1rem;}
+  .post-share{margin-top:16px;padding-top:12px;border-top:1px dashed rgba(30,43,72,.22);
+    display:flex;gap:8px;align-items:center;justify-content:flex-end;}
+  .post-share-label{font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:#7a5b28;flex:1;font-weight:600;}
+  .pshare{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:rgba(30,43,72,.06);border:1px solid rgba(30,43,72,.22);color:#1e2b48;cursor:pointer;padding:0;transition:.2s;}
+  .pshare:hover{background:rgba(30,43,72,.14);border-color:rgba(30,43,72,.5);transform:translateY(-1px);}
+  .pshare.copied{background:rgba(76,175,80,.2);border-color:rgba(76,175,80,.6);color:#2e6d2f;}
+  .pshare svg{width:14px;height:14px;fill:currentColor;}
+  .empty{color:var(--gold-deep);font-style:italic;font-family:"Bodoni MT",serif;padding:30px 0;font-size:1.1rem;}
 
   footer{position:relative;z-index:2;text-align:center;padding:60px 20px;border-top:1px solid var(--hair);
     font-size:.7rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold-deep);}
@@ -331,7 +368,8 @@
 
   @media(max-width:860px){.mosaic{column-count:2}.tl-row{grid-template-columns:90px 1fr;grid-template-areas:"y t" "b b";gap:14px}
     .tl-year{grid-area:y}.tl-body{grid-area:b}.tl-body h3{grid-area:t}}
-  @media(max-width:560px){.mosaic{column-count:1}.wrap2{grid-template-columns:1fr}}
+  @media(max-width:900px){.stories-layout{grid-template-columns:1fr;gap:34px;}.wall{column-count:2;}}
+  @media(max-width:560px){.mosaic{column-count:1}.wrap2{grid-template-columns:1fr}.wall{column-count:1;}}
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}.reveal{opacity:1;transform:none}}
 
 
@@ -627,7 +665,7 @@ footer{
   <button class="active" data-tab="events" data-el="Πρόγραμμα" data-en="Programme">Πρόγραμμα</button>
   <button data-tab="history" data-el="Ιστορία" data-en="History">Ιστορία</button>
   <button data-tab="depts" data-el="Τμήματα" data-en="Departments">Τμήματα</button>
-  <button data-tab="gallery" data-el="Φωτογραφίες" data-en="Photos">Φωτογραφίες</button>
+  <button data-tab="gallery" data-el="Φωτογραφίες" data-en="Photos" style="display:none">Φωτογραφίες</button>
   <button data-tab="stories" data-el="Οι Ιστορίες σας" data-en="Your Stories">Οι Ιστορίες σας</button>
 </nav>
 
@@ -650,7 +688,7 @@ footer{
     </div>
   </section>
 
-  <section id="gallery" class="panel">
+  <section id="gallery" class="panel" style="display:none">
     <div class="sec-head"><div class="k" data-el="Αναμνήσεις" data-en="Memories">Αναμνήσεις</div><h2 class="serif" data-el="Φωτογραφίες" data-en="Photos">Φωτογραφίες</h2>
       <p class="lead" data-el="Εικόνες ενός αιώνα — από το 1926 ως σήμερα. Πατήστε για μεγέθυνση." data-en="Images of a century — from 1926 to today. Click to enlarge.">Εικόνες ενός αιώνα — από το 1926 ως σήμερα. Πατήστε για μεγέθυνση.</p></div>
     <div class="gtools reveal" id="gtools"></div>
@@ -666,14 +704,17 @@ footer{
 
   <section id="stories" class="panel">
     <div class="sec-head"><div class="k" data-el="Στιγμές" data-en="Moments">Στιγμές</div><h2 class="serif" data-el="Οι Ιστορίες σας" data-en="Your Stories">Οι Ιστορίες σας</h2>
-      <p class="lead" data-el="Μοιραστείτε τη δική σας ανάμνηση." data-en="Share your own memory.">Μοιραστείτε τη δική σας ανάμνηση.</p></div>
-    <div class="wrap2 reveal">
-      <div class="form">
-        <label for="name" data-el="Όνομα" data-en="Name">Όνομα</label>
-        <input id="name" type="text" placeholder="Το όνομά σας" data-ph-el="Το όνομά σας" data-ph-en="Your name" maxlength="60">
-        <label for="text" data-el="Η ανάμνησή σας" data-en="Your memory">Η ανάμνησή σας</label>
-        <textarea id="text" placeholder="Η στιγμή που δεν θα ξεχάσετε ποτέ…" data-ph-el="Η στιγμή που δεν θα ξεχάσετε ποτέ…" data-ph-en="The moment you will never forget…" maxlength="1200"></textarea>
-        <button class="submit" id="postBtn"><span data-el="Δημοσίευση" data-en="Post">Δημοσίευση</span></button>
+      <p class="lead" data-el="Ο Θρύλος έχει τη δική του ιστορία — γράψτε τη δική σας στον τοίχο του αιώνα." data-en="The Legend has its own story — write yours on the wall of the century.">Ο Θρύλος έχει τη δική του ιστορία — γράψτε τη δική σας στον τοίχο του αιώνα.</p></div>
+    <div class="stories-layout reveal">
+      <div class="story-form">
+        <div class="story-form-title" data-el="Γράψτε τη δική σας ιστορία" data-en="Write your own story">Γράψτε τη δική σας ιστορία</div>
+        <div class="form">
+          <label for="name" data-el="Όνομα" data-en="Name">Όνομα</label>
+          <input id="name" type="text" placeholder="Το όνομά σας" data-ph-el="Το όνομά σας" data-ph-en="Your name" maxlength="60">
+          <label for="text" data-el="Η ανάμνησή σας" data-en="Your memory">Η ανάμνησή σας</label>
+          <textarea id="text" placeholder="Η στιγμή που δεν θα ξεχάσετε ποτέ…" data-ph-el="Η στιγμή που δεν θα ξεχάσετε ποτέ…" data-ph-en="The moment you will never forget…" maxlength="1200"></textarea>
+          <button class="submit" id="postBtn"><span data-el="Δημοσίευση στον τοίχο" data-en="Post to the wall">Δημοσίευση στον τοίχο</span></button>
+        </div>
       </div>
       <div class="wall" id="wall"></div>
     </div>
@@ -887,6 +928,18 @@ footer{
       desc_en:'An anniversary exhibition featuring historic material, photographs and trophies from 100 Years of APOEL. Information will be announced later.',
       info:[],
       info_en:[]},
+    {d:'—',m:'—',m_en:'—',d2:'—',m2:'—',m2_en:'—',iso:'2099-01-04T00:00:00',status:'Λεπτομέρειες σύντομα',status_en:'Details soon',img:'tba',t:'Παρουσίαση Λευκώματος «100 Χρόνια ΑΠΟΕΛ»',t_en:'Presentation of the "100 Years APOEL" Commemorative Book',p:'Ο αιώνας του Θρύλου σε ένα λεύκωμα.',p_en:'A century of the Legend in one book.',pin:'Ημερομηνία: σύντομα',cta:'Πληροφορίες',cta_en:'Info',
+      full:'Θα ανακοινωθεί',full_en:'To be announced',time:'Θα ανακοινωθεί',time_en:'To be announced',venue:'Θα ανακοινωθεί',venue_en:'To be announced',
+      desc:'Επίσημη παρουσίαση του επετειακού λευκώματος «100 Χρόνια ΑΠΟΕΛ», με ιστορικό υλικό, φωτογραφίες, αφηγήσεις και τιμητικές αναφορές που συνθέτουν έναν αιώνα ζωής του Θρύλου. Ημερομηνία, χώρος και ώρα θα ανακοινωθούν αργότερα.',
+      desc_en:'Official presentation of the anniversary book "100 Years APOEL", featuring historic material, photographs, stories and tributes that make up a century of the Legend\'s life. Date, venue and time will be announced later.',
+      info:[],
+      info_en:[]},
+    {d:'—',m:'—',m_en:'—',d2:'—',m2:'—',m2_en:'—',iso:'2099-01-05T00:00:00',status:'Λεπτομέρειες σύντομα',status_en:'Details soon',img:'tba',t:'Επετειακό Τουρνουά Καλαθοσφαίρας',t_en:'Anniversary Basketball Tournament',p:'Στιγμές τιμής στο παρκέ.',p_en:'Moments of honour on the court.',pin:'Ημερομηνία: σύντομα',cta:'Πληροφορίες',cta_en:'Info',
+      full:'Θα ανακοινωθεί',full_en:'To be announced',time:'Θα ανακοινωθεί',time_en:'To be announced',venue:'Θα ανακοινωθεί',venue_en:'To be announced',
+      desc:'Επετειακό τουρνουά καλαθοσφαίρας στο πλαίσιο των εκδηλώσεων για τα 100 Χρόνια ΑΠΟΕΛ. Λεπτομέρειες για τις συμμετέχουσες ομάδες, τον χώρο διεξαγωγής, τις ημερομηνίες και το πρόγραμμα αγώνων θα ανακοινωθούν αργότερα.',
+      desc_en:'Anniversary basketball tournament as part of the 100 Years APOEL celebrations. Details about participating teams, venue, dates and match schedule will be announced later.',
+      info:[],
+      info_en:[]},
   ];
 
   let cdTimer=null;
@@ -896,13 +949,19 @@ footer{
     if(!events.length){box.innerHTML='';box.style.display='none';return;}
     box.style.display='';
     const now=new Date();
-    const upcoming=events.map(e=>({...e,date:new Date(e.iso)})).filter(e=>e.date>now).sort((a,b)=>a.date-b.date)[0];
-    const featured=upcoming||events[events.length-1];
+    // Find the earliest real-dated future event and its index
+    const upcomingList=events.map((e,i)=>({e,i,date:new Date(e.iso)}))
+                             .filter(x=>x.date>now && x.date.getFullYear()<2050)
+                             .sort((a,b)=>a.date-b.date);
+    const upcoming=upcomingList[0];
+    const featured=upcoming?{...upcoming.e,date:upcoming.date,idx:upcoming.i}:{...events[events.length-1],idx:events.length-1};
     const L=(o,k)=>LANG==='en'&&o[k+'_en']?o[k+'_en']:o[k];
     const cdL=LANG==='el'?['Ημέρες','Ώρες','Λεπτά','Δευτ.']:['Days','Hours','Min','Sec'];
     const kLabel=upcoming?(LANG==='el'?'Επόμενη εκδήλωση':'Next event'):(LANG==='el'?'Πρόγραμμα εορτασμών':'Anniversary programme');
+    const infoLbl=LANG==='el'?'Πληροφορίες':'Info';
     box.innerHTML=`<div><div class="next-k">${kLabel}</div>
-      <div class="next-title">${L(featured,'t')}</div><div class="next-meta">${L(featured,'full')} · ${L(featured,'time')} · ${L(featured,'venue')}</div></div>
+      <div class="next-title">${L(featured,'t')}</div><div class="next-meta">${L(featured,'full')} · ${L(featured,'time')} · ${L(featured,'venue')}</div>
+      <button class="next-info" type="button" data-next-info="${featured.idx}">${infoLbl}</button></div>
       <div class="countdown" id="countdown"><div class="cd-box"><b>—</b><span>${cdL[0]}</span></div><div class="cd-box"><b>—</b><span>${cdL[1]}</span></div><div class="cd-box"><b>—</b><span>${cdL[2]}</span></div><div class="cd-box"><b>—</b><span>${cdL[3]}</span></div></div>`;
     if(!upcoming)return;
     const tick=()=>{
@@ -915,32 +974,51 @@ footer{
   }
   renderNextEvent();
 
+  /* ---- EVENT STATE HELPERS ---- */
+  function isTBA(e){return new Date(e.iso).getFullYear()>=2050;}
+  function isPast(e){const d=new Date(e.iso);return !isTBA(e) && d < new Date();}
+  function hasPhotos(e){return Array.isArray(e.photos) && e.photos.length>0;}
+
   function renderLedger(){
   const L=(o,k)=>LANG==='en'&&o[k+'_en']?o[k+'_en']:o[k];
   const now=new Date();
-  // Find the earliest real-dated future event (skip TBA sentinel year 2099+)
+  // Find the earliest real-dated FUTURE event (skip past and TBA)
   const dated=events.map((e,i)=>({e,i,date:new Date(e.iso)}))
                     .filter(x=>x.date>now && x.date.getFullYear()<2050)
                     .sort((a,b)=>a.date-b.date);
   const nextIdx=dated.length?dated[0].i:-1;
-  document.getElementById('ledger').innerHTML=events.map((e,i)=>{
+  // Order: upcoming/TBA first (in current array order), then past events at bottom in reverse-chronological order
+  const upcomingIdx=events.map((e,i)=>i).filter(i=>!isPast(events[i]));
+  const pastIdx=events.map((e,i)=>i).filter(i=>isPast(events[i]))
+                       .sort((a,b)=>new Date(events[b].iso)-new Date(events[a].iso));
+  const ordered=[...upcomingIdx,...pastIdx];
+  document.getElementById('ledger').innerHTML=ordered.map(i=>{
+    const e=events[i];
     const m1=L(e,'m'),m2=L(e,'m2');
     const single=(e.d===e.d2 && e.m===e.m2);
     const dateBadge=single
       ? `<div class="dt"><div class="seg single"><span class="mo">${m1}</span><span class="da">${e.d}</span></div></div>`
       : `<div class="dt"><div class="seg"><span class="mo">${m1}</span><span class="da">${e.d}</span></div><span class="dash">–</span><div class="seg"><span class="mo">${m2}</span><span class="da">${e.d2}</span></div></div>`;
-    // Status logic: TBA events keep their status; the next dated event gets "Προσεχώς"; anything else, nothing
-    const isTBA=new Date(e.iso).getFullYear()>=2050;
+    // Status pill
     let statusHTML='';
-    if(isTBA){statusHTML=`<span class="status">${L(e,'status')}</span>`;}
+    if(isPast(e)){statusHTML=`<span class="status past">${LANG==='el'?'Ολοκληρώθηκε':'Completed'}</span>`;}
+    else if(isTBA(e)){statusHTML=`<span class="status">${L(e,'status')}</span>`;}
     else if(i===nextIdx){statusHTML=`<span class="status">${LANG==='el'?'Προσεχώς':'Upcoming'}</span>`;}
+    // CTA button: past+photos → Photos; else → Info
+    const showPhotos=isPast(e) && hasPhotos(e);
+    const btnLabel=showPhotos
+      ? (LANG==='el'?'Φωτογραφίες':'Photos')
+      : (L(e,'cta')||(LANG==='el'?'Πληροφορίες':'Info'));
+    const btnAction=showPhotos?'photos':'info';
+    // Past event card gets a subtle "faded" class
+    const rowClass=isPast(e)?'lrow past':'lrow';
     return `
-    <div class="lrow" data-event="${i}" role="button" tabindex="0">
+    <div class="${rowClass}" data-event="${i}" role="button" tabindex="0">
       <div class="bg" style="background-image:url('./${e.img}.jpg')"></div>
       ${dateBadge}
       ${statusHTML}
       <div class="ti"><h3>${L(e,'t')}</h3><p>${L(e,'p')}</p></div>
-      <button class="ticket" type="button">${L(e,'cta')||(LANG==='el'?'Πληροφορίες':'Info')}</button>
+      <button class="ticket" type="button" data-action="${btnAction}">${btnLabel}</button>
     </div>`;}).join('');
   }
   renderLedger();
@@ -1017,8 +1095,25 @@ footer{
   }
   document.addEventListener('click',e=>{const b=e.target.closest('.em-share-btn');if(b){shareEvent(b.dataset.share,+b.dataset.idx);}});
   function closeEvent(){em.classList.remove('open');document.body.style.overflow='';}
-  document.getElementById('ledger').addEventListener('click',e=>{const r=e.target.closest('[data-event]');if(r)openEvent(+r.dataset.event);});
+  /* ---- OPEN EVENT PHOTOS IN LIGHTBOX ---- */
+  function openEventPhotos(i){
+    const e=events[i];if(!e||!hasPhotos(e))return;
+    const L=(o,k)=>LANG==='en'&&o[k+'_en']?o[k+'_en']:o[k];
+    const yr=(new Date(e.iso).getFullYear())||'';
+    // Build lightbox order from event.photos (accepts strings or {f,c} objects)
+    order=e.photos.map(p=>typeof p==='string'?{f:p,y:yr,c:L(e,'t')}:{f:p.f,y:p.y||yr,c:p.c||L(e,'t')});
+    cur=0;show(0);lb.classList.add('open');
+  }
+  document.getElementById('ledger').addEventListener('click',e=>{
+    const pb=e.target.closest('button[data-action="photos"]');
+    if(pb){e.stopPropagation();const r=pb.closest('[data-event]');if(r)openEventPhotos(+r.dataset.event);return;}
+    const r=e.target.closest('[data-event]');if(r)openEvent(+r.dataset.event);
+  });
   document.getElementById('ledger').addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.closest('[data-event]')){e.preventDefault();openEvent(+e.target.closest('[data-event]').dataset.event);}});
+  // Info button in the "Next Event" widget → open its modal
+  document.getElementById('nextEvent').addEventListener('click',e=>{
+    const b=e.target.closest('[data-next-info]');if(b)openEvent(+b.dataset.nextInfo);
+  });
   document.getElementById('emClose').onclick=closeEvent;
   em.addEventListener('click',e=>{if(e.target===em)closeEvent();});
   addEventListener('keydown',e=>{if(e.key==='Escape'&&em.classList.contains('open'))closeEvent();});
@@ -1027,11 +1122,54 @@ footer{
   const stories=[{who:'Ανδρέας',txt:'Πήγα στο πρώτο μου παιχνίδι με τον παππού μου το 1996. Δεν ξέχασα ποτέ εκείνη την ατμόσφαιρα στις εξέδρες.',seed:true}];
   const wall=document.getElementById('wall');
   const esc=t=>t.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+  // Compact brand SVGs reused across share features
+  const SOCIAL_ICONS={
+    whatsapp:'<svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.437-9.884 9.888-9.884a9.825 9.825 0 016.988 2.898 9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884M20.463 3.488A11.815 11.815 0 0012.05.001C5.495.001.16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.892a11.821 11.821 0 00-3.48-8.414z"/></svg>',
+    viber:'<svg viewBox="0 0 24 24"><path d="M11.4.02c-.75.03-3.06.16-4.28.61C3.7 2.13 1.9 5.11 1.4 8.68c-.23 1.63-.32 3.29-.35 4.94-.02 1.14.03 2.28.19 3.41.16 1.15.44 2.29 1.05 3.31.83 1.36 2.16 2.15 3.71 2.51.53.12 1.07.2 1.61.24v2.35c0 .34.21.61.5.7.14.05.29.05.43-.01.15-.07.28-.19.4-.32l1.94-2.08c1.06.02 2.11-.05 3.15-.19 2.44-.34 4.53-1.36 5.83-3.52.83-1.4 1.16-2.95 1.27-4.56.11-1.63.08-3.27-.11-4.89-.24-1.98-.87-3.88-2.34-5.29C17.06 1.94 14.79.72 12.4.14 12.06.05 11.73.03 11.4.02zM8.31 5.8c-.32-.02-.66.06-.88.32-1.03 1.19-1.28 2.94-.7 4.42.71 1.83 2.03 3.36 3.66 4.44 1.51 1.03 3.31 1.66 5.15 1.6.65-.03 1.24-.35 1.55-.94.24-.44.29-.96.11-1.42-.12-.32-.32-.6-.59-.83-.35-.29-.75-.5-1.15-.71-.31-.16-.62-.32-.94-.44-.47-.19-.94.05-1.11.5-.13.32-.35.44-.66.35-.94-.27-1.77-.68-2.4-1.42-.4-.5-.71-.99-.75-1.64-.02-.32.09-.55.36-.7.29-.15.5-.35.55-.68.06-.35-.03-.66-.19-.94-.13-.24-.29-.47-.44-.71-.16-.24-.32-.5-.5-.71-.16-.19-.4-.29-.65-.35-.11-.02-.24-.05-.36-.05z"/></svg>',
+    twitter:'<svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>',
+    instagram:'<svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>'
+  };
+  // Small deterministic tilt so cards feel hand-pinned but layout stays stable across renders
+  const tiltFor=i=>{const seq=[-2,1.4,-1.1,2.2,-2.4,.8,-1.6,1.9,-.6,2.1];return seq[i%seq.length];};
   function render(){
-    wall.innerHTML=stories.length?stories.map(s=>`
-    <div class="post"><div class="who"><span class="quote">“</span>${esc(s.who)}</div>
-    <div class="txt">${esc(s.txt)}</div></div>`).join('')
-    :`<div class="empty">${LANG==='el'?'Γίνετε ο πρώτος που θα γράψει στον τοίχο του αιώνα.':'Be the first to write on the wall of the century.'}</div>`;}
+    if(!stories.length){wall.innerHTML=`<div class="empty">${LANG==='el'?'Γίνετε ο πρώτος που θα γράψει στον τοίχο του αιώνα.':'Be the first to write on the wall of the century.'}</div>`;return;}
+    const shareLbl=LANG==='el'?'Μοιράσου':'Share';
+    wall.innerHTML=stories.map((s,idx)=>`
+    <div class="post" style="--tilt:${tiltFor(idx)}deg" data-post="${idx}">
+      <div class="who"><span class="quote">“</span>${esc(s.who)}</div>
+      <div class="txt">${esc(s.txt)}</div>
+      <div class="post-share">
+        <span class="post-share-label">${shareLbl}</span>
+        <button class="pshare" data-story-share="whatsapp" data-idx="${idx}" title="WhatsApp" aria-label="WhatsApp">${SOCIAL_ICONS.whatsapp}</button>
+        <button class="pshare" data-story-share="viber" data-idx="${idx}" title="Viber" aria-label="Viber">${SOCIAL_ICONS.viber}</button>
+        <button class="pshare" data-story-share="twitter" data-idx="${idx}" title="X (Twitter)" aria-label="X">${SOCIAL_ICONS.twitter}</button>
+        <button class="pshare" data-story-share="instagram" data-idx="${idx}" title="Instagram" aria-label="Instagram">${SOCIAL_ICONS.instagram}</button>
+      </div>
+    </div>`).join('');
+  }
+  function shareStory(platform,idx){
+    const s=stories[idx];if(!s)return;
+    const title=LANG==='el'?'Η ιστορία μου με τον ΑΠΟΕΛ':'My APOEL story';
+    const hashtag=LANG==='el'?'#ΑΠΟΕΛ100':'#APOEL100';
+    const text=`"${s.txt}"\n— ${s.who}\n\n${hashtag}`;
+    const enc=encodeURIComponent;
+    let url='';
+    if(platform==='whatsapp'){url=`https://wa.me/?text=${enc(text+'\n'+SITE_URL)}`;}
+    else if(platform==='viber'){url=`viber://forward?text=${enc(text+'\n'+SITE_URL)}`;}
+    else if(platform==='twitter'){url=`https://twitter.com/intent/tweet?text=${enc(text)}&url=${enc(SITE_URL)}`;}
+    else if(platform==='instagram'){
+      const payload={title:title,text:text+'\n'+SITE_URL,url:SITE_URL};
+      if(navigator.share){navigator.share(payload).catch(()=>{});}
+      else if(navigator.clipboard){navigator.clipboard.writeText(text+'\n'+SITE_URL).then(()=>{
+        const btn=document.querySelector(`.pshare[data-story-share="instagram"][data-idx="${idx}"]`);
+        if(btn){btn.classList.add('copied');setTimeout(()=>btn.classList.remove('copied'),1800);}
+        alert(LANG==='el'?'Το κείμενο αντιγράφηκε. Άνοιξε το Instagram και επικόλλησέ το.':'Text copied. Open Instagram and paste.');
+      });}
+      return;
+    }
+    if(url)window.open(url,'_blank','noopener,noreferrer');
+  }
+  wall.addEventListener('click',e=>{const b=e.target.closest('.pshare');if(b)shareStory(b.dataset.storyShare,+b.dataset.idx);});
   document.getElementById('postBtn').addEventListener('click',()=>{
     const n=document.getElementById('name').value.trim()||(LANG==='el'?'Φίλαθλος':'Fan');
     const t=document.getElementById('text').value.trim();
