@@ -369,6 +369,66 @@
     color:var(--gold-deep);font-family:"Bodoni MT",serif;font-style:italic;opacity:.65;letter-spacing:.4em;font-size:1.3rem;}
   .wall-sentinel::after{content:"···";}
   .wall-sentinel.hidden{display:none;}
+  /* Form status banner */
+  .form-status{margin-top:14px;padding:12px 14px;font-size:.88rem;letter-spacing:.02em;
+    border-left:3px solid var(--gold);background:rgba(224,181,58,.08);color:var(--gold-bright);
+    font-family:"Bodoni MT",Georgia,serif;font-style:italic;}
+  .form-status.error{border-color:#e08a5a;background:rgba(224,138,90,.08);color:#f4b291;}
+  /* ---- ADMIN PANEL ---- */
+  .admin-overlay{position:fixed;inset:0;background:rgba(2,10,22,.94);z-index:200;display:none;
+    align-items:flex-start;justify-content:center;overflow-y:auto;padding:40px 20px;
+    backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);}
+  .admin-overlay.open{display:flex;}
+  .admin-box{width:100%;max-width:900px;background:linear-gradient(170deg,rgba(21,32,60,.85),rgba(0,12,26,.9));
+    border:1px solid rgba(201,159,43,.25);padding:38px 34px 30px;position:relative;
+    box-shadow:0 30px 100px rgba(0,0,0,.6);}
+  .admin-box::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,var(--gold-deep),var(--gold-bright),var(--gold-deep));}
+  .admin-close{position:absolute;top:16px;right:16px;background:transparent;border:1px solid rgba(201,159,43,.35);
+    color:var(--gold-bright);width:36px;height:36px;border-radius:50%;font-size:1.4rem;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;transition:.2s;font-family:inherit;line-height:1;}
+  .admin-close:hover{background:rgba(201,159,43,.15);border-color:var(--gold);}
+  .admin-title{font-family:"Bodoni MT",Georgia,serif;font-size:2rem;color:var(--gold-bright);margin-bottom:6px;letter-spacing:.01em;}
+  .admin-sub{font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:30px;font-weight:500;}
+  .admin-login{max-width:380px;}
+  .admin-login label{display:block;font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-deep);margin:14px 0 6px;}
+  .admin-login input{width:100%;background:transparent;border:none;border-bottom:1px solid var(--hair);
+    color:var(--gold-bright);font-family:"Bodoni MT",Georgia,serif;font-size:1.05rem;padding:8px 4px;transition:border-color .3s;}
+  .admin-login input:focus{outline:none;border-bottom-color:var(--gold-bright);}
+  .admin-login button{margin-top:24px;background:linear-gradient(135deg,var(--gold-bright),var(--gold));color:var(--navy-deep);
+    border:none;padding:12px 32px;font-size:.72rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
+    cursor:pointer;font-family:inherit;transition:filter .3s,transform .3s;}
+  .admin-login button:hover:not(:disabled){filter:brightness(1.08);transform:translateY(-1px);}
+  .admin-login button:disabled{opacity:.5;cursor:wait;}
+  .admin-err{margin-top:14px;color:#e08a5a;font-size:.85rem;font-style:italic;font-family:"Bodoni MT",serif;min-height:1em;}
+  .admin-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:22px;flex-wrap:wrap;gap:14px;}
+  .admin-logout{background:transparent;border:1px solid rgba(201,159,43,.3);color:var(--gold-deep);
+    padding:6px 14px;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;font-family:inherit;transition:.2s;}
+  .admin-logout:hover{border-color:var(--gold);color:var(--gold-bright);}
+  .admin-tabs{display:flex;gap:0;border-bottom:1px solid rgba(201,159,43,.18);margin-bottom:20px;flex-wrap:wrap;}
+  .admin-tab{background:transparent;border:none;color:var(--ash);padding:12px 18px;font-size:.7rem;letter-spacing:.2em;
+    text-transform:uppercase;cursor:pointer;font-family:inherit;position:relative;transition:color .2s;}
+  .admin-tab:hover{color:var(--gold-bright);}
+  .admin-tab.on{color:var(--gold-bright);}
+  .admin-tab.on::after{content:"";position:absolute;left:12px;right:12px;bottom:-1px;height:2px;background:var(--gold-bright);}
+  .admin-tab .count{margin-left:6px;opacity:.7;font-size:.9em;}
+  .admin-list{display:flex;flex-direction:column;gap:14px;min-height:100px;}
+  .admin-item{padding:16px 18px;background:rgba(255,255,255,.02);border:1px solid rgba(201,159,43,.12);
+    display:grid;grid-template-columns:1fr auto;gap:14px 20px;align-items:start;}
+  .admin-item-who{font-family:"Bodoni MT",Georgia,serif;font-style:italic;color:var(--gold-bright);font-size:1.05rem;}
+  .admin-item-date{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-deep);margin-top:2px;}
+  .admin-item-txt{grid-column:1/-1;color:var(--ash);font-family:Georgia,serif;line-height:1.55;white-space:pre-wrap;font-size:.95rem;}
+  .admin-item-actions{display:flex;gap:8px;flex-wrap:wrap;align-self:start;}
+  .admin-btn{padding:7px 14px;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;
+    border:1px solid;background:transparent;font-family:inherit;transition:.2s;}
+  .admin-btn.approve{color:#8dd68f;border-color:rgba(141,214,143,.5);}
+  .admin-btn.approve:hover{background:rgba(141,214,143,.15);}
+  .admin-btn.reject{color:#e0a17a;border-color:rgba(224,161,122,.5);}
+  .admin-btn.reject:hover{background:rgba(224,161,122,.15);}
+  .admin-btn.del{color:#e08a5a;border-color:rgba(224,138,90,.5);}
+  .admin-btn.del:hover{background:rgba(224,138,90,.2);}
+  .admin-empty{padding:40px 0;text-align:center;color:var(--gold-deep);font-style:italic;font-family:"Bodoni MT",serif;}
+  @media(max-width:560px){.admin-box{padding:28px 20px 24px;}.admin-item{grid-template-columns:1fr;}}
 
   footer{position:relative;z-index:2;text-align:center;padding:60px 20px;border-top:1px solid var(--hair);
     font-size:.7rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold-deep);}
@@ -759,6 +819,37 @@ footer{
     <div id="emBody"></div>
   </div>
 </div>
+
+
+<!-- ADMIN PANEL -->
+<div class="admin-overlay" id="adminOverlay" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
+  <div class="admin-box">
+    <button class="admin-close" id="adminCloseBtn" aria-label="Κλείσιμο">×</button>
+    <div class="admin-sub" id="adminTitle">Διαχείριση · Admin</div>
+    <div class="admin-title serif">Ιστορίες Τοίχου</div>
+    <div id="adminLoginView" class="admin-login">
+      <label for="adminEmail">Email</label>
+      <input id="adminEmail" type="email" autocomplete="username">
+      <label for="adminPass">Password</label>
+      <input id="adminPass" type="password" autocomplete="current-password">
+      <button id="adminLoginBtn">Σύνδεση</button>
+      <div class="admin-err" id="adminErr"></div>
+    </div>
+    <div id="adminMainView" style="display:none">
+      <div class="admin-head">
+        <div class="admin-sub" style="margin:0">Έλεγχος περιεχομένου</div>
+        <button class="admin-logout" id="adminLogoutBtn">Αποσύνδεση</button>
+      </div>
+      <div class="admin-tabs">
+        <button class="admin-tab on" data-status="pending">Προς έγκριση<span class="count" id="cntPending"></span></button>
+        <button class="admin-tab" data-status="approved">Εγκεκριμένες<span class="count" id="cntApproved"></span></button>
+        <button class="admin-tab" data-status="rejected">Απορριφθείσες<span class="count" id="cntRejected"></span></button>
+      </div>
+      <div class="admin-list" id="adminList"></div>
+    </div>
+  </div>
+</div>
+
 
 <script>
   const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
@@ -1159,7 +1250,10 @@ footer{
   addEventListener('keydown',e=>{if(e.key==='Escape'&&em.classList.contains('open'))closeEvent();});
 
   /* ---- STORIES ---- */
-  const stories=[{who:'Ανδρέας',txt:'Πήγα στο πρώτο μου παιχνίδι με τον παππού μου το 1996. Δεν ξέχασα ποτέ εκείνη την ατμόσφαιρα στις εξέδρες.',seed:true}];
+  // SUPABASE CONFIG
+  const SB_URL='https://lgfzmutslgiwlufeqgrj.supabase.co';
+  const SB_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxnZnptdXRzbGdpd2x1ZmVxZ3JqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUwODczMzcsImV4cCI6MjEwMDY2MzMzN30.eL8x7SicnTsKwm-jkWs0nYM3kp7dNyxukVsHkJ70vQQ';
+  const stories=[];
   const wall=document.getElementById('wall');
   const esc=t=>t.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
   // Compact brand SVGs reused across share features
@@ -1177,12 +1271,6 @@ footer{
   const wallCount=document.getElementById('wallCount');
   const wallSentinel=document.getElementById('wallSentinel');
   const wallSearch=document.getElementById('wallSearch');
-  function filteredStories(){
-    if(!searchQuery.trim())return stories.map((s,i)=>({...s,_idx:i}));
-    const q=searchQuery.toLowerCase().trim();
-    return stories.map((s,i)=>({...s,_idx:i}))
-                  .filter(s=>s.who.toLowerCase().includes(q)||s.txt.toLowerCase().includes(q));
-  }
   function fmtNum(n){return n.toLocaleString(LANG==='el'?'el-GR':'en-US');}
   function updateCounter(shown,total){
     if(!wallCount)return;
@@ -1190,56 +1278,97 @@ footer{
     const lbl=LANG==='el'?'από':'of';
     wallCount.textContent=`${fmtNum(shown)} ${lbl} ${fmtNum(total)}`;
   }
-  function postCard(s,shareLbl){
+  // Stable tilt derived from UUID so each story keeps its angle across renders
+  const tiltForStory=s=>{
+    if(!s||!s.id)return 0;
+    const id=s.id;
+    const c=id.charCodeAt(id.length-1)+id.charCodeAt(id.length-4);
+    const seq=[-2,1.4,-1.1,2.2,-2.4,.8,-1.6,1.9,-.6,2.1];
+    return seq[c%seq.length];
+  };
+  function postCard(s,idxInLoaded,shareLbl){
     return `
-    <div class="post" style="--tilt:${tiltFor(s._idx)}deg" data-post="${s._idx}">
+    <div class="post" style="--tilt:${tiltForStory(s)}deg" data-post="${idxInLoaded}">
       <div class="who"><span class="quote">“</span>${esc(s.who)}</div>
       <div class="txt">${esc(s.txt)}</div>
       <div class="post-share">
         <span class="post-share-label">${shareLbl}</span>
-        <button class="pshare" data-story-share="whatsapp" data-idx="${s._idx}" title="WhatsApp" aria-label="WhatsApp">${SOCIAL_ICONS.whatsapp}</button>
-        <button class="pshare" data-story-share="viber" data-idx="${s._idx}" title="Viber" aria-label="Viber">${SOCIAL_ICONS.viber}</button>
-        <button class="pshare" data-story-share="twitter" data-idx="${s._idx}" title="X (Twitter)" aria-label="X">${SOCIAL_ICONS.twitter}</button>
-        <button class="pshare" data-story-share="instagram" data-idx="${s._idx}" title="Instagram" aria-label="Instagram">${SOCIAL_ICONS.instagram}</button>
+        <button class="pshare" data-story-share="whatsapp" data-idx="${idxInLoaded}" title="WhatsApp" aria-label="WhatsApp">${SOCIAL_ICONS.whatsapp}</button>
+        <button class="pshare" data-story-share="viber" data-idx="${idxInLoaded}" title="Viber" aria-label="Viber">${SOCIAL_ICONS.viber}</button>
+        <button class="pshare" data-story-share="twitter" data-idx="${idxInLoaded}" title="X (Twitter)" aria-label="X">${SOCIAL_ICONS.twitter}</button>
+        <button class="pshare" data-story-share="instagram" data-idx="${idxInLoaded}" title="Instagram" aria-label="Instagram">${SOCIAL_ICONS.instagram}</button>
       </div>
     </div>`;
   }
-  function renderFresh(){
-    const shareLbl=LANG==='el'?'Μοιράσου':'Share';
-    const filtered=filteredStories();
-    if(!filtered.length){
-      wall.innerHTML=`<div class="empty">${searchQuery.trim()?(LANG==='el'?'Δεν βρέθηκαν ιστορίες.':'No stories found.'):(LANG==='el'?'Γίνετε ο πρώτος που θα γράψει στον τοίχο του αιώνα.':'Be the first to write on the wall of the century.')}</div>`;
-      updateCounter(0,0);wallSentinel.classList.add('hidden');return;
+  // ---- SUPABASE fetch ----
+  let currentOffset=0,totalCount=0,isLoading=false,hasMore=true;
+  async function fetchApproved(offset,query){
+    const p=new URLSearchParams();
+    p.set('status','eq.approved');
+    p.set('order','created_at.desc');
+    p.set('limit',String(PAGE_SIZE));
+    p.set('offset',String(offset));
+    p.set('select','id,who,txt,created_at');
+    if(query&&query.trim()){
+      const q=query.trim().replace(/[%*]/g,'');
+      p.set('or',`(who.ilike.*${q}*,txt.ilike.*${q}*)`);
     }
-    visibleCount=Math.min(PAGE_SIZE,filtered.length);
-    wall.innerHTML=filtered.slice(0,visibleCount).map(s=>postCard(s,shareLbl)).join('');
-    updateCounter(visibleCount,filtered.length);
-    if(visibleCount<filtered.length)wallSentinel.classList.remove('hidden');
-    else wallSentinel.classList.add('hidden');
+    const res=await fetch(`${SB_URL}/rest/v1/stories?${p}`,{
+      headers:{apikey:SB_ANON,Authorization:`Bearer ${SB_ANON}`,Prefer:'count=exact'}
+    });
+    if(!res.ok)throw new Error(await res.text());
+    const cr=res.headers.get('content-range')||'/0';
+    const total=parseInt(cr.split('/')[1]||'0',10);
+    return {data:await res.json(),total};
   }
-  function appendMore(){
-    const filtered=filteredStories();
-    if(visibleCount>=filtered.length){wallSentinel.classList.add('hidden');return;}
+  async function renderFresh(){
     const shareLbl=LANG==='el'?'Μοιράσου':'Share';
-    const start=visibleCount;
-    visibleCount=Math.min(visibleCount+PAGE_SIZE,filtered.length);
-    const html=filtered.slice(start,visibleCount).map(s=>postCard(s,shareLbl)).join('');
-    wall.insertAdjacentHTML('beforeend',html);
-    updateCounter(visibleCount,filtered.length);
-    if(visibleCount>=filtered.length)wallSentinel.classList.add('hidden');
+    wall.innerHTML=`<div class="empty" style="opacity:.55">${LANG==='el'?'Φόρτωση…':'Loading…'}</div>`;
+    wallSentinel.classList.add('hidden');updateCounter(0,0);
+    try{
+      const {data,total}=await fetchApproved(0,searchQuery);
+      stories.length=0;stories.push(...data);
+      currentOffset=data.length;totalCount=total;
+      hasMore=data.length===PAGE_SIZE&&stories.length<total;
+      if(!stories.length){
+        wall.innerHTML=`<div class="empty">${searchQuery.trim()?(LANG==='el'?'Δεν βρέθηκαν ιστορίες.':'No stories found.'):(LANG==='el'?'Γίνετε ο πρώτος που θα γράψει στον τοίχο του αιώνα.':'Be the first to write on the wall of the century.')}</div>`;
+        updateCounter(0,0);return;
+      }
+      wall.innerHTML=stories.map((s,i)=>postCard(s,i,shareLbl)).join('');
+      updateCounter(stories.length,totalCount);
+      if(hasMore)wallSentinel.classList.remove('hidden');
+    }catch(err){
+      console.error('Wall load error',err);
+      wall.innerHTML=`<div class="empty" style="color:#e08a5a">${LANG==='el'?'Σφάλμα φόρτωσης. Δοκιμάστε ανανέωση.':'Loading error. Try refreshing.'}</div>`;
+    }
   }
-  // Expose renderFresh as `render` for lang-switch code that calls it
+  async function appendMore(){
+    if(isLoading||!hasMore)return;
+    isLoading=true;
+    try{
+      const {data}=await fetchApproved(currentOffset,searchQuery);
+      if(!data.length){hasMore=false;wallSentinel.classList.add('hidden');return;}
+      const shareLbl=LANG==='el'?'Μοιράσου':'Share';
+      const startIdx=stories.length;
+      stories.push(...data);
+      currentOffset+=data.length;
+      hasMore=data.length===PAGE_SIZE&&stories.length<totalCount;
+      const html=data.map((s,i)=>postCard(s,startIdx+i,shareLbl)).join('');
+      wall.insertAdjacentHTML('beforeend',html);
+      updateCounter(stories.length,totalCount);
+      if(!hasMore)wallSentinel.classList.add('hidden');
+    }catch(err){console.error('Wall append error',err);}
+    finally{isLoading=false;}
+  }
   const render=renderFresh;
-  // Infinite scroll via IntersectionObserver
   if('IntersectionObserver' in window){
     const io=new IntersectionObserver(entries=>{if(entries[0].isIntersecting)appendMore();},{rootMargin:'600px 0px'});
     io.observe(wallSentinel);
   }
-  // Search: debounced input
   let searchTimer;
   wallSearch.addEventListener('input',e=>{
     clearTimeout(searchTimer);
-    searchTimer=setTimeout(()=>{searchQuery=e.target.value;renderFresh();},180);
+    searchTimer=setTimeout(()=>{searchQuery=e.target.value;renderFresh();},300);
   });
   function shareStory(platform,idx){
     const s=stories[idx];if(!s)return;
@@ -1264,16 +1393,41 @@ footer{
     if(url)window.open(url,'_blank','noopener,noreferrer');
   }
   wall.addEventListener('click',e=>{const b=e.target.closest('.pshare');if(b)shareStory(b.dataset.storyShare,+b.dataset.idx);});
-  document.getElementById('postBtn').addEventListener('click',()=>{
-    const n=document.getElementById('name').value.trim()||(LANG==='el'?'Φίλαθλος':'Fan');
-    const t=document.getElementById('text').value.trim();
-    if(!t){document.getElementById('text').focus();return;}
-    stories.unshift({who:n,txt:t});
-    document.getElementById('name').value='';document.getElementById('text').value='';
-    // Clear search so the new post is visible
-    searchQuery='';if(wallSearch)wallSearch.value='';
-    renderFresh();
+  document.getElementById('postBtn').addEventListener('click',async()=>{
+    const btn=document.getElementById('postBtn');
+    const spanEl=btn.querySelector('span');
+    const origLabel=spanEl.textContent;
+    const nameEl=document.getElementById('name');
+    const textEl=document.getElementById('text');
+    const n=nameEl.value.trim()||(LANG==='el'?'Φίλαθλος':'Fan');
+    const t=textEl.value.trim();
+    if(!t){textEl.focus();return;}
+    btn.disabled=true;spanEl.textContent=LANG==='el'?'Αποστολή…':'Sending…';
+    try{
+      const res=await fetch(`${SB_URL}/rest/v1/stories`,{
+        method:'POST',
+        headers:{apikey:SB_ANON,Authorization:`Bearer ${SB_ANON}`,'Content-Type':'application/json',Prefer:'return=minimal'},
+        body:JSON.stringify({who:n,txt:t})
+      });
+      if(!res.ok)throw new Error(await res.text());
+      nameEl.value='';textEl.value='';
+      showFormStatus(LANG==='el'?'✓ Ευχαριστούμε! Η ιστορία σας θα εμφανιστεί μετά από έγκριση.':'✓ Thank you! Your story will appear after approval.','success');
+    }catch(err){
+      console.error(err);
+      showFormStatus(LANG==='el'?'⚠ Παρουσιάστηκε σφάλμα. Δοκιμάστε ξανά.':'⚠ An error occurred. Try again.','error');
+    }finally{
+      btn.disabled=false;spanEl.textContent=origLabel;
+    }
   });
+  function showFormStatus(msg,type){
+    let el=document.getElementById('formStatus');
+    if(!el){
+      el=document.createElement('div');el.id='formStatus';el.className='form-status';
+      document.querySelector('.story-form .form').appendChild(el);
+    }
+    el.textContent=msg;el.className='form-status '+type;el.style.display='block';
+    clearTimeout(el._t);el._t=setTimeout(()=>{el.style.display='none';},6000);
+  }
   renderFresh();
 
   /* ---- Gold particle field ---- */
@@ -1360,6 +1514,157 @@ footer{
     }
     tick();const t=setInterval(tick,1000);
   })();
+  // ---- ADMIN PANEL ----
+  const ADMIN_TOKEN_KEY='apoel100_admin_v1';
+  const adminOverlay=document.getElementById('adminOverlay');
+  const adminLoginView=document.getElementById('adminLoginView');
+  const adminMainView=document.getElementById('adminMainView');
+  const adminErr=document.getElementById('adminErr');
+  const adminList=document.getElementById('adminList');
+  let adminActiveTab='pending';
+  function saveAdminSession(d){
+    const rec={access_token:d.access_token,refresh_token:d.refresh_token,expires_at:d.expires_at||(Math.floor(Date.now()/1000)+(d.expires_in||3600))};
+    localStorage.setItem(ADMIN_TOKEN_KEY,JSON.stringify(rec));
+  }
+  function loadAdminSession(){
+    try{const r=localStorage.getItem(ADMIN_TOKEN_KEY);if(!r)return null;
+      const d=JSON.parse(r);if(d.expires_at&&Date.now()/1000>d.expires_at-30)return null;
+      return d.access_token;
+    }catch{return null;}
+  }
+  function clearAdminSession(){localStorage.removeItem(ADMIN_TOKEN_KEY);}
+  async function adminLogin(email,pw){
+    const res=await fetch(`${SB_URL}/auth/v1/token?grant_type=password`,{
+      method:'POST',
+      headers:{apikey:SB_ANON,'Content-Type':'application/json'},
+      body:JSON.stringify({email,password:pw})
+    });
+    const d=await res.json();
+    if(!res.ok)throw new Error(d.error_description||d.msg||d.error||'Login failed');
+    saveAdminSession(d);
+    return d.access_token;
+  }
+  async function fetchAdminStories(token,status){
+    const p=new URLSearchParams();
+    if(status)p.set('status',`eq.${status}`);
+    p.set('order','created_at.desc');
+    p.set('select','id,who,txt,status,created_at');
+    p.set('limit','200');
+    const res=await fetch(`${SB_URL}/rest/v1/stories?${p}`,{
+      headers:{apikey:SB_ANON,Authorization:`Bearer ${token}`,Prefer:'count=exact'}
+    });
+    if(res.status===401){clearAdminSession();throw new Error('unauthorized');}
+    if(!res.ok)throw new Error(await res.text());
+    return {data:await res.json(),total:parseInt((res.headers.get('content-range')||'/0').split('/')[1]||'0',10)};
+  }
+  async function fetchAdminCount(token,status){
+    const p=new URLSearchParams();
+    p.set('status',`eq.${status}`);p.set('select','id');p.set('limit','1');
+    const res=await fetch(`${SB_URL}/rest/v1/stories?${p}`,{
+      headers:{apikey:SB_ANON,Authorization:`Bearer ${token}`,Prefer:'count=exact'}
+    });
+    if(!res.ok)return 0;
+    return parseInt((res.headers.get('content-range')||'/0').split('/')[1]||'0',10);
+  }
+  async function updateStoryStatus(token,id,status){
+    const res=await fetch(`${SB_URL}/rest/v1/stories?id=eq.${id}`,{
+      method:'PATCH',
+      headers:{apikey:SB_ANON,Authorization:`Bearer ${token}`,'Content-Type':'application/json',Prefer:'return=minimal'},
+      body:JSON.stringify({status})
+    });
+    if(!res.ok)throw new Error(await res.text());
+  }
+  async function deleteStory(token,id){
+    const res=await fetch(`${SB_URL}/rest/v1/stories?id=eq.${id}`,{
+      method:'DELETE',
+      headers:{apikey:SB_ANON,Authorization:`Bearer ${token}`}
+    });
+    if(!res.ok)throw new Error(await res.text());
+  }
+  function fmtDate(s){try{const d=new Date(s);return d.toLocaleDateString('el-GR',{day:'2-digit',month:'2-digit',year:'numeric'})+' '+d.toLocaleTimeString('el-GR',{hour:'2-digit',minute:'2-digit'});}catch{return s;}}
+  async function refreshAdminCounts(){
+    const t=loadAdminSession();if(!t)return;
+    try{
+      const [p,a,r]=await Promise.all([fetchAdminCount(t,'pending'),fetchAdminCount(t,'approved'),fetchAdminCount(t,'rejected')]);
+      document.getElementById('cntPending').textContent=`(${p})`;
+      document.getElementById('cntApproved').textContent=`(${a})`;
+      document.getElementById('cntRejected').textContent=`(${r})`;
+    }catch(e){}
+  }
+  async function renderAdminList(){
+    const t=loadAdminSession();
+    if(!t){showAdminLogin();return;}
+    adminList.innerHTML=`<div class="admin-empty">Φόρτωση…</div>`;
+    try{
+      const {data}=await fetchAdminStories(t,adminActiveTab);
+      if(!data.length){adminList.innerHTML=`<div class="admin-empty">Καμία ιστορία σε αυτή την κατηγορία.</div>`;return;}
+      adminList.innerHTML=data.map(s=>{
+        const actions=[];
+        if(s.status!=='approved')actions.push(`<button class="admin-btn approve" data-act="approve" data-id="${s.id}">Έγκριση</button>`);
+        if(s.status!=='rejected')actions.push(`<button class="admin-btn reject" data-act="reject" data-id="${s.id}">Απόρριψη</button>`);
+        actions.push(`<button class="admin-btn del" data-act="delete" data-id="${s.id}">Διαγραφή</button>`);
+        return `<div class="admin-item">
+          <div>
+            <div class="admin-item-who">${esc(s.who)}</div>
+            <div class="admin-item-date">${fmtDate(s.created_at)}</div>
+          </div>
+          <div class="admin-item-actions">${actions.join('')}</div>
+          <div class="admin-item-txt">${esc(s.txt)}</div>
+        </div>`;
+      }).join('');
+    }catch(e){
+      if(String(e.message)==='unauthorized'){showAdminLogin();return;}
+      adminList.innerHTML=`<div class="admin-empty" style="color:#e08a5a">Σφάλμα φόρτωσης.</div>`;
+    }
+  }
+  adminList.addEventListener('click',async e=>{
+    const b=e.target.closest('.admin-btn');if(!b)return;
+    const t=loadAdminSession();if(!t){showAdminLogin();return;}
+    const id=b.dataset.id,act=b.dataset.act;
+    if(act==='delete'&&!confirm('Σίγουρα διαγραφή; Δεν αναιρείται.'))return;
+    b.disabled=true;
+    try{
+      if(act==='approve')await updateStoryStatus(t,id,'approved');
+      else if(act==='reject')await updateStoryStatus(t,id,'rejected');
+      else if(act==='delete')await deleteStory(t,id);
+      await renderAdminList();refreshAdminCounts();
+      // If the wall is showing, refresh it too (an approve/reject changes what's visible)
+      if(document.getElementById('stories').classList.contains('active'))renderFresh();
+    }catch(err){alert('Σφάλμα: '+err.message);b.disabled=false;}
+  });
+  document.querySelectorAll('.admin-tab').forEach(t=>{
+    t.addEventListener('click',()=>{
+      document.querySelectorAll('.admin-tab').forEach(x=>x.classList.remove('on'));
+      t.classList.add('on');adminActiveTab=t.dataset.status;renderAdminList();
+    });
+  });
+  function showAdminLogin(){adminLoginView.style.display='';adminMainView.style.display='none';setTimeout(()=>document.getElementById('adminEmail').focus(),80);}
+  function showAdminMain(){adminLoginView.style.display='none';adminMainView.style.display='';renderAdminList();refreshAdminCounts();}
+  function openAdmin(){
+    adminOverlay.classList.add('open');document.body.style.overflow='hidden';
+    if(loadAdminSession())showAdminMain();else showAdminLogin();
+  }
+  function closeAdmin(){
+    adminOverlay.classList.remove('open');document.body.style.overflow='';
+    if(location.hash==='#admin')history.replaceState(null,'',location.pathname+location.search);
+  }
+  document.getElementById('adminCloseBtn').addEventListener('click',closeAdmin);
+  document.getElementById('adminLoginBtn').addEventListener('click',async()=>{
+    const btn=document.getElementById('adminLoginBtn');
+    const email=document.getElementById('adminEmail').value.trim();
+    const pw=document.getElementById('adminPass').value;
+    if(!email||!pw){adminErr.textContent='Συμπληρώστε email και password.';return;}
+    btn.disabled=true;btn.textContent='Σύνδεση…';adminErr.textContent='';
+    try{await adminLogin(email,pw);document.getElementById('adminPass').value='';showAdminMain();}
+    catch(err){adminErr.textContent=err.message;}
+    finally{btn.disabled=false;btn.textContent='Σύνδεση';}
+  });
+  document.getElementById('adminPass').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('adminLoginBtn').click();});
+  document.getElementById('adminLogoutBtn').addEventListener('click',()=>{clearAdminSession();showAdminLogin();});
+  // URL hash routing
+  function checkAdminHash(){if(location.hash==='#admin')openAdmin();}
+  window.addEventListener('hashchange',checkAdminHash);
+  checkAdminHash();
 </script>
 </body>
 </html>
