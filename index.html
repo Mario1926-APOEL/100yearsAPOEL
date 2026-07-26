@@ -164,7 +164,7 @@
 
   /* HISTORY — timeline with photos */
   .tl{position:relative;}
-  .tl-row{display:grid;grid-template-columns:minmax(120px,160px) 220px 1fr;gap:26px;align-items:center;
+  .tl-row{display:grid;grid-template-columns:minmax(120px,160px) 1fr;gap:26px;align-items:center;
     padding:30px 0;border-top:1px solid var(--hair);position:relative;}
   .tl-row:last-child{border-bottom:1px solid var(--hair);}
   .tl-year{font-family:"Bodoni MT","Didot",Georgia,serif;font-weight:700;font-size:clamp(2rem,6vw,3.4rem);
@@ -314,8 +314,8 @@
   .lang button.on{background:var(--gold);color:#001327;}
   .lang button:not(.on):hover{color:var(--gold-bright);}
 
-  @media(max-width:860px){.mosaic{column-count:2}.tl-row{grid-template-columns:90px 1fr;grid-template-areas:"y t" "i i" "b b";gap:14px}
-    .tl-year{grid-area:y}.tl-thumb{grid-area:i}.tl-body{grid-area:b}.tl-body h3{grid-area:t}}
+  @media(max-width:860px){.mosaic{column-count:2}.tl-row{grid-template-columns:90px 1fr;grid-template-areas:"y t" "b b";gap:14px}
+    .tl-year{grid-area:y}.tl-body{grid-area:b}.tl-body h3{grid-area:t}}
   @media(max-width:560px){.mosaic{column-count:1}.wrap2{grid-template-columns:1fr}}
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}.reveal{opacity:1;transform:none}}
 
@@ -488,7 +488,7 @@ main{max-width:1160px;}
 /* Timeline: museum / archive style */
 .tl{counter-reset:history;}
 .tl-row{
-  grid-template-columns:minmax(120px,170px) 250px 1fr;
+  grid-template-columns:minmax(120px,170px) 1fr;
   gap:34px;
   padding:42px 0;
   position:relative;
@@ -630,7 +630,7 @@ footer{
 <main>
   <section id="history" class="panel">
     <div class="sec-head"><div class="k" data-el="Ένας Αιώνας" data-en="One Century">Ένας Αιώνας</div><h2 class="serif" data-el="Ιστορία" data-en="History">Ιστορία</h2>
-      <p class="lead" data-el="Από το 1926, μια ιστορία γραμμένη με χρυσό. Περάστε πάνω από κάθε στιγμή." data-en="Since 1926, a story written in gold. Hover over each moment.">Από το 1926, μια ιστορία γραμμένη με χρυσό. Περάστε πάνω από κάθε στιγμή.</p></div>
+      <p class="lead" data-el="Από το 1926, μια ιστορία γραμμένη με χρυσό." data-en="Since 1926, a story written in gold.">Από το 1926, μια ιστορία γραμμένη με χρυσό.</p></div>
     <div class="tl" id="tl"></div>
   </section>
 
@@ -763,7 +763,6 @@ footer{
       const h=LANG==='en'&&e.h_en?e.h_en:e.h, p=LANG==='en'&&e.p_en?e.p_en:e.p;
       return `
     <div class="tl-row" data-watermark="${e.y}"><div class="tl-year serif">${e.y}</div>
-    <div class="tl-thumb" data-photo="${e.img}"><img src="./${e.img}.jpg" alt="${h}" loading="lazy"></div>
     <div class="tl-body"><h3>${h}</h3><p>${p}</p></div></div>`;}).join('');
   }
   renderHistory();
