@@ -45,10 +45,10 @@
     filter:drop-shadow(0 14px 50px rgba(0,0,0,.6)) drop-shadow(0 0 36px rgba(63,160,224,.32));
     opacity:0;animation:rise 1.3s .1s forwards;}
   /* EMBLEM REVEAL BANNER (replaces the old countdown circle) */
-  .emblem-banner{display:block;width:clamp(320px,58vw,760px);height:auto;margin:0 auto 1.8em;
-    border-radius:14px;
-    box-shadow:0 24px 80px rgba(0,0,0,.65),0 0 0 1px rgba(201,159,43,.20);
-    opacity:0;animation:rise 1.3s .1s forwards;}
+  .emblem-banner{display:block;width:clamp(340px,64vw,880px);height:auto;margin:0 auto 1.4em;
+    opacity:0;animation:rise 1.3s .1s forwards;
+    -webkit-mask-image:radial-gradient(ellipse at center,#000 45%,transparent 92%);
+    mask-image:radial-gradient(ellipse at center,#000 45%,transparent 92%);}
   /* REVEAL PLACEHOLDER (until 26/07/2026) */
   .logo-reveal{position:relative;width:clamp(240px,40vw,420px);aspect-ratio:1/1;margin:0 auto 1.6em;
     display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
