@@ -854,47 +854,20 @@ footer{
 
   /* ---- EVENTS ---- */
   const events=[
-    {d:'08',m:'Μαρ',m_en:'MAR',d2:'08',m2:'Μαρ',m2_en:'MAR',iso:'2026-03-08T19:00:00',status:'Ολοκληρώθηκε',status_en:'Completed',img:'1963',t:'Επετειακός Αγώνας 100 Χρόνων',t_en:'100 Years Anniversary Match',p:'Η μεγάλη βραδιά του αιώνα.',p_en:'The great night of the century.',pin:'Στάδιο ΓΣΠ · 19:00',cta:'Πληροφορίες',cta_en:'Info',
-      full:'08 Μαρτίου 2026',full_en:'08 March 2026',time:'19:00 (πύλες 17:30)',time_en:'19:00 (gates 17:30)',venue:'Στάδιο ΓΣΠ, Λευκωσία',venue_en:'GSP Stadium, Nicosia',
-      desc:'Ο κορυφαίος αγώνας του εορταστικού έτους. Μια βραδιά αφιερωμένη σε έναν αιώνα ιστορίας, με τιμητικές εκδηλώσεις πριν και μετά τον αγώνα και τη συμμετοχή θρύλων του σωματείου.',
-      desc_en:'The flagship match of the anniversary year. A night dedicated to a century of history, with tributes before and after the game and the participation of club legends.',
-      info:['Ελεύθερη είσοδος','Τιμητική απονομή στο ημίχρονο','Επετειακά αναμνηστικά για τους πρώτους θεατές'],
-      info_en:['Free entry','Tribute ceremony at half-time','Anniversary souvenirs for the first spectators']},
-    {d:'21',m:'Μαρ',m_en:'MAR',d2:'05',m2:'Απρ',m2_en:'APR',iso:'2026-03-21T10:00:00',status:'Ολοκληρώθηκε',status_en:'Completed',img:'1932',t:'Έκθεση Ιστορικού Υλικού & Τροπαίων',t_en:'Exhibition of Historic Material & Trophies',p:'Ένας αιώνας σε βιτρίνα.',p_en:'A century on display.',pin:'Δημαρχείο Λευκωσίας',cta:'Πληροφορίες',cta_en:'Info',
-      full:'21 Μαρτίου 2026',full_en:'21 March 2026',time:'10:00 – 20:00',time_en:'10:00 – 20:00',venue:'Δημαρχείο Λευκωσίας',venue_en:'Nicosia Town Hall',
-      desc:'Μια μοναδική έκθεση με αυθεντικά τρόπαια, ιστορικές φωτογραφίες, φανέλες και ντοκουμέντα από το 1926 έως σήμερα. Ξεναγήσεις ανά τακτά διαστήματα.',
-      desc_en:'A unique exhibition with authentic trophies, historic photographs, jerseys and documents from 1926 to today. Guided tours at regular intervals.',
-      info:['Ελεύθερη είσοδος','Ξεναγήσεις: 11:00, 14:00, 17:00','Πωλητήριο επετειακών ειδών'],
-      info_en:['Free entry','Guided tours: 11:00, 14:00, 17:00','Anniversary merchandise stand']},
-    {d:'12',m:'Απρ',m_en:'APR',d2:'12',m2:'Απρ',m2_en:'APR',iso:'2026-04-12T18:30:00',status:'Ολοκληρώθηκε',status_en:'Completed',img:'2002_omada',t:'Συνάντηση Παλαιμάχων',t_en:'Veterans Reunion',p:'Οι θρύλοι ξανά μαζί.',p_en:'The legends together again.',pin:'Λέσχη Φιλάθλων · 18:30',cta:'Πληροφορίες',cta_en:'Info',
-      full:'12 Απριλίου 2026',full_en:'12 April 2026',time:'18:30',time_en:'18:30',venue:'Λέσχη Φιλάθλων ΑΠΟΕΛ',venue_en:'APOEL Supporters Club',
-      desc:'Παλαίμαχοι ποδοσφαιριστές από όλες τις δεκαετίες συναντιούνται ξανά για μια βραδιά αναμνήσεων, αφηγήσεων και τιμής σε όσους έγραψαν την ιστορία του συλλόγου.',
-      desc_en:'Veteran players from every decade reunite for a night of memories, stories and tribute to those who wrote the club\'s history.',
-      info:['Με πρόσκληση','Δείπνο & ομιλίες','Φωτογραφίες με τους παλαίμαχους'],
-      info_en:['By invitation','Dinner & speeches','Photos with the veterans']},
-    {d:'30',m:'Ιου',m_en:'JUN',d2:'30',m2:'Ιου',m2_en:'JUN',iso:'2026-06-30T20:00:00',status:'Προσεχώς',status_en:'Upcoming',img:'2011_zenit',t:'Επετειακό Γκαλά & Βραβεύσεις',t_en:'Anniversary Gala & Awards',p:'Η κορύφωση των εορτασμών.',p_en:'The climax of the celebrations.',pin:'Γκαλά · 20:00',cta:'Πληροφορίες',cta_en:'Info',
-      full:'30 Ιουνίου 2026',full_en:'30 June 2026',time:'20:00',time_en:'20:00',venue:'Αίθουσα Εκδηλώσεων Διανέλειο',venue_en:'Dianelleio Events Hall',
-      desc:'Η μεγάλη επίσημη βραδιά κλεισίματος του εορταστικού έτους, με βραβεύσεις προσωπικοτήτων που σημάδεψαν την ιστορία του ΑΠΟΕΛ και παρουσία επισήμων.',
-      desc_en:'The grand official closing night of the anniversary year, honouring personalities who shaped APOEL\'s history, with official guests present.',
-      info:['Επίσημη ενδυμασία','Με πρόσκληση','Ζωντανή μουσική & δείπνο'],
-      info_en:['Formal attire','By invitation','Live music & dinner']},
-    {d:'15',m:'Ιολ',m_en:'JUL',d2:'15',m2:'Ιολ',m2_en:'JUL',iso:'2026-07-15T19:30:00',status:'Προσεχώς',status_en:'Upcoming',img:'2009_chelsea',t:'Ευρωπαϊκές Νύχτες · Αφιέρωμα',t_en:'European Nights · Tribute',p:'Οι μαγικές βραδιές της Ευρώπης.',p_en:'The magical nights of Europe.',pin:'Πνευματικό Κέντρο · 19:30',cta:'Πληροφορίες',cta_en:'Info',
-      full:'15 Ιουλίου 2026',full_en:'15 July 2026',time:'19:30',time_en:'19:30',venue:'Πνευματικό Κέντρο Λευκωσίας',venue_en:'Nicosia Cultural Centre',
-      desc:'Προβολή και αφήγηση των μεγαλύτερων ευρωπαϊκών στιγμών του ΑΠΟΕΛ, από το Champions League έως τις αξέχαστες προκρίσεις, με καλεσμένους πρωταγωνιστές.',
-      desc_en:'A screening and retelling of APOEL\'s greatest European moments, from the Champions League to unforgettable qualifications, with guest protagonists.',
-      info:['Ελεύθερη είσοδος','Προβολή ντοκιμαντέρ','Συζήτηση με πρωταγωνιστές'],
-      info_en:['Free entry','Documentary screening','Discussion with protagonists']},
-    {d:'02',m:'Αυγ',m_en:'AUG',d2:'02',m2:'Αυγ',m2_en:'AUG',iso:'2026-08-02T11:00:00',status:'Προσεχώς',status_en:'Upcoming',img:'2026',t:'Οικογενειακή Γιορτή Φιλάθλων',t_en:'Family Fan Festival',p:'Μια μέρα για όλη την οικογένεια.',p_en:'A day for the whole family.',pin:'Προπονητικό Κέντρο · 11:00',cta:'Πληροφορίες',cta_en:'Info',
-      full:'02 Αυγούστου 2026',full_en:'02 August 2026',time:'11:00 – 18:00',time_en:'11:00 – 18:00',venue:'Προπονητικό Κέντρο ΑΠΟΕΛ',venue_en:'APOEL Training Centre',
-      desc:'Μια ολοήμερη γιορτή για μικρούς και μεγάλους φιλάθλους, με δραστηριότητες, παιχνίδια, αυτόγραφα και φωτογραφίες με αγαπημένους ποδοσφαιριστές.',
-      desc_en:'An all-day festival for fans young and old, with activities, games, autographs and photos with favourite players.',
-      info:['Ελεύθερη είσοδος','Παιδικές δραστηριότητες','Αυτόγραφα & φωτογραφίες'],
-      info_en:['Free entry','Kids activities','Autographs & photos']},
+    {d:'31',m:'Ιολ',m_en:'JUL',d2:'31',m2:'Ιολ',m2_en:'JUL',iso:'2026-07-31T19:00:00',status:'Προσεχώς',status_en:'Upcoming',img:'motoporeia_2026',t:'Μοτοπορεία 100 Χρόνων ΑΠΟΕΛ',t_en:'100 Years APOEL Motorcycle Parade',p:'1926–2026 · Ένας Αιώνας Περηφάνειας.',p_en:'1926–2026 · A Century of Pride.',pin:'Κεντρικός Σύνδεσμος · 19:00',cta:'Πληροφορίες',cta_en:'Info',
+      full:'Παρασκευή 31 Ιουλίου 2026',full_en:'Friday 31 July 2026',time:'19:00',time_en:'19:00',venue:'Εκκίνηση από τον Κεντρικό Σύνδεσμο',venue_en:'Start from the Central Supporters Club',
+      desc:'Ανακοινώνουμε επίσημα την έναρξη της ιερής εορταστικής περιόδου για τα 100 Χρόνια του ΑΠΟΕΛ. Πρώτη δράση θα είναι η Μοτοπορεία του Συνδέσμου μας σε ολόκληρη τη γενέτειρα του ΑΠΟΕΛ, 100 μέρες πριν την 8η Νοεμβρίου. Το ξύπνημα της Πρωτεύουσας θα είναι η αρχή της χρονιάς όπου το Ιστορικότερο και σπουδαιότερο Σωματείο του τόπου κλείνει έναν Αιώνα ζωής.<br><br>Η μοτοπορεία θα ξεκινήσει από τον Κεντρικό Σύνδεσμο την Παρασκευή 31/7 και ώρα 19:00, ενώ θα οδηγηθεί σε ολόκληρη τη Λευκωσία με στάσεις σε σημεία Ιστορικά για κάθε ΑΠΟΕΛίστα.<br><br>Η χρονιά που έρχεται οφείλει και θα μείνει χαραγμένη ανεξίτηλα στην ιστορία του Θρύλου. Για αυτό το λόγο καλούμε άπαντες αδελφούς ΑΠΟΕΛίστες να συμμετάσχουν σε όλες τις δράσεις του Συνδέσμου, να σταθούν δίπλα στην ομάδα και να γιορτάσουμε τον Θρύλο όπως ακριβώς του αρμόζει.',
+      desc_en:'We officially announce the beginning of the sacred celebration period for the 100 Years of APOEL. The first action will be the Motorcycle Parade of our Supporters Club across the whole birthplace of APOEL, 100 days before 8 November. The awakening of the Capital will mark the start of the year in which the most historic and important Club of our land completes a Century of life.<br><br>The parade will start from the Central Supporters Club on Friday 31/7 at 19:00, and will travel across the whole of Nicosia with stops at locations of historic significance to every APOELista.<br><br>The year ahead must — and will — remain indelibly etched in the history of the Legend. For this reason we call on all brother APOEListes to take part in every action of the Club, to stand by the team, and to celebrate the Legend exactly as it deserves.',
+      info:['ΟΛΟΙ ΣΤΗΝ ΠΟΡΕΙΑ','ΟΛΟΙ ΜΕ ΠΟΡΤΟΚΑΛΙ','ΖΟΥΜΕ ΓΙΑ ΕΝΑ ΜΕΓΑΛΟ Α.Π.Ο.Ε.Λ'],
+      info_en:['ALL AT THE PARADE','ALL IN ORANGE','WE LIVE FOR A GREAT A.P.O.E.L']},
   ];
 
   let cdTimer=null;
   function renderNextEvent(){
     const box=document.getElementById('nextEvent');
+    if(cdTimer){clearInterval(cdTimer);cdTimer=null;}
+    if(!events.length){box.innerHTML='';box.style.display='none';return;}
+    box.style.display='';
     const now=new Date();
     const upcoming=events.map(e=>({...e,date:new Date(e.iso)})).filter(e=>e.date>now).sort((a,b)=>a.date-b.date)[0];
     const featured=upcoming||events[events.length-1];
@@ -904,7 +877,6 @@ footer{
     box.innerHTML=`<div><div class="next-k">${kLabel}</div>
       <div class="next-title">${L(featured,'t')}</div><div class="next-meta">${L(featured,'full')} · ${L(featured,'time')} · ${L(featured,'venue')}</div></div>
       <div class="countdown" id="countdown"><div class="cd-box"><b>—</b><span>${cdL[0]}</span></div><div class="cd-box"><b>—</b><span>${cdL[1]}</span></div><div class="cd-box"><b>—</b><span>${cdL[2]}</span></div><div class="cd-box"><b>—</b><span>${cdL[3]}</span></div></div>`;
-    if(cdTimer){clearInterval(cdTimer);cdTimer=null;}
     if(!upcoming)return;
     const tick=()=>{
       const diff=Math.max(0,featured.date-new Date());
