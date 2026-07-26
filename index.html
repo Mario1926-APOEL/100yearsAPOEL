@@ -602,7 +602,7 @@ footer{
 <section id="hero">
   <canvas id="goldCanvas"></canvas>
   <div class="hero-inner">
-    <img class="emblem-banner" src="./emblem_reveal.jpg" alt="Αποκάλυψη Επετειακού Σήματος — Σύντομα · Anniversary Emblem Reveal — Soon">
+    <img class="emblem-banner" src="./emblem_reveal.jpg?v=2" alt="Αποκάλυψη Επετειακού Σήματος — Σύντομα · Anniversary Emblem Reveal — Soon">
     <div class="eyebrow" data-el="Αθλητικός Ποδοσφαιρικός Όμιλος Ελλήνων Λευκωσίας" data-en="Αθλητικός Ποδοσφαιρικός Όμιλος Ελλήνων Λευκωσίας">Αθλητικός Ποδοσφαιρικός Όμιλος Ελλήνων Λευκωσίας</div>
     <div class="span-years" data-el="08 · Νοεμβρίου · 1926" data-en="08 · November · 1926">08 · Νοεμβρίου · 1926</div>
     <div class="hero-actions">
@@ -907,17 +907,28 @@ footer{
 
   function renderLedger(){
   const L=(o,k)=>LANG==='en'&&o[k+'_en']?o[k+'_en']:o[k];
+  const now=new Date();
+  // Find the earliest real-dated future event (skip TBA sentinel year 2099+)
+  const dated=events.map((e,i)=>({e,i,date:new Date(e.iso)}))
+                    .filter(x=>x.date>now && x.date.getFullYear()<2050)
+                    .sort((a,b)=>a.date-b.date);
+  const nextIdx=dated.length?dated[0].i:-1;
   document.getElementById('ledger').innerHTML=events.map((e,i)=>{
     const m1=L(e,'m'),m2=L(e,'m2');
     const single=(e.d===e.d2 && e.m===e.m2);
     const dateBadge=single
       ? `<div class="dt"><div class="seg single"><span class="mo">${m1}</span><span class="da">${e.d}</span></div></div>`
       : `<div class="dt"><div class="seg"><span class="mo">${m1}</span><span class="da">${e.d}</span></div><span class="dash">–</span><div class="seg"><span class="mo">${m2}</span><span class="da">${e.d2}</span></div></div>`;
+    // Status logic: TBA events keep their status; the next dated event gets "Προσεχώς"; anything else, nothing
+    const isTBA=new Date(e.iso).getFullYear()>=2050;
+    let statusHTML='';
+    if(isTBA){statusHTML=`<span class="status">${L(e,'status')}</span>`;}
+    else if(i===nextIdx){statusHTML=`<span class="status">${LANG==='el'?'Προσεχώς':'Upcoming'}</span>`;}
     return `
     <div class="lrow" data-event="${i}" role="button" tabindex="0">
       <div class="bg" style="background-image:url('./${e.img}.jpg')"></div>
       ${dateBadge}
-      <span class="status">${L(e,'status')||(LANG==='el'?'Ανακοινώθηκε':'Announced')}</span>
+      ${statusHTML}
       <div class="ti"><h3>${L(e,'t')}</h3><p>${L(e,'p')}</p></div>
       <button class="ticket" type="button">${L(e,'cta')||(LANG==='el'?'Πληροφορίες':'Info')}</button>
     </div>`;}).join('');
