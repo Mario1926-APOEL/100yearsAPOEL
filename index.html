@@ -44,6 +44,11 @@
   .hero-badge{width:clamp(220px,34vw,420px);height:auto;margin:0 auto 1.6em;display:block;
     filter:drop-shadow(0 14px 50px rgba(0,0,0,.6)) drop-shadow(0 0 36px rgba(63,160,224,.32));
     opacity:0;animation:rise 1.3s .1s forwards;}
+  /* EMBLEM REVEAL BANNER (replaces the old countdown circle) */
+  .emblem-banner{display:block;width:clamp(320px,58vw,760px);height:auto;margin:0 auto 1.8em;
+    border-radius:14px;
+    box-shadow:0 24px 80px rgba(0,0,0,.65),0 0 0 1px rgba(201,159,43,.20);
+    opacity:0;animation:rise 1.3s .1s forwards;}
   /* REVEAL PLACEHOLDER (until 26/07/2026) */
   .logo-reveal{position:relative;width:clamp(240px,40vw,420px);aspect-ratio:1/1;margin:0 auto 1.6em;
     display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
@@ -597,18 +602,7 @@ footer{
 <section id="hero">
   <canvas id="goldCanvas"></canvas>
   <div class="hero-inner">
-    <div class="logo-reveal" role="img" aria-label="Αποκάλυψη επετειακού σήματος στις 26 Ιουλίου 2026">
-      <div class="r-100">100</div>
-      <div class="r-years" data-el="Χρόνια ΑΠΟΕΛ" data-en="Years of APOEL">Χρόνια ΑΠΟΕΛ</div>
-      <div class="r-soon" data-el="Αποκάλυψη Επετειακού Σήματος" data-en="Anniversary Emblem Reveal">Αποκάλυψη Επετειακού Σήματος</div>
-      <div class="r-date">26 · 07 · 2026</div>
-      <div class="r-cd" id="revealCd">
-        <div class="cd"><b id="rcd-d">—</b><span data-el="Ημέρες" data-en="Days">Ημέρες</span></div>
-        <div class="cd"><b id="rcd-h">—</b><span data-el="Ώρες" data-en="Hours">Ώρες</span></div>
-        <div class="cd"><b id="rcd-m">—</b><span data-el="Λεπτά" data-en="Min">Λεπτά</span></div>
-        <div class="cd"><b id="rcd-s">—</b><span data-el="Δευτ." data-en="Sec">Δευτ.</span></div>
-      </div>
-    </div>
+    <img class="emblem-banner" src="./emblem_reveal.jpg" alt="Αποκάλυψη Επετειακού Σήματος — Σύντομα · Anniversary Emblem Reveal — Soon">
     <div class="eyebrow" data-el="Αθλητικός Ποδοσφαιρικός Όμιλος Ελλήνων Λευκωσίας" data-en="Αθλητικός Ποδοσφαιρικός Όμιλος Ελλήνων Λευκωσίας">Αθλητικός Ποδοσφαιρικός Όμιλος Ελλήνων Λευκωσίας</div>
     <div class="span-years" data-el="08 · Νοεμβρίου · 1926" data-en="08 · November · 1926">08 · Νοεμβρίου · 1926</div>
     <div class="hero-actions">
@@ -859,7 +853,7 @@ footer{
       desc_en:'We officially announce the beginning of the sacred celebration period for the 100 Years of APOEL. The first action will be the Motorcycle Parade of our Supporters Club across the whole birthplace of APOEL, 100 days before 8 November. The awakening of the Capital will mark the start of the year in which the most historic and important Club of our land completes a Century of life.<br><br>The parade will start from the Central Supporters Club on Friday 31/7 at 19:00, and will travel across the whole of Nicosia with stops at locations of historic significance to every APOELista.<br><br>The year ahead must — and will — remain indelibly etched in the history of the Legend. For this reason we call on all brother APOEListes to take part in every action of the Club, to stand by the team, and to celebrate the Legend exactly as it deserves.',
       info:['ΟΛΟΙ ΣΤΗΝ ΠΟΡΕΙΑ','ΟΛΟΙ ΜΕ ΠΟΡΤΟΚΑΛΙ','ΖΟΥΜΕ ΓΙΑ ΕΝΑ ΜΕΓΑΛΟ Α.Π.Ο.Ε.Λ'],
       info_en:['ALL AT THE PARADE','ALL IN ORANGE','WE LIVE FOR A GREAT A.P.O.E.L']},
-    {d:'—',m:'—',m_en:'—',d2:'—',m2:'—',m2_en:'—',iso:'2099-01-01T00:00:00',status:'Λεπτομέρειες σύντομα',status_en:'Details soon',img:'emblem_reveal',t:'Ανακοίνωση Επετειακού Σήματος',t_en:'Anniversary Logo Reveal',p:'Η αποκάλυψη του σήματος των 100 χρόνων.',p_en:'The reveal of the 100 years logo.',pin:'Ημερομηνία: σύντομα',cta:'Πληροφορίες',cta_en:'Info',
+    {d:'—',m:'—',m_en:'—',d2:'—',m2:'—',m2_en:'—',iso:'2099-01-01T00:00:00',status:'Λεπτομέρειες σύντομα',status_en:'Details soon',img:'tba',t:'Ανακοίνωση Επετειακού Σήματος',t_en:'Anniversary Logo Reveal',p:'Η αποκάλυψη του σήματος των 100 χρόνων.',p_en:'The reveal of the 100 years logo.',pin:'Ημερομηνία: σύντομα',cta:'Πληροφορίες',cta_en:'Info',
       full:'Θα ανακοινωθεί',full_en:'To be announced',time:'Θα ανακοινωθεί',time_en:'To be announced',venue:'Θα ανακοινωθεί',venue_en:'To be announced',
       desc:'Επίσημη παρουσίαση του Επετειακού Σήματος για τα 100 Χρόνια του ΑΠΟΕΛ. Η ημερομηνία και ο χώρος της εκδήλωσης θα ανακοινωθούν αργότερα.',
       desc_en:'Official presentation of the Anniversary Logo for the 100 Years of APOEL. The date and venue of the event will be announced later.',
