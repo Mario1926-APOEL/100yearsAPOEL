@@ -294,6 +294,15 @@
   .em-list li{position:relative;padding-left:22px;color:var(--ash);font-weight:300;font-size:.95rem;}
   .em-list li::before{content:"";position:absolute;left:0;top:.55em;width:7px;height:7px;
     background:var(--gold);transform:rotate(45deg);}
+  /* Inline links in event description */
+  .em-desc a{color:var(--gold-bright);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;transition:color .2s;}
+  .em-desc a:hover{color:#fff;}
+  /* CTA-style link button inside event description */
+  .em-desc a.em-cta{display:inline-block;text-decoration:none;margin-top:8px;
+    background:linear-gradient(135deg,var(--gold-bright),var(--gold));color:var(--navy-deep);
+    padding:12px 24px;font-size:.72rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
+    font-family:inherit;transition:transform .3s,box-shadow .3s,filter .3s;}
+  .em-desc a.em-cta:hover{filter:brightness(1.08);box-shadow:0 8px 22px rgba(224,181,58,.35);transform:translateY(-2px);color:var(--navy-deep);}
   /* SHARE BUTTONS */
   .em-share{margin-top:28px;padding-top:22px;border-top:1px solid rgba(201,159,43,.18);}
   .em-share-label{font-size:.66rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:14px;font-weight:500;}
@@ -1025,11 +1034,11 @@ footer{
       info:['ΟΛΟΙ ΣΤΗΝ ΠΟΡΕΙΑ','ΟΛΟΙ ΜΕ ΠΟΡΤΟΚΑΛΙ','ΖΟΥΜΕ ΓΙΑ ΕΝΑ ΜΕΓΑΛΟ Α.Π.Ο.Ε.Λ'],
       info_en:['ALL AT THE PARADE','ALL IN ORANGE','WE LIVE FOR A GREAT A.P.O.E.L']},
     {d:'03',m:'Αυγ',m_en:'AUG',d2:'03',m2:'Αυγ',m2_en:'AUG',iso:'2026-08-03T19:26:00',status:'Προσεχώς',status_en:'Upcoming',img:'anniversary_kit',t:'Προαγορά Επετειακής Φανέλας',t_en:'Anniversary Kit Pre-order',p:'Τα συλλεκτικά πακέτα της φανέλας των 100 χρόνων.',p_en:'The collectible packages of the 100 years kit.',pin:'03/08/2026 · Orange Shop',cta:'Πληροφορίες',cta_en:'Info',
-      full:'Δευτέρα 03 Αυγούστου 2026',full_en:'Monday 03 August 2026',time:'18:30 πάγωμα σελίδας · 19:26 έναρξη',time_en:'18:30 page freeze · 19:26 launch',venue:'Orange Shop (online)',venue_en:'Orange Shop (online)',
-      desc:'Προαγορά των τριών συλλεκτικών πακέτων της επετειακής φανέλας 100 Χρόνων ΑΠΟΕΛ, αποκλειστικά μέσω Orange Shop. Στις 18:30 η σελίδα «παγώνει» και καταγράφει αυτόματα τη σειρά προτεραιότητας των επισκεπτών· στις 19:26 (συμβολική ώρα από το 1926) ενεργοποιείται η διαδικασία. Κάθε μέλος με λογαριασμό Orange Shop δικαιούται ένα πακέτο. Παράδοση εντός Νοεμβρίου 2026.',
-      desc_en:'Pre-order of the three collectible packages of the 100 Years APOEL anniversary kit, exclusively via the Orange Shop. At 18:30 the page freezes and automatically records visitor priority; at 19:26 (a symbolic reference to 1926) the pre-order goes live. Each Orange Shop member is entitled to one package. Delivery within November 2026.',
-      info:['Λογαριασμός Orange Shop απαραίτητος','1 πακέτο ανά μέλος','Παράδοση: Νοέμβριος 2026'],
-      info_en:['Orange Shop account required','1 package per member','Delivery: November 2026']},
+      full:'Δευτέρα 03 Αυγούστου 2026',full_en:'Monday 03 August 2026',time:'19:26',time_en:'19:26',venue:'Orange Shop (online)',venue_en:'Orange Shop (online)',
+      desc:'Τη Δευτέρα, 3 Αυγούστου 2026, στις 18:30, η σελίδα του Orange Shop θα «παγώσει» και θα αρχίσει να καταγράφει αυτόματα τη σειρά προτεραιότητας όλων των επισκεπτών.<br><br>Στις 19:26, η διαδικασία προαγοράς θα ενεργοποιηθεί και οι επισκέπτες θα εξυπηρετούνται διαδοχικά, αποκλειστικά με βάση τη σειρά προτεραιότητας που θα έχουν εξασφαλίσει κατά την είσοδό τους στη σελίδα.<br><br>Δημιουργήστε τον λογαριασμό σας από τώρα στο <a href="https://www.orangeshop.com.cy" target="_blank" rel="noopener">orangeshop.com.cy</a>. Για να μπορέσετε να ολοκληρώσετε την αγορά σας, είναι απαραίτητο να διαθέτετε λογαριασμό στο APOEL Orange Shop. Εάν δεν έχετε ήδη λογαριασμό, δημιουργήστε τον έγκαιρα και βεβαιωθείτε ότι γνωρίζετε τα στοιχεία σύνδεσής σας, ώστε την ημέρα έναρξης της προαγοράς να μπορέσετε να συμμετάσχετε στη διαδικασία χωρίς καθυστερήσεις.<br><br><i>Ετοιμαστείτε έγκαιρα και εξασφαλίστε τη θέση σας στη σειρά προτεραιότητας.</i><br><br><b>Σημαντικές πληροφορίες:</b><br>1. Κάθε μέλος που έχει ήδη λογαριασμό στο Orange Shop ή θα δημιουργήσει μέχρι και τις 03/08, θα δικαιούται να αγοράσει μόνο ένα (1) από τα τρία διαθέσιμα συλλεκτικά πακέτα.<br>2. Όλα τα πακέτα διατίθενται αποκλειστικά με προαγορά.<br>3. Η παράδοση των συλλεκτικών πακέτων θα πραγματοποιηθεί εντός Νοεμβρίου 2026.<br><br><a class="em-cta" href="https://www.orangeshop.com.cy" target="_blank" rel="noopener">Μετάβαση στο Orange Shop →</a>',
+      desc_en:'On Monday, 3 August 2026, at 18:30, the Orange Shop page will «freeze» and will automatically begin recording the priority order of all visitors.<br><br>At 19:26, the pre-order process will be activated and visitors will be served sequentially, exclusively based on the priority order they have secured upon entering the page.<br><br>Create your account now at <a href="https://www.orangeshop.com.cy" target="_blank" rel="noopener">orangeshop.com.cy</a>. To complete your purchase, you must have an APOEL Orange Shop account. If you don\'t already have an account, create one in time and make sure you know your login details, so that on the day the pre-order begins you can take part in the process without delays.<br><br><i>Prepare early and secure your place in the priority order.</i><br><br><b>Important information:</b><br>1. Each member with an existing Orange Shop account, or who creates one by 03/08, will be entitled to purchase only one (1) of the three available collectible packages.<br>2. All packages are available exclusively via pre-order.<br>3. Delivery of the collectible packages will take place within November 2026.<br><br><a class="em-cta" href="https://www.orangeshop.com.cy" target="_blank" rel="noopener">Go to Orange Shop →</a>',
+      info:[],
+      info_en:[]},
     {d:'06',m:'Αυγ',m_en:'AUG',d2:'06',m2:'Αυγ',m2_en:'AUG',iso:'2026-08-06T19:00:00',status:'Προσεχώς',status_en:'Upcoming',img:'tba',t:'Παρουσίαση Επετειακού Σήματος',t_en:'Anniversary Logo Presentation',p:'Η αποκάλυψη του σήματος των 100 χρόνων.',p_en:'The reveal of the 100 years logo.',pin:'06/08/2026',cta:'Πληροφορίες',cta_en:'Info',
       full:'06 Αυγούστου 2026',full_en:'06 August 2026',time:'Θα ανακοινωθεί',time_en:'To be announced',venue:'Θα ανακοινωθεί',venue_en:'To be announced',
       desc:'Επίσημη παρουσίαση του Επετειακού Σήματος για τα 100 Χρόνια του ΑΠΟΕΛ. Ο χώρος και η ώρα της εκδήλωσης θα ανακοινωθούν αργότερα.',
