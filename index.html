@@ -218,6 +218,10 @@
     width:48px;height:48px;border-radius:50%;font-size:1.4rem;cursor:pointer;z-index:91;transition:.25s;}
   .lb-nav:hover{background:var(--gold);color:#070707;border-color:var(--gold)}
   #lbPrev{left:24px} #lbNext{right:24px}
+  #lbVideo{width:min(90vw,1280px);aspect-ratio:16/9;max-height:80vh;background:#000;border:none;}
+  .lb-badge{position:absolute;top:14px;left:14px;background:rgba(224,138,90,.85);color:#fff;
+    padding:4px 10px;font-size:.6rem;letter-spacing:.24em;font-weight:700;font-family:"Bodoni MT",serif;
+    text-transform:uppercase;z-index:2;}
 
   /* EVENTS — vertical cards grid */
   .ledger{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
@@ -877,7 +881,12 @@ footer{
   <button class="lb-x" id="lbx" aria-label="Κλείσιμο">✕</button>
   <button class="lb-nav" id="lbPrev" aria-label="Προηγούμενη">‹</button>
   <button class="lb-nav" id="lbNext" aria-label="Επόμενη">›</button>
-  <figure><img id="lbImg" src="" alt=""><figcaption id="lbCap"></figcaption></figure>
+  <figure>
+    <img id="lbImg" src="" alt="">
+    <iframe id="lbVideo" style="display:none" frameborder="0" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture"></iframe>
+    <span class="lb-badge" id="lbBadge" style="display:none">▶ VIDEO</span>
+    <figcaption id="lbCap"></figcaption>
+  </figure>
 </div>
 
 <div class="em" id="eventModal">
@@ -1064,18 +1073,35 @@ footer{
 
   /* ---- LIGHTBOX ---- */
   const lb=document.getElementById('lb'),lbImg=document.getElementById('lbImg'),lbCap=document.getElementById('lbCap');
+  const lbVideo=document.getElementById('lbVideo'),lbBadge=document.getElementById('lbBadge');
   let order=[],cur=0;
   function byFile(f){return photos.find(p=>p.f===f);}
-  function show(i){const p=order[i];if(!p)return;cur=i;lbImg.src=src(p);lbImg.alt=capOf(p);
-    lbCap.innerHTML=`<span class="lbyr">${p.y}</span>${capOf(p)}`;}
+  function show(i){
+    const p=order[i];if(!p)return;cur=i;
+    if(p.yt){
+      // YouTube video
+      lbImg.style.display='none';lbImg.src='';
+      lbVideo.style.display='';lbVideo.src=`https://www.youtube.com/embed/${p.yt}?autoplay=1&rel=0&modestbranding=1`;
+      lbBadge.style.display='';
+      lbCap.innerHTML=capOf(p)||'';
+    } else {
+      // Photo
+      lbVideo.style.display='none';lbVideo.src='';
+      lbBadge.style.display='none';
+      lbImg.style.display='';lbImg.src=src(p);lbImg.alt=capOf(p);
+      lbCap.innerHTML=p.y?`<span class="lbyr">${p.y}</span>${capOf(p)}`:capOf(p);
+    }
+  }
+  function stopVideo(){lbVideo.src='';}
   function openLb(f){order=photos.slice();const i=order.findIndex(p=>p.f===f);show(i<0?0:i);lb.classList.add('open');}
   document.addEventListener('click',e=>{const t=e.target.closest('[data-photo]');if(t)openLb(t.dataset.photo);});
-  document.getElementById('lbx').onclick=()=>lb.classList.remove('open');
+  function closeLb(){lb.classList.remove('open');lbVideo.src='';}
+  document.getElementById('lbx').onclick=closeLb;
   document.getElementById('lbPrev').onclick=()=>show((cur-1+order.length)%order.length);
   document.getElementById('lbNext').onclick=()=>show((cur+1)%order.length);
-  lb.addEventListener('click',e=>{if(e.target===lb)lb.classList.remove('open')});
+  lb.addEventListener('click',e=>{if(e.target===lb)closeLb();});
   addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;
-    if(e.key==='Escape')lb.classList.remove('open');if(e.key==='ArrowLeft')show((cur-1+order.length)%order.length);if(e.key==='ArrowRight')show((cur+1)%order.length);});
+    if(e.key==='Escape')closeLb();if(e.key==='ArrowLeft')show((cur-1+order.length)%order.length);if(e.key==='ArrowRight')show((cur+1)%order.length);});
 
   /* ---- EVENTS ---- */
   const events=[
@@ -1084,7 +1110,11 @@ footer{
       desc:'Ανακοινώνουμε επίσημα την έναρξη της ιερής εορταστικής περιόδου για τα 100 Χρόνια του ΑΠΟΕΛ. Πρώτη δράση θα είναι η Μοτοπορεία του Συνδέσμου μας σε ολόκληρη τη γενέτειρα του ΑΠΟΕΛ, 100 μέρες πριν την 8η Νοεμβρίου. Το ξύπνημα της Πρωτεύουσας θα είναι η αρχή της χρονιάς όπου το Ιστορικότερο και σπουδαιότερο Σωματείο του τόπου κλείνει έναν Αιώνα ζωής.<br><br>Η μοτοπορεία θα ξεκινήσει από τον Κεντρικό Σύνδεσμο την Παρασκευή 31/7 και ώρα 19:00, ενώ θα οδηγηθεί σε ολόκληρη τη Λευκωσία με στάσεις σε σημεία Ιστορικά για κάθε ΑΠΟΕΛίστα.<br><br>Η χρονιά που έρχεται οφείλει και θα μείνει χαραγμένη ανεξίτηλα στην ιστορία του Θρύλου. Για αυτό το λόγο καλούμε άπαντες αδελφούς ΑΠΟΕΛίστες να συμμετάσχουν σε όλες τις δράσεις του Συνδέσμου, να σταθούν δίπλα στην ομάδα και να γιορτάσουμε τον Θρύλο όπως ακριβώς του αρμόζει.',
       desc_en:'We officially announce the beginning of the sacred celebration period for the 100 Years of APOEL. The first action will be the Motorcycle Parade of our Supporters Club across the whole birthplace of APOEL, 100 days before 8 November. The awakening of the Capital will mark the start of the year in which the most historic and important Club of our land completes a Century of life.<br><br>The parade will start from the Central Supporters Club on Friday 31/7 at 19:00, and will travel across the whole of Nicosia with stops at locations of historic significance to every APOELista.<br><br>The year ahead must — and will — remain indelibly etched in the history of the Legend. For this reason we call on all brother APOEListes to take part in every action of the Club, to stand by the team, and to celebrate the Legend exactly as it deserves.',
       info:['ΟΛΟΙ ΣΤΗΝ ΠΟΡΕΙΑ','ΟΛΟΙ ΜΕ ΠΟΡΤΟΚΑΛΙ','ΖΟΥΜΕ ΓΙΑ ΕΝΑ ΜΕΓΑΛΟ Α.Π.Ο.Ε.Λ'],
-      info_en:['ALL AT THE PARADE','ALL IN ORANGE','WE LIVE FOR A GREAT A.P.O.E.L']},
+      info_en:['ALL AT THE PARADE','ALL IN ORANGE','WE LIVE FOR A GREAT A.P.O.E.L'],
+      photos:[],
+      videos:[
+        {yt:'I5pLxeiDbaY',c:'Μοτοπορεία 100 Χρόνων ΑΠΟΕΛ'}
+      ]},
     {d:'03',m:'Αυγ',m_en:'AUG',d2:'03',m2:'Αυγ',m2_en:'AUG',iso:'2026-08-03T19:26:00',status:'Προσεχώς',status_en:'Upcoming',img:'anniversary_kit',t:'Προαγορά Επετειακής Φανέλας',t_en:'Anniversary Kit Pre-order',p:'Τα συλλεκτικά πακέτα της φανέλας των 100 χρόνων.',p_en:'The collectible packages of the 100 years kit.',pin:'03/08/2026 · Orange Shop',cta:'Πληροφορίες',cta_en:'Info',
       full:'Δευτέρα 03 Αυγούστου 2026',full_en:'Monday 03 August 2026',time:'19:26',time_en:'19:26',venue:'Orange Shop (online)',venue_en:'Orange Shop (online)',
       desc:'Τη Δευτέρα, 3 Αυγούστου 2026, στις 18:30, η σελίδα του Orange Shop θα «παγώσει» και θα αρχίσει να καταγράφει αυτόματα τη σειρά προτεραιότητας όλων των επισκεπτών.<br><br>Στις 19:26, η διαδικασία προαγοράς θα ενεργοποιηθεί και οι επισκέπτες θα εξυπηρετούνται διαδοχικά, αποκλειστικά με βάση τη σειρά προτεραιότητας που θα έχουν εξασφαλίσει κατά την είσοδό τους στη σελίδα.<br><br>Δημιουργήστε τον λογαριασμό σας από τώρα στο <a href="https://www.orangeshop.com.cy" target="_blank" rel="noopener">orangeshop.com.cy</a>. Για να μπορέσετε να ολοκληρώσετε την αγορά σας, είναι απαραίτητο να διαθέτετε λογαριασμό στο APOEL Orange Shop. Εάν δεν έχετε ήδη λογαριασμό, δημιουργήστε τον έγκαιρα και βεβαιωθείτε ότι γνωρίζετε τα στοιχεία σύνδεσής σας, ώστε την ημέρα έναρξης της προαγοράς να μπορέσετε να συμμετάσχετε στη διαδικασία χωρίς καθυστερήσεις.<br><br><i>Ετοιμαστείτε έγκαιρα και εξασφαλίστε τη θέση σας στη σειρά προτεραιότητας.</i><br><br><b>Σημαντικές πληροφορίες:</b><br>1. Κάθε μέλος που έχει ήδη λογαριασμό στο Orange Shop ή θα δημιουργήσει μέχρι και τις 03/08, θα δικαιούται να αγοράσει μόνο ένα (1) από τα τρία διαθέσιμα συλλεκτικά πακέτα.<br>2. Όλα τα πακέτα διατίθενται αποκλειστικά με προαγορά.<br>3. Η παράδοση των συλλεκτικών πακέτων θα πραγματοποιηθεί εντός Νοεμβρίου 2026.<br><br><a class="em-cta" href="https://www.orangeshop.com.cy" target="_blank" rel="noopener">Μετάβαση στο Orange Shop →</a>',
@@ -1183,6 +1213,8 @@ footer{
   function isTBA(e){return new Date(e.iso).getFullYear()>=2050;}
   function isPast(e){const d=new Date(e.iso);return !isTBA(e) && d < new Date();}
   function hasPhotos(e){return Array.isArray(e.photos) && e.photos.length>0;}
+  function hasVideos(e){return Array.isArray(e.videos) && e.videos.length>0;}
+  function hasMedia(e){return hasPhotos(e) || hasVideos(e);}
 
   function renderLedger(){
   const L=(o,k)=>LANG==='en'&&o[k+'_en']?o[k+'_en']:o[k];
@@ -1207,10 +1239,10 @@ footer{
     let statusHTML='';
     if(isPast(e)){statusHTML=`<span class="status past">${LANG==='el'?'Ολοκληρώθηκε':'Completed'}</span>`;}
     else if(i===nextIdx){statusHTML=`<span class="status">${LANG==='el'?'Προσεχώς':'Upcoming'}</span>`;}
-    // CTA button: past+photos → Photos; else → Info
-    const showPhotos=isPast(e) && hasPhotos(e);
+    // CTA button: past+media → Άλμπουμ; else → Info
+    const showPhotos=isPast(e) && hasMedia(e);
     const btnLabel=showPhotos
-      ? (LANG==='el'?'Φωτογραφίες':'Photos')
+      ? (LANG==='el'?'Άλμπουμ':'Album')
       : (L(e,'cta')||(LANG==='el'?'Πληροφορίες':'Info'));
     const btnAction=showPhotos?'photos':'info';
     // Past event card gets a subtle "faded" class
@@ -1393,11 +1425,15 @@ footer{
   function closeEvent(){em.classList.remove('open');document.body.style.overflow='';}
   /* ---- OPEN EVENT PHOTOS IN LIGHTBOX ---- */
   function openEventPhotos(i){
-    const e=events[i];if(!e||!hasPhotos(e))return;
+    const e=events[i];if(!e||!hasMedia(e))return;
     const L=(o,k)=>LANG==='en'&&o[k+'_en']?o[k+'_en']:o[k];
     const yr=(new Date(e.iso).getFullYear())||'';
-    // Build lightbox order from event.photos (accepts strings or {f,c} objects)
-    order=e.photos.map(p=>typeof p==='string'?{f:p,y:yr,c:L(e,'t')}:{f:p.f,y:p.y||yr,c:p.c||L(e,'t')});
+    const eventTitle=L(e,'t');
+    // Build combined media order: photos first, then videos
+    const photoItems=(e.photos||[]).map(p=>typeof p==='string'?{f:p,y:yr,c:eventTitle}:{f:p.f,y:p.y||yr,c:p.c||eventTitle});
+    const videoItems=(e.videos||[]).map(v=>typeof v==='string'?{yt:v,c:eventTitle}:{yt:v.yt||v.y||v.id,c:v.c||eventTitle});
+    order=[...photoItems,...videoItems];
+    if(!order.length)return;
     cur=0;show(0);lb.classList.add('open');
   }
   document.getElementById('ledger').addEventListener('click',e=>{
