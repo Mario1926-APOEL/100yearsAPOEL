@@ -221,6 +221,13 @@
 
   /* EVENTS — vertical cards grid */
   .ledger{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  /* Divider between upcoming and completed events */
+  .ledger-divider{grid-column:1/-1;display:flex;align-items:center;gap:22px;margin:14px 0 6px;
+    color:var(--gold);font-family:"Bodoni MT",Georgia,serif;font-size:.66rem;letter-spacing:.32em;
+    text-transform:uppercase;font-weight:600;}
+  .ledger-divider::before,.ledger-divider::after{content:"";flex:1;height:1px;
+    background:linear-gradient(90deg,transparent,var(--gold) 20%,var(--gold) 80%,transparent);}
+  .ledger-divider span{padding:0 4px;color:var(--gold-bright);}
   .lrow{display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;
     cursor:pointer;min-height:440px;border:1px solid var(--hair);
     background:linear-gradient(165deg,var(--bg2),var(--navy-deep));
@@ -1189,8 +1196,7 @@ footer{
   const upcomingIdx=events.map((e,i)=>i).filter(i=>!isPast(events[i]));
   const pastIdx=events.map((e,i)=>i).filter(i=>isPast(events[i]))
                        .sort((a,b)=>new Date(events[b].iso)-new Date(events[a].iso));
-  const ordered=[...upcomingIdx,...pastIdx];
-  document.getElementById('ledger').innerHTML=ordered.map(i=>{
+  const renderCard=i=>{
     const e=events[i];
     const m1=L(e,'m'),m2=L(e,'m2');
     const single=(e.d===e.d2 && e.m===e.m2);
@@ -1216,7 +1222,14 @@ footer{
       ${statusHTML}
       <div class="ti"><h3>${L(e,'t')}</h3><p>${L(e,'p')}</p></div>
       <button class="ticket" type="button" data-action="${btnAction}">${btnLabel}</button>
-    </div>`;}).join('');
+    </div>`;
+  };
+  const upcomingHTML=upcomingIdx.map(renderCard).join('');
+  const pastHTML=pastIdx.map(renderCard).join('');
+  const divider=(upcomingIdx.length && pastIdx.length)
+    ? `<div class="ledger-divider"><span>${LANG==='el'?'Ολοκληρώθηκαν':'Completed'}</span></div>`
+    : '';
+  document.getElementById('ledger').innerHTML=upcomingHTML+divider+pastHTML;
   }
   renderLedger();
 
