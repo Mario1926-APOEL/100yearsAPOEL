@@ -1901,29 +1901,68 @@ footer{
 </style>
 <script>
 (()=>{
- const a=document.getElementById('bgMusic');
- const b=document.getElementById('musicToggle');
- a.volume=.3;
- const saved=localStorage.getItem('apoel_music');
- if(saved==='off'){a.muted=true;}
- else{a.muted=false;}
- const syncButton=()=>{
-   b.textContent=a.muted?'🔇':'🔊';
-   b.classList.toggle('muted',a.muted);
-   b.classList.toggle('playing',!a.muted);
-   b.setAttribute('aria-label',a.muted?'Ενεργοποίηση μουσικής':'Σίγαση μουσικής');
-   b.title=a.muted?'Άνοιγμα μουσικής':'Σίγαση μουσικής';
- };
- syncButton();
- const play=()=>a.play().catch(()=>{});
- play();
- document.addEventListener('click',play,{once:true});
- b.onclick=()=>{
-   a.muted=!a.muted;
-   syncButton();
-   if(!a.muted) play();
-   localStorage.setItem('apoel_music',a.muted?'off':'on');
- };
+  const audio=document.getElementById('bgMusic');
+  const button=document.getElementById('musicToggle');
+  const saved=localStorage.getItem('apoel_music');
+  const userChoseMute=saved==='off';
+
+  audio.volume=.3;
+  audio.muted=userChoseMute;
+
+  const syncButton=()=>{
+    const silent=audio.muted;
+    button.textContent=silent?'🔇':'🔊';
+    button.classList.toggle('muted',silent);
+    button.classList.toggle('playing',!silent && !audio.paused);
+    button.setAttribute('aria-label',silent?'Ενεργοποίηση μουσικής':'Σίγαση μουσικής');
+    button.title=silent?'Άνοιγμα μουσικής':'Σίγαση μουσικής';
+  };
+
+  const startMusic=async()=>{
+    try{
+      if(!userChoseMute) audio.muted=false;
+      await audio.play();
+    }catch(err){
+      // Autoplay with sound was blocked. The first real user interaction below will start it.
+    }
+    syncButton();
+  };
+
+  // Try immediately. Browsers may reject this when sound is enabled.
+  startMusic();
+
+  // Start on the first interaction anywhere on the page, unless the visitor previously chose mute.
+  const unlock=async()=>{
+    if(!userChoseMute){
+      audio.muted=false;
+      try{await audio.play();}catch(err){}
+    }
+    syncButton();
+    removeUnlockListeners();
+  };
+  const removeUnlockListeners=()=>{
+    document.removeEventListener('pointerdown',unlock,true);
+    document.removeEventListener('keydown',unlock,true);
+    document.removeEventListener('touchstart',unlock,true);
+  };
+  document.addEventListener('pointerdown',unlock,true);
+  document.addEventListener('keydown',unlock,true);
+  document.addEventListener('touchstart',unlock,true);
+
+  button.addEventListener('click',async(event)=>{
+    event.stopPropagation();
+    audio.muted=!audio.muted;
+    localStorage.setItem('apoel_music',audio.muted?'off':'on');
+    if(!audio.muted){
+      try{await audio.play();}catch(err){}
+    }
+    syncButton();
+  });
+
+  audio.addEventListener('play',syncButton);
+  audio.addEventListener('pause',syncButton);
+  audio.addEventListener('volumechange',syncButton);
+  syncButton();
 })();
 </script>
 
