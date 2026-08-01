@@ -784,6 +784,7 @@ footer{
 <div class="lang">
   <button data-lang="el" class="on">ΕΛ</button>
   <button data-lang="en">EN</button>
+  <button id="musicToggle" class="music-toggle" type="button" aria-label="Σίγαση μουσικής" title="Μουσική">🔊</button>
 </div>
 
 <section id="hero">
@@ -1882,5 +1883,50 @@ footer{
   window.addEventListener('hashchange',checkAdminHash);
   checkAdminHash();
 </script>
+
+<audio id="bgMusic" autoplay loop preload="auto">
+  <source src="Ο ύμνος του ΑΠΟΕΛ.mp3" type="audio/mpeg">
+  <source src="Ο ύμνος του ΑΠΟΕΛ.mp4" type="audio/mp4">
+</audio>
+<style>
+.lang .music-toggle{
+  border-left:1px solid var(--hair);
+  min-width:46px;
+  padding:8px 13px;
+  font-size:.9rem;
+  line-height:1;
+}
+.lang .music-toggle.playing{color:var(--gold-bright);}
+.lang .music-toggle.muted{color:var(--ash);opacity:.78;}
+.lang .music-toggle:hover{background:rgba(201,159,43,.12);color:var(--gold-bright);}
+</style>
+<script>
+(()=>{
+ const a=document.getElementById('bgMusic');
+ const b=document.getElementById('musicToggle');
+ a.volume=.3;
+ const saved=localStorage.getItem('apoel_music');
+ if(saved==='off'){a.muted=true;}
+ else{a.muted=false;}
+ const syncButton=()=>{
+   b.textContent=a.muted?'🔇':'🔊';
+   b.classList.toggle('muted',a.muted);
+   b.classList.toggle('playing',!a.muted);
+   b.setAttribute('aria-label',a.muted?'Ενεργοποίηση μουσικής':'Σίγαση μουσικής');
+   b.title=a.muted?'Άνοιγμα μουσικής':'Σίγαση μουσικής';
+ };
+ syncButton();
+ const play=()=>a.play().catch(()=>{});
+ play();
+ document.addEventListener('click',play,{once:true});
+ b.onclick=()=>{
+   a.muted=!a.muted;
+   syncButton();
+   if(!a.muted) play();
+   localStorage.setItem('apoel_music',a.muted?'off':'on');
+ };
+})();
+</script>
+
 </body>
 </html>
