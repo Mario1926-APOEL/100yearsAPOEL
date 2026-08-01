@@ -303,6 +303,44 @@
     padding:12px 24px;font-size:.72rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
     font-family:inherit;transition:transform .3s,box-shadow .3s,filter .3s;}
   .em-desc a.em-cta:hover{filter:brightness(1.08);box-shadow:0 8px 22px rgba(224,181,58,.35);transform:translateY(-2px);color:var(--navy-deep);}
+  /* ---- NEWS / ANNOUNCEMENTS ---- */
+  .news-list{display:flex;flex-direction:column;gap:22px;}
+  .news-card{display:grid;grid-template-columns:280px 1fr;gap:26px;padding:20px;
+    background:linear-gradient(150deg,rgba(21,32,60,.4),rgba(0,12,26,.25));
+    border:1px solid rgba(201,159,43,.14);cursor:pointer;position:relative;
+    transition:transform .3s,box-shadow .3s,border-color .3s;overflow:hidden;}
+  .news-card::before{content:"";position:absolute;top:0;left:0;bottom:0;width:2px;
+    background:linear-gradient(180deg,var(--gold-deep),var(--gold-bright),var(--gold-deep));
+    opacity:0;transition:opacity .3s;}
+  .news-card:hover{transform:translateY(-2px);border-color:rgba(201,159,43,.35);
+    box-shadow:0 20px 42px rgba(0,0,0,.5);}
+  .news-card:hover::before{opacity:1;}
+  .news-img{aspect-ratio:4/3;background:var(--navy-deep) center/cover no-repeat;
+    border:1px solid rgba(201,159,43,.12);}
+  .news-body{display:flex;flex-direction:column;gap:10px;min-width:0;}
+  .news-meta{display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-size:.62rem;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--gold-deep);font-weight:600;}
+  .news-cat{padding:3px 10px;border:1px solid rgba(201,159,43,.35);color:var(--gold-bright);}
+  .news-title{font-family:"Bodoni MT","Didot",Georgia,serif;font-size:1.55rem;color:var(--gold-bright);
+    line-height:1.2;letter-spacing:.01em;margin:2px 0;}
+  .news-excerpt{color:var(--ash);font-weight:300;font-size:.94rem;line-height:1.55;
+    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+  .news-more{margin-top:auto;padding-top:6px;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--gold-bright);font-weight:700;display:flex;align-items:center;gap:8px;transition:gap .3s;}
+  .news-card:hover .news-more{gap:14px;}
+  .news-more span{font-size:1.1em;line-height:1;}
+  .news-empty{padding:40px 0;text-align:center;color:var(--gold-deep);font-style:italic;font-family:"Bodoni MT",serif;}
+  @media(max-width:720px){
+    .news-card{grid-template-columns:1fr;gap:16px;padding:16px;}
+    .news-img{aspect-ratio:16/9;}
+    .news-title{font-size:1.3rem;}
+  }
+  /* News modal content */
+  .em-newsmeta{display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-size:.62rem;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--gold-deep);font-weight:600;margin-bottom:14px;}
+  .em-newsmeta .em-newscat{padding:3px 10px;border:1px solid rgba(201,159,43,.35);color:var(--gold-bright);}
+  .em-newsimg{width:100%;aspect-ratio:16/9;background:var(--navy-deep) center/cover no-repeat;
+    border:1px solid rgba(201,159,43,.15);margin:20px 0;}
   /* SHARE BUTTONS */
   .em-share{margin-top:28px;padding-top:22px;border-top:1px solid rgba(201,159,43,.18);}
   .em-share-label{font-size:.66rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:14px;font-weight:500;}
@@ -753,6 +791,7 @@ footer{
 <div id="navAnchor" aria-hidden="true"></div>
 <nav>
   <button class="active" data-tab="events" data-el="Πρόγραμμα" data-en="Programme">Πρόγραμμα</button>
+  <button data-tab="news" data-el="Ανακοινώσεις" data-en="Announcements">Ανακοινώσεις</button>
   <button data-tab="history" data-el="Ιστορία" data-en="History">Ιστορία</button>
   <button data-tab="depts" data-el="Τμήματα" data-en="Departments">Τμήματα</button>
   <button data-tab="gallery" data-el="Φωτογραφίες" data-en="Photos" style="display:none">Φωτογραφίες</button>
@@ -760,6 +799,12 @@ footer{
 </nav>
 
 <main>
+  <section id="news" class="panel">
+    <div class="sec-head"><div class="k" data-el="Νέα" data-en="News">Νέα</div><h2 class="serif" data-el="Ανακοινώσεις" data-en="Announcements">Ανακοινώσεις</h2>
+      <p class="lead" data-el="Οι επίσημες ανακοινώσεις για τα 100 Χρόνια του Θρύλου." data-en="Official announcements for the 100 Years of the Legend.">Οι επίσημες ανακοινώσεις για τα 100 Χρόνια του Θρύλου.</p></div>
+    <div class="news-list" id="newsList"></div>
+  </section>
+
   <section id="history" class="panel">
     <div class="sec-head"><div class="k" data-el="Ένας Αιώνας" data-en="One Century">Ένας Αιώνας</div><h2 class="serif" data-el="Ιστορία" data-en="History">Ιστορία</h2>
       <p class="lead" data-el="Από το 1926, μια ιστορία γραμμένη με χρυσό." data-en="Since 1926, a story written in gold.">Από το 1926, μια ιστορία γραμμένη με χρυσό.</p></div>
@@ -1175,6 +1220,66 @@ footer{
   }
   renderLedger();
 
+  // ---- ANNOUNCEMENTS ----
+  const announcements=[
+    {
+      id:'gine-meros-tis-istorias',
+      date:'2026-07-15',
+      category:'Σωματείο',category_en:'Club',
+      image:'gine_meros_istorias.jpg',
+      title:'Γίνε μέρος της ιστορίας',
+      title_en:'Become part of the history',
+      excerpt:'Άφησε το όνομά σου στην αιωνιότητα. Γίνε Τακτικό Μέλος του Σωματείου ΑΠΟΕΛ και το όνομά σου θα συμπεριληφθεί στην επετειακή έκδοση «100 Χρόνια ΑΠΟΕΛ».',
+      excerpt_en:'Leave your name for eternity. Become a Regular Member of the APOEL Club and your name will be included in the anniversary publication «100 Years APOEL».',
+      body:'<i>Άφησε το όνομά σου στην αιωνιότητα.</i><br><br>Γίνε Τακτικό Μέλος του Σωματείου ΑΠΟΕΛ για το έτος 2026 μέχρι τη <b>Δευτέρα 27 Ιουλίου</b> και εξασφάλισε τη δυνατότητα να συμπεριληφθεί το όνομά σου στην επετειακή έκδοση «100 Χρόνια ΑΠΟΕΛ».<br><br>Ένα βιβλίο που αποτυπώνει την ιστορία του μεγαλύτερου Σωματείου της Κύπρου. Μία έκδοση που θα μείνει για πάντα. Και μαζί της, το δικό σου όνομα.<br><br>Γιατί η ιστορία του ΑΠΟΕΛ δεν γράφτηκε μόνο από τις επιτυχίες. Γράφτηκε από τις γενιές ΑΠΟΕΛιστών που έγραψαν αμέτρητες σελίδες της.<br><br><b>Γίνε σήμερα μέρος των 100 χρόνων ιστορίας.</b><br><br><a class="em-cta" href="https://apoel.com.cy/γινε-μερος-της-ιστοριας/" target="_blank" rel="noopener">Διάβασε στο apoel.com.cy →</a>',
+      body_en:'<i>Leave your name for eternity.</i><br><br>Become a Regular Member of the APOEL Club for 2026 by <b>Monday 27 July</b> and secure the opportunity for your name to be included in the anniversary publication «100 Years APOEL».<br><br>A book that captures the history of the largest Club in Cyprus. A publication that will last forever. And with it, your name.<br><br>Because the history of APOEL was not written only by successes. It was written by generations of APOEL fans who wrote countless of its pages.<br><br><b>Become part of the 100 years of history today.</b><br><br><a class="em-cta" href="https://apoel.com.cy/γινε-μερος-της-ιστοριας/" target="_blank" rel="noopener">Read at apoel.com.cy →</a>'
+    }
+  ];
+  // Sort by date descending (newest first)
+  announcements.sort((a,b)=>new Date(b.date)-new Date(a.date));
+  const newsList=document.getElementById('newsList');
+  function fmtNewsDate(iso){
+    try{const d=new Date(iso);
+      return d.toLocaleDateString(LANG==='el'?'el-GR':'en-US',{day:'numeric',month:'long',year:'numeric'});
+    }catch{return iso;}
+  }
+  function renderNews(){
+    if(!announcements.length){
+      newsList.innerHTML=`<div class="news-empty">${LANG==='el'?'Δεν υπάρχουν ανακοινώσεις.':'No announcements yet.'}</div>`;
+      return;
+    }
+    const L=(o,k)=>LANG==='en'&&o[k+'_en']?o[k+'_en']:o[k];
+    newsList.innerHTML=announcements.map((a,i)=>`
+      <article class="news-card" data-news="${i}" role="button" tabindex="0">
+        <div class="news-img" style="background-image:url('./${a.image}')"></div>
+        <div class="news-body">
+          <div class="news-meta">
+            <time class="news-date">${fmtNewsDate(a.date)}</time>
+            ${L(a,'category')?`<span class="news-cat">${L(a,'category')}</span>`:''}
+          </div>
+          <h3 class="news-title">${L(a,'title')}</h3>
+          <p class="news-excerpt">${L(a,'excerpt')}</p>
+          <div class="news-more">${LANG==='el'?'Διάβασε':'Read more'} <span>→</span></div>
+        </div>
+      </article>`).join('');
+  }
+  function openNews(i){
+    const a=announcements[i];if(!a)return;
+    const L=(o,k)=>LANG==='en'&&o[k+'_en']?o[k+'_en']:o[k];
+    emBody.innerHTML=`
+      <div class="em-newsmeta">
+        <time>${fmtNewsDate(a.date)}</time>
+        ${L(a,'category')?`<span class="em-newscat">${L(a,'category')}</span>`:''}
+      </div>
+      <h3 class="em-title">${L(a,'title')}</h3>
+      ${a.image?`<div class="em-newsimg" style="background-image:url('./${a.image}')"></div>`:''}
+      <div class="em-desc">${L(a,'body')}</div>`;
+    em.classList.add('open');document.body.style.overflow='hidden';
+  }
+  newsList.addEventListener('click',e=>{const c=e.target.closest('[data-news]');if(c)openNews(+c.dataset.news);});
+  newsList.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.closest('[data-news]')){e.preventDefault();openNews(+e.target.closest('[data-news]').dataset.news);}});
+  renderNews();
+
   /* ---- EVENT MODAL ---- */
   const em=document.getElementById('eventModal'),emBody=document.getElementById('emBody');
   function openEvent(i){
@@ -1524,7 +1629,7 @@ footer{
     const A=(id,el_,en_)=>{const x=document.getElementById(id);if(x)x.setAttribute('aria-label',l==='en'?en_:el_);};
     A('lbx','Κλείσιμο','Close');A('lbPrev','Προηγούμενη','Previous');A('lbNext','Επόμενη','Next');A('emClose','Κλείσιμο','Close');
     // re-run dynamic renders
-    renderGtools();drawGallery(curDecade);renderHistory();renderDepts();renderNextEvent();renderLedger();render();
+    renderGtools();drawGallery(curDecade);renderHistory();renderDepts();renderNextEvent();renderLedger();renderNews();render();
     // keep active gallery chip highlighted
     document.querySelectorAll('.gchip').forEach(c=>c.classList.toggle('on',c.dataset.d===curDecade));
   }
