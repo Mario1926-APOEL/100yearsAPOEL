@@ -784,7 +784,6 @@ footer{
 <div class="lang">
   <button data-lang="el" class="on">ΕΛ</button>
   <button data-lang="en">EN</button>
-  <button id="musicToggle" class="music-toggle" type="button" aria-label="Σίγαση μουσικής" title="Μουσική">🔊</button>
 </div>
 
 <section id="hero">
@@ -1697,7 +1696,7 @@ footer{
     LANG=l;
     document.documentElement.lang=l;
     // toggle button state
-    document.querySelectorAll('.lang button[data-lang]').forEach(b=>b.classList.toggle('on',b.dataset.lang===l));
+    document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.lang===l));
     // swap static texts
     document.querySelectorAll('[data-el]').forEach(el=>{el.textContent=el.getAttribute(l==='en'?'data-en':'data-el');});
     document.querySelectorAll('[data-ph-el]').forEach(el=>{el.setAttribute('placeholder',el.getAttribute(l==='en'?'data-ph-en':'data-ph-el'));});
@@ -1709,7 +1708,7 @@ footer{
     // keep active gallery chip highlighted
     document.querySelectorAll('.gchip').forEach(c=>c.classList.toggle('on',c.dataset.d===curDecade));
   }
-  document.querySelectorAll('.lang button[data-lang]').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+  document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
 
   /* ---- REVEAL COUNTDOWN (until 26/07/2026) ---- */
   (function(){
@@ -1883,88 +1882,5 @@ footer{
   window.addEventListener('hashchange',checkAdminHash);
   checkAdminHash();
 </script>
-
-<audio id="bgMusic" autoplay loop preload="auto">
-  <source src="./apoel-anthem.mp3" type="audio/mpeg">
-</audio>
-<style>
-.lang .music-toggle{
-  border-left:1px solid var(--hair);
-  min-width:46px;
-  padding:8px 13px;
-  font-size:.9rem;
-  line-height:1;
-}
-.lang .music-toggle.playing{color:var(--gold-bright);}
-.lang .music-toggle.muted{color:var(--ash);opacity:.78;}
-.lang .music-toggle:hover{background:rgba(201,159,43,.12);color:var(--gold-bright);}
-</style>
-<script>
-(()=>{
-  const audio=document.getElementById('bgMusic');
-  const button=document.getElementById('musicToggle');
-  const saved=localStorage.getItem('apoel_music');
-  const userChoseMute=saved==='off';
-
-  audio.volume=.3;
-  audio.muted=userChoseMute;
-
-  const syncButton=()=>{
-    const silent=audio.muted;
-    button.textContent=silent?'🔇':'🔊';
-    button.classList.toggle('muted',silent);
-    button.classList.toggle('playing',!silent && !audio.paused);
-    button.setAttribute('aria-label',silent?'Ενεργοποίηση μουσικής':'Σίγαση μουσικής');
-    button.title=silent?'Άνοιγμα μουσικής':'Σίγαση μουσικής';
-  };
-
-  const startMusic=async()=>{
-    try{
-      if(!userChoseMute) audio.muted=false;
-      await audio.play();
-    }catch(err){
-      // Autoplay with sound was blocked. The first real user interaction below will start it.
-    }
-    syncButton();
-  };
-
-  // Try immediately. Browsers may reject this when sound is enabled.
-  startMusic();
-
-  // Start on the first interaction anywhere on the page, unless the visitor previously chose mute.
-  const unlock=async()=>{
-    if(!userChoseMute){
-      audio.muted=false;
-      try{await audio.play();}catch(err){}
-    }
-    syncButton();
-    removeUnlockListeners();
-  };
-  const removeUnlockListeners=()=>{
-    document.removeEventListener('pointerdown',unlock,true);
-    document.removeEventListener('keydown',unlock,true);
-    document.removeEventListener('touchstart',unlock,true);
-  };
-  document.addEventListener('pointerdown',unlock,true);
-  document.addEventListener('keydown',unlock,true);
-  document.addEventListener('touchstart',unlock,true);
-
-  button.addEventListener('click',async(event)=>{
-    event.stopPropagation();
-    audio.muted=!audio.muted;
-    localStorage.setItem('apoel_music',audio.muted?'off':'on');
-    if(!audio.muted){
-      try{await audio.play();}catch(err){}
-    }
-    syncButton();
-  });
-
-  audio.addEventListener('play',syncButton);
-  audio.addEventListener('pause',syncButton);
-  audio.addEventListener('volumechange',syncButton);
-  syncButton();
-})();
-</script>
-
 </body>
 </html>
