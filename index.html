@@ -1697,7 +1697,7 @@ footer{
     LANG=l;
     document.documentElement.lang=l;
     // toggle button state
-    document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.lang===l));
+    document.querySelectorAll('.lang button[data-lang]').forEach(b=>b.classList.toggle('on',b.dataset.lang===l));
     // swap static texts
     document.querySelectorAll('[data-el]').forEach(el=>{el.textContent=el.getAttribute(l==='en'?'data-en':'data-el');});
     document.querySelectorAll('[data-ph-el]').forEach(el=>{el.setAttribute('placeholder',el.getAttribute(l==='en'?'data-ph-en':'data-ph-el'));});
@@ -1709,7 +1709,7 @@ footer{
     // keep active gallery chip highlighted
     document.querySelectorAll('.gchip').forEach(c=>c.classList.toggle('on',c.dataset.d===curDecade));
   }
-  document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+  document.querySelectorAll('.lang button[data-lang]').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
 
   /* ---- REVEAL COUNTDOWN (until 26/07/2026) ---- */
   (function(){
@@ -1885,8 +1885,7 @@ footer{
 </script>
 
 <audio id="bgMusic" autoplay loop preload="auto">
-  <source src="Ο ύμνος του ΑΠΟΕΛ.mp3" type="audio/mpeg">
-  <source src="Ο ύμνος του ΑΠΟΕΛ.mp4" type="audio/mp4">
+  <source src="./apoel-anthem.mp3" type="audio/mpeg">
 </audio>
 <style>
 .lang .music-toggle{
