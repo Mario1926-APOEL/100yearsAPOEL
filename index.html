@@ -291,6 +291,12 @@
     padding:14px 12px;border:none;cursor:pointer;font-family:inherit;
     transition:transform .3s,box-shadow .3s,filter .3s;}
   .lrow .ticket:hover{filter:brightness(1.08);box-shadow:0 8px 22px rgba(224,181,58,.35);transform:translateY(-2px);}
+  /* Side-by-side ticket group for past events with media */
+  .lrow .ticket-group{position:relative;z-index:3;margin:16px 22px 22px;display:flex;gap:8px;}
+  .lrow .ticket-group .ticket{margin:0;flex:1;padding:12px 8px;font-size:.66rem;letter-spacing:.16em;}
+  .lrow .ticket.ghost{background:transparent;border:1px solid var(--gold);color:var(--gold-bright);}
+  .lrow .ticket.ghost:hover{background:rgba(224,181,58,.12);border-color:var(--gold-bright);
+    box-shadow:0 6px 18px rgba(224,181,58,.2);color:var(--gold-bright);}
   .lrow .presale{position:relative;z-index:3;margin:-6px 22px 18px;font-size:.7rem;color:var(--gold-bright);
     letter-spacing:.04em;}
   @media(max-width:920px){.ledger{grid-template-columns:repeat(2,1fr);}}
@@ -1138,8 +1144,8 @@ footer{
   const events=[
     {d:'31',m:'Ιολ',m_en:'JUL',d2:'31',m2:'Ιολ',m2_en:'JUL',iso:'2026-07-31T19:00:00',status:'Προσεχώς',status_en:'Upcoming',img:'motoporeia_2026',t:'Μοτοπορεία 100 Χρόνων ΑΠΟΕΛ',t_en:'100 Years APOEL Motorcycle Parade',p:'1926–2026 · Ένας Αιώνας Περηφάνειας.',p_en:'1926–2026 · A Century of Pride.',pin:'Κεντρικός Σύνδεσμος · 19:00',cta:'Πληροφορίες',cta_en:'Info',
       full:'Παρασκευή 31 Ιουλίου 2026',full_en:'Friday 31 July 2026',time:'19:00',time_en:'19:00',venue:'Εκκίνηση από τον Κεντρικό Σύνδεσμο',venue_en:'Start from the Central Supporters Club',
-      desc:'Ανακοινώνουμε επίσημα την έναρξη της ιερής εορταστικής περιόδου για τα 100 Χρόνια του ΑΠΟΕΛ. Πρώτη δράση θα είναι η Μοτοπορεία του Συνδέσμου μας σε ολόκληρη τη γενέτειρα του ΑΠΟΕΛ, 100 μέρες πριν την 8η Νοεμβρίου. Το ξύπνημα της Πρωτεύουσας θα είναι η αρχή της χρονιάς όπου το Ιστορικότερο και σπουδαιότερο Σωματείο του τόπου κλείνει έναν Αιώνα ζωής.<br><br>Η μοτοπορεία θα ξεκινήσει από τον Κεντρικό Σύνδεσμο την Παρασκευή 31/7 και ώρα 19:00, ενώ θα οδηγηθεί σε ολόκληρη τη Λευκωσία με στάσεις σε σημεία Ιστορικά για κάθε ΑΠΟΕΛίστα.<br><br>Η χρονιά που έρχεται οφείλει και θα μείνει χαραγμένη ανεξίτηλα στην ιστορία του Θρύλου. Για αυτό το λόγο καλούμε άπαντες αδελφούς ΑΠΟΕΛίστες να συμμετάσχουν σε όλες τις δράσεις του Συνδέσμου, να σταθούν δίπλα στην ομάδα και να γιορτάσουμε τον Θρύλο όπως ακριβώς του αρμόζει.',
-      desc_en:'We officially announce the beginning of the sacred celebration period for the 100 Years of APOEL. The first action will be the Motorcycle Parade of our Supporters Club across the whole birthplace of APOEL, 100 days before 8 November. The awakening of the Capital will mark the start of the year in which the most historic and important Club of our land completes a Century of life.<br><br>The parade will start from the Central Supporters Club on Friday 31/7 at 19:00, and will travel across the whole of Nicosia with stops at locations of historic significance to every APOELista.<br><br>The year ahead must — and will — remain indelibly etched in the history of the Legend. For this reason we call on all brother APOEListes to take part in every action of the Club, to stand by the team, and to celebrate the Legend exactly as it deserves.',
+      desc:'<b>ΠΑΝ.ΣΥ.ΦΙ ΑΠΟΕΛ</b><br><br>Δε θα μπορούσαμε ποτέ να φανταστούμε ιδανικότερο ξεκίνημα για τα 100χρονα του ΘΡΥΛΟΥ. 100 μέρες πριν τη μεγάλη μέρα, που ο ΘΡΥΛΟΣ κλείνει έναν αιώνα ζωής, ξεκίνησαν και επίσημα οι εορτασμοί. Με μια μεγαλειώδη πορεία που μπορεί να συγκριθεί μόνο με την ημέρα που κατακτήσαμε το πρωτάθλημα το 2024, εκατοντάδες μοτόρες και αυτοκίνητα συμμετείχαν σε αυτή την άκρως συμβολική διαδρομή.<br><br>Πρώτη στάση δεν θα μπορούσε να ήταν άλλη από τον <b>τάφο του Γεώργιου Πούλια</b>. Από εκεί που αναπαύεται ο Πατέρας του ΑΠΟΕΛΙΣΜΟΥ, αντλήσαμε δύναμη γι\' αυτή τη ξεχωριστή χρονιά και προσκυνήσαμε ευλαβικά το μνήμα του.<br><br>Δεύτερη στάση το <b>παλιό ΓΣΠ</b> και το μνημείο του ήρωα της ΕΟΚΑ και αθλητή του ΑΠΟΕΛ, <b>Μιχαλάκη Καραολή</b>. Για να μας θυμίζει πάντα τι πρεσβεύουν αυτά τα 5 γράμματα, για να μην ξεστρατήσουμε ποτέ.<br><br>Τελευταίος σταθμός, εκεί που γεννήθηκαν οι Πορτοκαλί, στο <b>Μακάρειο Στάδιο</b>, όπου η νύχτα έγινε μέρα και παλιές και νέες γενιές έγιναν ένα, για να γιορτάσουμε μαζί αυτή τη λαμπρή χρονιά, όπως ακριβώς το απαιτεί η ιστορία.<br><br>Η μοίρα θέλησε να γιορτάσουμε τα 100 μας χρόνια σε δύσκολους καιρούς. Όμως αυτό το γεγονός μας πωρώνει ακόμη περισσότερο, γιατί το ΑΠΟΕΛ δεν είναι απλά 90 λεπτά αγώνα, αλλά μια ολόκληρη ζωή, μια κοσμοθεωρία, μια θρησκεία και η μεγαλύτερη Ιδέα που γεννήθηκε σε αυτόν τον τόπο.<br><br>Η δίψα του κόσμου του ΑΠΟΕΛ να γιορτάσει αυτόν τον λαμπρό αιώνα είναι απίστευτη. Το είδαμε στα μάτια των μικρών παιδιών που έβαλαν τα Πορτοκαλί τους, των πατεράδων και των παππούδων τους που δάκρυσαν μπροστά στη μεγάλη αυτή συμβολική πορεία.<br><br>Δίνουμε όρκο πως ό,τι και να γίνεται στον αγωνιστικό χώρο, αυτή η χρονιά θα μείνει σε όλους αξέχαστη και θα τη θυμόμαστε μέχρι να πεθάνουμε. Γιατί κουβαλήσαμε και θα συνεχίσουμε να κουβαλάμε το ΑΠΟΕΛ στους δικούς μας ώμους. Γιατί ο κόσμος του ΘΡΥΛΟΥ θα συνεχίσει να αντλεί δύναμη και περηφάνια από τους Πορτοκαλί. Το χρωστάμε στις νέες γενιές, το χρωστάμε στα αδέλφια μας που μας βλέπουν από τους ουρανούς.<br><br><i>Ετοιμαστείτε να ζήσουμε ανεπανάληπτες στιγμές. Χθες ήταν μόνο η αρχή…</i><br><br><b>100 ΧΡΟΝΙΑ ΘΡΥΛΟΣ</b>',
+      desc_en:'<b>PAN.SY.FI. APOEL</b><br><br>We could never have imagined a more ideal start for the LEGEND\'s 100 years. 100 days before the great day, when the LEGEND completes a century of life, the celebrations have officially begun. With a majestic parade that can be compared only to the day we won the championship in 2024, hundreds of motorcycles and cars took part in this highly symbolic route.<br><br>The first stop could be none other than the <b>grave of Georgios Poulias</b>. From where the Father of APOELISM rests, we drew strength for this special year and reverently paid our respects at his tomb.<br><br>The second stop was the <b>old GSP</b> and the monument of the EOKA hero and APOEL athlete, <b>Michalakis Karaolis</b>. To always remind us what these 5 letters stand for, so we never stray.<br><br>The final station, where the Orange were born, at the <b>Makario Stadium</b>, where night became day and old and new generations became one, to celebrate together this brilliant year, exactly as history demands.<br><br>Fate wanted us to celebrate our 100 years in difficult times. But this fact energizes us even more, because APOEL is not simply 90 minutes of match, but a whole life, a worldview, a religion and the greatest Idea born in this land.<br><br>The thirst of APOEL\'s people to celebrate this brilliant century is incredible. We saw it in the eyes of small children who wore their Orange, of their fathers and grandfathers who shed tears before this great symbolic parade.<br><br>We swear that whatever happens on the field, this year will remain unforgettable for everyone and we will remember it until we die. Because we carried and will continue to carry APOEL on our own shoulders. Because the people of the LEGEND will continue to draw strength and pride from the Orange. We owe it to the new generations, we owe it to our brothers watching us from the heavens.<br><br><i>Get ready to live unrepeatable moments. Yesterday was only the beginning…</i><br><br><b>100 YEARS LEGEND</b>',
       info:['ΟΛΟΙ ΣΤΗΝ ΠΟΡΕΙΑ','ΟΛΟΙ ΜΕ ΠΟΡΤΟΚΑΛΙ','ΖΟΥΜΕ ΓΙΑ ΕΝΑ ΜΕΓΑΛΟ Α.Π.Ο.Ε.Λ'],
       info_en:['ALL AT THE PARADE','ALL IN ORANGE','WE LIVE FOR A GREAT A.P.O.E.L'],
       photos:[],
@@ -1276,12 +1282,18 @@ footer{
     let statusHTML='';
     if(isPast(e)){statusHTML=`<span class="status past">${LANG==='el'?'Ολοκληρώθηκε':'Completed'}</span>`;}
     else if(i===nextIdx){statusHTML=`<span class="status">${LANG==='el'?'Προσεχώς':'Upcoming'}</span>`;}
-    // CTA button: past+media → Άλμπουμ; else → Info
+    // CTA button: past+media → Άλμπουμ + Επισκόπηση; else → Info
     const showPhotos=isPast(e) && hasMedia(e);
-    const btnLabel=showPhotos
-      ? (LANG==='el'?'Άλμπουμ':'Album')
-      : (L(e,'cta')||(LANG==='el'?'Πληροφορίες':'Info'));
-    const btnAction=showPhotos?'photos':'info';
+    let buttonsHTML;
+    if(showPhotos){
+      buttonsHTML=`<div class="ticket-group">
+        <button class="ticket" type="button" data-action="photos">${LANG==='el'?'Άλμπουμ':'Album'}</button>
+        <button class="ticket ghost" type="button" data-action="info">${LANG==='el'?'Επισκόπηση':'Recap'}</button>
+      </div>`;
+    } else {
+      const btnLabel=L(e,'cta')||(LANG==='el'?'Πληροφορίες':'Info');
+      buttonsHTML=`<button class="ticket" type="button" data-action="info">${btnLabel}</button>`;
+    }
     // Past event card gets a subtle "faded" class
     const rowClass=isPast(e)?'lrow past':'lrow';
     return `
@@ -1290,7 +1302,7 @@ footer{
       ${dateBadge}
       ${statusHTML}
       <div class="ti"><h3>${L(e,'t')}</h3><p>${L(e,'p')}</p></div>
-      <button class="ticket" type="button" data-action="${btnAction}">${btnLabel}</button>
+      ${buttonsHTML}
     </div>`;
   };
   const upcomingHTML=upcomingIdx.map(renderCard).join('');
