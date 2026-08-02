@@ -34,7 +34,7 @@
   #hero{position:relative;height:100vh;min-height:620px;display:flex;flex-direction:column;
     align-items:center;justify-content:center;text-align:center;overflow:hidden;}
   #goldCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;}
-  .hero-inner{position:relative;z-index:3;mix-blend-mode:screen;}
+  .hero-inner{position:relative;z-index:3;}
   .eyebrow{letter-spacing:.6em;font-size:.66rem;text-transform:uppercase;color:var(--gold);
     margin-bottom:1.4em;opacity:0;animation:rise 1.1s .2s forwards;}
   .mega{font-family:"Bodoni MT","Didot",Georgia,serif;font-weight:700;font-size:clamp(7rem,32vw,22rem);
@@ -533,7 +533,7 @@
     .tl-year{grid-area:y}.tl-body{grid-area:b}.tl-body h3{grid-area:t}}
   @media(max-width:900px){.stories-layout{grid-template-columns:1fr;gap:34px;}.wall{column-count:2;}}
   @media(max-width:560px){.mosaic{column-count:1}.wrap2{grid-template-columns:1fr}.wall{column-count:1;}}
-  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}.reveal{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}.reveal,.eyebrow,.emblem-banner,.span-years,.club-line,.hero-actions,.scroll-hint{opacity:1!important;transform:none!important}}
 
 
 /* =========================================================
@@ -605,7 +605,6 @@ body::before{
   white-space:nowrap;
 }
 #goldCanvas{opacity:.55;mix-blend-mode:screen;}
-.hero-inner{mix-blend-mode:normal;}
 .logo-reveal{
   width:clamp(250px,36vw,440px);
   background:
