@@ -519,6 +519,7 @@
   footer{position:relative;z-index:2;text-align:center;padding:60px 20px;border-top:1px solid var(--hair);
     font-size:.7rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold-deep);}
   footer b{color:var(--gold-bright);font-family:"Bodoni MT",serif;font-style:italic;font-weight:700;letter-spacing:.1em;}
+  footer .footer-tags{display:inline-block;margin-top:10px;font-size:.6rem;letter-spacing:.22em;color:var(--gold-deep);opacity:.75;}
 
   /* LANGUAGE SWITCH */
   .lang{position:fixed;top:16px;right:18px;z-index:60;display:flex;border:1px solid var(--hair);
@@ -866,7 +867,7 @@ footer{
 
   <section id="events" class="panel active">
     <div class="sec-head"><div class="k" data-el="Εορτασμοί" data-en="Celebrations">Εορτασμοί</div><h2 class="serif" data-el="Πρόγραμμα" data-en="Programme">Πρόγραμμα</h2>
-      <p class="lead" data-el="Όλες οι εκδηλώσεις για τον επετειακό εορτασμό των 100 χρόνων, με ημερομηνίες, χώρους και λεπτομέρειες." data-en="All the events of the 100-year anniversary, with dates, venues and details.">Όλες οι εκδηλώσεις για τον επετειακό εορτασμό των 100 χρόνων, με ημερομηνίες, χώρους και λεπτομέρειες.</p></div>
+      <p class="lead" data-el="Όλες οι εκδηλώσεις για τον επετειακό εορτασμό των 100 χρόνων του ΑΠΟΕΛ!" data-en="All the events for the 100-year anniversary celebration of APOEL!">Όλες οι εκδηλώσεις για τον επετειακό εορτασμό των 100 χρόνων του ΑΠΟΕΛ!</p></div>
     <div class="next-event reveal" id="nextEvent"></div>
     <div class="ledger reveal" id="ledger"></div>
   </section>
@@ -898,7 +899,7 @@ footer{
   </section>
 </main>
 
-<footer><span data-el="Ένας Αιώνας Μαζί · " data-en="One Century Together · ">Ένας Αιώνας Μαζί · </span><b>ΑΠΟΕΛ</b> · 1926 — 2026</footer>
+<footer><span data-el="Ένας Αιώνας Μαζί · " data-en="One Century Together · ">Ένας Αιώνας Μαζί · </span><b>ΑΠΟΕΛ</b> · 1926 — 2026<br><span class="footer-tags">#ONECENTURYONELEGEND #monoAPOEL #APOEL100</span></footer>
 
 <div class="lb" id="lb">
   <button class="lb-x" id="lbx" aria-label="Κλείσιμο">✕</button>
@@ -1471,14 +1472,14 @@ footer{
     em.classList.add('open');document.body.style.overflow='hidden';
   }
   /* ---- SHARE EVENT ---- */
-  const SITE_URL='https://mario1926-apoel.github.io/100yearsAPOEL/';
+  const SITE_URL='https://www.apoel100years.org';
   function shareEvent(platform,i){
     const e=events[i];if(!e)return;
     const L=(o,k)=>LANG==='en'&&o[k+'_en']?o[k+'_en']:o[k];
     const title=L(e,'t');
     const date=L(e,'full');
     const desc=L(e,'p');
-    const hashtag=LANG==='el'?'#ΑΠΟΕΛ100':'#APOEL100';
+    const hashtag='#ONECENTURYONELEGEND #monoAPOEL #APOEL100';
     const text=`${title}\n${date}\n${desc}\n\n${hashtag}`;
     const enc=encodeURIComponent;
     let url='';
@@ -1657,7 +1658,7 @@ footer{
   function shareStory(platform,idx){
     const s=stories[idx];if(!s)return;
     const title=LANG==='el'?'Η ιστορία μου με τον ΑΠΟΕΛ':'My APOEL story';
-    const hashtag=LANG==='el'?'#ΑΠΟΕΛ100':'#APOEL100';
+    const hashtag='#ONECENTURYONELEGEND #monoAPOEL #APOEL100';
     const text=`"${s.txt}"\n— ${s.who}\n\n${hashtag}`;
     const enc=encodeURIComponent;
     let url='';
