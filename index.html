@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow">
 <title>ΑΠΟΕΛ · ΕΝΑΣ ΑΙΩΝΑΣ · 1926–2026</title>
 <style>
   :root{
@@ -524,6 +526,40 @@
   /* LANGUAGE SWITCH */
   .lang{position:fixed;top:16px;right:18px;z-index:60;display:flex;border:1px solid var(--hair);
     border-radius:30px;overflow:hidden;background:rgba(0,12,26,.6);backdrop-filter:blur(8px);}
+  /* ACCESS GATE — hides the site until password entered */
+  html.gated body > *:not(#accessGate){display:none!important;}
+  html.gated{overflow:hidden;}
+  .access-gate{position:fixed;inset:0;z-index:9999;background:var(--navy-deep);
+    display:none;align-items:center;justify-content:center;padding:24px;overflow-y:auto;}
+  html.gated .access-gate{display:flex;}
+  .access-gate::before{content:"";position:absolute;inset:0;
+    background:radial-gradient(ellipse at center,rgba(30,70,140,.35),transparent 65%);pointer-events:none;}
+  .access-inner{position:relative;z-index:1;text-align:center;max-width:440px;padding:44px 32px;
+    background:linear-gradient(170deg,rgba(21,32,60,.55),rgba(0,12,26,.6));
+    border:1px solid rgba(201,159,43,.28);box-shadow:0 30px 100px rgba(0,0,0,.6);}
+  .access-inner::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,var(--gold-deep),var(--gold-bright),var(--gold-deep));}
+  .access-crest{color:var(--gold-bright);font-size:1.6rem;margin-bottom:14px;letter-spacing:.4em;}
+  .access-title{font-family:"Bodoni MT","Didot",Georgia,serif;font-size:2.1rem;color:var(--gold-bright);
+    letter-spacing:.02em;margin-bottom:6px;font-weight:700;}
+  .access-sub{font-size:.66rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:30px;font-weight:600;}
+  .access-msg{color:var(--ash);font-family:"Bodoni MT",Georgia,serif;font-style:italic;font-size:.95rem;
+    line-height:1.6;margin-bottom:26px;}
+  .access-inner input{width:100%;background:transparent;border:none;border-bottom:1px solid var(--hair);
+    color:var(--gold-bright);font-family:"Bodoni MT",Georgia,serif;font-size:1.1rem;
+    padding:10px 4px;text-align:center;letter-spacing:.24em;transition:border-color .3s;box-sizing:border-box;}
+  .access-inner input:focus{outline:none;border-bottom-color:var(--gold-bright);}
+  .access-inner input::placeholder{color:rgba(189,182,166,.4);font-style:italic;letter-spacing:.16em;}
+  .access-inner button{margin-top:26px;background:linear-gradient(135deg,var(--gold-bright),var(--gold));
+    color:var(--navy-deep);border:none;padding:14px 38px;font-size:.72rem;font-weight:800;letter-spacing:.22em;
+    text-transform:uppercase;cursor:pointer;font-family:inherit;transition:filter .3s,transform .3s,box-shadow .3s;}
+  .access-inner button:hover:not(:disabled){filter:brightness(1.08);transform:translateY(-1px);box-shadow:0 8px 22px rgba(224,181,58,.35);}
+  .access-inner button:disabled{opacity:.5;cursor:wait;}
+  .access-err{margin-top:14px;color:#e08a5a;font-size:.85rem;font-style:italic;font-family:"Bodoni MT",serif;min-height:1em;}
+  @media(max-width:520px){
+    .access-inner{padding:32px 24px;}
+    .access-title{font-size:1.7rem;}
+  }
   .lang button{background:none;border:none;color:var(--ash);cursor:pointer;font-family:inherit;
     font-size:.66rem;font-weight:700;letter-spacing:.12em;padding:8px 14px;transition:color .25s,background .25s;}
   .lang button.on{background:var(--gold);color:#001327;}
@@ -803,6 +839,41 @@ footer{
 </style>
 </head>
 <body>
+
+<!-- ACCESS GATE (remove when going live) -->
+<script>
+  // ====== ACCESS GATE — set SITE_LOCKED to false to publish the site publicly ======
+  const SITE_LOCKED = true;
+  const SITE_PASSWORD = 'apoel1926';
+  const GATE_KEY = 'apoel100_access_v1';
+  (function(){
+    if(!SITE_LOCKED)return;
+    // Magic-link support: ?key=... in URL unlocks automatically
+    try{
+      const urlKey=new URLSearchParams(location.search).get('key');
+      if(urlKey && urlKey.toLowerCase()===SITE_PASSWORD.toLowerCase()){
+        localStorage.setItem(GATE_KEY,'ok');
+        // Clean the URL so the key isn't visible in address bar / shared screenshots
+        history.replaceState(null,'',location.pathname+location.hash);
+        return;
+      }
+    }catch(e){}
+    if(sessionStorage.getItem(GATE_KEY)==='ok'||localStorage.getItem(GATE_KEY)==='ok')return;
+    document.documentElement.classList.add('gated');
+  })();
+</script>
+
+<div id="accessGate" class="access-gate">
+  <div class="access-inner">
+    <div class="access-crest">◆</div>
+    <h1 class="access-title">100 Χρόνια ΑΠΟΕΛ</h1>
+    <div class="access-sub">1926 — 2026</div>
+    <p class="access-msg">Το site είναι υπό κατασκευή.<br>Για πρόσβαση, εισάγετε τον κωδικό.</p>
+    <input type="password" id="accessInput" placeholder="Κωδικός" autocomplete="off">
+    <button id="accessBtn">Είσοδος</button>
+    <div class="access-err" id="accessErr"></div>
+  </div>
+</div>
 
 <div class="lang">
   <button data-lang="el" class="on">ΕΛ</button>
@@ -1964,6 +2035,31 @@ footer{
   function checkAdminHash(){if(location.hash==='#admin')openAdmin();}
   window.addEventListener('hashchange',checkAdminHash);
   checkAdminHash();
+
+  // ---- ACCESS GATE ----
+  (function(){
+    const gate=document.getElementById('accessGate');
+    if(!gate||!document.documentElement.classList.contains('gated'))return;
+    const input=document.getElementById('accessInput');
+    const btn=document.getElementById('accessBtn');
+    const err=document.getElementById('accessErr');
+    function tryUnlock(){
+      const v=(input.value||'').trim();
+      if(!v){input.focus();return;}
+      if(v.toLowerCase()===SITE_PASSWORD.toLowerCase()){
+        localStorage.setItem(GATE_KEY,'ok');
+        document.documentElement.classList.remove('gated');
+        location.reload();
+      } else {
+        err.textContent='Λάθος κωδικός.';
+        input.value='';input.focus();
+        setTimeout(()=>{err.textContent='';},2200);
+      }
+    }
+    btn.addEventListener('click',tryUnlock);
+    input.addEventListener('keydown',e=>{if(e.key==='Enter')tryUnlock();});
+    setTimeout(()=>input.focus(),200);
+  })();
 
   // ---- BACKGROUND ANTHEM ----
   (function(){
