@@ -237,6 +237,39 @@
     width:48px;height:48px;border-radius:50%;font-size:1.4rem;cursor:pointer;z-index:91;transition:.25s;}
   .lb-nav:hover{background:var(--gold);color:#070707;border-color:var(--gold)}
   #lbPrev{left:24px} #lbNext{right:24px}
+  /* ---- ALBUM GRID MODAL ---- */
+  .album-modal{position:fixed;inset:0;background:rgba(2,10,22,.96);z-index:100;
+    display:none;overflow-y:auto;padding:70px 22px 40px;
+    backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);}
+  .album-modal.open{display:block;}
+  .album-inner{max-width:1200px;margin:0 auto;position:relative;}
+  .album-close{position:fixed;top:18px;right:22px;z-index:5;
+    background:rgba(0,12,26,.75);border:1px solid rgba(201,159,43,.4);color:var(--gold-bright);
+    width:42px;height:42px;border-radius:50%;font-size:1.5rem;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;line-height:1;
+    font-family:inherit;transition:.2s;padding:0;}
+  .album-close:hover{background:rgba(201,159,43,.18);border-color:var(--gold);}
+  .album-title{font-family:"Bodoni MT","Didot",Georgia,serif;font-size:1.6rem;color:var(--gold-bright);
+    text-align:center;margin-bottom:28px;letter-spacing:.01em;font-weight:700;}
+  .album-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+  .album-thumb{aspect-ratio:1;position:relative;overflow:hidden;padding:0;
+    border:1px solid rgba(201,159,43,.15);background:var(--navy-deep);cursor:pointer;
+    transition:transform .25s,border-color .25s,box-shadow .25s;}
+  .album-thumb:hover{border-color:var(--gold);transform:scale(1.02);
+    box-shadow:0 10px 26px rgba(0,0,0,.55);z-index:2;}
+  .album-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+  .album-thumb.video::after{content:"▶";position:absolute;inset:0;display:flex;
+    align-items:center;justify-content:center;color:#fff;font-size:2rem;
+    text-shadow:0 0 24px rgba(0,0,0,.8),0 0 10px rgba(0,0,0,.9);pointer-events:none;
+    background:radial-gradient(circle at center,rgba(0,0,0,.35),transparent 60%);}
+  .album-divider{grid-column:1/-1;display:flex;align-items:center;gap:22px;margin:26px 0 8px;
+    color:var(--gold);font-family:"Bodoni MT",Georgia,serif;font-size:.66rem;
+    letter-spacing:.32em;text-transform:uppercase;font-weight:600;}
+  .album-divider::before,.album-divider::after{content:"";flex:1;height:1px;
+    background:linear-gradient(90deg,transparent,var(--gold) 20%,var(--gold) 80%,transparent);}
+  .album-divider span{padding:0 4px;color:var(--gold-bright);}
+  @media(max-width:900px){.album-grid{grid-template-columns:repeat(3,1fr);}}
+  @media(max-width:600px){.album-grid{grid-template-columns:repeat(2,1fr);}.album-title{font-size:1.3rem;}}
   #lbVideo{width:min(90vw,1280px);aspect-ratio:16/9;max-height:80vh;background:#000;border:none;}
   .lb-badge{position:absolute;top:14px;left:14px;background:rgba(224,138,90,.85);color:#fff;
     padding:4px 10px;font-size:.6rem;letter-spacing:.24em;font-weight:700;font-family:"Bodoni MT",serif;
@@ -971,6 +1004,15 @@ footer{
 
 <footer><span data-el="Ένας Αιώνας Μαζί · " data-en="One Century Together · ">Ένας Αιώνας Μαζί · </span><b>ΑΠΟΕΛ</b> · 1926 — 2026<br><span class="footer-tags">#ONECENTURYONELEGEND #monoAPOEL #APOEL100</span></footer>
 
+<!-- ALBUM GRID MODAL -->
+<div class="album-modal" id="albumModal" role="dialog" aria-modal="true">
+  <button class="album-close" id="albumClose" aria-label="Κλείσιμο">×</button>
+  <div class="album-inner">
+    <h2 class="album-title" id="albumTitle">Άλμπουμ</h2>
+    <div class="album-grid" id="albumGrid"></div>
+  </div>
+</div>
+
 <div class="lb" id="lb">
   <button class="lb-x" id="lbx" aria-label="Κλείσιμο">✕</button>
   <button class="lb-nav" id="lbPrev" aria-label="Προηγούμενη">‹</button>
@@ -1152,8 +1194,8 @@ footer{
   const decades=[...new Set(photos.map(p=>decadeOf(p.y)))].sort();
   const gtools=document.getElementById('gtools');
   function capOf(p){
+    if(!p.c)return '';
     if(LANG==='el')return p.c;
-    // auto-translate the common "Η ομάδα του XXXX" pattern, else keep Greek
     const m=p.c.match(/^Η ομάδα του (\d{4})$/);
     if(m)return 'The team of '+m[1];
     return p.c;
@@ -1188,13 +1230,13 @@ footer{
     const p=order[i];if(!p)return;cur=i;
     if(p.yt){
       // YouTube video
-      lbImg.style.display='none';lbImg.src='';
+      lbImg.style.display='none';lbImg.removeAttribute('src');
       lbVideo.style.display='';lbVideo.src=`https://www.youtube.com/embed/${p.yt}?autoplay=1&rel=0&modestbranding=1`;
       lbBadge.style.display='';
       lbCap.innerHTML=capOf(p)||'';
     } else {
       // Photo
-      lbVideo.style.display='none';lbVideo.src='';
+      lbVideo.style.display='none';lbVideo.src='about:blank';
       lbBadge.style.display='none';
       lbImg.style.display='';lbImg.src=src(p);lbImg.alt=capOf(p);
       lbCap.innerHTML=p.y?`<span class="lbyr">${p.y}</span>${capOf(p)}`:capOf(p);
@@ -1203,7 +1245,7 @@ footer{
   function stopVideo(){lbVideo.src='';}
   function openLb(f){order=photos.slice();const i=order.findIndex(p=>p.f===f);show(i<0?0:i);lb.classList.add('open');}
   document.addEventListener('click',e=>{const t=e.target.closest('[data-photo]');if(t)openLb(t.dataset.photo);});
-  function closeLb(){lb.classList.remove('open');lbVideo.src='';}
+  function closeLb(){lb.classList.remove('open');lbVideo.src='about:blank';}
   document.getElementById('lbx').onclick=closeLb;
   document.getElementById('lbPrev').onclick=()=>show((cur-1+order.length)%order.length);
   document.getElementById('lbNext').onclick=()=>show((cur+1)%order.length);
@@ -1220,13 +1262,13 @@ footer{
       info:[],
       info_en:[],
       photos:[
-        {f:'motoporeia_p1',c:'Πρώτη στάση — Τάφος Γεωργίου Πούλια'},
-        {f:'motoporeia_p2',c:'Στέφανα ΠΑΝ.ΣΥ.ΦΙ. & Σωματείου ΑΠΟΕΛ στον Πατέρα του ΑΠΟΕΛΙΣΜΟΥ'},
-        {f:'motoporeia_p3',c:'Δεύτερη στάση — Μνημείο Μιχαλάκη Καραολή, ήρωα της ΕΟΚΑ και αθλητή του ΑΠΟΕΛ'},
-        {f:'motoporeia_p4',c:'Ο Μιχαλάκης Καραολής — για να μας θυμίζει τι πρεσβεύουν αυτά τα 5 γράμματα'}
+        {f:'motoporeia_p1'},
+        {f:'motoporeia_p2'},
+        {f:'motoporeia_p3'},
+        {f:'motoporeia_p4'}
       ],
       videos:[
-        {yt:'I5pLxeiDbaY',c:'Μοτοπορεία 100 Χρόνων ΑΠΟΕΛ'}
+        {yt:'I5pLxeiDbaY'}
       ]},
     {d:'03',m:'Αυγ',m_en:'AUG',d2:'03',m2:'Αυγ',m2_en:'AUG',iso:'2026-08-03T19:26:00',status:'Προσεχώς',status_en:'Upcoming',img:'anniversary_kit',t:'Προαγορά Επετειακής Φανέλας',t_en:'Anniversary Kit Pre-order',p:'Τα συλλεκτικά πακέτα της φανέλας των 100 χρόνων.',p_en:'The collectible packages of the 100 years kit.',pin:'03/08/2026 · Orange Shop',cta:'Πληροφορίες',cta_en:'Info',
       full:'Δευτέρα 03 Αυγούστου 2026',full_en:'Monday 03 August 2026',time:'19:26',time_en:'19:26',venue:'Orange Shop (online)',venue_en:'Orange Shop (online)',
@@ -1583,21 +1625,49 @@ footer{
   document.addEventListener('click',e=>{const b=e.target.closest('.em-share-btn');if(b){shareEvent(b.dataset.share,+b.dataset.idx);}});
   function closeEvent(){em.classList.remove('open');document.body.style.overflow='';}
   /* ---- OPEN EVENT PHOTOS IN LIGHTBOX ---- */
-  function openEventPhotos(i){
+  const albumModal=document.getElementById('albumModal');
+  const albumGrid=document.getElementById('albumGrid');
+  const albumTitle=document.getElementById('albumTitle');
+  function openEventAlbum(i){
     const e=events[i];if(!e||!hasMedia(e))return;
     const L=(o,k)=>LANG==='en'&&o[k+'_en']?o[k+'_en']:o[k];
-    const yr=(new Date(e.iso).getFullYear())||'';
-    const eventTitle=L(e,'t');
-    // Build combined media order: photos first, then videos
-    const photoItems=(e.photos||[]).map(p=>typeof p==='string'?{f:p,y:yr,c:eventTitle}:{f:p.f,y:p.y||yr,c:p.c||eventTitle});
-    const videoItems=(e.videos||[]).map(v=>typeof v==='string'?{yt:v,c:eventTitle}:{yt:v.yt||v.y||v.id,c:v.c||eventTitle});
+    albumTitle.textContent=L(e,'t');
+    // Build order (used by lightbox when a thumb is clicked)
+    const photoItems=(e.photos||[]).map(p=>typeof p==='string'?{f:p,c:''}:{f:p.f,c:p.c||''});
+    const videoItems=(e.videos||[]).map(v=>typeof v==='string'?{yt:v,c:''}:{yt:v.yt||v.y||v.id,c:v.c||''});
     order=[...photoItems,...videoItems];
     if(!order.length)return;
-    cur=0;show(0);lb.classList.add('open');
+    // Render grid
+    let html='';
+    photoItems.forEach((p,idx)=>{
+      html+=`<button class="album-thumb" data-album-idx="${idx}" type="button" aria-label="Photo ${idx+1}"><img src="./${p.f}.jpg" alt="" loading="lazy"></button>`;
+    });
+    if(videoItems.length&&photoItems.length){
+      html+=`<div class="album-divider"><span>${LANG==='el'?'Βίντεο':'Videos'}</span></div>`;
+    }
+    videoItems.forEach((v,idx)=>{
+      const realIdx=photoItems.length+idx;
+      html+=`<button class="album-thumb video" data-album-idx="${realIdx}" type="button" aria-label="Video ${idx+1}"><img src="https://img.youtube.com/vi/${v.yt}/hqdefault.jpg" alt="" loading="lazy"></button>`;
+    });
+    albumGrid.innerHTML=html;
+    albumModal.classList.add('open');
+    document.body.style.overflow='hidden';
   }
+  function closeAlbum(){
+    albumModal.classList.remove('open');
+    document.body.style.overflow='';
+  }
+  albumGrid.addEventListener('click',e=>{
+    const b=e.target.closest('[data-album-idx]');if(!b)return;
+    const idx=+b.dataset.albumIdx;
+    show(idx);lb.classList.add('open');
+  });
+  document.getElementById('albumClose').addEventListener('click',closeAlbum);
+  albumModal.addEventListener('click',e=>{if(e.target===albumModal)closeAlbum();});
+  addEventListener('keydown',e=>{if(e.key==='Escape'&&albumModal.classList.contains('open')&&!lb.classList.contains('open'))closeAlbum();});
   document.getElementById('ledger').addEventListener('click',e=>{
     const pb=e.target.closest('button[data-action="photos"]');
-    if(pb){e.stopPropagation();const r=pb.closest('[data-event]');if(r)openEventPhotos(+r.dataset.event);return;}
+    if(pb){e.stopPropagation();const r=pb.closest('[data-event]');if(r)openEventAlbum(+r.dataset.event);return;}
     const r=e.target.closest('[data-event]');if(r)openEvent(+r.dataset.event);
   });
   document.getElementById('ledger').addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.closest('[data-event]')){e.preventDefault();openEvent(+e.target.closest('[data-event]').dataset.event);}});
