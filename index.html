@@ -233,10 +233,19 @@
   .lb .lbyr{color:var(--gold-deep);font-style:normal;letter-spacing:.2em;font-size:.8rem;margin-right:.8em;}
   .lb-x{position:fixed;top:22px;right:28px;background:none;border:none;color:var(--ash);font-size:1.8rem;cursor:pointer;z-index:111;}
   .lb-x:hover{color:var(--gold-bright)}
-  .lb-nav{position:fixed;top:50%;transform:translateY(-50%);background:none;border:1px solid var(--hair);color:var(--gold-bright);
-    width:48px;height:48px;border-radius:50%;font-size:1.4rem;cursor:pointer;z-index:111;transition:.25s;}
-  .lb-nav:hover{background:var(--gold);color:#070707;border-color:var(--gold)}
+  .lb-nav{position:fixed;top:50%;transform:translateY(-50%);
+    background:rgba(0,12,26,.75);border:1px solid rgba(201,159,43,.4);color:var(--gold-bright);
+    width:48px;height:48px;border-radius:50%;font-size:1.4rem;cursor:pointer;z-index:111;
+    display:flex;align-items:center;justify-content:center;line-height:1;padding:0;
+    backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    -webkit-tap-highlight-color:transparent;touch-action:manipulation;transition:.25s;}
+  @media (hover:hover){.lb-nav:hover{background:var(--gold);color:#070707;border-color:var(--gold);}}
+  .lb-nav:active{background:var(--gold);color:#070707;border-color:var(--gold);}
   #lbPrev{left:24px} #lbNext{right:24px}
+  @media(max-width:600px){
+    .lb-nav{width:44px;height:44px;font-size:1.2rem;}
+    #lbPrev{left:10px} #lbNext{right:10px}
+  }
   /* ---- ALBUM GRID MODAL ---- */
   .album-modal{position:fixed;inset:0;background:rgba(2,10,22,.96);z-index:100;
     display:none;overflow-y:auto;padding:70px 22px 40px;
@@ -1258,6 +1267,24 @@ footer{
   lb.addEventListener('click',e=>{if(e.target===lb)closeLb();});
   addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;
     if(e.key==='Escape')closeLb();if(e.key==='ArrowLeft')show((cur-1+order.length)%order.length);if(e.key==='ArrowRight')show((cur+1)%order.length);});
+  // Swipe gestures on lightbox for mobile
+  (function(){
+    let sx=0,sy=0,tracking=false;
+    lb.addEventListener('touchstart',e=>{
+      if(!lb.classList.contains('open')||order.length<2)return;
+      sx=e.touches[0].clientX;sy=e.touches[0].clientY;tracking=true;
+    },{passive:true});
+    lb.addEventListener('touchend',e=>{
+      if(!tracking)return;tracking=false;
+      const dx=e.changedTouches[0].clientX-sx;
+      const dy=e.changedTouches[0].clientY-sy;
+      // Horizontal swipe > 50px and mostly horizontal (not vertical scroll)
+      if(Math.abs(dx)>50 && Math.abs(dx)>Math.abs(dy)*1.5){
+        if(dx>0)show((cur-1+order.length)%order.length);
+        else show((cur+1)%order.length);
+      }
+    },{passive:true});
+  })();
 
   /* ---- EVENTS ---- */
   const events=[
