@@ -224,17 +224,17 @@
     color:var(--gold-bright);font-size:.9rem;letter-spacing:.05em;z-index:2;text-shadow:0 1px 4px rgba(0,0,0,.8);}
 
   /* LIGHTBOX */
-  .lb{position:fixed;inset:0;z-index:90;background:rgba(5,5,4,.94);display:none;align-items:center;justify-content:center;padding:30px;}
+  .lb{position:fixed;inset:0;z-index:110;background:rgba(5,5,4,.94);display:none;align-items:center;justify-content:center;padding:30px;}
   .lb.open{display:flex;animation:lbf .3s}
   @keyframes lbf{from{opacity:0}to{opacity:1}}
   .lb figure{max-width:1000px;width:100%;text-align:center;}
   .lb img{max-width:100%;max-height:78vh;border:1px solid var(--hair);box-shadow:0 20px 60px rgba(0,0,0,.6);}
   .lb figcaption{margin-top:16px;font-family:"Bodoni MT",serif;font-style:italic;color:var(--gold-bright);font-size:1.2rem;}
   .lb .lbyr{color:var(--gold-deep);font-style:normal;letter-spacing:.2em;font-size:.8rem;margin-right:.8em;}
-  .lb-x{position:fixed;top:22px;right:28px;background:none;border:none;color:var(--ash);font-size:1.8rem;cursor:pointer;z-index:91;}
+  .lb-x{position:fixed;top:22px;right:28px;background:none;border:none;color:var(--ash);font-size:1.8rem;cursor:pointer;z-index:111;}
   .lb-x:hover{color:var(--gold-bright)}
   .lb-nav{position:fixed;top:50%;transform:translateY(-50%);background:none;border:1px solid var(--hair);color:var(--gold-bright);
-    width:48px;height:48px;border-radius:50%;font-size:1.4rem;cursor:pointer;z-index:91;transition:.25s;}
+    width:48px;height:48px;border-radius:50%;font-size:1.4rem;cursor:pointer;z-index:111;transition:.25s;}
   .lb-nav:hover{background:var(--gold);color:#070707;border-color:var(--gold)}
   #lbPrev{left:24px} #lbNext{right:24px}
   /* ---- ALBUM GRID MODAL ---- */
@@ -247,17 +247,23 @@
     background:rgba(0,12,26,.75);border:1px solid rgba(201,159,43,.4);color:var(--gold-bright);
     width:42px;height:42px;border-radius:50%;font-size:1.5rem;cursor:pointer;
     display:flex;align-items:center;justify-content:center;line-height:1;
-    font-family:inherit;transition:.2s;padding:0;}
-  .album-close:hover{background:rgba(201,159,43,.18);border-color:var(--gold);}
+    font-family:inherit;transition:.2s;padding:0;
+    -webkit-tap-highlight-color:transparent;touch-action:manipulation;}
+  @media (hover:hover){.album-close:hover{background:rgba(201,159,43,.18);border-color:var(--gold);}}
   .album-title{font-family:"Bodoni MT","Didot",Georgia,serif;font-size:1.6rem;color:var(--gold-bright);
     text-align:center;margin-bottom:28px;letter-spacing:.01em;font-weight:700;}
   .album-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
   .album-thumb{aspect-ratio:1;position:relative;overflow:hidden;padding:0;
     border:1px solid rgba(201,159,43,.15);background:var(--navy-deep);cursor:pointer;
-    transition:transform .25s,border-color .25s,box-shadow .25s;}
-  .album-thumb:hover{border-color:var(--gold);transform:scale(1.02);
-    box-shadow:0 10px 26px rgba(0,0,0,.55);z-index:2;}
-  .album-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+    transition:border-color .25s,box-shadow .25s;
+    -webkit-tap-highlight-color:transparent;touch-action:manipulation;}
+  @media (hover:hover) and (pointer:fine){
+    .album-thumb{transition:transform .25s,border-color .25s,box-shadow .25s;}
+    .album-thumb:hover{border-color:var(--gold);transform:scale(1.02);
+      box-shadow:0 10px 26px rgba(0,0,0,.55);z-index:2;}
+  }
+  .album-thumb:active{border-color:var(--gold);}
+  .album-thumb img{width:100%;height:100%;object-fit:cover;display:block;-webkit-user-drag:none;}
   .album-thumb.video::after{content:"▶";position:absolute;inset:0;display:flex;
     align-items:center;justify-content:center;color:#fff;font-size:2rem;
     text-shadow:0 0 24px rgba(0,0,0,.8),0 0 10px rgba(0,0,0,.9);pointer-events:none;
