@@ -166,6 +166,18 @@
     transform:scaleX(0);transform-origin:left;transition:transform .4s;}
   .dept:hover{transform:translateY(-5px);border-color:var(--gold);box-shadow:0 16px 40px rgba(0,0,0,.45);}
   .dept:hover::after{transform:scaleX(1);}
+  .dept[role="button"]{cursor:pointer;-webkit-tap-highlight-color:transparent;}
+  .dept[role="button"]:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 2px rgba(224,181,58,.35);}
+  /* Dept modal content */
+  .em-dept-meta{color:var(--ash);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
+    margin-bottom:18px;font-weight:600;}
+  .em-dept-meta b{color:var(--gold-bright);font-weight:700;}
+  .em-dept-desc{margin-bottom:24px;}
+  .em-dept-honours h4{color:var(--gold);font-family:"Bodoni MT",Georgia,serif;font-size:.7rem;
+    letter-spacing:.28em;text-transform:uppercase;font-weight:700;margin-bottom:14px;
+    padding-bottom:10px;border-bottom:1px solid rgba(201,159,43,.2);}
+  .em-dept-honours .dept-titles{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-start;
+    border-top:none;padding-top:0;margin-top:0;}
   .dept-mark{display:block;width:34px;height:3px;margin:0 auto 16px;border-radius:2px;
     background:linear-gradient(90deg,var(--gold-deep),var(--gold-bright),var(--gold-deep));}
   .dept h3{color:var(--gold-bright);font-size:1.05rem;font-weight:600;letter-spacing:.02em;margin-bottom:6px;}
@@ -1184,7 +1196,7 @@ footer{
     {el:'Μπόουλιγκ',en:'Bowling',titles:[]},
     {el:'Πινγκ-Πονγκ',en:'Table Tennis',titles:[{n:10,el:'Πρωταθλήματα',en:'Titles'},{n:9,el:'Κύπελλα',en:'Cups'}]},
   ];
-  function deptCard(d){
+  function deptCard(d,group,idx){
     const name=LANG==='en'?d.en:d.el;
     let honours='';
     if(d.titles&&d.titles.length){
@@ -1193,16 +1205,43 @@ footer{
     }else{
       honours=`<div class="dept-active">${LANG==='en'?'Active department':'Ενεργό τμήμα'}</div>`;
     }
-    return `<div class="dept"><span class="dept-mark"></span><h3>${name}</h3>${honours}</div>`;
+    return `<div class="dept" data-dept-group="${group}" data-dept-idx="${idx}" role="button" tabindex="0"><span class="dept-mark"></span><h3>${name}</h3>${honours}</div>`;
   }
   function renderDepts(){
-    document.getElementById('deptsMain').innerHTML=deptsMain.map(deptCard).join('');
-    document.getElementById('deptsOther').innerHTML=deptsOther.map(deptCard).join('');
+    document.getElementById('deptsMain').innerHTML=deptsMain.map((d,i)=>deptCard(d,'main',i)).join('');
+    document.getElementById('deptsOther').innerHTML=deptsOther.map((d,i)=>deptCard(d,'other',i)).join('');
     const total=[...deptsMain,...deptsOther].reduce((s,d)=>s+(d.titles||[]).reduce((a,t)=>a+t.n,0),0);
     document.getElementById('titlesTotal').innerHTML=
       `<div class="tt-num">${total}</div><div class="tt-label">${LANG==='en'?'Total titles across all departments':'Συνολικοί τίτλοι σε όλα τα τμήματα'}</div>`;
   }
   renderDepts();
+
+  // ---- DEPT MODAL ----
+  function openDept(group,idx){
+    const arr=group==='main'?deptsMain:deptsOther;
+    const d=arr[idx];if(!d)return;
+    const name=LANG==='en'?d.en:d.el;
+    const desc=LANG==='en'?(d.desc_en||d.desc||''):(d.desc||'');
+    const founded=d.founded?`<div class="em-dept-meta">${LANG==='el'?'Ίδρυση':'Founded'}: <b>${d.founded}</b></div>`:'';
+    let honoursHTML='';
+    if(d.titles&&d.titles.length){
+      honoursHTML='<div class="em-dept-honours"><h4>'+(LANG==='en'?'Honours':'Τίτλοι')+'</h4><div class="dept-titles">'+
+        d.titles.map(t=>`<div class="dt-badge"><b>${t.n}</b><span>${LANG==='en'?t.en:t.el}</span></div>`).join('')+
+        '</div></div>';
+    }
+    const descHTML=desc||`<i>${LANG==='en'?'Content coming soon.':'Το περιεχόμενο θα προστεθεί σύντομα.'}</i>`;
+    emBody.innerHTML=`
+      <h3 class="em-title">${name}</h3>
+      ${founded}
+      <div class="em-desc em-dept-desc">${descHTML}</div>
+      ${honoursHTML}`;
+    em.classList.add('open');document.body.style.overflow='hidden';
+  }
+  ['deptsMain','deptsOther'].forEach(id=>{
+    const el=document.getElementById(id);if(!el)return;
+    el.addEventListener('click',e=>{const c=e.target.closest('[data-dept-idx]');if(c)openDept(c.dataset.deptGroup,+c.dataset.deptIdx);});
+    el.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.closest('[data-dept-idx]')){e.preventDefault();const c=e.target.closest('[data-dept-idx]');openDept(c.dataset.deptGroup,+c.dataset.deptIdx);}});
+  });
 
   /* ---- GALLERY with decade filter ---- */
   const decadeOf=y=>{const n=+y;return Math.floor(n/10)*10;};
