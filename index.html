@@ -168,6 +168,11 @@
   .dept:hover::after{transform:scaleX(1);}
   .dept[role="button"]{cursor:pointer;-webkit-tap-highlight-color:transparent;}
   .dept[role="button"]:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 2px rgba(224,181,58,.35);}
+  .dept-more{position:absolute;top:12px;right:14px;color:var(--gold-deep);
+    font-size:1.15rem;line-height:1;opacity:.6;pointer-events:none;
+    font-family:"Bodoni MT",Georgia,serif;font-weight:400;
+    transition:transform .3s,opacity .3s,color .3s;}
+  .dept:hover .dept-more,.dept:focus .dept-more{opacity:1;color:var(--gold-bright);transform:translateX(4px);}
   /* Dept modal content */
   .em-dept-meta{color:var(--ash);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
     margin-bottom:18px;font-weight:600;}
@@ -1205,7 +1210,7 @@ footer{
     }else{
       honours=`<div class="dept-active">${LANG==='en'?'Active department':'Ενεργό τμήμα'}</div>`;
     }
-    return `<div class="dept" data-dept-group="${group}" data-dept-idx="${idx}" role="button" tabindex="0"><span class="dept-mark"></span><h3>${name}</h3>${honours}</div>`;
+    return `<div class="dept" data-dept-group="${group}" data-dept-idx="${idx}" role="button" tabindex="0"><span class="dept-more" aria-hidden="true">›</span><span class="dept-mark"></span><h3>${name}</h3>${honours}</div>`;
   }
   function renderDepts(){
     document.getElementById('deptsMain').innerHTML=deptsMain.map((d,i)=>deptCard(d,'main',i)).join('');
