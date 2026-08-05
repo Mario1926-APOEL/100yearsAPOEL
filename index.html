@@ -1109,14 +1109,8 @@ footer{
           <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
         </div>
         <h3 class="cc-title" data-el="Στείλτε μας email" data-en="Email us">Στείλτε μας email</h3>
-        <p class="cc-desc" data-el="Έχετε φωτογραφίες, βίντεο ή ιστορίες που θέλετε να μοιραστείτε; Οποιαδήποτε ερώτηση ή συνεργασία; Στείλτε μας απευθείας:" data-en="Have photos, videos or stories to share? Any question or collaboration? Reach us directly:">Έχετε φωτογραφίες, βίντεο ή ιστορίες που θέλετε να μοιραστείτε; Οποιαδήποτε ερώτηση ή συνεργασία; Στείλτε μας απευθείας:</p>
+        <p class="cc-desc" data-el="Έχετε φωτογραφίες ή βίντεο που θέλετε να μοιραστείτε; Οποιαδήποτε εισήγηση ή ιδέα; Στείλτε μας απευθείας:" data-en="Have photos or videos to share? Any suggestion or idea? Reach us directly:">Έχετε φωτογραφίες ή βίντεο που θέλετε να μοιραστείτε; Οποιαδήποτε εισήγηση ή ιδέα; Στείλτε μας απευθείας:</p>
         <a class="cc-email" href="mailto:info@apoelultras.net?subject=100%20%CE%A7%CF%81%CF%8C%CE%BD%CE%B9%CE%B1%20%CE%91%CE%A0%CE%9F%CE%95%CE%9B">info@apoelultras.net</a>
-        <div class="cc-tags">
-          <span class="cc-tag" data-el="📷 Φωτογραφίες" data-en="📷 Photos">📷 Φωτογραφίες</span>
-          <span class="cc-tag" data-el="🎬 Βίντεο" data-en="🎬 Videos">🎬 Βίντεο</span>
-          <span class="cc-tag" data-el="📖 Ιστορίες" data-en="📖 Stories">📖 Ιστορίες</span>
-          <span class="cc-tag" data-el="💡 Ιδέες" data-en="💡 Ideas">💡 Ιδέες</span>
-        </div>
       </div>
 
       <!-- VOLUNTEER FORM -->
@@ -1144,15 +1138,6 @@ footer{
               <input type="tel" id="vfPhone" required maxlength="30" autocomplete="tel">
             </label>
           </div>
-          <fieldset class="vf-events">
-            <legend data-el="Σε ποιες εκδηλώσεις μπορείς να βοηθήσεις;" data-en="Which events can you help with?">Σε ποιες εκδηλώσεις μπορείς να βοηθήσεις;</legend>
-            <label class="vf-check"><input type="checkbox" name="events" value="Παρουσίαση Σήματος"><span data-el="Παρουσίαση Σήματος (06/08)" data-en="Emblem Presentation (06/08)">Παρουσίαση Σήματος (06/08)</span></label>
-            <label class="vf-check"><input type="checkbox" name="events" value="Θρύλος στους δρόμους"><span data-el="Ο Θρύλος στους δρόμους (01/09)" data-en="Legend in the streets (01/09)">Ο Θρύλος στους δρόμους (01/09)</span></label>
-            <label class="vf-check"><input type="checkbox" name="events" value="Λεύκωμα"><span data-el="Παρουσίαση Λευκώματος (05/10)" data-en="Book Launch (05/10)">Παρουσίαση Λευκώματος (05/10)</span></label>
-            <label class="vf-check"><input type="checkbox" name="events" value="Gala Dinner"><span data-el="Επετειακό Gala Dinner (04/11)" data-en="Anniversary Gala (04/11)">Επετειακό Gala Dinner (04/11)</span></label>
-            <label class="vf-check"><input type="checkbox" name="events" value="Αποκορύφωμα"><span data-el="Αποκορύφωμα Εορτασμών (07-08/11)" data-en="Grand Finale (07-08/11)">Αποκορύφωμα Εορτασμών (07-08/11)</span></label>
-            <label class="vf-check"><input type="checkbox" name="events" value="Οποιαδήποτε"><span data-el="Οποιαδήποτε — ενημερώστε με" data-en="Any — let me know">Οποιαδήποτε — ενημερώστε με</span></label>
-          </fieldset>
           <label class="vf-field">
             <span class="vf-label" data-el="Πώς μπορείς να βοηθήσεις; (προαιρετικό)" data-en="How can you help? (optional)">Πώς μπορείς να βοηθήσεις; (προαιρετικό)</span>
             <textarea id="vfMessage" rows="3" maxlength="500" placeholder="π.χ. φωτογράφιση, οργάνωση, υποδοχή, ασφάλεια…"></textarea>
@@ -2107,7 +2092,6 @@ footer{
       const phone=document.getElementById('vfPhone').value.trim();
       const message=document.getElementById('vfMessage').value.trim();
       const consent=document.getElementById('vfConsent').checked;
-      const events=Array.from(form.querySelectorAll('input[name="events"]:checked')).map(i=>i.value);
       // Validation
       if(!name){setStatus(LANG==='el'?'⚠ Συμπληρώστε το ονοματεπώνυμο.':'⚠ Please enter your name.','error');return;}
       if(!email||!isEmail(email)){setStatus(LANG==='el'?'⚠ Δώστε έγκυρο email.':'⚠ Enter a valid email.','error');return;}
@@ -2119,7 +2103,7 @@ footer{
         const res=await fetch(`${SB_URL}/rest/v1/volunteers`,{
           method:'POST',
           headers:{apikey:SB_ANON,Authorization:`Bearer ${SB_ANON}`,'Content-Type':'application/json',Prefer:'return=minimal'},
-          body:JSON.stringify({name,email,phone,events,message:message||null})
+          body:JSON.stringify({name,email,phone,message:message||null})
         });
         if(!res.ok)throw new Error(await res.text());
         form.reset();
