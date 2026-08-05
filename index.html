@@ -442,6 +442,71 @@
   .em-newsmeta .em-newscat{padding:3px 10px;border:1px solid rgba(201,159,43,.35);color:var(--gold-bright);}
   .em-newsimg{width:100%;aspect-ratio:16/9;background:var(--navy-deep) center/cover no-repeat;
     border:1px solid rgba(201,159,43,.15);margin:20px 0;}
+
+  /* ---- CONTACT SECTION ---- */
+  .contact-layout{display:grid;grid-template-columns:1fr 1.4fr;gap:26px;align-items:start;}
+  .contact-card{background:linear-gradient(155deg,rgba(21,32,60,.4),rgba(0,12,26,.25));
+    border:1px solid rgba(201,159,43,.15);padding:32px 30px;position:relative;overflow:hidden;}
+  .contact-card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,var(--gold-deep),var(--gold-bright),var(--gold-deep));}
+  .cc-icon{width:56px;height:56px;border-radius:50%;background:rgba(201,159,43,.12);
+    color:var(--gold-bright);display:flex;align-items:center;justify-content:center;margin-bottom:18px;
+    border:1px solid rgba(201,159,43,.25);}
+  .cc-title{font-family:"Bodoni MT","Didot",Georgia,serif;font-size:1.55rem;color:var(--gold-bright);
+    letter-spacing:.01em;margin-bottom:14px;font-weight:700;}
+  .cc-desc{color:var(--ash);font-size:.95rem;line-height:1.65;font-weight:300;margin-bottom:22px;}
+  .cc-email{display:inline-block;font-family:"Bodoni MT","Didot",Georgia,serif;font-size:1.35rem;
+    font-weight:700;color:var(--gold-bright);text-decoration:none;letter-spacing:.02em;
+    padding:14px 24px;border:1px solid var(--gold);background:rgba(201,159,43,.08);
+    transition:all .25s;-webkit-tap-highlight-color:transparent;word-break:break-all;}
+  .cc-email:hover{background:var(--gold);color:var(--navy-deep);transform:translateY(-2px);
+    box-shadow:0 10px 26px rgba(224,181,58,.3);}
+  .cc-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px;}
+  .cc-tag{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep);
+    padding:6px 12px;border:1px solid rgba(201,159,43,.2);background:rgba(0,12,26,.3);font-weight:600;}
+  /* Volunteer form */
+  .volunteer-form{display:flex;flex-direction:column;gap:18px;margin-top:6px;}
+  .vf-row{display:flex;flex-direction:column;gap:18px;}
+  .vf-row-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .vf-field{display:flex;flex-direction:column;gap:6px;}
+  .vf-label{font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-deep);
+    font-weight:600;}
+  .vf-field input,.vf-field textarea{background:rgba(0,12,26,.5);border:1px solid var(--hair);
+    color:var(--gold-bright);font-family:inherit;font-size:.95rem;padding:12px 14px;
+    transition:border-color .25s,background .25s;-webkit-tap-highlight-color:transparent;}
+  .vf-field input:focus,.vf-field textarea:focus{outline:none;border-color:var(--gold);
+    background:rgba(0,12,26,.7);}
+  .vf-field textarea{resize:vertical;min-height:70px;font-family:"Bodoni MT",Georgia,serif;
+    font-style:italic;line-height:1.5;}
+  .vf-field textarea::placeholder{color:rgba(168,178,195,.4);font-style:italic;}
+  .vf-events{border:1px solid rgba(201,159,43,.18);padding:16px 18px 12px;background:rgba(0,12,26,.25);}
+  .vf-events legend{font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-deep);
+    padding:0 10px;font-weight:600;}
+  .vf-check{display:flex;align-items:flex-start;gap:10px;padding:6px 0;cursor:pointer;
+    color:var(--ash);font-size:.9rem;line-height:1.4;-webkit-tap-highlight-color:transparent;}
+  .vf-check input[type="checkbox"]{margin-top:3px;width:16px;height:16px;accent-color:var(--gold);
+    cursor:pointer;flex-shrink:0;}
+  .vf-check:hover{color:var(--gold-bright);}
+  .vf-consent{display:flex;align-items:flex-start;gap:10px;font-size:.82rem;color:var(--ash);
+    line-height:1.5;cursor:pointer;font-style:italic;font-family:"Bodoni MT",Georgia,serif;}
+  .vf-consent input{margin-top:3px;width:15px;height:15px;accent-color:var(--gold);flex-shrink:0;cursor:pointer;}
+  .vf-submit{background:linear-gradient(135deg,var(--gold-bright),var(--gold));color:var(--navy-deep);
+    border:none;padding:16px 28px;font-family:inherit;font-size:.72rem;font-weight:800;
+    letter-spacing:.22em;text-transform:uppercase;cursor:pointer;transition:.25s;
+    -webkit-tap-highlight-color:transparent;margin-top:4px;}
+  .vf-submit:hover:not(:disabled){filter:brightness(1.08);transform:translateY(-2px);
+    box-shadow:0 12px 30px rgba(224,181,58,.35);}
+  .vf-submit:disabled{opacity:.6;cursor:wait;}
+  .vf-status{padding:12px 14px;font-size:.88rem;font-style:italic;font-family:"Bodoni MT",Georgia,serif;
+    display:none;text-align:center;}
+  .vf-status.success{background:rgba(64,160,84,.15);border:1px solid rgba(64,160,84,.4);color:#8adf9c;display:block;}
+  .vf-status.error{background:rgba(224,138,90,.15);border:1px solid rgba(224,138,90,.4);color:#f4b291;display:block;}
+  @media(max-width:800px){
+    .contact-layout{grid-template-columns:1fr;}
+    .vf-row-2{grid-template-columns:1fr;}
+    .contact-card{padding:26px 22px;}
+    .cc-email{font-size:1.1rem;padding:12px 18px;}
+  }
   /* SHARE BUTTONS */
   .em-share{margin-top:28px;padding-top:22px;border-top:1px solid rgba(201,159,43,.18);}
   .em-share-label{font-size:.66rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:14px;font-weight:500;}
@@ -966,6 +1031,7 @@ footer{
   <button data-tab="depts" data-el="Τμήματα" data-en="Departments">Τμήματα</button>
   <button data-tab="gallery" data-el="Φωτογραφίες" data-en="Photos" style="display:none">Φωτογραφίες</button>
   <button data-tab="stories" data-el="Οι Ιστορίες σας" data-en="Your Stories">Οι Ιστορίες σας</button>
+  <button data-tab="contact" data-el="Επικοινωνία" data-en="Contact">Επικοινωνία</button>
 </nav>
 
 <main>
@@ -1029,6 +1095,77 @@ footer{
         </div>
         <div class="wall" id="wall"></div>
         <div class="wall-sentinel" id="wallSentinel" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="panel">
+    <div class="sec-head"><div class="k" data-el="Μιλήστε μας" data-en="Reach out">Μιλήστε μας</div><h2 class="serif" data-el="Επικοινωνία" data-en="Contact">Επικοινωνία</h2>
+      <p class="lead" data-el="Στείλτε μας φωτογραφίες, βίντεο, ιδέες — ή γίνετε εθελοντές στους εορτασμούς των 100 χρόνων." data-en="Send us photos, videos, ideas — or volunteer for the 100-year celebrations.">Στείλτε μας φωτογραφίες, βίντεο, ιδέες — ή γίνετε εθελοντές στους εορτασμούς των 100 χρόνων.</p></div>
+    <div class="contact-layout">
+      <!-- EMAIL CARD -->
+      <div class="contact-card">
+        <div class="cc-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </div>
+        <h3 class="cc-title" data-el="Στείλτε μας email" data-en="Email us">Στείλτε μας email</h3>
+        <p class="cc-desc" data-el="Έχετε φωτογραφίες, βίντεο ή ιστορίες που θέλετε να μοιραστείτε; Οποιαδήποτε ερώτηση ή συνεργασία; Στείλτε μας απευθείας:" data-en="Have photos, videos or stories to share? Any question or collaboration? Reach us directly:">Έχετε φωτογραφίες, βίντεο ή ιστορίες που θέλετε να μοιραστείτε; Οποιαδήποτε ερώτηση ή συνεργασία; Στείλτε μας απευθείας:</p>
+        <a class="cc-email" href="mailto:info@apoelultras.net?subject=100%20%CE%A7%CF%81%CF%8C%CE%BD%CE%B9%CE%B1%20%CE%91%CE%A0%CE%9F%CE%95%CE%9B">info@apoelultras.net</a>
+        <div class="cc-tags">
+          <span class="cc-tag" data-el="📷 Φωτογραφίες" data-en="📷 Photos">📷 Φωτογραφίες</span>
+          <span class="cc-tag" data-el="🎬 Βίντεο" data-en="🎬 Videos">🎬 Βίντεο</span>
+          <span class="cc-tag" data-el="📖 Ιστορίες" data-en="📖 Stories">📖 Ιστορίες</span>
+          <span class="cc-tag" data-el="💡 Ιδέες" data-en="💡 Ideas">💡 Ιδέες</span>
+        </div>
+      </div>
+
+      <!-- VOLUNTEER FORM -->
+      <div class="contact-card volunteer-card">
+        <div class="cc-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        </div>
+        <h3 class="cc-title" data-el="Γίνε Εθελοντής" data-en="Become a Volunteer">Γίνε Εθελοντής</h3>
+        <p class="cc-desc" data-el="Βοηθήστε στη διοργάνωση των εκδηλώσεων για τα 100 χρόνια. Συμπληρώστε τη φόρμα και θα επικοινωνήσουμε μαζί σας." data-en="Help organise the 100-year events. Fill out the form and we'll get in touch.">Βοηθήστε στη διοργάνωση των εκδηλώσεων για τα 100 χρόνια. Συμπληρώστε τη φόρμα και θα επικοινωνήσουμε μαζί σας.</p>
+
+        <form class="volunteer-form" id="volunteerForm" novalidate>
+          <div class="vf-row">
+            <label class="vf-field">
+              <span class="vf-label" data-el="Ονοματεπώνυμο" data-en="Full name">Ονοματεπώνυμο</span>
+              <input type="text" id="vfName" required maxlength="80" autocomplete="name">
+            </label>
+          </div>
+          <div class="vf-row vf-row-2">
+            <label class="vf-field">
+              <span class="vf-label" data-el="Email" data-en="Email">Email</span>
+              <input type="email" id="vfEmail" required maxlength="120" autocomplete="email">
+            </label>
+            <label class="vf-field">
+              <span class="vf-label" data-el="Τηλέφωνο" data-en="Phone">Τηλέφωνο</span>
+              <input type="tel" id="vfPhone" required maxlength="30" autocomplete="tel">
+            </label>
+          </div>
+          <fieldset class="vf-events">
+            <legend data-el="Σε ποιες εκδηλώσεις μπορείς να βοηθήσεις;" data-en="Which events can you help with?">Σε ποιες εκδηλώσεις μπορείς να βοηθήσεις;</legend>
+            <label class="vf-check"><input type="checkbox" name="events" value="Παρουσίαση Σήματος"><span data-el="Παρουσίαση Σήματος (06/08)" data-en="Emblem Presentation (06/08)">Παρουσίαση Σήματος (06/08)</span></label>
+            <label class="vf-check"><input type="checkbox" name="events" value="Θρύλος στους δρόμους"><span data-el="Ο Θρύλος στους δρόμους (01/09)" data-en="Legend in the streets (01/09)">Ο Θρύλος στους δρόμους (01/09)</span></label>
+            <label class="vf-check"><input type="checkbox" name="events" value="Λεύκωμα"><span data-el="Παρουσίαση Λευκώματος (05/10)" data-en="Book Launch (05/10)">Παρουσίαση Λευκώματος (05/10)</span></label>
+            <label class="vf-check"><input type="checkbox" name="events" value="Gala Dinner"><span data-el="Επετειακό Gala Dinner (04/11)" data-en="Anniversary Gala (04/11)">Επετειακό Gala Dinner (04/11)</span></label>
+            <label class="vf-check"><input type="checkbox" name="events" value="Αποκορύφωμα"><span data-el="Αποκορύφωμα Εορτασμών (07-08/11)" data-en="Grand Finale (07-08/11)">Αποκορύφωμα Εορτασμών (07-08/11)</span></label>
+            <label class="vf-check"><input type="checkbox" name="events" value="Οποιαδήποτε"><span data-el="Οποιαδήποτε — ενημερώστε με" data-en="Any — let me know">Οποιαδήποτε — ενημερώστε με</span></label>
+          </fieldset>
+          <label class="vf-field">
+            <span class="vf-label" data-el="Πώς μπορείς να βοηθήσεις; (προαιρετικό)" data-en="How can you help? (optional)">Πώς μπορείς να βοηθήσεις; (προαιρετικό)</span>
+            <textarea id="vfMessage" rows="3" maxlength="500" placeholder="π.χ. φωτογράφιση, οργάνωση, υποδοχή, ασφάλεια…"></textarea>
+          </label>
+          <label class="vf-consent">
+            <input type="checkbox" id="vfConsent" required>
+            <span data-el="Συμφωνώ να χρησιμοποιηθούν τα στοιχεία μου αποκλειστικά για επικοινωνία σχετικά με τους εορτασμούς." data-en="I agree that my data will only be used for communication regarding the celebrations.">Συμφωνώ να χρησιμοποιηθούν τα στοιχεία μου αποκλειστικά για επικοινωνία σχετικά με τους εορτασμούς.</span>
+          </label>
+          <button type="submit" class="vf-submit" id="vfSubmit">
+            <span data-el="Καταχώρηση" data-en="Submit">Καταχώρηση</span>
+          </button>
+          <div class="vf-status" id="vfStatus"></div>
+        </form>
       </div>
     </div>
   </section>
@@ -1951,6 +2088,50 @@ footer{
     clearTimeout(el._t);el._t=setTimeout(()=>{el.style.display='none';},6000);
   }
   renderFresh();
+
+  // ---- VOLUNTEER FORM ----
+  (function(){
+    const form=document.getElementById('volunteerForm');
+    if(!form)return;
+    const btn=document.getElementById('vfSubmit');
+    const statusEl=document.getElementById('vfStatus');
+    const isEmail=v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    function setStatus(msg,type){
+      statusEl.textContent=msg;statusEl.className='vf-status '+type;
+      if(type==='success'){setTimeout(()=>{statusEl.style.display='none';statusEl.className='vf-status';},8000);}
+    }
+    form.addEventListener('submit',async e=>{
+      e.preventDefault();
+      const name=document.getElementById('vfName').value.trim();
+      const email=document.getElementById('vfEmail').value.trim();
+      const phone=document.getElementById('vfPhone').value.trim();
+      const message=document.getElementById('vfMessage').value.trim();
+      const consent=document.getElementById('vfConsent').checked;
+      const events=Array.from(form.querySelectorAll('input[name="events"]:checked')).map(i=>i.value);
+      // Validation
+      if(!name){setStatus(LANG==='el'?'⚠ Συμπληρώστε το ονοματεπώνυμο.':'⚠ Please enter your name.','error');return;}
+      if(!email||!isEmail(email)){setStatus(LANG==='el'?'⚠ Δώστε έγκυρο email.':'⚠ Enter a valid email.','error');return;}
+      if(!phone||phone.length<6){setStatus(LANG==='el'?'⚠ Δώστε έγκυρο τηλέφωνο.':'⚠ Enter a valid phone.','error');return;}
+      if(!consent){setStatus(LANG==='el'?'⚠ Παρακαλώ αποδεχτείτε τους όρους.':'⚠ Please accept the terms.','error');return;}
+      const origLabel=btn.querySelector('span').textContent;
+      btn.disabled=true;btn.querySelector('span').textContent=LANG==='el'?'Αποστολή…':'Sending…';
+      try{
+        const res=await fetch(`${SB_URL}/rest/v1/volunteers`,{
+          method:'POST',
+          headers:{apikey:SB_ANON,Authorization:`Bearer ${SB_ANON}`,'Content-Type':'application/json',Prefer:'return=minimal'},
+          body:JSON.stringify({name,email,phone,events,message:message||null})
+        });
+        if(!res.ok)throw new Error(await res.text());
+        form.reset();
+        setStatus(LANG==='el'?'✓ Ευχαριστούμε! Θα επικοινωνήσουμε σύντομα μαζί σας.':'✓ Thank you! We will contact you soon.','success');
+      }catch(err){
+        console.error(err);
+        setStatus(LANG==='el'?'⚠ Παρουσιάστηκε σφάλμα. Δοκιμάστε ξανά ή στείλτε email στο info@apoelultras.net.':'⚠ Error occurred. Try again or email info@apoelultras.net.','error');
+      }finally{
+        btn.disabled=false;btn.querySelector('span').textContent=origLabel;
+      }
+    });
+  })();
 
   /* ---- Gold particle field ---- */
   const cv=document.getElementById('goldCanvas'),cx=cv.getContext('2d');
