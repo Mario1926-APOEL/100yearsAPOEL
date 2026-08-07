@@ -1208,7 +1208,7 @@ footer{
 
 
 <!-- BACKGROUND ANTHEM -->
-<audio id="bgAudio" loop preload="auto">
+<audio id="bgAudio" preload="auto">
   <source src="./apoel-anthem.mp3" type="audio/mpeg">
 </audio>
 <button id="audioBtn" class="audio-btn" aria-label="Ενεργοποίηση/απενεργοποίηση ύμνου" title="Ύμνος ΑΠΟΕΛ">
@@ -1332,16 +1332,17 @@ footer{
     {el:'Καλαθόσφαιρα',en:'Basketball',titles:[{n:11,el:'Πρωταθλήματα',en:'Titles'},{n:12,el:'Κύπελλα',en:'Cups'},{n:11,el:'Super Cup',en:'Super Cups'}]},
     {el:'Πετόσφαιρα',en:'Volleyball',titles:[{n:11,el:'Πρωταθλήματα',en:'Titles'},{n:5,el:'Κύπελλα',en:'Cups'}]},
     {el:'Πετόσφαιρα Γυναικών',en:'Womens Volleyball',titles:[{n:1,el:'Κύπελλο 1977',en:'Cup 1977'}]},
-    {el:'Χειρόσφαιρα',en:'Handball',titles:[]},
-    {el:'Χειρόσφαιρα Γυναικών',en:'Womens Handball',titles:[]},
-    {el:'Υδατοσφαίριση',en:'Water Polo',titles:[{n:6,el:'Πρωταθλήματα',en:'Titles'},{n:7,el:'Κύπελλα',en:'Cups'},{n:2,el:'Super Cup',en:'Super Cups'}]},
+    {el:'Χειροσφαίριση',en:'Handball',titles:[]},
+    {el:'Χειροσφαίριση Γυναικών',en:'Womens Handball',titles:[]},
+    {el:'Κολύμβηση/Υδατοσφαίριση',en:'Swimming/Water Polo',titles:[{n:6,el:'Πρωταθλήματα',en:'Titles'},{n:7,el:'Κύπελλα',en:'Cups'},{n:2,el:'Super Cup',en:'Super Cups'}]},
     {el:'Φούτσαλ',en:'Futsal',titles:[{n:7,el:'Πρωταθλήματα',en:'Titles'},{n:5,el:'Κύπελλα',en:'Cups'},{n:1,el:'Super Cup',en:'Super Cup'}]},
   ];
   const deptsOther=[
-    {el:'Ομάδα Δρομέων',en:'Running Team',titles:[]},
+    {el:'Δρομείς',en:'Runners',titles:[]},
     {el:'Ποδηλασία',en:'Cycling',titles:[{n:18,el:'Πρωταθλήματα',en:'Titles'},{n:4,el:'Κύπελλα',en:'Cups'}]},
     {el:'Μπόουλιγκ',en:'Bowling',titles:[]},
     {el:'Πινγκ-Πονγκ',en:'Table Tennis',titles:[{n:10,el:'Πρωταθλήματα',en:'Titles'},{n:9,el:'Κύπελλα',en:'Cups'}]},
+    {el:'Πυγμαχία',en:'Boxing',titles:[]},
   ];
   function deptCard(d,group,idx){
     const name=LANG==='en'?d.en:d.el;
