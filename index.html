@@ -50,9 +50,10 @@
   .emblem-stack{position:relative;display:block;width:clamp(340px,64vw,880px);
     aspect-ratio:16/9;margin:0 auto 1.4em;opacity:0;animation:rise 1.3s .1s forwards;}
   .emblem-banner{display:block;position:absolute;top:0;left:0;width:100%;height:100%;
-    object-fit:contain;
-    -webkit-mask-image:radial-gradient(ellipse at center,#000 55%,transparent 96%);
-    mask-image:radial-gradient(ellipse at center,#000 55%,transparent 96%);}
+    object-fit:contain;mix-blend-mode:screen;
+    filter:brightness(1.05) contrast(1.08);
+    -webkit-mask-image:radial-gradient(ellipse at center,#000 45%,transparent 95%);
+    mask-image:radial-gradient(ellipse at center,#000 45%,transparent 95%);}
   .emblem-1{opacity:1;animation:emblemFadeOut 12s 3s infinite;}
   .emblem-2{opacity:0;animation:emblemFadeIn 12s 3s infinite;}
   @keyframes emblemFadeOut{
