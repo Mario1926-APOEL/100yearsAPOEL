@@ -1297,6 +1297,10 @@ footer{
     {f:'2026',y:'2026',c:'Ένας και μοναδικός — 2026'},
   ];
   const src=p=>`./${p.f}.jpg`;
+  // Lightweight image used by gallery/album grids. Keep the full JPG for the lightbox.
+  // Naming convention: photo.jpg -> photo-thumb.webp
+  const thumbSrc=p=>`./${p.f}-thumb.webp`;
+  const thumbImg=p=>`<img src="${thumbSrc(p)}" data-full-src="${src(p)}" alt="${capOf(p)}" loading="lazy" decoding="async" fetchpriority="low">`;
 
   /* ---- HISTORY timeline (key milestones with a representative photo) ---- */
   const history=[
@@ -1415,11 +1419,19 @@ footer{
     mosaic.innerHTML=list.map(p=>`
       <figure class="frame" data-photo="${p.f}">
         <span class="yr">${p.y}</span>
-        <img src="${src(p)}" alt="${capOf(p)}" loading="lazy">
+        ${thumbImg(p)}
         <figcaption>${capOf(p)}</figcaption>
       </figure>`).join('');
   }
   drawGallery();
+  // Preserve existing behaviour while thumbnails are being added: if a WebP
+  // thumbnail is missing, fall back once to the original JPG.
+  document.addEventListener('error',e=>{
+    const img=e.target;
+    if(!(img instanceof HTMLImageElement)||!img.dataset.fullSrc||img.dataset.thumbFallback)return;
+    img.dataset.thumbFallback='1';
+    img.src=img.dataset.fullSrc;
+  },true);
   gtools.addEventListener('click',e=>{const b=e.target.closest('.gchip');if(!b)return;
     document.querySelectorAll('.gchip').forEach(c=>c.classList.remove('on'));b.classList.add('on');drawGallery(b.dataset.d);});
 
@@ -1911,7 +1923,7 @@ footer{
     // Render grid
     let html='';
     photoItems.forEach((p,idx)=>{
-      html+=`<button class="album-thumb" data-album-idx="${idx}" type="button" aria-label="Photo ${idx+1}"><img src="./${p.f}.jpg" alt="" loading="lazy"></button>`;
+      html+=`<button class="album-thumb" data-album-idx="${idx}" type="button" aria-label="Photo ${idx+1}"><img src="${thumbSrc(p)}" data-full-src="${src(p)}" alt="" loading="lazy" decoding="async" fetchpriority="low"></button>`;
     });
     if(videoItems.length&&photoItems.length){
       html+=`<div class="album-divider"><span>${LANG==='el'?'Βίντεο':'Videos'}</span></div>`;
