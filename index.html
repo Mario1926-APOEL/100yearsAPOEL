@@ -303,6 +303,7 @@
   }
   .album-thumb:active{border-color:var(--gold);}
   .album-thumb img{width:100%;height:100%;object-fit:cover;display:block;-webkit-user-drag:none;}
+  .album-thumb{background:linear-gradient(135deg,rgba(21,32,60,.55),rgba(0,12,26,.45));}
   .album-thumb.video::after{content:"▶";position:absolute;inset:0;display:flex;
     align-items:center;justify-content:center;color:#fff;font-size:2rem;
     text-shadow:0 0 24px rgba(0,0,0,.8),0 0 10px rgba(0,0,0,.9);pointer-events:none;
@@ -1603,6 +1604,14 @@ footer{
   // ---- ALBUM FOLDER LOADER (GitHub API) ----
   const REPO='Mario1926-APOEL/100yearsAPOEL';
   const albumCache={};
+  // Generate small thumbnail URL via weserv.nl (free image CDN) — original stays for lightbox
+  function thumbUrl(path){
+    if(location.protocol==='file:'||location.hostname==='localhost'||location.hostname==='127.0.0.1'){
+      return `./${path}`;
+    }
+    const abs=`${location.origin}/${path}`;
+    return `https://wsrv.nl/?url=${encodeURIComponent(abs)}&w=500&h=500&fit=cover&q=72&we`;
+  }
   async function loadAlbumFolder(folder){
     if(albumCache[folder])return albumCache[folder];
     try{
@@ -1919,8 +1928,9 @@ footer{
     // Render grid
     let html='';
     photoItems.forEach((p,idx)=>{
-      const imgUrl=p.src?`./${p.src}`:`./${p.f}.jpg`;
-      html+=`<button class="album-thumb" data-album-idx="${idx}" type="button" aria-label="Photo ${idx+1}"><img src="${imgUrl}" alt="" loading="lazy"></button>`;
+      const origUrl=p.src?`./${p.src}`:`./${p.f}.jpg`;
+      const thumb=p.src?thumbUrl(p.src):origUrl;
+      html+=`<button class="album-thumb" data-album-idx="${idx}" type="button" aria-label="Photo ${idx+1}"><img src="${thumb}" alt="" loading="lazy" decoding="async"></button>`;
     });
     if(videoItems.length&&photoItems.length){
       html+=`<div class="album-divider"><span>${LANG==='el'?'Βίντεο':'Videos'}</span></div>`;
