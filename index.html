@@ -313,6 +313,8 @@
   .album-divider::before,.album-divider::after{content:"";flex:1;height:1px;
     background:linear-gradient(90deg,transparent,var(--gold) 20%,var(--gold) 80%,transparent);}
   .album-divider span{padding:0 4px;color:var(--gold-bright);}
+  .album-loading{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--gold-deep);
+    font-family:"Bodoni MT",Georgia,serif;font-style:italic;font-size:1.05rem;letter-spacing:.08em;}
   @media(max-width:900px){.album-grid{grid-template-columns:repeat(3,1fr);}}
   @media(max-width:600px){.album-grid{grid-template-columns:repeat(2,1fr);}.album-title{font-size:1.3rem;}}
   #lbVideo{width:min(90vw,1280px);aspect-ratio:16/9;max-height:80vh;background:#000;border:none;}
@@ -1296,11 +1298,7 @@ footer{
     {f:'2023',y:'2023',c:'Η ομάδα του 2023'},
     {f:'2026',y:'2026',c:'Ένας και μοναδικός — 2026'},
   ];
-  const src=p=>`./${p.f}.jpg`;
-  // Lightweight image used by gallery/album grids. Keep the full JPG for the lightbox.
-  // Naming convention: photo.jpg -> photo-thumb.webp
-  const thumbSrc=p=>`./${p.f}-thumb.webp`;
-  const thumbImg=p=>`<img src="${thumbSrc(p)}" data-full-src="${src(p)}" alt="${capOf(p)}" loading="lazy" decoding="async" fetchpriority="low">`;
+  const src=p=>p.src?`./${p.src}`:`./${p.f}.jpg`;
 
   /* ---- HISTORY timeline (key milestones with a representative photo) ---- */
   const history=[
@@ -1419,19 +1417,11 @@ footer{
     mosaic.innerHTML=list.map(p=>`
       <figure class="frame" data-photo="${p.f}">
         <span class="yr">${p.y}</span>
-        ${thumbImg(p)}
+        <img src="${src(p)}" alt="${capOf(p)}" loading="lazy">
         <figcaption>${capOf(p)}</figcaption>
       </figure>`).join('');
   }
   drawGallery();
-  // Preserve existing behaviour while thumbnails are being added: if a WebP
-  // thumbnail is missing, fall back once to the original JPG.
-  document.addEventListener('error',e=>{
-    const img=e.target;
-    if(!(img instanceof HTMLImageElement)||!img.dataset.fullSrc||img.dataset.thumbFallback)return;
-    img.dataset.thumbFallback='1';
-    img.src=img.dataset.fullSrc;
-  },true);
   gtools.addEventListener('click',e=>{const b=e.target.closest('.gchip');if(!b)return;
     document.querySelectorAll('.gchip').forEach(c=>c.classList.remove('on'));b.classList.add('on');drawGallery(b.dataset.d);});
 
@@ -1493,32 +1483,7 @@ footer{
       desc_en:'<b>PAN.SY.FI. APOEL</b><br><br>We could never have imagined a more ideal start for the LEGEND\'s 100 years. 100 days before the great day, when the LEGEND completes a century of life, the celebrations have officially begun. With a majestic parade that can be compared only to the day we won the championship in 2024, hundreds of motorcycles and cars took part in this highly symbolic route.<br><br>The first stop could be none other than the <b>grave of Georgios Poulias</b>. From where the Father of APOELISM rests, we drew strength for this special year and reverently paid our respects at his tomb.<br><br>The second stop was the <b>old GSP</b> and the monument of the EOKA hero and APOEL athlete, <b>Michalakis Karaolis</b>. To always remind us what these 5 letters stand for, so we never stray.<br><br>The final station, where the Orange were born, at the <b>Makario Stadium</b>, where night became day and old and new generations became one, to celebrate together this brilliant year, exactly as history demands.<br><br>Fate wanted us to celebrate our 100 years in difficult times. But this fact energizes us even more, because APOEL is not simply 90 minutes of match, but a whole life, a worldview, a religion and the greatest Idea born in this land.<br><br>The thirst of APOEL\'s people to celebrate this brilliant century is incredible. We saw it in the eyes of small children who wore their Orange, of their fathers and grandfathers who shed tears before this great symbolic parade.<br><br>We swear that whatever happens on the field, this year will remain unforgettable for everyone and we will remember it until we die. Because we carried and will continue to carry APOEL on our own shoulders. Because the people of the LEGEND will continue to draw strength and pride from the Orange. We owe it to the new generations, we owe it to our brothers watching us from the heavens.<br><br><i>Get ready to live unrepeatable moments. Yesterday was only the beginning…</i><br><br><b>100 YEARS LEGEND</b>',
       info:[],
       info_en:[],
-      photos:[
-        {f:'motoporeia_p1'},
-        {f:'motoporeia_p2'},
-        {f:'motoporeia_p3'},
-        {f:'motoporeia_p4'},
-        {f:'motoporeia_p5'},
-        {f:'motoporeia_p6'},
-        {f:'motoporeia_p7'},
-        {f:'motoporeia_p8'},
-        {f:'motoporeia_p9'},
-        {f:'motoporeia_p10'},
-        {f:'motoporeia_p11'},
-        {f:'motoporeia_p12'},
-        {f:'motoporeia_p13'},
-        {f:'motoporeia_p14'},
-        {f:'motoporeia_p15'},
-        {f:'motoporeia_p16'},
-        {f:'motoporeia_p17'},
-        {f:'motoporeia_p18'},
-        {f:'motoporeia_p19'},
-        {f:'motoporeia_p20'},
-        {f:'motoporeia_p21'},
-        {f:'motoporeia_p22'},
-        {f:'motoporeia_p23'},
-        {f:'motoporeia_p24'}
-      ],
+      album:'motoporeia',
       videos:[
         {yt:'HdDxEIn6pfc'},
         {yt:'I5pLxeiDbaY'}
@@ -1541,9 +1506,7 @@ footer{
       desc_en:'For a century, APOEL has been writing history.<br>A history full of triumphs, challenges, people and moments passed down from generation to generation.<br><br>A symbol travels along with all these eras. <b>The Blue-Yellow Shield.</b><br>An emblem that was not just a badge on a jersey, but the identity, pride and soul of the club.<br><br>The first emblem to appear on a competitive kit dates back to <b>1934</b>.<br>Since then, it has passed through ten decades of changes, evolutions and different versions, each capturing the spirit of its era.<br><br>There were, indeed, many seasons when the emblem was not even on the shirts.<br>The difficult conditions, the deprivations and the realities of the times, particularly in the years of the black-and-white past, did not always allow what we today take for granted.<br><br><i>And yet, every time the shield appeared, it did not merely adorn a kit.<br>It captured an entire era.</i><br><br>We will follow the journey of the blue-yellow shield, from its first appearance to its current form.<br>Because every version carries the values, the struggles, the victories and the legacy that shaped APOEL.<br><b>All the way to the anniversary logo of the 100 years.</b>',
       info:[],
       info_en:[],
-      photos:[
-        {f:'enas_aionas_hero'}
-      ],
+      album:'enas-aionas-thrylos',
       videos:[
         {yt:'607B3E4hiiI'}
       ]},
@@ -1634,7 +1597,27 @@ footer{
   function isPast(e){const d=new Date(e.iso);return !isTBA(e) && d < new Date();}
   function hasPhotos(e){return Array.isArray(e.photos) && e.photos.length>0;}
   function hasVideos(e){return Array.isArray(e.videos) && e.videos.length>0;}
-  function hasMedia(e){return hasPhotos(e) || hasVideos(e);}
+  function hasAlbum(e){return typeof e.album==='string' && e.album.length>0;}
+  function hasMedia(e){return hasPhotos(e) || hasVideos(e) || hasAlbum(e);}
+
+  // ---- ALBUM FOLDER LOADER (GitHub API) ----
+  const REPO='Mario1926-APOEL/100yearsAPOEL';
+  const albumCache={};
+  async function loadAlbumFolder(folder){
+    if(albumCache[folder])return albumCache[folder];
+    try{
+      const url=`https://api.github.com/repos/${REPO}/contents/albums/${folder}?ref=main`;
+      const res=await fetch(url);
+      if(!res.ok)throw new Error('HTTP '+res.status);
+      const files=await res.json();
+      const imgs=(Array.isArray(files)?files:[])
+        .filter(f=>f.type==='file'&&/\.(jpe?g|png|webp)$/i.test(f.name))
+        .sort((a,b)=>a.name.localeCompare(b.name,undefined,{numeric:true,sensitivity:'base'}))
+        .map(f=>`albums/${folder}/${f.name}`);
+      albumCache[folder]=imgs;
+      return imgs;
+    }catch(err){console.error('Album fetch failed:',err);return [];}
+  }
 
   function renderLedger(){
   const L=(o,k)=>LANG==='en'&&o[k+'_en']?o[k+'_en']:o[k];
@@ -1911,19 +1894,33 @@ footer{
   const albumModal=document.getElementById('albumModal');
   const albumGrid=document.getElementById('albumGrid');
   const albumTitle=document.getElementById('albumTitle');
-  function openEventAlbum(i){
+  async function openEventAlbum(i){
     const e=events[i];if(!e||!hasMedia(e))return;
     const L=(o,k)=>LANG==='en'&&o[k+'_en']?o[k+'_en']:o[k];
     albumTitle.textContent=L(e,'t');
-    // Build order (used by lightbox when a thumb is clicked)
-    const photoItems=(e.photos||[]).map(p=>typeof p==='string'?{f:p,c:''}:{f:p.f,c:p.c||''});
+    // Show modal + loading spinner
+    albumGrid.innerHTML=`<div class="album-loading">${LANG==='el'?'Φόρτωση…':'Loading…'}</div>`;
+    albumModal.classList.add('open');
+    document.body.style.overflow='hidden';
+    // Build photo items: prefer folder-based (album), fallback to inline (photos)
+    let photoItems=[];
+    if(e.album){
+      const paths=await loadAlbumFolder(e.album);
+      photoItems=paths.map(p=>({src:p,c:''}));
+    } else if(e.photos){
+      photoItems=e.photos.map(p=>typeof p==='string'?{f:p,c:''}:{f:p.f,c:p.c||''});
+    }
     const videoItems=(e.videos||[]).map(v=>typeof v==='string'?{yt:v,c:''}:{yt:v.yt||v.y||v.id,c:v.c||''});
     order=[...photoItems,...videoItems];
-    if(!order.length)return;
+    if(!order.length){
+      albumGrid.innerHTML=`<div class="album-loading">${LANG==='el'?'Δεν βρέθηκαν αρχεία.':'No files found.'}</div>`;
+      return;
+    }
     // Render grid
     let html='';
     photoItems.forEach((p,idx)=>{
-      html+=`<button class="album-thumb" data-album-idx="${idx}" type="button" aria-label="Photo ${idx+1}"><img src="${thumbSrc(p)}" data-full-src="${src(p)}" alt="" loading="lazy" decoding="async" fetchpriority="low"></button>`;
+      const imgUrl=p.src?`./${p.src}`:`./${p.f}.jpg`;
+      html+=`<button class="album-thumb" data-album-idx="${idx}" type="button" aria-label="Photo ${idx+1}"><img src="${imgUrl}" alt="" loading="lazy"></button>`;
     });
     if(videoItems.length&&photoItems.length){
       html+=`<div class="album-divider"><span>${LANG==='el'?'Βίντεο':'Videos'}</span></div>`;
@@ -1933,8 +1930,6 @@ footer{
       html+=`<button class="album-thumb video" data-album-idx="${realIdx}" type="button" aria-label="Video ${idx+1}"><img src="https://img.youtube.com/vi/${v.yt}/hqdefault.jpg" alt="" loading="lazy"></button>`;
     });
     albumGrid.innerHTML=html;
-    albumModal.classList.add('open');
-    document.body.style.overflow='hidden';
   }
   function closeAlbum(){
     albumModal.classList.remove('open');
