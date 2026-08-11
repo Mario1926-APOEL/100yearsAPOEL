@@ -303,6 +303,7 @@
   }
   .album-thumb:active{border-color:var(--gold);}
   .album-thumb img{width:100%;height:100%;object-fit:cover;display:block;-webkit-user-drag:none;}
+  .album-thumb video{width:100%;height:100%;object-fit:cover;display:block;background:#000;pointer-events:none;}
   .album-thumb{background:linear-gradient(135deg,rgba(21,32,60,.55),rgba(0,12,26,.45));}
   .album-thumb.video::after{content:"▶";position:absolute;inset:0;display:flex;
     align-items:center;justify-content:center;color:#fff;font-size:2rem;
@@ -319,6 +320,7 @@
   @media(max-width:900px){.album-grid{grid-template-columns:repeat(3,1fr);}}
   @media(max-width:600px){.album-grid{grid-template-columns:repeat(2,1fr);}.album-title{font-size:1.3rem;}}
   #lbVideo{width:min(90vw,1280px);aspect-ratio:16/9;max-height:80vh;background:#000;border:none;}
+  #lbLocalVideo{max-width:min(95vw,1280px);max-height:85vh;background:#000;outline:none;}
   .lb-badge{position:absolute;top:14px;left:14px;background:rgba(224,138,90,.85);color:#fff;
     padding:4px 10px;font-size:.6rem;letter-spacing:.24em;font-weight:700;font-family:"Bodoni MT",serif;
     text-transform:uppercase;z-index:2;}
@@ -1197,6 +1199,7 @@ footer{
   <figure>
     <img id="lbImg" src="" alt="">
     <iframe id="lbVideo" style="display:none" frameborder="0" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture"></iframe>
+    <video id="lbLocalVideo" style="display:none" controls playsinline preload="metadata"></video>
     <span class="lb-badge" id="lbBadge" style="display:none">▶ VIDEO</span>
     <figcaption id="lbCap"></figcaption>
   </figure>
@@ -1431,17 +1434,27 @@ footer{
   const lbVideo=document.getElementById('lbVideo'),lbBadge=document.getElementById('lbBadge');
   let order=[],cur=0;
   function byFile(f){return photos.find(p=>p.f===f);}
+  const lbLocalVideo=document.getElementById('lbLocalVideo');
   function show(i){
     const p=order[i];if(!p)return;cur=i;
+    // Reset all media
+    lbImg.style.display='none';lbImg.removeAttribute('src');
+    lbVideo.style.display='none';
+    lbLocalVideo.style.display='none';lbLocalVideo.pause();lbLocalVideo.removeAttribute('src');lbLocalVideo.load();
     if(p.yt){
       // YouTube video
-      lbImg.style.display='none';lbImg.removeAttribute('src');
       lbVideo.style.display='';lbVideo.src=`https://www.youtube.com/embed/${p.yt}?autoplay=1&rel=0&modestbranding=1`;
+      lbBadge.style.display='';
+      lbCap.innerHTML=capOf(p)||'';
+    } else if(p.localVideo){
+      // Local MP4 video
+      lbVideo.src='about:blank';
+      lbLocalVideo.style.display='';lbLocalVideo.src=`./${p.localVideo}`;lbLocalVideo.play().catch(()=>{});
       lbBadge.style.display='';
       lbCap.innerHTML=capOf(p)||'';
     } else {
       // Photo
-      lbVideo.style.display='none';lbVideo.src='about:blank';
+      lbVideo.src='about:blank';
       lbBadge.style.display='none';
       lbImg.style.display='';lbImg.src=src(p);lbImg.alt=capOf(p);
       lbCap.innerHTML=p.y?`<span class="lbyr">${p.y}</span>${capOf(p)}`:capOf(p);
@@ -1450,7 +1463,7 @@ footer{
   function stopVideo(){lbVideo.src='';}
   function openLb(f){order=photos.slice();const i=order.findIndex(p=>p.f===f);show(i<0?0:i);lb.classList.add('open');}
   document.addEventListener('click',e=>{const t=e.target.closest('[data-photo]');if(t)openLb(t.dataset.photo);});
-  function closeLb(){lb.classList.remove('open');lbVideo.src='about:blank';}
+  function closeLb(){lb.classList.remove('open');lbVideo.src='about:blank';lbLocalVideo.pause();lbLocalVideo.removeAttribute('src');lbLocalVideo.load();}
   document.getElementById('lbx').onclick=closeLb;
   document.getElementById('lbPrev').onclick=()=>show((cur-1+order.length)%order.length);
   document.getElementById('lbNext').onclick=()=>show((cur+1)%order.length);
@@ -1501,7 +1514,10 @@ footer{
       desc_en:'The year ahead will be different. Its significance has been understood across the whole island already from the first celebration action, and we are called to continue with the same passion. Everything we do this year must exceed expectations and remain in History.<br><br>The first training has always been the first opportunity for our fans to show support for the team, especially in the year ahead. We call on all APOEL brothers to stand by the team and celebrate together the start of this Sacred Year, beginning with the First Training.<br><br><b>Wednesday 05/08/2026 · 19:00 · THOI Lakatamia Stadium</b>',
       info:['ΟΛΟΙ ΣΤΗΝ ΠΡΩΤΗ ΠΡΟΠΟΝΗΣΗ','ΟΛΟΙ ΠΟΡΤΟΚΑΛΙ','100 ΧΡΟΝΙΑ ΘΡΥΛΟΣ'],
       info_en:['ALL AT THE FIRST TRAINING','ALL IN ORANGE','100 YEARS LEGEND'],
-      album:'prwti proponisi'},
+      album:'prwti proponisi',
+      videos:[
+        {yt:'7T966tiLCFo'}
+      ]},
     {d:'06',m:'Αυγ',m_en:'AUG',d2:'06',m2:'Αυγ',m2_en:'AUG',iso:'2026-08-06T20:00:00',status:'Προσεχώς',status_en:'Upcoming',img:'enas_aionas_thrylos',t:'Παρουσίαση Επετειακού Σήματος',t_en:'Anniversary Logo Presentation',p:'Η αποκάλυψη του σήματος των 100 χρόνων.',p_en:'The reveal of the 100 years logo.',pin:'06/08/2026 · 20:00',cta:'Πληροφορίες',cta_en:'Info',
       full:'06 Αυγούστου 2026',full_en:'06 August 2026',time:'20:00',time_en:'20:00',venue:'Αμφιθέατρο Παλαιού ΓΣΠ, Λευκωσία',venue_en:'Old GSP Amphitheatre, Nicosia',
       desc:'Για έναν αιώνα, ο ΑΠΟΕΛ γράφει ιστορία.<br>Μια ιστορία γεμάτη θριάμβους, προκλήσεις, ανθρώπους και στιγμές που πέρασαν από γενιά σε γενιά.<br><br>Ένα σύμβολο ταξιδεύει, μαζί με όλες αυτές τις εποχές. <b>Η Γαλαζοκίτρινη Ασπίδα.</b><br>Ένα έμβλημα που δεν ήταν απλώς ένα σήμα πάνω σε μια φανέλα, αλλά η ταυτότητα, η περηφάνια και η ψυχή του συλλόγου.<br><br>Το πρώτο σήμα που αποτυπώθηκε σε αγωνιστική φανέλα χρονολογείται το <b>1934</b>.<br>Από τότε μέχρι σήμερα πέρασε μέσα από δέκα δεκαετίες αλλαγών, εξελίξεων και διαφορετικών εκδοχών, με καθεμία να αποτυπώνει το πνεύμα της εποχής της.<br><br>Υπήρξαν, μάλιστα, πολλές αγωνιστικές περιόδοι, όπου το έμβλημα δεν βρισκόταν καν πάνω στις φανέλες.<br>Οι δύσκολες συνθήκες, οι στερήσεις και οι πραγματικότητες της εποχής, ιδιαίτερα στα χρόνια του ασπρόμαυρου παρελθόντος, δεν επέτρεπαν πάντα αυτό που σήμερα θεωρούμε αυτονόητο.<br><br><i>Κι όμως, κάθε φορά που η ασπίδα εμφανιζόταν, δεν κοσμούσε απλώς μια εμφάνιση.<br>Αποτύπωνε μια ολόκληρη εποχή.</i><br><br>Θα ακολουθήσουμε τη διαδρομή της γαλαζοκίτρινης ασπίδας, από την πρώτη της εμφάνιση μέχρι τη σημερινή της μορφή.<br>Γιατί κάθε εκδοχή της κουβαλά τις αξίες, τους αγώνες, τις νίκες και την κληρονομιά που διαμόρφωσαν τον ΑΠΟΕΛ.<br><b>Μέχρι και το επετειακό λογότυπο, των 100 χρόνων.</b>',
@@ -1621,12 +1637,17 @@ footer{
       const res=await fetch(url);
       if(!res.ok)throw new Error('HTTP '+res.status);
       const files=await res.json();
-      const imgs=(Array.isArray(files)?files:[])
-        .filter(f=>f.type==='file'&&/\.(jpe?g|png|webp)$/i.test(f.name))
+      const isImg=/\.(jpe?g|png|webp)$/i;
+      const isVid=/\.(mp4|mov|webm|m4v)$/i;
+      const items=(Array.isArray(files)?files:[])
+        .filter(f=>f.type==='file'&&(isImg.test(f.name)||isVid.test(f.name)))
         .sort((a,b)=>a.name.localeCompare(b.name,undefined,{numeric:true,sensitivity:'base'}))
-        .map(f=>`albums/${encoded}/${encodeURIComponent(f.name)}`);
-      albumCache[folder]=imgs;
-      return imgs;
+        .map(f=>({
+          src:`albums/${encoded}/${encodeURIComponent(f.name)}`,
+          isVideo:isVid.test(f.name)
+        }));
+      albumCache[folder]=items;
+      return items;
     }catch(err){console.error('Album fetch failed:',err);return [];}
   }
 
@@ -1915,13 +1936,16 @@ footer{
     document.body.style.overflow='hidden';
     // Build photo items: prefer folder-based (album), fallback to inline (photos)
     let photoItems=[];
+    let localVideoItems=[];
     if(e.album){
-      const paths=await loadAlbumFolder(e.album);
-      photoItems=paths.map(p=>({src:p,c:''}));
+      const items=await loadAlbumFolder(e.album);
+      photoItems=items.filter(i=>!i.isVideo).map(i=>({src:i.src,c:''}));
+      localVideoItems=items.filter(i=>i.isVideo).map(i=>({localVideo:i.src,c:''}));
     } else if(e.photos){
       photoItems=e.photos.map(p=>typeof p==='string'?{f:p,c:''}:{f:p.f,c:p.c||''});
     }
-    const videoItems=(e.videos||[]).map(v=>typeof v==='string'?{yt:v,c:''}:{yt:v.yt||v.y||v.id,c:v.c||''});
+    const ytVideoItems=(e.videos||[]).map(v=>typeof v==='string'?{yt:v,c:''}:{yt:v.yt||v.y||v.id,c:v.c||''});
+    const videoItems=[...localVideoItems,...ytVideoItems];
     order=[...photoItems,...videoItems];
     if(!order.length){
       albumGrid.innerHTML=`<div class="album-loading">${LANG==='el'?'Δεν βρέθηκαν αρχεία.':'No files found.'}</div>`;
@@ -1939,7 +1963,11 @@ footer{
     }
     videoItems.forEach((v,idx)=>{
       const realIdx=photoItems.length+idx;
-      html+=`<button class="album-thumb video" data-album-idx="${realIdx}" type="button" aria-label="Video ${idx+1}"><img src="https://img.youtube.com/vi/${v.yt}/hqdefault.jpg" alt="" loading="lazy"></button>`;
+      if(v.localVideo){
+        html+=`<button class="album-thumb video" data-album-idx="${realIdx}" type="button" aria-label="Video ${idx+1}"><video src="./${v.localVideo}#t=0.5" preload="metadata" muted playsinline></video></button>`;
+      } else {
+        html+=`<button class="album-thumb video" data-album-idx="${realIdx}" type="button" aria-label="Video ${idx+1}"><img src="https://img.youtube.com/vi/${v.yt}/hqdefault.jpg" alt="" loading="lazy"></button>`;
+      }
     });
     albumGrid.innerHTML=html;
   }
