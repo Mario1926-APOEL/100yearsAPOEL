@@ -982,7 +982,63 @@ footer{
   .tl-row{grid-template-columns:88px 1fr;gap:16px;padding:34px 0;}
   .tl-row::before{font-size:5.2rem;opacity:.75;}
   nav button{font-size:.66rem;padding:17px 14px;letter-spacing:.18em;}
+  .hcard-grid{grid-template-columns:1fr!important;gap:12px!important;}
+  .hsub-head{padding:20px 18px!important;}
+  .hsub-title{font-size:1.25rem!important;}
+  .hsub-intro h3{font-size:1.5rem!important;}
 }
+
+/* SPOTLIGHT SECTIONS BELOW TIMELINE */
+.hsub-wrap{margin-top:90px;padding-top:60px;border-top:1px solid rgba(201,159,43,.14);}
+.hsub-intro{text-align:center;margin-bottom:48px;padding:0 20px;}
+.hsub-intro .k{color:var(--gold-deep);letter-spacing:.28em;font-size:.7rem;text-transform:uppercase;margin-bottom:14px;}
+.hsub-intro h3{font-family:"Bodoni MT",Didot,Georgia,serif;font-size:2.1rem;letter-spacing:.02em;color:var(--gold-bright);margin:0 0 18px;font-weight:400;}
+.hsub-intro .lead{max-width:640px;margin:0 auto;color:rgba(217,229,242,.78);line-height:1.65;font-size:.98rem;}
+
+.hsub{border:1px solid rgba(201,159,43,.18);border-radius:8px;
+  background:linear-gradient(135deg,rgba(4,31,59,.35),rgba(0,19,38,.25));
+  margin-bottom:18px;overflow:hidden;transition:border-color .3s;}
+.hsub:hover{border-color:rgba(201,159,43,.35);}
+.hsub[data-open="true"]{border-color:rgba(201,159,43,.45);
+  background:linear-gradient(135deg,rgba(6,41,74,.5),rgba(4,31,59,.4));}
+
+.hsub-head{display:flex;align-items:center;gap:16px;width:100%;
+  background:none;border:none;color:var(--ash);cursor:pointer;
+  padding:24px 26px;text-align:left;font-family:inherit;
+  transition:background .25s;}
+.hsub-head:hover{background:rgba(201,159,43,.05);}
+.hsub-mark{width:6px;height:38px;background:linear-gradient(180deg,var(--gold-bright),var(--gold-deep));
+  border-radius:3px;flex-shrink:0;box-shadow:0 0 12px rgba(201,159,43,.35);}
+.hsub-title-wrap{flex:1;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;}
+.hsub-title{font-size:1.4rem;color:var(--ash);margin:0;letter-spacing:.02em;font-weight:400;}
+.hsub-count{color:var(--gold-deep);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;
+  font-family:"Helvetica Neue",sans-serif;}
+.hsub-chevron{color:var(--gold-bright);font-size:1.3rem;transition:transform .35s ease;flex-shrink:0;
+  opacity:.75;}
+.hsub[data-open="true"] .hsub-chevron{transform:rotate(180deg);opacity:1;}
+
+.hsub-body{max-height:0;overflow:hidden;transition:max-height .55s ease;}
+.hsub[data-open="true"] .hsub-body{max-height:8000px;}
+.hsub-lead{padding:0 26px;color:rgba(217,229,242,.7);font-style:italic;
+  font-family:"Bodoni MT",Georgia,serif;font-size:1rem;line-height:1.6;
+  margin:0 0 20px;max-width:720px;}
+
+.hcard-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:16px;padding:0 26px 28px;}
+.hcard{background:linear-gradient(135deg,rgba(11,44,78,.5),rgba(4,25,50,.4));
+  border:1px solid rgba(201,159,43,.18);border-radius:6px;
+  padding:18px 20px;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
+  position:relative;overflow:hidden;}
+.hcard:hover{border-color:rgba(201,159,43,.5);transform:translateY(-3px);
+  box-shadow:0 8px 24px rgba(0,0,0,.35);}
+.hcard-year{font-family:"Bodoni MT",Didot,Georgia,serif;font-size:1.5rem;
+  color:var(--gold-bright);letter-spacing:.05em;line-height:1;margin-bottom:8px;}
+.hcard-title{font-family:"Bodoni MT",Georgia,serif;font-size:1.12rem;
+  color:var(--ash);margin:0 0 4px;font-weight:500;line-height:1.3;}
+.hcard-role{font-size:.68rem;color:var(--gold-deep);letter-spacing:.16em;
+  text-transform:uppercase;margin:0 0 10px;font-family:"Helvetica Neue",sans-serif;}
+.hcard-desc{font-size:.9rem;line-height:1.55;color:rgba(217,229,242,.78);margin:0;}
+.hcard-desc b{color:var(--ash);font-weight:600;}
 @media(max-width:560px){
   #hero::after{font-size:3.1rem;letter-spacing:.04em;}
   .logo-reveal{width:clamp(235px,78vw,340px);}
@@ -1068,15 +1124,65 @@ footer{
 
   <section id="history" class="panel">
     <div class="sec-head"><div class="k" data-el="Ένας Αιώνας" data-en="One Century">Ένας Αιώνας</div><h2 class="serif" data-el="Ιστορία" data-en="History">Ιστορία</h2>
-      <p class="lead" data-el="Από το 1926, μια ιστορία γραμμένη με χρυσό." data-en="Since 1926, a story written in gold.">Έναν αιώνα μετά την ίδρυσή του, ο ΑΠΟΕΛ συνεχίζει να γράφει ιστορία και να προσθέτει νέες επιτυχίες σε όλα τα αθλήματα. 
-
-Όμως τα 100 χρόνια του ΑΠΟΕΛ δεν μετριούνται μόνο σε τρόπαια και κατακτήσεις. Μετριούνται στους ανθρώπους που υπηρέτησαν το Σωματείο, στους αθλητές που φόρεσαν τα γαλαζοκίτρινα, στις γενιές φιλάθλων που στάθηκαν δίπλα του, στις μεγάλες ευρωπαϊκές βραδιές, αλλά και στις δύσκολες στιγμές όπου ο ΑΠΟΕΛ ήταν παρών στην ιστορία του τόπου.
-
-Από μια μικρή συνάντηση στην οδό Λήδρας το 1926, γεννήθηκε ένα Σωματείο που μεγάλωσε, εξελίχθηκε και πέρασε από γενιά σε γενιά διατηρώντας τα ίδια χρώματα, την ίδια ταυτότητα και την ίδια πίστη στις αξίες που το δημιούργησαν.
-
-Ένας αιώνας γεμάτος αγώνες, θυσίες, επιτυχίες, ανθρώπους και στιγμές που έμειναν ανεξίτηλες.
+      <p class="lead" data-el="Από το 1926, μια ιστορία γραμμένη με χρυσό." data-en="Since 1926, a story written in gold.">Από το 1926, μια ιστορία γραμμένη με χρυσό. Έναν αιώνα μετά την πρώτη εκείνη συνάντηση στην οδό Λήδρας, η ιστορία του ΑΠΟΕΛ δεν μετριέται μόνο σε πρωταθλήματα, κύπελλα και ευρωπαϊκές βραδιές.
+Είναι η ιστορία αθλητών, παραγόντων, μελών και φιλάθλων που πέρασαν από γενιά σε γενιά τα ίδια χρώματα και την ίδια ταυτότητα. Μία ιστορία που γράφτηκε στα γήπεδα, στα κλειστά, στα στάδια και στις κερκίδες, αλλά και μέσα στις πιο δύσκολες στιγμές της Κύπρου.
 </p></div>
     <div class="tl" id="tl"></div>
+
+    <!-- SPOTLIGHT SECTIONS -->
+    <div class="hsub-wrap">
+      <div class="hsub-intro">
+        <div class="k" data-el="Πέρα από τα Τρόπαια" data-en="Beyond the Trophies">Πέρα από τα Τρόπαια</div>
+        <h3 class="serif" data-el="Οι Άνθρωποι, η Κερκίδα, ο Τόπος" data-en="The People, the Terraces, the Country">Οι Άνθρωποι, η Κερκίδα, ο Τόπος</h3>
+        <p class="lead" data-el="Η ιστορία του ΑΠΟΕΛ δεν μετριέται μόνο σε πρωταθλήματα και κύπελλα. Είναι η ιστορία ανθρώπων που σφράγισαν την πορεία του Θρύλου, μιας κερκίδας που έγινε παρουσία και ενός συλλόγου που ήταν πάντα εκεί στις μεγάλες στιγμές του τόπου." data-en="APOEL\'s history is not counted only in titles and cups. It is the story of the people who shaped the Legend, of a terrace that became a voice, and of a club that was always there in the great moments of the country.">Η ιστορία του ΑΠΟΕΛ δεν μετριέται μόνο σε πρωταθλήματα και κύπελλα. Είναι η ιστορία ανθρώπων που σφράγισαν την πορεία του Θρύλου, μιας κερκίδας που έγινε παρουσία και ενός συλλόγου που ήταν πάντα εκεί στις μεγάλες στιγμές του τόπου.</p>
+      </div>
+
+      <div id="hsubFigures" class="hsub" data-open="false">
+        <button class="hsub-head" type="button" aria-expanded="false">
+          <span class="hsub-mark"></span>
+          <div class="hsub-title-wrap">
+            <h3 class="hsub-title serif" data-el="Ιστορικά Πρόσωπα" data-en="Historic Figures">Ιστορικά Πρόσωπα</h3>
+            <span class="hsub-count"></span>
+          </div>
+          <span class="hsub-chevron" aria-hidden="true">▾</span>
+        </button>
+        <div class="hsub-body">
+          <p class="hsub-lead" data-el="Πίσω από κάθε τρόπαιο, κάθε νίκη και κάθε στιγμή θυσίας βρίσκονται άνθρωποι που σφράγισαν την πορεία του Θρύλου." data-en="Behind every trophy, every victory and every moment of sacrifice stand people who shaped the Legend.">Πίσω από κάθε τρόπαιο, κάθε νίκη και κάθε στιγμή θυσίας βρίσκονται άνθρωποι που σφράγισαν την πορεία του Θρύλου.</p>
+          <div class="hcard-grid" id="hgridFigures"></div>
+        </div>
+      </div>
+
+      <div id="hsubPansyfi" class="hsub" data-open="false">
+        <button class="hsub-head" type="button" aria-expanded="false">
+          <span class="hsub-mark"></span>
+          <div class="hsub-title-wrap">
+            <h3 class="hsub-title serif" data-el="ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ" data-en="PAN.SY.FI. APOEL">ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ</h3>
+            <span class="hsub-count"></span>
+          </div>
+          <span class="hsub-chevron" aria-hidden="true">▾</span>
+        </button>
+        <div class="hsub-body">
+          <p class="hsub-lead" data-el="Από το 1979, ο Πανελλήνιος Σύνδεσμος Φιλάθλων ΑΠΟΕΛ είναι η οργανωμένη έκφραση της κερκίδας — η φωνή που έγινε παρουσία στους αγώνες και στις μεγάλες στιγμές του τόπου." data-en="Since 1979, the Panhellenic Association of APOEL Fans has been the organised expression of the terraces — the voice that became a presence in matches and in the country\'s great moments.">Από το 1979, ο Πανελλήνιος Σύνδεσμος Φιλάθλων ΑΠΟΕΛ είναι η οργανωμένη έκφραση της κερκίδας — η φωνή που έγινε παρουσία στους αγώνες και στις μεγάλες στιγμές του τόπου.</p>
+          <div class="hcard-grid" id="hgridPansyfi"></div>
+        </div>
+      </div>
+
+      <div id="hsubSociety" class="hsub" data-open="false">
+        <button class="hsub-head" type="button" aria-expanded="false">
+          <span class="hsub-mark"></span>
+          <div class="hsub-title-wrap">
+            <h3 class="hsub-title serif" data-el="Κοινωνική Παρουσία" data-en="Social Presence">Κοινωνική Παρουσία</h3>
+            <span class="hsub-count"></span>
+          </div>
+          <span class="hsub-chevron" aria-hidden="true">▾</span>
+        </button>
+        <div class="hsub-body">
+          <p class="hsub-lead" data-el="Ο ΑΠΟΕΛ δεν έγραφε ιστορία μόνο στα γήπεδα. Ήταν παρών σε κάθε δύσκολη σελίδα του τόπου, από την αντιαποικιακή εξέγερση του 1931 μέχρι σήμερα." data-en="APOEL did not write history only on the pitch. It was present on every difficult page of the country, from the 1931 anti-colonial uprising to today.">Ο ΑΠΟΕΛ δεν έγραφε ιστορία μόνο στα γήπεδα. Ήταν παρών σε κάθε δύσκολη σελίδα του τόπου, από την αντιαποικιακή εξέγερση του 1931 μέχρι σήμερα.</p>
+          <div class="hcard-grid" id="hgridSociety"></div>
+        </div>
+      </div>
+    </div>
+    <!-- /SPOTLIGHT -->
   </section>
 
   <section id="depts" class="panel">
@@ -1371,7 +1477,84 @@ footer{
     <div class="tl-row" data-watermark="${e.y}"><div class="tl-year serif">${e.y}</div>
     <div class="tl-body"><h3>${h}</h3><p>${p}</p></div></div>`;}).join('');
   }
+
+  // ---- SPOTLIGHT DATA (below the timeline) ----
+  const historicFigures=[
+    {y:'1926',name:'Διομήδης Συμεωνίδης',name_en:'Diomidis Symeonidis',role:'Ιδρυτής · Founder',desc:'Ο εμπνευστής της ίδρυσης του ΠΟΕΛ. Η επιμονή και το όραμά του υλοποιήθηκαν στις 8 Νοεμβρίου 1926 στο ζαχαροπλαστείο του Χαράλαμπου Χ\'\' Ιωάννου στην οδό Λήδρας.',desc_en:'The visionary behind the founding of POEL. His persistence and vision were realised on 8 November 1926 at Charalambos Hadjiioannou\'s patisserie on Ledra Street.'},
+    {y:'1928',name:'Δημοσθένης Συμεωνίδης',name_en:'Dimosthenis Symeonidis',role:'Παράγοντας · Board Member',desc:'Με την παρότρυνσή του εγκρίθηκε η δημιουργία τμήματος στίβου και η προσθήκη του όρου «Αθλητικός», μετατρέποντας τον ΠΟΕΛ σε πολυαθλητικό ΑΠΟΕΛ.',desc_en:'With his encouragement, the athletics section was approved and the word "Athletic" was added, transforming POEL into the multi-sport APOEL.'},
+    {y:'1926',name:'Χαράλαμπος Χ\'\' Ιωάννου',name_en:'Charalambos Hadjiioannou',role:'Οικοδεσπότης της Ίδρυσης · Founding Host',desc:'Στο ζαχαροπλαστείο του στην οδό Λήδρας πραγματοποιήθηκε η ιδρυτική συνέλευση του ΠΟΕΛ, με περίπου 35–40 άτομα να παρευρίσκονται.',desc_en:'His patisserie on Ledra Street hosted POEL\'s founding assembly, attended by roughly 35–40 people.'},
+    {y:'1934',name:'Γεώργιος Πούλιας',name_en:'Georgios Poulias',role:'Πρόεδρος · President',desc:'Στη Γενική Συνέλευση της 10ης Σεπτεμβρίου 1934, ως πρόεδρος του ΑΠΟΕΛ, ανακοίνωσε την επίσημη ίδρυση του Τμήματος Πυγμαχίας.',desc_en:'At the General Assembly of 10 September 1934, as APOEL president, he announced the official founding of the Boxing Department.'},
+    {y:'1931',name:'Ονούφριος Κληρίδης',name_en:'Onoufrios Klerides',role:'17 ετών · Age 17',desc:'Μέλος της εφηβικής ποδοσφαιρικής ομάδας του ΑΠΟΕΛ. Έχασε τη ζωή του από τους πυροβολισμούς στην αντιαποικιακή εξέγερση των Οκτωβριανών, στις 21 Οκτωβρίου 1931.',desc_en:'A member of APOEL\'s youth football team. He lost his life amid the gunfire of the anti-colonial October uprising, on 21 October 1931.'},
+    {y:'1956',name:'Μιχαλάκης Καραολής',name_en:'Michalakis Karaolis',role:'Αθλητής 400μ · 400m Athlete',desc:'23χρονος αθλητής του ΑΠΟΕΛ στα 400 μέτρα, από το Παλαιχώρι. Απαγχονίστηκε από τη βρετανική αποικιακή διοίκηση στις 10 Μαΐου 1956, στους δύο πρώτους απαγχονισμούς αγωνιστών της ΕΟΚΑ.',desc_en:'23-year-old APOEL 400m athlete from Palaichori. Hanged by the British colonial administration on 10 May 1956, in the first two executions of EOKA fighters.'},
+    {y:'1964',name:'Φίλιππος Χατζηγεωργίου',name_en:'Philippos Hatzigeorgiou',role:'Μέλος · Member',desc:'25χρονος μέλος του ΑΠΟΕΛ. Δολοφονήθηκε στις 15 Απριλίου 1964 έξω από το σπίτι του στον Τράχωνα, κατά τις διακοινοτικές συγκρούσεις.',desc_en:'25-year-old APOEL member. Assassinated on 15 April 1964 outside his home in Trachonas, during the intercommunal conflicts.'},
+    {y:'1974',name:'Μιχαλάκης Ζαμπάς',name_en:'Michalakis Zambas',role:'6x Πρωταθλητής Επιτραπέζιας · 6x Table Tennis Champion',desc:'Έξι φορές πρωταθλητής επιτραπέζιας αντισφαίρισης. Έπεσε στις 22 Ιουλίου 1974 στον βομβαρδισμό της ΕΛΔΥΚ, κατά την τουρκική εισβολή.',desc_en:'Six-time table tennis champion. He fell on 22 July 1974 in the shelling of ELDYK during the Turkish invasion.'},
+    {y:'1974',name:'Γιαννάκης Μαύρος',name_en:'Yiannakis Mavros',role:'Καλαθοσφαιριστής · Basketball Player',desc:'Καλαθοσφαιριστής του ΑΠΟΕΛ. Έπεσε μαχόμενος κατά την τουρκική εισβολή του καλοκαιριού του 1974.',desc_en:'APOEL basketball player. He fell in combat during the Turkish invasion of summer 1974.'},
+    {y:'1974',name:'Τάσος Μάρκου',name_en:'Tasos Markou',role:'Ταγματάρχης · Έφορος Ποδοσφαίρου · Major · Football Commissioner',desc:'Έφορος ποδοσφαίρου του ΑΠΟΕΛ και ταγματάρχης. Είχε αγωνιστεί και στις διακοινοτικές συγκρούσεις του 1963–64. Το 1974 πολέμησε στη Μια Μηλιά και από τις 15 Αυγούστου 1974 καταγράφεται ως αγνοούμενος.',desc_en:'APOEL football commissioner and Army major. He had also fought in the 1963–64 intercommunal conflicts. In 1974 he fought at Mia Milia and from 15 August 1974 has been listed as missing.'},
+    {y:'1990',name:'Σίνισα Γκόκιτς',name_en:'Siniša Gogić',role:'Ποδοσφαιριστής · Footballer',desc:'Στην πρωταθλητική σεζόν του 14ου τίτλου, σημείωσε <b>19 τέρματα</b> και αναδείχθηκε πρώτος σκόρερ του κυπριακού πρωταθλήματος.',desc_en:'In the 14th-title season, he scored <b>19 goals</b> and finished as top scorer of the Cypriot championship.'}
+  ];
+
+  const pansyfiMoments=[
+    {y:'1979',t:'Ίδρυση ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ',t_en:'PAN.SY.FI. APOEL Founded',desc:'Ιδρύεται ο <b>Πανελλήνιος Σύνδεσμος Φιλάθλων ΑΠΟΕΛ</b> — η οργανωμένη έκφραση του κόσμου του Θρύλου, που θα σφραγίσει τις επόμενες δεκαετίες με την παρουσία της σε αθλητικά και εθνικά ζητήματα.',desc_en:'The <b>Panhellenic Association of APOEL Fans</b> is founded — the organised expression of the Legend\'s supporters, whose presence will mark the decades to come in both sporting and national matters.'},
+    {y:'1996',t:'Πορείες Μοτοσικλετιστών · Αύγουστος',t_en:'Motorcyclists\' Marches · August',desc:'Τον Αύγουστο, μέλη του Σωματείου και του ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ συμμετέχουν στις πορείες των μοτοσικλετιστών, που σημαδεύτηκαν από τις δολοφονίες του <b>Τάσου Ισαάκ</b> και του <b>Σολωμού Σολωμού</b>.',desc_en:'In August, members of the Club and PAN.SY.FI. APOEL take part in the motorcyclists\' marches, marked by the murders of <b>Tasos Isaac</b> and <b>Solomos Solomou</b>.'},
+    {y:'2004',t:'Δημοψήφισμα · Σχέδιο Ανάν',t_en:'Annan Plan Referendum',desc:'Ο ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ συμμετέχει ενεργά στις κινητοποιήσεις ενόψει του δημοψηφίσματος για το <b>Σχέδιο Ανάν</b>, με πανό στα γήπεδα και παρουσία στις συγκεντρώσεις υπέρ του «ΟΧΙ».',desc_en:'PAN.SY.FI. APOEL takes active part in the campaign ahead of the <b>Annan Plan</b> referendum, with banners in stadiums and presence at the "NO" rallies.'},
+    {y:'2011',t:'Ναυτική Βάση Μαρί',t_en:'Mari Naval Base',desc:'Μετά την τραγωδία της 11ης Ιουλίου στη ναυτική βάση <b>«Ευάγγελος Φλωράκης»</b> στο Μαρί, μέλη του ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ συμμετέχουν στις μαζικές αντικυβερνητικές διαδηλώσεις έξω από το Προεδρικό Μέγαρο, ζητώντας παραιτήσεις και λογοδοσία.',desc_en:'After the tragedy of 11 July at the <b>"Evangelos Florakis"</b> Naval Base in Mari, PAN.SY.FI. APOEL members join mass anti-government protests outside the Presidential Palace, demanding resignations and accountability.'},
+    {y:'2023',t:'Επαναδραστηριοποίηση Πυγμαχίας',t_en:'Boxing Reactivation',desc:'Με πρωτοβουλία του ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ, το ιστορικό Τμήμα Πυγμαχίας επαναδραστηριοποιείται και οι νέες εγκαταστάσεις εγκαινιάζονται στις <b>8 Νοεμβρίου 2023</b>, συμβολικά ανήμερα των γενεθλίων του ΑΠΟΕΛ.',desc_en:'At the initiative of PAN.SY.FI. APOEL, the historic Boxing Department is reactivated and new facilities are inaugurated on <b>8 November 2023</b>, symbolically on APOEL\'s birthday.'},
+    {y:'2026',t:'Μοτοπορεία 100 Χρόνων',t_en:'100-Year Motorcycle March',desc:'Ο ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ διοργανώνει τη μεγάλη επετειακή μοτοπορεία για τα 100 χρόνια του Θρύλου — χιλιάδες μοτοσικλέτες γεμίζουν τους δρόμους της Λευκωσίας.',desc_en:'PAN.SY.FI. APOEL organises the great anniversary motorcycle march for the Legend\'s 100 years — thousands of motorcycles fill the streets of Nicosia.'}
+  ];
+
+  const societyMoments=[
+    {y:'1931',t:'Οκτωβριανά',t_en:'October Uprising',desc:'Πρώτη μεγάλη εξέγερση του κυπριακού Ελληνισμού κατά της βρετανικής αποικιοκρατίας. Ο ΑΠΟΕΛ παρών με τον <b>17χρονο Ονούφριο Κληρίδη</b>, μέλος της εφηβικής του ομάδας.',desc_en:'The first great uprising of Cypriot Hellenism against British colonial rule. APOEL present through <b>17-year-old Onoufrios Klerides</b>, member of its youth team.'},
+    {y:'1955',t:'Έναρξη Αγώνα ΕΟΚΑ',t_en:'EOKA Struggle Begins',desc:'Την 1η Απριλίου η <b>ΕΟΚΑ</b>, με αρχηγό τον Στρατηγό Γεώργιο Γρίβα Διγενή, ξεκινά τον ένοπλο αντιαποικιακό αγώνα. Πολλά μέλη και αθλητές του ΑΠΟΕΛ συμμετέχουν στην οργάνωση.',desc_en:'On 1 April, <b>EOKA</b>, led by General Georgios Grivas Digenis, begins the armed anti-colonial struggle. Many APOEL members and athletes join the organisation.'},
+    {y:'1956',t:'Απαγχονισμός Καραολή',t_en:'Karaolis Hanged',desc:'Στις 10 Μαΐου, ο 23χρονος αθλητής του ΑΠΟΕΛ στα 400μ <b>Μιχαλάκης Καραολής</b> απαγχονίζεται από τη βρετανική διοίκηση — στους πρώτους δύο απαγχονισμούς αγωνιστών της ΕΟΚΑ.',desc_en:'On 10 May, 23-year-old APOEL 400m athlete <b>Michalakis Karaolis</b> is hanged by the British administration — in the first two executions of EOKA fighters.'},
+    {y:'1964',t:'Διακοινοτικές Συγκρούσεις',t_en:'Intercommunal Conflicts',desc:'Αθλητές και μέλη του ΑΠΟΕΛ στις επάλξεις. Στις 15 Απριλίου δολοφονείται ο 25χρονος <b>Φίλιππος Χατζηγεωργίου</b> έξω από το σπίτι του στον Τράχωνα.',desc_en:'APOEL athletes and members on the front line. On 15 April, 25-year-old <b>Philippos Hatzigeorgiou</b> is assassinated outside his home in Trachonas.'},
+    {y:'1974',t:'Τουρκική Εισβολή',t_en:'Turkish Invasion',desc:'Ο Σύλλογος πληρώνει βαρύ φόρο αίματος. Πέφτουν οι <b>Μιχαλάκης Ζαμπάς</b> (22 Ιουλίου, βομβαρδισμός ΕΛΔΥΚ) και <b>Γιαννάκης Μαύρος</b>. Ο ταγματάρχης <b>Τάσος Μάρκου</b> πολεμά στη Μια Μηλιά και καταγράφεται αγνοούμενος από τις 15 Αυγούστου 1974.',desc_en:'The Club pays a heavy blood price. <b>Michalakis Zambas</b> (22 July, ELDYK shelling) and <b>Yiannakis Mavros</b> fall. Major <b>Tasos Markou</b> fights at Mia Milia and is listed missing from 15 August 1974.'},
+    {y:'1996',t:'Ισαάκ & Σολωμού',t_en:'Isaac & Solomos',desc:'Τον Αύγουστο, στις πορείες των μοτοσικλετιστών κατά της τουρκικής κατοχής, δολοφονούνται ο <b>Τάσος Ισαάκ</b> και ο <b>Σολωμός Σολωμού</b>. Μέλη του ΑΠΟΕΛ και του ΠΑΝ.ΣΥ.ΦΙ. συμμετέχουν στις πορείες.',desc_en:'In August, during the motorcyclists\' marches against the Turkish occupation, <b>Tasos Isaac</b> and <b>Solomos Solomou</b> are murdered. Members of APOEL and PAN.SY.FI. take part in the marches.'},
+    {y:'2004',t:'Σχέδιο Ανάν · Δημοψήφισμα',t_en:'Annan Plan · Referendum',desc:'Δημοψήφισμα για το <b>Σχέδιο Ανάν</b>. Ο ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ συμμετέχει ενεργά στις κινητοποιήσεις υπέρ του «ΟΧΙ», με πανό στα γήπεδα και παρουσία στις συγκεντρώσεις.',desc_en:'Referendum on the <b>Annan Plan</b>. PAN.SY.FI. APOEL takes active part in the "NO" mobilisations, with banners in stadiums and presence at the rallies.'},
+    {y:'2011',t:'Ναυτική Βάση «Ευάγγελος Φλωράκης»',t_en:'"Evangelos Florakis" Naval Base',desc:'Μετά την τραγωδία της 11ης Ιουλίου στο Μαρί, μέλη του ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ συμμετέχουν στις αντικυβερνητικές διαδηλώσεις έξω από το Προεδρικό Μέγαρο, ζητώντας παραιτήσεις και λογοδοσία.',desc_en:'After the 11 July tragedy at Mari, PAN.SY.FI. APOEL members join the anti-government protests outside the Presidential Palace, demanding resignations and accountability.'}
+  ];
+
+  function renderSpotlight(){
+    const L=(o,k)=>LANG==='en'&&o[k+'_en']?o[k+'_en']:o[k];
+    // Figures
+    document.getElementById('hgridFigures').innerHTML=historicFigures.map(f=>`
+      <article class="hcard">
+        <div class="hcard-year">${f.y}</div>
+        <h4 class="hcard-title">${L(f,'name')}</h4>
+        <p class="hcard-role">${L(f,'role')}</p>
+        <p class="hcard-desc">${L(f,'desc')}</p>
+      </article>`).join('');
+    // PANSYFI moments
+    document.getElementById('hgridPansyfi').innerHTML=pansyfiMoments.map(m=>`
+      <article class="hcard">
+        <div class="hcard-year">${m.y}</div>
+        <h4 class="hcard-title">${L(m,'t')}</h4>
+        <p class="hcard-desc">${L(m,'desc')}</p>
+      </article>`).join('');
+    // Society moments
+    document.getElementById('hgridSociety').innerHTML=societyMoments.map(m=>`
+      <article class="hcard">
+        <div class="hcard-year">${m.y}</div>
+        <h4 class="hcard-title">${L(m,'t')}</h4>
+        <p class="hcard-desc">${L(m,'desc')}</p>
+      </article>`).join('');
+    // Counts
+    const countLabel=(n)=>LANG==='en'?`${n} entries`:`${n} καταχωρίσεις`;
+    document.querySelector('#hsubFigures .hsub-count').textContent=countLabel(historicFigures.length);
+    document.querySelector('#hsubPansyfi .hsub-count').textContent=countLabel(pansyfiMoments.length);
+    document.querySelector('#hsubSociety .hsub-count').textContent=countLabel(societyMoments.length);
+  }
+
+  // Toggle logic for collapsible sections
+  document.querySelectorAll('.hsub-head').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const hsub=btn.closest('.hsub');
+      const open=hsub.dataset.open==='true';
+      hsub.dataset.open=open?'false':'true';
+      btn.setAttribute('aria-expanded',open?'false':'true');
+    });
+  });
   renderHistory();
+  renderSpotlight();
 
   /* ---- DEPARTMENTS / SPORTS ---- */
   const deptsMain=[
@@ -2348,7 +2531,7 @@ footer{
     const A=(id,el_,en_)=>{const x=document.getElementById(id);if(x)x.setAttribute('aria-label',l==='en'?en_:el_);};
     A('lbx','Κλείσιμο','Close');A('lbPrev','Προηγούμενη','Previous');A('lbNext','Επόμενη','Next');A('emClose','Κλείσιμο','Close');
     // re-run dynamic renders
-    renderGtools();drawGallery(curDecade);renderHistory();renderDepts();renderNextEvent();renderLedger();renderNews();render();
+    renderGtools();drawGallery(curDecade);renderHistory();renderSpotlight();renderDepts();renderNextEvent();renderLedger();renderNews();render();
     // keep active gallery chip highlighted
     document.querySelectorAll('.gchip').forEach(c=>c.classList.toggle('on',c.dataset.d===curDecade));
   }
