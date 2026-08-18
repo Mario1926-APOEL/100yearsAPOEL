@@ -1055,6 +1055,22 @@ footer{
   pointer-events:none;
 }
 #hsubFigures .hsub-head > *{position:relative;z-index:2;}
+
+/* Fan collage background — visible only in the HEADER of PANSYFI section */
+#hsubPansyfi .hsub-head{position:relative;overflow:hidden;}
+#hsubPansyfi .hsub-head:hover{background:transparent;}
+#hsubPansyfi .hsub-head::before{
+  content:"";position:absolute;inset:0;z-index:0;
+  background:url('./pansyfi_bg.jpg') center center/cover no-repeat;
+  filter:contrast(1.08) brightness(.85) saturate(.9);
+  opacity:.75;pointer-events:none;
+}
+#hsubPansyfi .hsub-head::after{
+  content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(90deg,rgba(0,19,38,.72) 0%,rgba(0,11,24,.45) 55%,rgba(0,11,24,.3) 100%);
+  pointer-events:none;
+}
+#hsubPansyfi .hsub-head > *{position:relative;z-index:2;}
 @media(max-width:560px){
   #hero::after{font-size:3.1rem;letter-spacing:.04em;}
   .logo-reveal{width:clamp(235px,78vw,340px);}
