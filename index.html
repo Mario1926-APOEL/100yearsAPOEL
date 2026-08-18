@@ -1040,22 +1040,21 @@ footer{
 .hcard-desc{font-size:.9rem;line-height:1.55;color:rgba(217,229,242,.78);margin:0;}
 .hcard-desc b{color:var(--ash);font-weight:600;}
 
-/* Historic photo background for the Figures section — strictly inside the box */
-#hsubFigures .hsub-body{position:relative;isolation:isolate;}
-#hsubFigures .hsub-body::before{
-  content:"";position:absolute;inset:0;z-index:-2;
+/* Historic photo background — visible only in the HEADER of Figures section */
+#hsubFigures .hsub-head{position:relative;overflow:hidden;}
+#hsubFigures .hsub-head:hover{background:transparent;}
+#hsubFigures .hsub-head::before{
+  content:"";position:absolute;inset:0;z-index:0;
   background:url('./historic_bw.jpg') center center/cover no-repeat;
-  filter:grayscale(.7) contrast(1.05) brightness(.95);
-  opacity:.7;pointer-events:none;
+  filter:grayscale(.7) contrast(1.05) brightness(.9);
+  opacity:.75;pointer-events:none;
 }
-#hsubFigures .hsub-body::after{
-  content:"";position:absolute;inset:0;z-index:-1;
-  background:linear-gradient(180deg,rgba(0,19,38,.4) 0%,rgba(0,11,24,.55) 50%,rgba(0,11,24,.7) 100%);
+#hsubFigures .hsub-head::after{
+  content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(90deg,rgba(0,19,38,.75) 0%,rgba(0,11,24,.5) 55%,rgba(0,11,24,.35) 100%);
   pointer-events:none;
 }
-#hsubFigures .hcard{background:linear-gradient(135deg,rgba(6,25,50,.92),rgba(2,15,32,.9));
-  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
-  border-color:rgba(201,159,43,.32);}
+#hsubFigures .hsub-head > *{position:relative;z-index:2;}
 @media(max-width:560px){
   #hero::after{font-size:3.1rem;letter-spacing:.04em;}
   .logo-reveal{width:clamp(235px,78vw,340px);}
