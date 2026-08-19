@@ -1072,6 +1072,35 @@ footer{
   font-family:"Bodoni MT",Georgia,serif;font-size:1rem;line-height:1.6;
   margin:0 0 20px;max-width:720px;}
 
+/* PANSYFI article */
+.pf-article{padding:20px 32px 34px;max-width:780px;margin:0 auto;
+  color:rgba(217,229,242,.85);line-height:1.75;font-size:.97rem;
+  font-family:"Bodoni MT",Georgia,serif;}
+.pf-quote{border-left:3px solid var(--gold-bright);padding:6px 20px 6px 22px;
+  margin:0 0 22px;font-style:italic;color:var(--ash);font-size:1.08rem;line-height:1.65;}
+.pf-quote-cite{display:block;margin-top:10px;font-style:normal;font-size:.75rem;
+  color:var(--gold-deep);letter-spacing:.14em;text-transform:uppercase;
+  font-family:"Helvetica Neue",sans-serif;}
+.pf-p{margin:0 0 16px;}
+.pf-accent{font-size:1.05rem;color:var(--gold-bright);font-style:italic;
+  text-align:center;margin:26px 0;letter-spacing:.02em;}
+.pf-h{font-family:"Bodoni MT",Didot,Georgia,serif;color:var(--gold-bright);
+  font-size:1.3rem;margin:34px 0 14px;font-weight:400;letter-spacing:.02em;}
+.pf-close{margin-top:36px;padding-top:24px;border-top:1px solid rgba(201,159,43,.18);}
+.pf-close-line{margin:0 0 6px;font-size:.98rem;color:rgba(217,229,242,.9);text-align:center;}
+.pf-close-color{font-family:"Bodoni MT",Didot,Georgia,serif;color:var(--gold-bright);
+  font-size:1.6rem;text-align:center;margin:8px 0 14px;letter-spacing:.05em;}
+.pf-final{margin-top:18px;padding-top:18px;border-top:1px dashed rgba(201,159,43,.18);}
+.pf-final p{margin:0 0 4px;text-align:center;font-size:.94rem;color:rgba(217,229,242,.78);}
+.pf-final p.emph{color:var(--gold-bright);font-size:1.05rem;margin-top:8px;
+  font-family:"Bodoni MT",Georgia,serif;font-style:italic;}
+@media(max-width:640px){
+  .pf-article{padding:16px 20px 26px;font-size:.94rem;}
+  .pf-h{font-size:1.15rem;}
+  .pf-quote{font-size:1rem;}
+  .pf-close-color{font-size:1.35rem;}
+}
+
 .hcard-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
   gap:16px;padding:0 26px 28px;}
 .hcard{background:linear-gradient(135deg,rgba(11,44,78,.5),rgba(4,25,50,.4));
@@ -1234,8 +1263,7 @@ footer{
           <span class="hsub-chevron" aria-hidden="true">▾</span>
         </button>
         <div class="hsub-body">
-          <p class="hsub-lead" data-el="Από το 1979, ο Πανελλήνιος Σύνδεσμος Φιλάθλων ΑΠΟΕΛ είναι η οργανωμένη έκφραση της κερκίδας — η φωνή που έγινε παρουσία στους αγώνες και στις μεγάλες στιγμές του τόπου." data-en="Since 1979, the Panhellenic Association of APOEL Fans has been the organised expression of the terraces — the voice that became a presence in matches and in the country\'s great moments.">Από το 1979, ο Πανελλήνιος Σύνδεσμος Φιλάθλων ΑΠΟΕΛ είναι η οργανωμένη έκφραση της κερκίδας — η φωνή που έγινε παρουσία στους αγώνες και στις μεγάλες στιγμές του τόπου.</p>
-          <div class="hcard-grid" id="hgridPansyfi"></div>
+          <div id="hpansyfiArticle" class="pf-article"></div>
         </div>
       </div>
 
@@ -1625,6 +1653,151 @@ footer{
     {y:'2026',t:'Μοτοπορεία 100 Χρόνων',t_en:'100-Year Motorcycle March',desc:'Ο ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ διοργανώνει τη μεγάλη επετειακή μοτοπορεία για τα 100 χρόνια του Θρύλου — χιλιάδες μοτοσικλέτες γεμίζουν τους δρόμους της Λευκωσίας.',desc_en:'PAN.SY.FI. APOEL organises the great anniversary motorcycle march for the Legend\'s 100 years — thousands of motorcycles fill the streets of Nicosia.'}
   ];
 
+  const pansyfiArticle=[
+    {type:'quote',
+      el:'«Μια μαγική λέξη, μια υπέροχη ιδεολογία, μια περηφάνια, μια δόξα και εν κατακλείδι μια δεύτερη θρησκεία για εμένα και όσους πίστεψαν στον ΑΠΟΕΛΙΣΜΟ».',
+      en:'"A magical word, a wonderful ideology, a source of pride, a glory and in the end a second religion for me and for all those who believed in APOELISM."',
+      by:{el:'— Νίκος Καρύδης',en:'— Nikos Karydis'}},
+    {type:'p',
+      el:'Τα λόγια του αείμνηστου Νίκου Καρύδη περιγράφουν με έναν ξεχωριστό τρόπο αυτό που για γενιές ανθρώπων ξεπέρασε τα όρια ενός ποδοσφαιρικού αγώνα: τον ΑΠΟΕΛΙΣΜΟ. Γιατί η δύναμη του ΑΠΟΕΛ δεν βρισκόταν ποτέ μόνο στους αθλητές, στις διοικήσεις, στις νίκες και στα τρόπαιά του. Βρισκόταν πρωτίστως στον κόσμο του. Σε έναν κόσμο που ακολούθησε τον Σύλλογο σε διαφορετικές εποχές, γήπεδα και αθλήματα, που πανηγύρισε και απογοητεύτηκε, ταξίδεψε, συγκρούστηκε, βοήθησε και πολλές φορές πήρε θέση για ζητήματα που θεωρούσε ότι ξεπερνούσαν τα στενά όρια του αθλητισμού.',
+      en:'The words of the late Nikos Karydis capture, in their own way, what for generations went beyond the limits of a football match: APOELISM. Because the strength of APOEL was never only in its athletes, its boards, its wins and its trophies. It lay first and foremost in its fans. In a body of fans that followed the Club through different eras, stadiums and sports, that celebrated and was disappointed, travelled, clashed, helped, and often took a stand on issues it considered went beyond the narrow limits of sport.'},
+    {type:'accent',
+      el:'Το 1979, αυτός ο κόσμος απέκτησε οργανωμένη φωνή.',
+      en:'In 1979, this body of fans acquired an organised voice.'},
+    {type:'p',
+      el:'Ιδρύθηκε ο Παγκύπριος Σύνδεσμος Φιλάθλων ΑΠΟΕΛ, ο ΠΑΝ.ΣΥ.ΦΙ., με βασικό σκοπό την οργανωμένη και μαζική στήριξη του Συλλόγου. Ήταν μια σημαντική αλλαγή για τα δεδομένα της εποχής. Οι φίλοι του ΑΠΟΕΛ απέκτησαν πλέον δομή, σημείο συνάντησης και δυνατότητα συντονισμένης παρουσίας στους αγώνες και στις εκτός Λευκωσίας μετακινήσεις. Στο Μακάρειο Στάδιο, οι πιο φανατικοί φίλοι της ομάδας συγκεντρώνονταν αρχικά στην κερκίδα δεξιά των επισήμων. Δεν υπήρχαν ακόμη οι Πορτοκαλί ούτε το θρυλικό «ρολόι». Υπήρχε όμως ήδη ο πυρήνας μιας οργανωμένης κερκίδας που στα χρόνια που ακολούθησαν θα μεγάλωνε και θα αποκτούσε τη δική της ξεχωριστή ταυτότητα.',
+      en:'The Panhellenic Association of APOEL Fans (PAN.SY.FI.) was founded, with the main purpose of organised and mass support for the Club. It was a significant change for the standards of the time. APOEL fans now had a structure, a meeting point and the ability to have a coordinated presence at matches and at away trips outside Nicosia. At Makario Stadium, the most fanatical supporters initially gathered in the stand to the right of the officials. There were not yet the Orange Ones, nor the legendary "clock". But the nucleus of an organised terrace was already there — one that in the years that followed would grow and acquire its own distinct identity.'},
+    {type:'h',el:'Από το Μακάρειο στους Πορτοκαλί',en:'From Makario to the Orange Ones'},
+    {type:'p',
+      el:'Καθοριστικός σταθμός υπήρξε το 1992. Τον Σεπτέμβριο εκείνης της χρονιάς, ο ΑΠΟΕΛ ταξίδεψε στην Αθήνα για τον ευρωπαϊκό αγώνα με την ΑΕΚ στη Νέα Φιλαδέλφεια. Μέσα από την οργανωμένη εκδρομή γεννήθηκε η σκέψη ότι η κερκίδα του ΑΠΟΕΛ χρειαζόταν ένα χαρακτηριστικό χρώμα, κάτι που θα την έκανε να ξεχωρίζει.',
+      en:'A defining milestone came in 1992. In September of that year, APOEL travelled to Athens for the European match against AEK in Nea Filadelfeia. Through that organised trip was born the idea that the APOEL terrace needed a distinctive colour, something that would make it stand out.'},
+    {type:'accent',el:'Το χρώμα ήταν το πορτοκαλί.',en:'The colour was orange.'},
+    {type:'p',
+      el:'Με την επιστροφή στην Κύπρο, οργανωμένοι φίλοι εμφανίστηκαν στον αγώνα με την ΑΕΛ φορώντας πορτοκαλί σακάκια και μετακινήθηκαν στην απέναντι πλευρά του Μακαρείου, κάτω από το ιστορικό ρολόι. Εκεί άρχισε να συγκεντρώνεται σταδιακά ο οργανωμένος πυρήνας και εκεί γεννήθηκαν ουσιαστικά οι Πορτοκαλί. Το πορτοκαλί εξελίχθηκε σε ένα από τα πιο αναγνωρίσιμα σύμβολα της οργανωμένης κερκίδας του ΑΠΟΕΛ, ενώ το ρολόι του Μακαρείου μετατράπηκε από ένα απλό σημείο του σταδίου σε τόπο συνάντησης, μνήμης και ταυτότητας.',
+      en:'On the return to Cyprus, organised fans showed up at the match against AEL wearing orange jackets and moved to the opposite side of Makario, under the historic clock. There the organised nucleus gradually began to gather and there, essentially, the Orange Ones were born. Orange evolved into one of the most recognisable symbols of APOEL\'s organised terrace, while the Makario clock was transformed from a simple feature of the stadium into a place of meeting, memory and identity.'},
+    {type:'p',
+      el:'Η δεκαετία του 1990 έφερε τη μεγάλη ανάπτυξη. Πανό, σημαίες, συνθήματα, οργανωμένες εκδρομές και ολοένα μαζικότερη παρουσία δημιούργησαν μια διαφορετική πραγματικότητα στην κυπριακή κερκίδα. Οι οργανωμένοι δεν ήθελαν απλώς να παρακολουθούν τον αγώνα. Ήθελαν να συμμετέχουν σε αυτόν, να δίνουν ώθηση στην ομάδα και να δημιουργούν τη δική τους ατμόσφαιρα.',
+      en:'The 1990s brought major growth. Banners, flags, chants, organised trips and an ever more massive presence created a different reality in the Cypriot terrace. The organised fans did not just want to watch the match. They wanted to take part in it, to push the team forward and to create their own atmosphere.'},
+    {type:'p',
+      el:'Και η παρουσία τους δεν περιορίστηκε ποτέ αποκλειστικά στο ποδόσφαιρο. Καλαθόσφαιρα, πετόσφαιρα, χειροσφαίριση και τα υπόλοιπα τμήματα του Σωματείου βρήκαν πολλές φορές τον ίδιο κόσμο στο πλευρό τους.',
+      en:'And their presence was never limited exclusively to football. Basketball, volleyball, handball and the rest of the Club\'s departments many times found the same fans by their side.'},
+    {type:'h',el:'Περισσότερο από μια κερκίδα',en:'More Than a Terrace'},
+    {type:'p',
+      el:'Για να κατανοήσει όμως κάποιος την ιστορία του ΠΑΝ.ΣΥ.ΦΙ., δεν αρκεί να κοιτάξει μόνο την παρουσία του στα γήπεδα. Ο Σύνδεσμος διαμόρφωσε μέσα στα χρόνια μια συγκεκριμένη αντίληψη για τον ρόλο του. Για τους οργανωμένους, ο ΑΠΟΕΛ δεν αποτελούσε απλώς μια αθλητική ομάδα και το «Ε» στο όνομά του δεν αντιμετωπίστηκε ποτέ ως ένα τυχαίο γράμμα. Συνδέθηκε με τις ιστορικές ρίζες του Συλλόγου και με συγκεκριμένες αντιλήψεις γύρω από την ελληνική ταυτότητα της Κύπρου.',
+      en:'To understand the history of PAN.SY.FI., however, it is not enough to look only at its presence in the stadiums. The Association shaped, over the years, a specific understanding of its role. For the organised fans, APOEL was not merely a sporting team and the "E" in its name was never treated as a random letter. It was tied to the historical roots of the Club and to specific views around the Greek identity of Cyprus.'},
+    {type:'p',
+      el:'Αυτή η αντίληψη εξηγεί γιατί η δράση του ΠΑΝ.ΣΥ.ΦΙ. επεκτάθηκε κατά καιρούς πέρα από τον αθλητισμό.',
+      en:'This understanding explains why the activity of PAN.SY.FI. from time to time extended beyond sport.'},
+    {type:'p',
+      el:'Τον Αύγουστο του 1996, μέλη του Συνδέσμου και οργανωμένοι ΑΠΟΕΛίστες συμμετείχαν στις μεγάλες πορείες των μοτοσικλετιστών, οι οποίες σημαδεύτηκαν από τις δολοφονίες του Τάσου Ισαάκ και του Σολωμού Σολωμού. Η παρουσία σε αντικατοχικές πορείες, εκδηλώσεις μνήμης και άλλες κινητοποιήσεις συνεχίστηκε και τα επόμενα χρόνια.',
+      en:'In August 1996, members of the Association and organised APOEL fans took part in the great motorcyclists\' marches, which were marked by the murders of Tasos Isaac and Solomos Solomou. Presence at anti-occupation marches, memorial events and other mobilisations continued in the years that followed.'},
+    {type:'p',
+      el:'Το 2004, κατά την περίοδο του δημοψηφίσματος για το Σχέδιο Ανάν, ο ΠΑΝ.ΣΥ.ΦΙ. τοποθετήθηκε δημόσια υπέρ του «ΟΧΙ», εκφράζοντας τη θέση του μέσα από ανακοινώσεις, πανό και συμμετοχή οργανωμένων σε συγκεντρώσεις. Για τον Σύνδεσμο, η στάση αυτή συνδεόταν με τις αντιλήψεις του για το Κυπριακό, την κατοχή, τους πρόσφυγες και την ιστορική ταυτότητα που θεωρούσε ότι όφειλε να διαφυλάσσει.',
+      en:'In 2004, during the period of the referendum on the Annan Plan, PAN.SY.FI. publicly took a stand in favour of "NO", expressing its position through announcements, banners and the participation of organised fans in rallies. For the Association, this stance was tied to its views on the Cyprus issue, the occupation, the refugees and the historical identity it considered its duty to safeguard.'},
+    {type:'p',
+      el:'Ανάλογη ήταν η παρουσία μετά την τραγωδία της 11ης Ιουλίου 2011 στο Μαρί. Μέλη του οργανωμένου κόσμου βρέθηκαν ανάμεσα στους πολίτες που συγκεντρώθηκαν έξω από το Προεδρικό Μέγαρο, ενώ ο ΠΑΝ.ΣΥ.ΦΙ. εξέφρασε δημόσια την οργή του και συμμετείχε στις κινητοποιήσεις που ακολούθησαν.',
+      en:'A similar presence followed the tragedy of 11 July 2011 at Mari. Members of the organised fans were among the citizens who gathered outside the Presidential Palace, while PAN.SY.FI. publicly expressed its outrage and took part in the mobilisations that followed.'},
+    {type:'h',el:'Αλληλεγγύη και Κοινωνική Παρουσία',en:'Solidarity and Social Presence'},
+    {type:'p',
+      el:'Υπάρχει παράλληλα μια πλευρά της ιστορίας του οργανωμένου κόσμου που συχνά μένει στη σκιά της έντασης και της εικόνας της κερκίδας: η κοινωνική δράση.',
+      en:'There is also a side to the story of the organised fans that often stays in the shadow of the intensity and image of the terrace: the social action.'},
+    {type:'p',
+      el:'Στα χρόνια της παρουσίας του, ο οργανωμένος κόσμος ανέπτυξε πρωτοβουλίες αλληλεγγύης, αιμοδοσίες, οικονομικές ενισχύσεις και δράσεις στήριξης ανθρώπων που βρίσκονταν σε ανάγκη. Και όταν ο ίδιος ο ΑΠΟΕΛ χρειάστηκε τη βοήθεια του κόσμου του, υπήρξε κινητοποίηση για την οικονομική του στήριξη.',
+      en:'Over the years of its presence, the organised fans developed initiatives of solidarity, blood drives, financial support and actions to support people in need. And when APOEL itself needed the help of its fans, there was mobilisation for its financial support.'},
+    {type:'p',
+      el:'Έτσι, ο ΠΑΝ.ΣΥ.ΦΙ. εξελίχθηκε σταδιακά σε κάτι περισσότερο από έναν μηχανισμό οργάνωσης της κερκίδας. Τα οικήματα και οι πυρήνες του έγιναν σημεία συνάντησης, χώροι στους οποίους δημιουργήθηκαν φιλίες, οργανώθηκαν εκδρομές, σχεδιάστηκαν πανό, γεννήθηκαν συνθήματα, συζητήθηκαν προβλήματα του ΑΠΟΕΛ και μεγάλωσαν ολόκληρες γενιές ΑΠΟΕΛιστών.',
+      en:'Thus, PAN.SY.FI. gradually evolved into something more than a mechanism for organising the terrace. Its premises and its branches became meeting points, spaces where friendships were formed, trips were organised, banners were designed, chants were born, APOEL\'s problems were discussed and whole generations of APOEL fans grew up.'},
+    {type:'h',el:'Η ευρωπαϊκή αναγνώριση της κερκίδας',en:'The European Recognition of the Terrace'},
+    {type:'p',
+      el:'Η δυναμική των Πορτοκαλί δεν περιορίστηκε μόνο στα κυπριακά γήπεδα. Η ατμόσφαιρα που δημιουργούσε η οργανωμένη κερκίδα του ΑΠΟΕΛ άρχισε να αποτελεί σημείο αναφοράς και πέρα από τα σύνορα της Κύπρου.',
+      en:'The dynamic of the Orange Ones was not limited only to Cypriot stadiums. The atmosphere created by APOEL\'s organised terrace began to be a point of reference beyond the borders of Cyprus.'},
+    {type:'p',
+      el:'Σύμφωνα με την ιστορική καταγραφή του ίδιου του ΑΠΟΕΛ για τον ΠΑΝ.ΣΥ.ΦΙ., το 1993 οι Πορτοκαλί αναδείχθηκαν ως η 3η καλύτερη κερκίδα της Ευρώπης, πίσω από την Chelsea και τη Θύρα 4 του ΠΑΟΚ.',
+      en:'According to APOEL\'s own historical record on PAN.SY.FI., in 1993 the Orange Ones were named the 3rd best terrace in Europe, behind Chelsea and Gate 4 of PAOK.'},
+    {type:'p',
+      el:'Τρία χρόνια αργότερα, το 1996, ήρθε ακόμη μεγαλύτερη διάκριση, με τους Πορτοκαλί να καταγράφονται ως η 2η καλύτερη κερκίδα στην Ευρώπη, μπροστά από ιστορικές ευρωπαϊκές κερκίδες όπως αυτές της Milan και του ΠΑΟΚ.',
+      en:'Three years later, in 1996, came an even greater distinction, with the Orange Ones being recorded as the 2nd best terrace in Europe, ahead of historic European terraces such as those of Milan and PAOK.'},
+    {type:'p',
+      el:'Για μια κυπριακή κερκίδα της δεκαετίας του \'90, οι συγκεκριμένες αναφορές είχαν ιδιαίτερη σημασία.',
+      en:'For a Cypriot terrace of the 1990s, these particular references held special significance.'},
+    {type:'p',
+      el:'Ήταν η περίοδος κατά την οποία το πορτοκαλί είχε πλέον καθιερωθεί, το ρολόι του Μακαρείου είχε γίνει το σπίτι των οργανωμένων και ο ΠΑΝ.ΣΥ.ΦΙ. βρισκόταν σε μια εποχή μεγάλης ανάπτυξης.',
+      en:'It was the period during which orange had by then become established, the Makario clock had become the home of the organised fans and PAN.SY.FI. was in an era of great growth.'},
+    {type:'p',
+      el:'Η αναγνώριση αυτή ενίσχυσε ακόμη περισσότερο τον μύθο της κερκίδας εκείνης της εποχής. Μιας κερκίδας που μέσα σε λίγα μόλις χρόνια είχε καταφέρει να δημιουργήσει τη δική της ταυτότητα και να κάνει το όνομα Πορτοκαλί συνώνυμο της οργανωμένης παρουσίας του κόσμου του ΑΠΟΕΛ.',
+      en:'This recognition further strengthened the myth of the terrace of that era. A terrace that in just a few years had managed to create its own identity and to make the name Orange Ones synonymous with the organised presence of APOEL\'s fans.'},
+    {type:'h',el:'Από το Μακάρειο στο ΓΣΠ και από την Κύπρο στην Ευρώπη',en:'From Makario to GSP, and from Cyprus to Europe'},
+    {type:'p',
+      el:'Η μετακόμιση από το Μακάρειο στο ΓΣΠ έκλεισε ένα ιστορικό κεφάλαιο. Το ρολόι έμεινε πίσω, όχι όμως και η κουλτούρα που είχε δημιουργηθεί γύρω του.',
+      en:'The move from Makario to GSP closed a historic chapter. The clock was left behind, but not the culture that had grown around it.'},
+    {type:'p',
+      el:'Στο νέο γήπεδο η οργανωμένη παρουσία απέκτησε μεγαλύτερη κλίμακα. Περισσότερος κόσμος, μεγαλύτερες χορογραφίες, περισσότερες σημαίες και μια κερκίδα που συνέδεσε την παρουσία της με ορισμένες από τις μεγαλύτερες αγωνιστικές στιγμές στην ιστορία του ΑΠΟΕΛ.',
+      en:'In the new stadium the organised presence acquired a greater scale. More fans, bigger choreographies, more flags and a terrace that linked its presence to some of the greatest sporting moments in APOEL\'s history.'},
+    {type:'p',
+      el:'Οι συνεχείς ευρωπαϊκές συμμετοχές άλλαξαν παράλληλα και τη διάσταση των οργανωμένων μετακινήσεων. Αεροπλάνα γεμάτα ΑΠΟΕΛίστες, λεωφορεία, πορείες σε ξένες πόλεις, πανό και σημαίες χιλιάδες χιλιόμετρα μακριά από τη Λευκωσία έγιναν μέρος της σύγχρονης ιστορίας του κόσμου του ΑΠΟΕΛ.',
+      en:'The continuous European participations also changed the dimension of organised trips. Planes full of APOEL fans, buses, marches in foreign cities, banners and flags thousands of kilometres away from Nicosia became part of the modern history of APOEL\'s fans.'},
+    {type:'p',
+      el:'Η κορύφωση ήρθε τη σεζόν 2011–12. Στην ιστορική πορεία μέχρι τα προημιτελικά του Champions League, μαζί με την ομάδα ταξίδεψε και ο κόσμος της. Από το Μακάρειο και το ρολόι μέχρι τα μεγαλύτερα γήπεδα της Ευρώπης, η διαδρομή της οργανωμένης κερκίδας ακολούθησε τη διαδρομή του ίδιου του ΑΠΟΕΛ.',
+      en:'The peak came in the 2011–12 season. In the historic run to the Champions League quarter-finals, alongside the team travelled its fans. From Makario and the clock to the biggest stadiums in Europe, the path of the organised terrace followed the path of APOEL itself.'},
+    {type:'h',el:'Από γενιά σε γενιά',en:'From Generation to Generation'},
+    {type:'p',
+      el:'Η γενιά που δημιούργησε τον Σύνδεσμο το 1979. Η γενιά του Μακαρείου. Εκείνοι που κατέβηκαν κάτω από το ρολόι. Εκείνοι που φόρεσαν τα πρώτα πορτοκαλί. Εκείνοι που πέρασαν στο ΓΣΠ. Οι γενιές των μεγάλων ευρωπαϊκών ταξιδιών. Και οι νεότεροι που ακολούθησαν.',
+      en:'The generation that created the Association in 1979. The generation of Makario. Those who came down under the clock. Those who wore the first orange. Those who moved to GSP. The generations of the great European trips. And the younger ones who followed.'},
+    {type:'p',
+      el:'Δεν έζησαν όλοι τον ίδιο ΑΠΟΕΛ. Δεν γνώρισαν τις ίδιες εποχές, τα ίδια γήπεδα ή τους ίδιους ανθρώπους. Συνδέθηκαν όμως μέσα από την ίδια ιδέα και την ίδια ανάγκη να βρίσκονται δίπλα στον Σύλλογο.',
+      en:'They did not all live the same APOEL. They did not know the same eras, the same stadiums or the same people. But they were connected through the same idea and the same need to be by the Club\'s side.'},
+    {type:'p',
+      el:'Σχεδόν μισός αιώνας έχει περάσει από το 1979 και μέσα σε αυτό το διάστημα άλλαξαν σχεδόν τα πάντα. Άλλαξαν τα γήπεδα, οι ποδοσφαιριστές, οι διοικήσεις, οι συνθήκες και ο ίδιος ο τρόπος με τον οποίο βιώνεται το ποδόσφαιρο.',
+      en:'Almost half a century has passed since 1979 and in this time almost everything has changed. The stadiums, the footballers, the boards, the conditions and the very way in which football is experienced.'},
+    {type:'p',
+      el:'Η ιστορία του ΠΑΝ.ΣΥ.ΦΙ. είναι γι\' αυτό κάτι περισσότερο από την ιστορία μιας οργανωμένης κερκίδας. Είναι κομμάτι της ιστορίας του κόσμου του ΑΠΟΕΛ: των ανθρώπων που οργανώθηκαν για να τον ακολουθήσουν, που ταξίδεψαν για χάρη του, που πέθαναν για να τον δουν από κοντά, που έζησαν μέσα από αυτόν φιλίες και εμπειρίες, που συμφώνησαν και συγκρούστηκαν, αλλά είχαν έναν σταθερό κοινό παρονομαστή.',
+      en:'The history of PAN.SY.FI. is, for this reason, something more than the history of an organised terrace. It is a part of the history of APOEL\'s fans: of the people who organised themselves to follow him, who travelled for his sake, who died to see him up close, who lived through him friendships and experiences, who agreed and clashed, but who had one stable common denominator.'},
+    {type:'closebig',el:'Τον ΑΠΟΕΛ.',en:'APOEL.'},
+    {type:'close',el:'Πριν από το 1979 υπήρχε ο κόσμος του ΑΠΟΕΛ.',en:'Before 1979 there were the fans of APOEL.'},
+    {type:'close',el:'Από το 1979 αυτός ο κόσμος απέκτησε οργανωμένη φωνή.',en:'From 1979 those fans acquired an organised voice.'},
+    {type:'close',el:'Το 1992 απέκτησε και το χρώμα του.',en:'In 1992 they acquired their colour too.'},
+    {type:'closecolor',el:'Πορτοκαλί.',en:'Orange.'},
+    {type:'close',el:'Και από τότε η ιστορία περνά από γενιά σε γενιά.',en:'And since then the story passes from generation to generation.'},
+    {type:'finalstart',el:'Γιατί οι παίκτες αλλάζουν.',en:'Because the players change.'},
+    {type:'final',el:'Οι διοικήσεις αλλάζουν.',en:'The boards change.'},
+    {type:'final',el:'Τα γήπεδα αλλάζουν.',en:'The stadiums change.'},
+    {type:'final',el:'Οι εποχές αλλάζουν.',en:'The eras change.'},
+    {type:'finalemph',el:'Ο κόσμος του ΑΠΟΕΛ όμως μένει.',en:'But the fans of APOEL remain.'}
+  ];
+
+  function renderPansyfiArticle(){
+    const c=document.getElementById('hpansyfiArticle');
+    if(!c)return;
+    const L=(o)=>LANG==='en'&&o.en?o.en:o.el;
+    let inClose=false,inFinal=false;
+    const parts=[];
+    pansyfiArticle.forEach(item=>{
+      const t=L(item);
+      if(item.type==='quote'){
+        const by=item.by?L(item.by):'';
+        parts.push(`<blockquote class="pf-quote">${t}${by?`<span class="pf-quote-cite">${by}</span>`:''}</blockquote>`);
+      } else if(item.type==='p'){
+        parts.push(`<p class="pf-p">${t}</p>`);
+      } else if(item.type==='accent'){
+        parts.push(`<p class="pf-accent">${t}</p>`);
+      } else if(item.type==='h'){
+        parts.push(`<h4 class="pf-h">${t}</h4>`);
+      } else if(item.type==='closebig'||item.type==='close'||item.type==='closecolor'){
+        if(!inClose){parts.push('<div class="pf-close">');inClose=true;}
+        if(item.type==='closebig')parts.push(`<p class="pf-close-line" style="font-size:1.15rem;color:var(--gold-bright);margin-bottom:14px;">${t}</p>`);
+        else if(item.type==='closecolor')parts.push(`<p class="pf-close-color">${t}</p>`);
+        else parts.push(`<p class="pf-close-line">${t}</p>`);
+      } else if(item.type==='finalstart'||item.type==='final'||item.type==='finalemph'){
+        if(!inFinal){parts.push('<div class="pf-final">');inFinal=true;}
+        if(item.type==='finalemph')parts.push(`<p class="emph">${t}</p>`);
+        else parts.push(`<p>${t}</p>`);
+      }
+    });
+    if(inFinal)parts.push('</div>');
+    if(inClose)parts.push('</div>');
+    c.innerHTML=parts.join('');
+  }
+
   const societyMoments=[
     {y:'1931',t:'Οκτωβριανά · Ονούφριος Κληρίδης',t_en:'October Uprising · Onoufrios Klerides',desc:'Στις 21 Οκτωβρίου η Λευκωσία σείεται από αντιαποικιακές διαδηλώσεις, μετά την κήρυξη ανυπακοής από τον επίσκοπο Κιτίου Νικόδημο Μυλωνά, ο οποίος κάλεσε τον λαό να χύσει το αίμα του για την ένωση με την Ελλάδα. Μετά την ορκομωσία στην ελληνική σημαία, το πλήθος φτάνει στο κυβερνείο, όπου σημειώνονται οι πρώτες συγκρούσεις. Από τους πυροβολισμούς, τραυματίζονται 15 διαδηλωτές και πεθαίνει ο <b>17χρονος Ονούφριος Κληρίδης</b>, μέλος της εφηβικής ποδοσφαιρικής ομάδας του ΑΠΟΕΛ. Η κηδεία του έγινε στη Φανερωμένη και το πλήθος τίμησε τον πρώτο ήρωα της εξέγερσης των Οκτωβριανών.',desc_en:'On 21 October, Nicosia is shaken by anti-colonial demonstrations, following the call for disobedience by Bishop Nikodimos Mylonas of Kition, who urged the people to shed their blood for union with Greece. After the oath on the Greek flag, the crowd reaches Government House, where the first clashes occur. From the gunfire, 15 demonstrators are wounded and <b>17-year-old Onoufrios Klerides</b>, member of APOEL\'s youth football team, is killed. His funeral was held at Faneromeni and the crowd honoured the first hero of the October uprising.'},
     {y:'1955',t:'Έναρξη Αγώνα ΕΟΚΑ',t_en:'Beginning of the EOKA Struggle',desc:'Το πρωινό της 1ης Απριλίου, η Κύπρος ξυπνά από τις πρώτες εκρήξεις. Η Εθνική Οργάνωση Κυπρίων Αγωνιστών (<b>ΕΟΚΑ</b>), με Αρχηγό τον Στρατηγό Γεώργιο Γρίβα Διγενή, ξεκινά τον ένοπλο εθνικοαπελευθερωτικό αγώνα για την ένωση με τη μητέρα Ελλάδα. Πολλά μέλη και αθλητές του ΑΠΟΕΛ εντάσσονται στην οργάνωση, ο αγώνας της οποίας διήρκεσε τέσσερα χρόνια και έγραψε μια νέα, ηρωική και περήφανη ιστορία για τον κυπριακό Ελληνισμό.',desc_en:'On the morning of 1 April, Cyprus wakes to the first explosions. The National Organisation of Cypriot Fighters (<b>EOKA</b>), led by General Georgios Grivas Digenis, begins the armed national liberation struggle for union with mother Greece. Many members and athletes of APOEL join the organisation, whose struggle lasted four years and wrote a new, heroic and proud chapter in the history of Cypriot Hellenism.'},
@@ -1646,13 +1819,8 @@ footer{
         <p class="hcard-role">${L(f,'role')}</p>
         <p class="hcard-desc">${L(f,'desc')}</p>
       </article>`).join('');
-    // PANSYFI moments
-    document.getElementById('hgridPansyfi').innerHTML=pansyfiMoments.map(m=>`
-      <article class="hcard">
-        <div class="hcard-year">${m.y}</div>
-        <h4 class="hcard-title">${L(m,'t')}</h4>
-        <p class="hcard-desc">${L(m,'desc')}</p>
-      </article>`).join('');
+    // PANSYFI article (renders long-form essay)
+    renderPansyfiArticle();
     // Society moments
     document.getElementById('hgridSociety').innerHTML=societyMoments.map(m=>`
       <article class="hcard">
