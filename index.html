@@ -5,17 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <meta name="googlebot" content="noindex, nofollow">
-<!-- ΠΡΟΣΟΧΗ: αφαίρεσε τα δύο noindex meta tags παραπάνω την ημέρα της κυκλοφορίας -->
-<meta name="description" content="100 Χρόνια ΑΠΟΕΛ · 1926–2026. Το πρόγραμμα των εορτασμών, η ιστορία, τα τμήματα και οι ιστορίες των φιλάθλων του Θρύλου.">
-<meta name="theme-color" content="#001b35">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="ΑΠΟΕΛ · Ένας Αιώνας">
-<meta property="og:title" content="ΑΠΟΕΛ · ΕΝΑΣ ΑΙΩΝΑΣ · 1926–2026">
-<meta property="og:description" content="Το πρόγραμμα των εορτασμών, η ιστορία, τα τμήματα και οι ιστορίες των φιλάθλων του Θρύλου.">
-<meta property="og:image" content="./emblem_reveal.jpg">
-<meta property="og:locale" content="el_GR">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <title>ΑΠΟΕΛ · ΕΝΑΣ ΑΙΩΝΑΣ · 1926–2026</title>
 <style>
   :root{
@@ -29,7 +18,7 @@
     /* the variable names below are reused everywhere as "accent" — repurposed to the badge gold */
     --gold:#e0b53a;          /* laurel gold */
     --gold-bright:#f6d873;   /* bright gold highlight */
-    --gold-deep:#c9a13a;     /* deep gold */
+    --gold-deep:#a07d1f;     /* deep gold */
     --gold-dim:rgba(224,181,58,.32);
     --ash:#cdd9e6;           /* soft blue-white text */
     --hair:rgba(224,181,58,.18);
@@ -44,7 +33,7 @@
   .serif{font-family:"Bodoni MT","Didot",Georgia,serif;}
 
   /* HERO */
-  #hero{position:relative;height:100vh;height:100dvh;min-height:620px;display:flex;flex-direction:column;
+  #hero{position:relative;height:100vh;min-height:620px;display:flex;flex-direction:column;
     align-items:center;justify-content:center;text-align:center;overflow:hidden;}
   #goldCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;}
   .hero-inner{position:relative;z-index:3;}
@@ -63,7 +52,7 @@
     -webkit-mask-image:radial-gradient(ellipse at center,#000 45%,transparent 92%);
     mask-image:radial-gradient(ellipse at center,#000 45%,transparent 92%);}
   /* Background anthem toggle button */
-  .audio-btn{position:fixed;top:calc(14px + env(safe-area-inset-top));right:calc(130px + env(safe-area-inset-right));z-index:65;
+  .audio-btn{position:fixed;top:14px;right:130px;z-index:65;
     width:38px;height:38px;border-radius:50%;padding:0;
     background:rgba(0,12,26,.6);border:1px solid var(--hair);
     color:var(--ash);cursor:pointer;
@@ -76,8 +65,8 @@
   .audio-btn .audio-hint{display:none;}
   @keyframes audioPulse{0%,100%{box-shadow:0 0 0 0 rgba(201,159,43,.4);}50%{box-shadow:0 0 0 8px rgba(201,159,43,0);}}
   @media(max-width:560px){
-    .audio-btn{top:calc(16px + env(safe-area-inset-top));right:calc(110px + env(safe-area-inset-right));width:44px;height:44px;}
-    .audio-btn .audio-icon{width:16px;height:16px;}
+    .audio-btn{top:16px;right:110px;width:34px;height:34px;}
+    .audio-btn .audio-icon{width:14px;height:14px;}
   }
   /* REVEAL PLACEHOLDER (until 26/07/2026) */
   .logo-reveal{position:relative;width:clamp(240px,40vw,420px);aspect-ratio:1/1;margin:0 auto 1.6em;
@@ -178,7 +167,7 @@
   .sec-head h2{font-family:"Bodoni MT","Didot",Georgia,serif;font-weight:700;font-size:clamp(2.4rem,8vw,5rem);
     line-height:.95;letter-spacing:-.02em;margin-top:.1em;background:linear-gradient(180deg,var(--gold-bright),var(--gold) 55%,var(--gold-deep));
     -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
-  .sec-head .lead{max-width:none;margin-top:18px;color:var(--ash);font-weight:300;}
+  .sec-head .lead{max-width:560px;margin-top:18px;color:var(--ash);font-weight:300;}
 
   /* DEPARTMENTS / SPORTS */
   .depts-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
@@ -215,15 +204,6 @@
   .dt-badge{display:flex;flex-direction:column;align-items:center;line-height:1;}
   .dt-badge b{font-family:"Bodoni MT","Didot",Georgia,serif;font-weight:700;font-size:1.7rem;color:var(--gold-bright);}
   .dt-badge span{font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-deep);margin-top:5px;}
-  .dept-note{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue-bright);
-    font-family:"Helvetica Neue",Arial,sans-serif;margin-top:2px;margin-bottom:2px;opacity:.85;}
-  .dept-extras{margin-top:18px;padding-top:14px;border-top:1px dashed rgba(201,159,43,.2);}
-  .dept-extras-label{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;
-    color:var(--gold-deep);font-family:"Helvetica Neue",Arial,sans-serif;text-align:center;
-    margin-bottom:12px;opacity:.9;}
-  .dept-titles-extra{margin-top:0;padding-top:0;border-top:none;gap:12px;}
-  .dt-badge-extra b{font-size:1.35rem;opacity:.85;}
-  .dt-badge-extra span{opacity:.85;}
   .dept-active{margin-top:18px;padding-top:16px;border-top:1px solid var(--hair);
     font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue-bright);}
   .titles-total{display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -281,7 +261,7 @@
   .lb img{max-width:100%;max-height:78vh;border:1px solid var(--hair);box-shadow:0 20px 60px rgba(0,0,0,.6);}
   .lb figcaption{margin-top:16px;font-family:"Bodoni MT",serif;font-style:italic;color:var(--gold-bright);font-size:1.2rem;}
   .lb .lbyr{color:var(--gold-deep);font-style:normal;letter-spacing:.2em;font-size:.8rem;margin-right:.8em;}
-  .lb-x{position:fixed;top:calc(22px + env(safe-area-inset-top));right:calc(28px + env(safe-area-inset-right));background:none;border:none;color:var(--ash);font-size:1.8rem;cursor:pointer;z-index:111;width:44px;height:44px;display:flex;align-items:center;justify-content:center;line-height:1;padding:0;}
+  .lb-x{position:fixed;top:22px;right:28px;background:none;border:none;color:var(--ash);font-size:1.8rem;cursor:pointer;z-index:111;}
   .lb-x:hover{color:var(--gold-bright)}
   .lb-nav{position:fixed;top:50%;transform:translateY(-50%);
     background:rgba(0,12,26,.75);border:1px solid rgba(201,159,43,.4);color:var(--gold-bright);
@@ -291,10 +271,10 @@
     -webkit-tap-highlight-color:transparent;touch-action:manipulation;transition:.25s;}
   @media (hover:hover){.lb-nav:hover{background:var(--gold);color:#070707;border-color:var(--gold);}}
   .lb-nav:active{background:var(--gold);color:#070707;border-color:var(--gold);}
-  #lbPrev{left:calc(24px + env(safe-area-inset-left))} #lbNext{right:calc(24px + env(safe-area-inset-right))}
+  #lbPrev{left:24px} #lbNext{right:24px}
   @media(max-width:600px){
     .lb-nav{width:44px;height:44px;font-size:1.2rem;}
-    #lbPrev{left:calc(10px + env(safe-area-inset-left))} #lbNext{right:calc(10px + env(safe-area-inset-right))}
+    #lbPrev{left:10px} #lbNext{right:10px}
   }
   /* ---- ALBUM GRID MODAL ---- */
   .album-modal{position:fixed;inset:0;background:rgba(2,10,22,.96);z-index:100;
@@ -302,7 +282,7 @@
     backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);}
   .album-modal.open{display:block;}
   .album-inner{max-width:1200px;margin:0 auto;position:relative;}
-  .album-close{position:fixed;top:calc(18px + env(safe-area-inset-top));right:calc(22px + env(safe-area-inset-right));z-index:5;
+  .album-close{position:fixed;top:18px;right:22px;z-index:5;
     background:rgba(0,12,26,.75);border:1px solid rgba(201,159,43,.4);color:var(--gold-bright);
     width:42px;height:42px;border-radius:50%;font-size:1.5rem;cursor:pointer;
     display:flex;align-items:center;justify-content:center;line-height:1;
@@ -510,7 +490,7 @@
   .vf-label{font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-deep);
     font-weight:600;}
   .vf-field input,.vf-field textarea{background:rgba(0,12,26,.5);border:1px solid var(--hair);
-    color:var(--gold-bright);font-family:inherit;font-size:1rem;padding:12px 14px;
+    color:var(--gold-bright);font-family:inherit;font-size:.95rem;padding:12px 14px;
     transition:border-color .25s,background .25s;-webkit-tap-highlight-color:transparent;}
   .vf-field input:focus,.vf-field textarea:focus{outline:none;border-color:var(--gold);
     background:rgba(0,12,26,.7);}
@@ -603,8 +583,7 @@
   .pshare:hover{background:rgba(30,43,72,.14);border-color:rgba(30,43,72,.5);transform:translateY(-1px);}
   .pshare.copied{background:rgba(76,175,80,.2);border-color:rgba(76,175,80,.6);color:#2e6d2f;}
   .pshare svg{width:12px;height:12px;fill:currentColor;}
-  .empty{color:var(--gold-deep);font-style:italic;font-family:"Bodoni MT",serif;padding:30px 0;font-size:1.1rem;
-    column-span:all;break-inside:avoid;text-align:center;}
+  .empty{color:var(--gold-deep);font-style:italic;font-family:"Bodoni MT",serif;padding:30px 0;font-size:1.1rem;}
   /* Wall tools: search + counter above the wall */
   .wall-side{display:flex;flex-direction:column;gap:22px;}
   .wall-tools{display:flex;gap:18px;align-items:center;flex-wrap:wrap;padding-bottom:14px;
@@ -692,35 +671,8 @@
   footer b{color:var(--gold-bright);font-family:"Bodoni MT",serif;font-style:italic;font-weight:700;letter-spacing:.1em;}
   footer .footer-tags{display:inline-block;margin-top:10px;font-size:.6rem;letter-spacing:.22em;color:var(--gold-deep);opacity:.75;}
 
-  /* ---- STORY PHOTO UPLOAD ---- */
-  .story-file{margin-top:24px;position:relative;}
-  .story-file-btn{display:inline-flex;align-items:center;gap:10px;background:transparent;
-    border:1px dashed rgba(201,159,43,.45);color:var(--gold-bright);font-family:inherit;
-    font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;padding:14px 18px;
-    cursor:pointer;transition:.25s;min-height:44px;}
-  .story-file-btn:hover{border-color:var(--gold);background:rgba(224,181,58,.06);}
-  .story-file input[type=file]{position:absolute;width:1px;height:1px;opacity:0;}
-  .story-file-hint{margin-top:10px;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep);}
-  .story-file-preview{margin-top:14px;position:relative;display:none;max-width:300px;}
-  .story-file-preview.on{display:block;}
-  .story-file-preview img{max-width:100%;max-height:220px;border:1px solid var(--hair);display:block;}
-  .story-file-clear{position:absolute;top:8px;right:8px;width:34px;height:34px;border-radius:50%;
-    background:rgba(0,12,26,.82);border:1px solid rgba(201,159,43,.5);color:var(--gold-bright);
-    cursor:pointer;font-family:inherit;font-size:1.1rem;line-height:1;padding:0;}
-  .post-photo{margin:12px 0 6px;display:block;width:100%;border:1px solid var(--hair);cursor:pointer;}
-  .admin-item-photo{grid-column:1/-1;}
-  .admin-item-photo img{max-width:170px;border:1px solid rgba(201,159,43,.2);display:block;}
-  .lb.single .lb-nav{display:none;}
-  /* ---- EVENT ACTIONS: calendar + directions ---- */
-  .em-actions{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0 6px;}
-  .em-action{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:12px 18px;
-    background:transparent;border:1px solid rgba(201,159,43,.45);color:var(--gold-bright);
-    font-family:inherit;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;
-    cursor:pointer;text-decoration:none;transition:.25s;}
-  .em-action:hover{border-color:var(--gold);background:rgba(224,181,58,.08);color:var(--gold-bright);}
-
   /* LANGUAGE SWITCH */
-  .lang{position:fixed;top:calc(16px + env(safe-area-inset-top));right:calc(18px + env(safe-area-inset-right));z-index:60;display:flex;border:1px solid var(--hair);
+  .lang{position:fixed;top:16px;right:18px;z-index:60;display:flex;border:1px solid var(--hair);
     border-radius:30px;overflow:hidden;background:rgba(0,12,26,.6);backdrop-filter:blur(8px);}
   /* ACCESS GATE — hides the site until password entered */
   html.gated body > *:not(#accessGate){display:none!important;}
@@ -1030,90 +982,7 @@ footer{
   .tl-row{grid-template-columns:88px 1fr;gap:16px;padding:34px 0;}
   .tl-row::before{font-size:5.2rem;opacity:.75;}
   nav button{font-size:.66rem;padding:17px 14px;letter-spacing:.18em;}
-  .hcard-grid{grid-template-columns:1fr!important;gap:12px!important;}
-  .hsub-head{padding:20px 18px!important;}
-  .hsub-title{font-size:1.25rem!important;}
-  .hsub-intro h3{font-size:1.5rem!important;}
 }
-
-/* SPOTLIGHT SECTIONS ABOVE TIMELINE */
-.hsub-wrap{margin-bottom:70px;padding-bottom:60px;border-bottom:1px solid rgba(201,159,43,.14);}
-.hsub-intro{text-align:center;margin-bottom:48px;padding:0 20px;}
-.hsub-intro .k{color:var(--gold-deep);letter-spacing:.28em;font-size:.7rem;text-transform:uppercase;margin-bottom:14px;}
-.hsub-intro h3{font-family:"Bodoni MT",Didot,Georgia,serif;font-size:2.1rem;letter-spacing:.02em;color:var(--gold-bright);margin:0 0 18px;font-weight:400;}
-.hsub-intro .lead{max-width:640px;margin:0 auto;color:rgba(217,229,242,.78);line-height:1.65;font-size:.98rem;}
-
-.hsub{border:1px solid rgba(201,159,43,.18);border-radius:8px;
-  background:linear-gradient(135deg,rgba(4,31,59,.35),rgba(0,19,38,.25));
-  margin-bottom:18px;overflow:hidden;transition:border-color .3s;
-  isolation:isolate;transform:translateZ(0);}
-.hsub:hover{border-color:rgba(201,159,43,.35);}
-.hsub[data-open="true"]{border-color:rgba(201,159,43,.45);
-  background:linear-gradient(135deg,rgba(6,41,74,.5),rgba(4,31,59,.4));}
-
-.hsub-head{display:flex;align-items:center;gap:16px;width:100%;
-  background:none;border:none;color:var(--ash);cursor:pointer;
-  padding:24px 26px;text-align:left;font-family:inherit;
-  transition:background .25s;}
-.hsub-head:hover{background:rgba(201,159,43,.05);}
-.hsub-mark{width:6px;height:38px;background:linear-gradient(180deg,var(--gold-bright),var(--gold-deep));
-  border-radius:3px;flex-shrink:0;box-shadow:0 0 12px rgba(201,159,43,.35);}
-.hsub-title-wrap{flex:1;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;}
-.hsub-title{font-size:1.4rem;color:var(--ash);margin:0;letter-spacing:.02em;font-weight:400;}
-.hsub-count{color:var(--gold-deep);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;
-  font-family:"Helvetica Neue",sans-serif;}
-.hsub-chevron{color:var(--gold-bright);font-size:1.3rem;transition:transform .35s ease;flex-shrink:0;
-  opacity:.75;}
-.hsub[data-open="true"] .hsub-chevron{transform:rotate(180deg);opacity:1;}
-
-.hsub-body{max-height:0;overflow:hidden;transition:max-height .55s ease;}
-.hsub[data-open="true"] .hsub-body{max-height:8000px;}
-.hsub-lead{padding:0 26px;color:rgba(217,229,242,.7);font-style:italic;
-  font-family:"Bodoni MT",Georgia,serif;font-size:1rem;line-height:1.6;
-  margin:0 0 20px;max-width:720px;}
-
-.hcard-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-  gap:16px;padding:0 26px 28px;}
-.hcard{background:linear-gradient(135deg,rgba(11,44,78,.5),rgba(4,25,50,.4));
-  border:1px solid rgba(201,159,43,.18);border-radius:6px;
-  padding:18px 20px;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
-  position:relative;overflow:hidden;}
-.hcard:hover{border-color:rgba(201,159,43,.5);transform:translateY(-3px);
-  box-shadow:0 8px 24px rgba(0,0,0,.35);}
-.hcard-year{font-family:"Bodoni MT",Didot,Georgia,serif;font-size:1.5rem;
-  color:var(--gold-bright);letter-spacing:.05em;line-height:1;margin-bottom:8px;}
-.hcard-title{font-family:"Bodoni MT",Georgia,serif;font-size:1.12rem;
-  color:var(--ash);margin:0 0 4px;font-weight:500;line-height:1.3;}
-.hcard-role{font-size:.68rem;color:var(--gold-deep);letter-spacing:.16em;
-  text-transform:uppercase;margin:0 0 10px;font-family:"Helvetica Neue",sans-serif;}
-.hcard-desc{font-size:.9rem;line-height:1.55;color:rgba(217,229,242,.78);margin:0;}
-.hcard-desc b{color:var(--ash);font-weight:600;}
-
-/* Historic photo background — visible only in the HEADER of Figures section */
-#hsubFigures{border:none;box-shadow:0 0 0 1px rgba(201,159,43,.18);}
-#hsubFigures[data-open="true"]{box-shadow:0 0 0 1px rgba(201,159,43,.45);}
-#hsubFigures .hsub-head{position:relative;overflow:hidden;border-radius:8px 8px 0 0;}
-#hsubFigures[data-open="false"] .hsub-head{border-radius:8px;}
-#hsubFigures .hsub-head:hover{background:transparent;}
-#hsubFigures .hsub-bg-img{filter:grayscale(.7) contrast(1.05) brightness(.9);opacity:.75;}
-#hsubFigures .hsub-bg-tint{background:linear-gradient(90deg,rgba(0,19,38,.75) 0%,rgba(0,11,24,.5) 55%,rgba(0,11,24,.35) 100%);}
-
-/* Fan collage background — visible only in the HEADER of PANSYFI section */
-#hsubPansyfi{border:none;box-shadow:0 0 0 1px rgba(201,159,43,.18);}
-#hsubPansyfi[data-open="true"]{box-shadow:0 0 0 1px rgba(201,159,43,.45);}
-#hsubPansyfi .hsub-head{position:relative;overflow:hidden;border-radius:8px 8px 0 0;}
-#hsubPansyfi[data-open="false"] .hsub-head{border-radius:8px;}
-#hsubPansyfi .hsub-head:hover{background:transparent;}
-#hsubPansyfi .hsub-bg-img{filter:contrast(1.08) brightness(.85) saturate(.9);opacity:.75;}
-#hsubPansyfi .hsub-bg-tint{background:linear-gradient(90deg,rgba(0,19,38,.72) 0%,rgba(0,11,24,.45) 55%,rgba(0,11,24,.3) 100%);}
-
-/* Shared background image + tint styling */
-.hsub-bg-img{position:absolute;top:0;left:0;width:100%;height:100%;
-  object-fit:cover;object-position:center center;z-index:0;pointer-events:none;
-  display:block;border:none;-webkit-user-drag:none;user-select:none;}
-.hsub-bg-tint{position:absolute;inset:0;z-index:1;pointer-events:none;}
-#hsubFigures .hsub-head > *:not(.hsub-bg-img):not(.hsub-bg-tint),
-#hsubPansyfi .hsub-head > *:not(.hsub-bg-img):not(.hsub-bg-tint){position:relative;z-index:2;}
 @media(max-width:560px){
   #hero::after{font-size:3.1rem;letter-spacing:.04em;}
   .logo-reveal{width:clamp(235px,78vw,340px);}
@@ -1170,7 +1039,7 @@ footer{
   <canvas id="goldCanvas"></canvas>
   <div class="hero-inner">
     <img class="emblem-banner" src="./emblem_reveal.jpg?v=2" alt="Αποκάλυψη Επετειακού Σήματος — Σύντομα · Anniversary Emblem Reveal — Soon">
-    <div class="eyebrow" data-el="Αθλητικός Ποδοσφαιρικός Όμιλος Ελλήνων Λευκωσίας" data-en="Athletic Football Club of Greeks of Nicosia">Αθλητικός Ποδοσφαιρικός Όμιλος Ελλήνων Λευκωσίας</div>
+    <div class="eyebrow" data-el="Αθλητικός Ποδοσφαιρικός Όμιλος Ελλήνων Λευκωσίας" data-en="Αθλητικός Ποδοσφαιρικός Όμιλος Ελλήνων Λευκωσίας">Αθλητικός Ποδοσφαιρικός Όμιλος Ελλήνων Λευκωσίας</div>
     <div class="span-years" data-el="08 · Νοεμβρίου · 1926" data-en="08 · November · 1926">08 · Νοεμβρίου · 1926</div>
     <div class="hero-actions">
       <a class="hero-btn" href="#events" data-jump="events" data-el="Πρόγραμμα Εορτασμών" data-en="Programme">Πρόγραμμα Εορτασμών</a>
@@ -1180,14 +1049,14 @@ footer{
 </section>
 
 <div id="navAnchor" aria-hidden="true"></div>
-<nav role="tablist" aria-label="Ενότητες">
-  <button role="tab" aria-selected="true" aria-controls="events" class="active" data-tab="events" data-el="Πρόγραμμα" data-en="Programme">Πρόγραμμα</button>
-  <button role="tab" aria-selected="false" aria-controls="news" data-tab="news" data-el="Ανακοινώσεις" data-en="Announcements">Ανακοινώσεις</button>
-  <button role="tab" aria-selected="false" aria-controls="history" data-tab="history" data-el="Ιστορία" data-en="History">Ιστορία</button>
-  <button role="tab" aria-selected="false" aria-controls="depts" data-tab="depts" data-el="Τμήματα" data-en="Departments">Τμήματα</button>
-  <button role="tab" aria-selected="false" aria-controls="gallery" data-tab="gallery" data-el="Φωτογραφίες" data-en="Photos" style="display:none">Φωτογραφίες</button>
-  <button role="tab" aria-selected="false" aria-controls="stories" data-tab="stories" data-el="Οι Ιστορίες σας" data-en="Your Stories">Οι Ιστορίες σας</button>
-  <button role="tab" aria-selected="false" aria-controls="contact" data-tab="contact" data-el="Επικοινωνία" data-en="Contact">Επικοινωνία</button>
+<nav>
+  <button class="active" data-tab="events" data-el="Πρόγραμμα" data-en="Programme">Πρόγραμμα</button>
+  <button data-tab="news" data-el="Ανακοινώσεις" data-en="Announcements">Ανακοινώσεις</button>
+  <button data-tab="history" data-el="Ιστορία" data-en="History">Ιστορία</button>
+  <button data-tab="depts" data-el="Τμήματα" data-en="Departments">Τμήματα</button>
+  <button data-tab="gallery" data-el="Φωτογραφίες" data-en="Photos" style="display:none">Φωτογραφίες</button>
+  <button data-tab="stories" data-el="Οι Ιστορίες σας" data-en="Your Stories">Οι Ιστορίες σας</button>
+  <button data-tab="contact" data-el="Επικοινωνία" data-en="Contact">Επικοινωνία</button>
 </nav>
 
 <main>
@@ -1199,63 +1068,14 @@ footer{
 
   <section id="history" class="panel">
     <div class="sec-head"><div class="k" data-el="Ένας Αιώνας" data-en="One Century">Ένας Αιώνας</div><h2 class="serif" data-el="Ιστορία" data-en="History">Ιστορία</h2>
-      <p class="lead" data-el="Από το 1926, μια ιστορία γραμμένη με χρυσό." data-en="Since 1926, a story written in gold.">Από το 1926, μια ιστορία γραμμένη με χρυσό. Έναν αιώνα μετά την πρώτη εκείνη συνάντηση στην οδό Λήδρας, η ιστορία του ΑΠΟΕΛ δεν μετριέται μόνο σε πρωταθλήματα, κύπελλα και ευρωπαϊκές βραδιές.
-Είναι η ιστορία αθλητών, παραγόντων, μελών και φιλάθλων που πέρασαν από γενιά σε γενιά τα ίδια χρώματα και την ίδια ταυτότητα. Μία ιστορία που γράφτηκε στα γήπεδα, στα κλειστά, στα στάδια και στις κερκίδες, αλλά και μέσα στις πιο δύσκολες στιγμές της Κύπρου.
+      <p class="lead" data-el="Από το 1926, μια ιστορία γραμμένη με χρυσό." data-en="Since 1926, a story written in gold.">Έναν αιώνα μετά την ίδρυσή του, ο ΑΠΟΕΛ συνεχίζει να γράφει ιστορία και να προσθέτει νέες επιτυχίες σε όλα τα αθλήματα. 
+
+Όμως τα 100 χρόνια του ΑΠΟΕΛ δεν μετριούνται μόνο σε τρόπαια και κατακτήσεις. Μετριούνται στους ανθρώπους που υπηρέτησαν το Σωματείο, στους αθλητές που φόρεσαν τα γαλαζοκίτρινα, στις γενιές φιλάθλων που στάθηκαν δίπλα του, στις μεγάλες ευρωπαϊκές βραδιές, αλλά και στις δύσκολες στιγμές όπου ο ΑΠΟΕΛ ήταν παρών στην ιστορία του τόπου.
+
+Από μια μικρή συνάντηση στην οδό Λήδρας το 1926, γεννήθηκε ένα Σωματείο που μεγάλωσε, εξελίχθηκε και πέρασε από γενιά σε γενιά διατηρώντας τα ίδια χρώματα, την ίδια ταυτότητα και την ίδια πίστη στις αξίες που το δημιούργησαν.
+
+Ένας αιώνας γεμάτος αγώνες, θυσίες, επιτυχίες, ανθρώπους και στιγμές που έμειναν ανεξίτηλες.
 </p></div>
-
-    <!-- SPOTLIGHT SECTIONS -->
-    <div class="hsub-wrap">
-      <div id="hsubFigures" class="hsub" data-open="false">
-        <button class="hsub-head" type="button" aria-expanded="false">
-          <img class="hsub-bg-img" src="./historic_bw.jpg" alt="" aria-hidden="true">
-          <span class="hsub-bg-tint"></span>
-          <span class="hsub-mark"></span>
-          <div class="hsub-title-wrap">
-            <h3 class="hsub-title serif" data-el="Ιστορικά Πρόσωπα" data-en="Historic Figures">Ιστορικά Πρόσωπα</h3>
-            <span class="hsub-count"></span>
-          </div>
-          <span class="hsub-chevron" aria-hidden="true">▾</span>
-        </button>
-        <div class="hsub-body">
-          <p class="hsub-lead" data-el="Πίσω από κάθε τρόπαιο, κάθε νίκη και κάθε στιγμή θυσίας βρίσκονται άνθρωποι που σφράγισαν την πορεία του Θρύλου." data-en="Behind every trophy, every victory and every moment of sacrifice stand people who shaped the Legend.">Πίσω από κάθε τρόπαιο, κάθε νίκη και κάθε στιγμή θυσίας βρίσκονται άνθρωποι που σφράγισαν την πορεία του Θρύλου.</p>
-          <div class="hcard-grid" id="hgridFigures"></div>
-        </div>
-      </div>
-
-      <div id="hsubPansyfi" class="hsub" data-open="false">
-        <button class="hsub-head" type="button" aria-expanded="false">
-          <img class="hsub-bg-img" src="./pansyfi_bg.jpg" alt="" aria-hidden="true">
-          <span class="hsub-bg-tint"></span>
-          <span class="hsub-mark"></span>
-          <div class="hsub-title-wrap">
-            <h3 class="hsub-title serif" data-el="ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ" data-en="PAN.SY.FI. APOEL">ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ</h3>
-            <span class="hsub-count"></span>
-          </div>
-          <span class="hsub-chevron" aria-hidden="true">▾</span>
-        </button>
-        <div class="hsub-body">
-          <p class="hsub-lead" data-el="Από το 1979, ο Πανελλήνιος Σύνδεσμος Φιλάθλων ΑΠΟΕΛ είναι η οργανωμένη έκφραση της κερκίδας — η φωνή που έγινε παρουσία στους αγώνες και στις μεγάλες στιγμές του τόπου." data-en="Since 1979, the Panhellenic Association of APOEL Fans has been the organised expression of the terraces — the voice that became a presence in matches and in the country\'s great moments.">Από το 1979, ο Πανελλήνιος Σύνδεσμος Φιλάθλων ΑΠΟΕΛ είναι η οργανωμένη έκφραση της κερκίδας — η φωνή που έγινε παρουσία στους αγώνες και στις μεγάλες στιγμές του τόπου.</p>
-          <div class="hcard-grid" id="hgridPansyfi"></div>
-        </div>
-      </div>
-
-      <div id="hsubSociety" class="hsub" data-open="false">
-        <button class="hsub-head" type="button" aria-expanded="false">
-          <span class="hsub-mark"></span>
-          <div class="hsub-title-wrap">
-            <h3 class="hsub-title serif" data-el="Κοινωνική Παρουσία" data-en="Social Presence">Κοινωνική Παρουσία</h3>
-            <span class="hsub-count"></span>
-          </div>
-          <span class="hsub-chevron" aria-hidden="true">▾</span>
-        </button>
-        <div class="hsub-body">
-          <p class="hsub-lead" data-el="Ο ΑΠΟΕΛ δεν έγραφε ιστορία μόνο στα γήπεδα. Ήταν παρών σε κάθε δύσκολη σελίδα του τόπου, από την αντιαποικιακή εξέγερση του 1931 μέχρι σήμερα." data-en="APOEL did not write history only on the pitch. It was present on every difficult page of the country, from the 1931 anti-colonial uprising to today.">Ο ΑΠΟΕΛ δεν έγραφε ιστορία μόνο στα γήπεδα. Ήταν παρών σε κάθε δύσκολη σελίδα του τόπου, από την αντιαποικιακή εξέγερση του 1931 μέχρι σήμερα.</p>
-          <div class="hcard-grid" id="hgridSociety"></div>
-        </div>
-      </div>
-    </div>
-    <!-- /SPOTLIGHT -->
-
     <div class="tl" id="tl"></div>
   </section>
 
@@ -1297,15 +1117,6 @@ footer{
           <label for="text" data-el="Η ανάμνησή σας" data-en="Your memory">Η ανάμνησή σας</label>
           <textarea id="text" placeholder="Η στιγμή που δεν θα ξεχάσετε ποτέ…" data-ph-el="Η στιγμή που δεν θα ξεχάσετε ποτέ…" data-ph-en="The moment you will never forget…" maxlength="500"></textarea>
           <div class="char-counter" id="charCounter"><span id="charCount">0</span> / 500</div>
-          <div class="story-file">
-            <label class="story-file-btn" for="storyPhoto" data-el="Πρόσθεσε φωτογραφία" data-en="Add a photo">Πρόσθεσε φωτογραφία</label>
-            <input type="file" id="storyPhoto" accept="image/*">
-            <div class="story-file-hint" data-el="Προαιρετικό · μία εικόνα · έως 8MB" data-en="Optional · one image · up to 8MB">Προαιρετικό · μία εικόνα · έως 8MB</div>
-            <div class="story-file-preview" id="storyPhotoPreview">
-              <img id="storyPhotoImg" alt="">
-              <button type="button" class="story-file-clear" id="storyPhotoClear" aria-label="Αφαίρεση φωτογραφίας">×</button>
-            </div>
-          </div>
           <button class="submit" id="postBtn"><span data-el="Δημοσίευση στον τοίχο" data-en="Post to the wall">Δημοσίευση στον τοίχο</span></button>
         </div>
       </div>
@@ -1322,7 +1133,7 @@ footer{
 
   <section id="contact" class="panel">
     <div class="sec-head"><h2 class="serif" data-el="Επικοινωνία" data-en="Contact">Επικοινωνία</h2>
-      <p class="lead" data-el="Στείλτε μας φωτογραφίες, βίντεο από τους εορτασμούς — ή γίνετε εθελοντές στους εορτασμούς των 100 χρόνων." data-en="Send us photos and videos from the celebrations — or volunteer for the 100-year celebrations.">Στείλτε μας φωτογραφίες, βίντεο από τους εορτασμούς — ή γίνετε εθελοντές στους εορτασμούς των 100 χρόνων.</p></div>
+      <p class="lead" data-el="Στείλτε μας φωτογραφίες, βίντεο — ή γίνετε εθελοντές στους εορτασμούς των 100 χρόνων." data-en="Send us photos, videos — or volunteer for the 100-year celebrations.">Στείλτε μας φωτογραφίες, βίντεο — ή γίνετε εθελοντές στους εορτασμούς των 100 χρόνων.</p></div>
     <div class="contact-layout">
       <!-- EMAIL CARD -->
       <div class="contact-card">
@@ -1331,7 +1142,7 @@ footer{
         </div>
         <h3 class="cc-title" data-el="Στείλτε μας email" data-en="Email us">Στείλτε μας email</h3>
         <p class="cc-desc" data-el="Έχετε φωτογραφίες ή βίντεο από τις εκδηλώσεις που θέλετε να μοιραστείτε; Οποιαδήποτε εισήγηση ή ιδέα; Στείλτε μας απευθείας:" data-en="Have photos or videos from the events that you'd like to share? Any suggestion or idea? Reach us directly:">Έχετε φωτογραφίες ή βίντεο από τις εκδηλώσεις που θέλετε να μοιραστείτε; Οποιαδήποτε εισήγηση ή ιδέα; Στείλτε μας απευθείας:</p>
-        <a class="cc-email" href="mailto:info@apoel100years.org?subject=100%20%CE%A7%CF%81%CF%8C%CE%BD%CE%B9%CE%B1%20%CE%91%CE%A0%CE%9F%CE%95%CE%9B">info@apoel100years.org</a>
+        <a class="cc-email" href="mailto:info@apoelultras.net?subject=100%20%CE%A7%CF%81%CF%8C%CE%BD%CE%B9%CE%B1%20%CE%91%CE%A0%CE%9F%CE%95%CE%9B">info@apoelultras.net</a>
       </div>
 
       <!-- VOLUNTEER FORM -->
@@ -1361,13 +1172,12 @@ footer{
           </div>
           <label class="vf-field">
             <span class="vf-label" data-el="Πώς μπορείς να βοηθήσεις; (προαιρετικό)" data-en="How can you help? (optional)">Πώς μπορείς να βοηθήσεις; (προαιρετικό)</span>
-            <textarea id="vfMessage" rows="3" maxlength="500" placeholder="π.χ. φωτογράφιση, οργάνωση, υποδοχή, ασφάλεια, οικονομική βοήθεια…" data-ph-el="π.χ. φωτογράφιση, οργάνωση, υποδοχή, ασφάλεια, οικονομική βοήθεια…" data-ph-en="e.g. photography, organising, reception, security, financial support…"></textarea>
+            <textarea id="vfMessage" rows="3" maxlength="500" placeholder="π.χ. φωτογράφιση, οργάνωση, υποδοχή, ασφάλεια, οικονομική βοήθεια…"></textarea>
           </label>
           <label class="vf-consent">
             <input type="checkbox" id="vfConsent" required>
             <span data-el="Συμφωνώ να χρησιμοποιηθούν τα στοιχεία μου αποκλειστικά για επικοινωνία σχετικά με τους εορτασμούς." data-en="I agree that my data will only be used for communication regarding the celebrations.">Συμφωνώ να χρησιμοποιηθούν τα στοιχεία μου αποκλειστικά για επικοινωνία σχετικά με τους εορτασμούς.</span>
           </label>
-          <p style="margin-top:2px;font-size:.7rem;line-height:1.5;color:var(--ash);opacity:.75;" data-el="Υπεύθυνος επεξεργασίας: Επιτροπή Εορτασμών 100 Χρόνων ΑΠΟΕΛ. Τα στοιχεία χρησιμοποιούνται μόνο για την οργάνωση των εκδηλώσεων, δεν κοινοποιούνται σε τρίτους και διαγράφονται μετά το τέλος των εορτασμών. Για διαγραφή ή διόρθωση: info@apoel100years.org" data-en="Data controller: APOEL 100 Years Celebrations Committee. Your details are used only to organise the events, are not shared with third parties, and are deleted after the celebrations end. To request deletion or correction: info@apoel100years.org">Υπεύθυνος επεξεργασίας: Επιτροπή Εορτασμών 100 Χρόνων ΑΠΟΕΛ. Τα στοιχεία χρησιμοποιούνται μόνο για την οργάνωση των εκδηλώσεων, δεν κοινοποιούνται σε τρίτους και διαγράφονται μετά το τέλος των εορτασμών. Για διαγραφή ή διόρθωση: info@apoel100years.org</p>
           <button type="submit" class="vf-submit" id="vfSubmit">
             <span data-el="Καταχώρηση" data-en="Submit">Καταχώρηση</span>
           </button>
@@ -1411,7 +1221,7 @@ footer{
 
 
 <!-- BACKGROUND ANTHEM -->
-<audio id="bgAudio" preload="none">
+<audio id="bgAudio" preload="auto">
   <source src="./apoel-anthem.mp3" type="audio/mpeg">
 </audio>
 <button id="audioBtn" class="audio-btn" aria-label="Ενεργοποίηση/απενεργοποίηση ύμνου" title="Ύμνος ΑΠΟΕΛ">
@@ -1457,44 +1267,6 @@ footer{
 <script>
   const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
   let LANG='el';
-
-  /* ---- MODAL FOCUS MANAGEMENT (trap + return) ---- */
-  const FOCUSABLE='a[href],button:not([disabled]),input:not([disabled]):not([type=hidden]),select:not([disabled]),textarea:not([disabled]),video[controls],[tabindex]:not([tabindex="-1"])';
-  const modalReturn=new WeakMap();
-  let trapEl=null,trapHandler=null;
-  function focusablesIn(el){return Array.prototype.filter.call(el.querySelectorAll(FOCUSABLE),x=>x.offsetWidth||x.offsetHeight||x===document.activeElement);}
-  function armTrap(el){
-    disarmTrap();
-    trapEl=el;
-    trapHandler=ev=>{
-      if(ev.key!=='Tab'||!trapEl||!trapEl.classList.contains('open'))return;
-      const f=focusablesIn(trapEl);if(!f.length)return;
-      const first=f[0],last=f[f.length-1];
-      if(!trapEl.contains(document.activeElement)){ev.preventDefault();first.focus();}
-      else if(ev.shiftKey&&document.activeElement===first){ev.preventDefault();last.focus();}
-      else if(!ev.shiftKey&&document.activeElement===last){ev.preventDefault();first.focus();}
-    };
-    document.addEventListener('keydown',trapHandler,true);
-  }
-  function disarmTrap(){
-    if(trapHandler)document.removeEventListener('keydown',trapHandler,true);
-    trapHandler=null;trapEl=null;
-  }
-  function modalOpened(el){
-    if(!el)return;
-    if(!modalReturn.has(el))modalReturn.set(el,document.activeElement);
-    armTrap(el);
-    setTimeout(()=>{const f=focusablesIn(el)[0];if(f)f.focus({preventScroll:true});},60);
-  }
-  function modalClosed(el){
-    disarmTrap();
-    const back=el?modalReturn.get(el):null;
-    if(el)modalReturn.delete(el);
-    if(back&&document.contains(back)&&back.focus)back.focus({preventScroll:true});
-    // a modal may still be open underneath (album behind the lightbox) — re-arm it
-    const open=document.querySelectorAll('.lb.open,.album-modal.open,.em.open,.admin-overlay.open');
-    if(open.length)armTrap(open[open.length-1]);
-  }
 
   /* ---- PHOTO DATA (file -> year, caption) ---- */
   const photos=[
@@ -1599,135 +1371,28 @@ footer{
     <div class="tl-row" data-watermark="${e.y}"><div class="tl-year serif">${e.y}</div>
     <div class="tl-body"><h3>${h}</h3><p>${p}</p></div></div>`;}).join('');
   }
-
-  // ---- SPOTLIGHT DATA (below the timeline) ----
-  const historicFigures=[
-    {y:'1926',name:'Διομήδης Συμεωνίδης',name_en:'Diomidis Symeonidis',role:'Ιδρυτής · Founder',desc:'Ο εμπνευστής της ίδρυσης του ΠΟΕΛ. Η επιμονή και το όραμά του υλοποιήθηκαν στις 8 Νοεμβρίου 1926 στο ζαχαροπλαστείο του Χαράλαμπου Χ\'\' Ιωάννου στην οδό Λήδρας.',desc_en:'The visionary behind the founding of POEL. His persistence and vision were realised on 8 November 1926 at Charalambos Hadjiioannou\'s patisserie on Ledra Street.'},
-    {y:'1928',name:'Δημοσθένης Συμεωνίδης',name_en:'Dimosthenis Symeonidis',role:'Παράγοντας · Board Member',desc:'Με την παρότρυνσή του εγκρίθηκε η δημιουργία τμήματος στίβου και η προσθήκη του όρου «Αθλητικός», μετατρέποντας τον ΠΟΕΛ σε πολυαθλητικό ΑΠΟΕΛ.',desc_en:'With his encouragement, the athletics section was approved and the word "Athletic" was added, transforming POEL into the multi-sport APOEL.'},
-    {y:'1926',name:'Χαράλαμπος Χ\'\' Ιωάννου',name_en:'Charalambos Hadjiioannou',role:'Οικοδεσπότης της Ίδρυσης · Founding Host',desc:'Στο ζαχαροπλαστείο του στην οδό Λήδρας πραγματοποιήθηκε η ιδρυτική συνέλευση του ΠΟΕΛ, με περίπου 35–40 άτομα να παρευρίσκονται.',desc_en:'His patisserie on Ledra Street hosted POEL\'s founding assembly, attended by roughly 35–40 people.'},
-    {y:'1934',name:'Γεώργιος Πούλιας',name_en:'Georgios Poulias',role:'Πρόεδρος · President',desc:'Στη Γενική Συνέλευση της 10ης Σεπτεμβρίου 1934, ως πρόεδρος του ΑΠΟΕΛ, ανακοίνωσε την επίσημη ίδρυση του Τμήματος Πυγμαχίας.',desc_en:'At the General Assembly of 10 September 1934, as APOEL president, he announced the official founding of the Boxing Department.'},
-    {y:'1931',name:'Ονούφριος Κληρίδης',name_en:'Onoufrios Klerides',role:'17 ετών · Age 17',desc:'Μέλος της εφηβικής ποδοσφαιρικής ομάδας του ΑΠΟΕΛ. Έχασε τη ζωή του από τους πυροβολισμούς στην αντιαποικιακή εξέγερση των Οκτωβριανών, στις 21 Οκτωβρίου 1931.',desc_en:'A member of APOEL\'s youth football team. He lost his life amid the gunfire of the anti-colonial October uprising, on 21 October 1931.'},
-    {y:'1956',name:'Μιχαλάκης Καραολής',name_en:'Michalakis Karaolis',role:'Αθλητής 400μ · 400m Athlete',desc:'23χρονος αθλητής του ΑΠΟΕΛ στα 400 μέτρα, από το Παλαιχώρι. Απαγχονίστηκε από τη βρετανική αποικιακή διοίκηση στις 10 Μαΐου 1956, στους δύο πρώτους απαγχονισμούς αγωνιστών της ΕΟΚΑ.',desc_en:'23-year-old APOEL 400m athlete from Palaichori. Hanged by the British colonial administration on 10 May 1956, in the first two executions of EOKA fighters.'},
-    {y:'1964',name:'Φίλιππος Χατζηγεωργίου',name_en:'Philippos Hatzigeorgiou',role:'Μέλος · Member',desc:'25χρονος μέλος του ΑΠΟΕΛ. Δολοφονήθηκε στις 15 Απριλίου 1964 έξω από το σπίτι του στον Τράχωνα, κατά τις διακοινοτικές συγκρούσεις.',desc_en:'25-year-old APOEL member. Assassinated on 15 April 1964 outside his home in Trachonas, during the intercommunal conflicts.'},
-    {y:'1974',name:'Μιχαλάκης Ζαμπάς',name_en:'Michalakis Zambas',role:'6x Πρωταθλητής Επιτραπέζιας · 6x Table Tennis Champion',desc:'Έξι φορές πρωταθλητής επιτραπέζιας αντισφαίρισης. Έπεσε στις 22 Ιουλίου 1974 στον βομβαρδισμό της ΕΛΔΥΚ, κατά την τουρκική εισβολή.',desc_en:'Six-time table tennis champion. He fell on 22 July 1974 in the shelling of ELDYK during the Turkish invasion.'},
-    {y:'1974',name:'Γιαννάκης Μαύρος',name_en:'Yiannakis Mavros',role:'Καλαθοσφαιριστής · Basketball Player',desc:'Καλαθοσφαιριστής του ΑΠΟΕΛ. Έπεσε μαχόμενος κατά την τουρκική εισβολή του καλοκαιριού του 1974.',desc_en:'APOEL basketball player. He fell in combat during the Turkish invasion of summer 1974.'},
-    {y:'1974',name:'Τάσος Μάρκου',name_en:'Tasos Markou',role:'Ταγματάρχης · Έφορος Ποδοσφαίρου · Major · Football Commissioner',desc:'Έφορος ποδοσφαίρου του ΑΠΟΕΛ και ταγματάρχης. Είχε αγωνιστεί και στις διακοινοτικές συγκρούσεις του 1963–64. Το 1974 πολέμησε στη Μια Μηλιά και από τις 15 Αυγούστου 1974 καταγράφεται ως αγνοούμενος.',desc_en:'APOEL football commissioner and Army major. He had also fought in the 1963–64 intercommunal conflicts. In 1974 he fought at Mia Milia and from 15 August 1974 has been listed as missing.'},
-    {y:'1990',name:'Σίνισα Γκόκιτς',name_en:'Siniša Gogić',role:'Ποδοσφαιριστής · Footballer',desc:'Στην πρωταθλητική σεζόν του 14ου τίτλου, σημείωσε <b>19 τέρματα</b> και αναδείχθηκε πρώτος σκόρερ του κυπριακού πρωταθλήματος.',desc_en:'In the 14th-title season, he scored <b>19 goals</b> and finished as top scorer of the Cypriot championship.'}
-  ];
-
-  const pansyfiMoments=[
-    {y:'1979',t:'Ίδρυση ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ',t_en:'PAN.SY.FI. APOEL Founded',desc:'Ιδρύεται ο <b>Πανελλήνιος Σύνδεσμος Φιλάθλων ΑΠΟΕΛ</b> — η οργανωμένη έκφραση του κόσμου του Θρύλου, που θα σφραγίσει τις επόμενες δεκαετίες με την παρουσία της σε αθλητικά και εθνικά ζητήματα.',desc_en:'The <b>Panhellenic Association of APOEL Fans</b> is founded — the organised expression of the Legend\'s supporters, whose presence will mark the decades to come in both sporting and national matters.'},
-    {y:'1996',t:'Πορείες Μοτοσικλετιστών · Αύγουστος',t_en:'Motorcyclists\' Marches · August',desc:'Τον Αύγουστο, μέλη του Σωματείου και του ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ συμμετέχουν στις πορείες των μοτοσικλετιστών, που σημαδεύτηκαν από τις δολοφονίες του <b>Τάσου Ισαάκ</b> και του <b>Σολωμού Σολωμού</b>.',desc_en:'In August, members of the Club and PAN.SY.FI. APOEL take part in the motorcyclists\' marches, marked by the murders of <b>Tasos Isaac</b> and <b>Solomos Solomou</b>.'},
-    {y:'2004',t:'Δημοψήφισμα · Σχέδιο Ανάν',t_en:'Annan Plan Referendum',desc:'Ο ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ συμμετέχει ενεργά στις κινητοποιήσεις ενόψει του δημοψηφίσματος για το <b>Σχέδιο Ανάν</b>, με πανό στα γήπεδα και παρουσία στις συγκεντρώσεις υπέρ του «ΟΧΙ».',desc_en:'PAN.SY.FI. APOEL takes active part in the campaign ahead of the <b>Annan Plan</b> referendum, with banners in stadiums and presence at the "NO" rallies.'},
-    {y:'2011',t:'Ναυτική Βάση Μαρί',t_en:'Mari Naval Base',desc:'Μετά την τραγωδία της 11ης Ιουλίου στη ναυτική βάση <b>«Ευάγγελος Φλωράκης»</b> στο Μαρί, μέλη του ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ συμμετέχουν στις μαζικές αντικυβερνητικές διαδηλώσεις έξω από το Προεδρικό Μέγαρο, ζητώντας παραιτήσεις και λογοδοσία.',desc_en:'After the tragedy of 11 July at the <b>"Evangelos Florakis"</b> Naval Base in Mari, PAN.SY.FI. APOEL members join mass anti-government protests outside the Presidential Palace, demanding resignations and accountability.'},
-    {y:'2023',t:'Επαναδραστηριοποίηση Πυγμαχίας',t_en:'Boxing Reactivation',desc:'Με πρωτοβουλία του ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ, το ιστορικό Τμήμα Πυγμαχίας επαναδραστηριοποιείται και οι νέες εγκαταστάσεις εγκαινιάζονται στις <b>8 Νοεμβρίου 2023</b>, συμβολικά ανήμερα των γενεθλίων του ΑΠΟΕΛ.',desc_en:'At the initiative of PAN.SY.FI. APOEL, the historic Boxing Department is reactivated and new facilities are inaugurated on <b>8 November 2023</b>, symbolically on APOEL\'s birthday.'},
-    {y:'2026',t:'Μοτοπορεία 100 Χρόνων',t_en:'100-Year Motorcycle March',desc:'Ο ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ διοργανώνει τη μεγάλη επετειακή μοτοπορεία για τα 100 χρόνια του Θρύλου — χιλιάδες μοτοσικλέτες γεμίζουν τους δρόμους της Λευκωσίας.',desc_en:'PAN.SY.FI. APOEL organises the great anniversary motorcycle march for the Legend\'s 100 years — thousands of motorcycles fill the streets of Nicosia.'}
-  ];
-
-  const societyMoments=[
-    {y:'1931',t:'Οκτωβριανά',t_en:'October Uprising',desc:'Πρώτη μεγάλη εξέγερση του κυπριακού Ελληνισμού κατά της βρετανικής αποικιοκρατίας. Ο ΑΠΟΕΛ παρών με τον <b>17χρονο Ονούφριο Κληρίδη</b>, μέλος της εφηβικής του ομάδας.',desc_en:'The first great uprising of Cypriot Hellenism against British colonial rule. APOEL present through <b>17-year-old Onoufrios Klerides</b>, member of its youth team.'},
-    {y:'1955',t:'Έναρξη Αγώνα ΕΟΚΑ',t_en:'EOKA Struggle Begins',desc:'Την 1η Απριλίου η <b>ΕΟΚΑ</b>, με αρχηγό τον Στρατηγό Γεώργιο Γρίβα Διγενή, ξεκινά τον ένοπλο αντιαποικιακό αγώνα. Πολλά μέλη και αθλητές του ΑΠΟΕΛ συμμετέχουν στην οργάνωση.',desc_en:'On 1 April, <b>EOKA</b>, led by General Georgios Grivas Digenis, begins the armed anti-colonial struggle. Many APOEL members and athletes join the organisation.'},
-    {y:'1956',t:'Απαγχονισμός Καραολή',t_en:'Karaolis Hanged',desc:'Στις 10 Μαΐου, ο 23χρονος αθλητής του ΑΠΟΕΛ στα 400μ <b>Μιχαλάκης Καραολής</b> απαγχονίζεται από τη βρετανική διοίκηση — στους πρώτους δύο απαγχονισμούς αγωνιστών της ΕΟΚΑ.',desc_en:'On 10 May, 23-year-old APOEL 400m athlete <b>Michalakis Karaolis</b> is hanged by the British administration — in the first two executions of EOKA fighters.'},
-    {y:'1964',t:'Διακοινοτικές Συγκρούσεις',t_en:'Intercommunal Conflicts',desc:'Αθλητές και μέλη του ΑΠΟΕΛ στις επάλξεις. Στις 15 Απριλίου δολοφονείται ο 25χρονος <b>Φίλιππος Χατζηγεωργίου</b> έξω από το σπίτι του στον Τράχωνα.',desc_en:'APOEL athletes and members on the front line. On 15 April, 25-year-old <b>Philippos Hatzigeorgiou</b> is assassinated outside his home in Trachonas.'},
-    {y:'1974',t:'Τουρκική Εισβολή',t_en:'Turkish Invasion',desc:'Ο Σύλλογος πληρώνει βαρύ φόρο αίματος. Πέφτουν οι <b>Μιχαλάκης Ζαμπάς</b> (22 Ιουλίου, βομβαρδισμός ΕΛΔΥΚ) και <b>Γιαννάκης Μαύρος</b>. Ο ταγματάρχης <b>Τάσος Μάρκου</b> πολεμά στη Μια Μηλιά και καταγράφεται αγνοούμενος από τις 15 Αυγούστου 1974.',desc_en:'The Club pays a heavy blood price. <b>Michalakis Zambas</b> (22 July, ELDYK shelling) and <b>Yiannakis Mavros</b> fall. Major <b>Tasos Markou</b> fights at Mia Milia and is listed missing from 15 August 1974.'},
-    {y:'1996',t:'Ισαάκ & Σολωμού',t_en:'Isaac & Solomos',desc:'Τον Αύγουστο, στις πορείες των μοτοσικλετιστών κατά της τουρκικής κατοχής, δολοφονούνται ο <b>Τάσος Ισαάκ</b> και ο <b>Σολωμός Σολωμού</b>. Μέλη του ΑΠΟΕΛ και του ΠΑΝ.ΣΥ.ΦΙ. συμμετέχουν στις πορείες.',desc_en:'In August, during the motorcyclists\' marches against the Turkish occupation, <b>Tasos Isaac</b> and <b>Solomos Solomou</b> are murdered. Members of APOEL and PAN.SY.FI. take part in the marches.'},
-    {y:'2004',t:'Σχέδιο Ανάν · Δημοψήφισμα',t_en:'Annan Plan · Referendum',desc:'Δημοψήφισμα για το <b>Σχέδιο Ανάν</b>. Ο ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ συμμετέχει ενεργά στις κινητοποιήσεις υπέρ του «ΟΧΙ», με πανό στα γήπεδα και παρουσία στις συγκεντρώσεις.',desc_en:'Referendum on the <b>Annan Plan</b>. PAN.SY.FI. APOEL takes active part in the "NO" mobilisations, with banners in stadiums and presence at the rallies.'},
-    {y:'2011',t:'Ναυτική Βάση «Ευάγγελος Φλωράκης»',t_en:'"Evangelos Florakis" Naval Base',desc:'Μετά την τραγωδία της 11ης Ιουλίου στο Μαρί, μέλη του ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ συμμετέχουν στις αντικυβερνητικές διαδηλώσεις έξω από το Προεδρικό Μέγαρο, ζητώντας παραιτήσεις και λογοδοσία.',desc_en:'After the 11 July tragedy at Mari, PAN.SY.FI. APOEL members join the anti-government protests outside the Presidential Palace, demanding resignations and accountability.'}
-  ];
-
-  function renderSpotlight(){
-    const L=(o,k)=>LANG==='en'&&o[k+'_en']?o[k+'_en']:o[k];
-    // Figures
-    document.getElementById('hgridFigures').innerHTML=historicFigures.map(f=>`
-      <article class="hcard">
-        <div class="hcard-year">${f.y}</div>
-        <h4 class="hcard-title">${L(f,'name')}</h4>
-        <p class="hcard-role">${L(f,'role')}</p>
-        <p class="hcard-desc">${L(f,'desc')}</p>
-      </article>`).join('');
-    // PANSYFI moments
-    document.getElementById('hgridPansyfi').innerHTML=pansyfiMoments.map(m=>`
-      <article class="hcard">
-        <div class="hcard-year">${m.y}</div>
-        <h4 class="hcard-title">${L(m,'t')}</h4>
-        <p class="hcard-desc">${L(m,'desc')}</p>
-      </article>`).join('');
-    // Society moments
-    document.getElementById('hgridSociety').innerHTML=societyMoments.map(m=>`
-      <article class="hcard">
-        <div class="hcard-year">${m.y}</div>
-        <h4 class="hcard-title">${L(m,'t')}</h4>
-        <p class="hcard-desc">${L(m,'desc')}</p>
-      </article>`).join('');
-    // Counts removed per user preference
-  }
-
-  // Toggle logic for collapsible sections
-  document.querySelectorAll('.hsub-head').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      const hsub=btn.closest('.hsub');
-      const open=hsub.dataset.open==='true';
-      hsub.dataset.open=open?'false':'true';
-      btn.setAttribute('aria-expanded',open?'false':'true');
-    });
-  });
   renderHistory();
-  renderSpotlight();
 
   /* ---- DEPARTMENTS / SPORTS ---- */
   const deptsMain=[
-    {el:'Ποδόσφαιρο',en:'Football',titles:[{n:29,el:'Πρωταθλήματα',en:'Titles'},{n:21,el:'Κύπελλα',en:'Cups'},{n:15,el:'Ασπίδες',en:'Super Cups'}],
-      desc:'Στις <b>8 Νοεμβρίου 1926</b>, γράφεται η πρώτη σελίδα μιας ιστορίας που συμπληρώνει πλέον έναν ολόκληρο αιώνα. Περίπου 35–40 άτομα συμμετέχουν στην ιδρυτική συνέλευση του Ποδοσφαιρικού Ομίλου Ελλήνων Λευκωσίας (ΠΟΕΛ), υλοποιώντας την επιμονή του <b>Διομήδη Συμεωνίδη</b> για τη δημιουργία ενός καθαρά ελληνικού ποδοσφαιρικού σωματείου στη Λευκωσία. Δύο χρόνια αργότερα, τον Ιανουάριο του 1928, ο Όμιλος μετονομάστηκε σε Αθλητικός Ποδοσφαιρικός Όμιλος Ελλήνων Λευκωσίας (ΑΠΟΕΛ), με την προσθήκη του όρου «Αθλητικός» για να ανοίξει τον δρόμο στην καλλιέργεια και άλλων αθλημάτων υπό τη σκέπη του.<br><br>Το Τμήμα Ποδοσφαίρου παραμένει η αφετηρία της εκατοντάχρονης διαδρομής. Από την κατάκτηση του <b>πρώτου επίσημου Πρωταθλήματος</b> υπό την αιγίδα της ΚΟΠ το <b>1936</b>, μέχρι σήμερα, γενιές ποδοσφαιριστών φόρεσαν τη γαλαζοκίτρινη φανέλα, συνδέοντας το όνομά τους με τίτλους, μεγάλες διακρίσεις και ιστορικές στιγμές που σημάδεψαν όχι μόνο την πορεία του ΑΠΟΕΛ, αλλά και την ιστορία του κυπριακού ποδοσφαίρου.<br><br>Ξεχωριστό κεφάλαιο αποτελεί η παρουσία του ΑΠΟΕΛ στην <b>Α΄ Εθνική Κατηγορία της Ελλάδας</b>. Την περίοδο <b>1973–1974</b>, ο ΑΠΟΕΛ τερμάτισε στη 13η θέση και εξασφάλισε την παραμονή του, αποτελώντας τη μοναδική κυπριακή ομάδα που πέτυχε αγωνιστικά κάτι τέτοιο στον θεσμό. Όμως, η βάρβαρη τουρκική εισβολή του <b>1974</b> και οι συνέπειές της ανέκοψαν την πορεία αυτή, στερώντας από τον ΑΠΟΕΛ τη δυνατότητα να συνεχίσει στην Α΄ Εθνική την επόμενη περίοδο.<br><br>Παράλληλα, η ευρωπαϊκή καταξίωση είχε ήδη αρχίσει από το <b>1963</b>, όταν ο ΑΠΟΕΛ πραγματοποίησε την παρθενική του συμμετοχή στις ευρωπαϊκές διοργανώσεις απέναντι στη νορβηγική <b>Gjøvik-Lyn</b>, για τον θεσμό του Κυπέλλου Κυπελλούχων Ευρώπης, πετυχαίνοντας την πρώτη ευρωπαϊκή πρόκριση ελληνικής ομάδας σε δεύτερο γύρο.<br><br>Δεκαετίες αργότερα, ο ΑΠΟΕΛ καθιερώνεται στις κορυφαίες ευρωπαϊκές διοργανώσεις, με <b>εννέα παρουσίες</b> σε Φάσεις Ομίλων και League Phase:<br>• <b>UEFA Champions League:</b> 2009–2010, 2011–2012, 2014–2015 και 2017–2018<br>• <b>UEFA Europa League:</b> 2013–2014, 2015–2016, 2016–2017 και 2019–2020<br>• <b>UEFA Conference League:</b> 2024–2025<br><br>Δύο ευρωπαϊκές πορείες κατέχουν ξεχωριστή θέση στην καρδιά κάθε ΑΠΟΕΛίστα. Η περίοδος <b>2016–2017</b>, όταν ο ΑΠΟΕΛ προχώρησε μέχρι τη φάση των «16» του Europa League, αποκλείοντας την ισπανική <b>Athletic Bilbao</b>, καθώς και η κορυφαία στιγμή, όταν το <b>2011–2012</b>, ως πρώτος στον Όμιλό του στο Champions League, απέκλεισε την γαλλική <b>Lyon</b> στη φάση των «16» και έφτασε μέχρι τα προημιτελικά, όπου αντιμετώπισε τη <b>Real Madrid</b>.<br><br>Από το παλαιό ΓΣΠ και το Μακάριο Στάδιο, στο νέο ΓΣΠ και στα μεγαλύτερα γήπεδα της Ευρώπης, το τμήμα ποδοσφαίρου του ΑΠΟΕΛ κουβαλά έναν αιώνα ιστορίας, κατακτήσεων και ευρωπαϊκών υπερβάσεων.',
-      desc_en:'On <b>8 November 1926</b>, the first page is written of a story that now spans an entire century. About 35–40 people attend the founding assembly of the Football Club of Greeks of Nicosia (POEL), realising the persistence of <b>Diomidis Symeonidis</b> for the creation of a purely Greek football club in Nicosia. Two years later, in January 1928, the Club was renamed to the Athletic Football Club of Greeks of Nicosia (APOEL), with the addition of "Athletic" to open the way for cultivating other sports under its umbrella.<br><br>The Football Department remains the starting point of the century-long journey. From winning the <b>first official Championship</b> under CFA in <b>1936</b> to today, generations of footballers wore the blue-and-yellow jersey, linking their names to titles, major distinctions and historic moments that marked not only APOEL\'s path but Cypriot football itself.<br><br>A special chapter is APOEL\'s presence in the <b>Greek First Division</b>. In <b>1973–1974</b>, APOEL finished 13th and secured survival, becoming the only Cypriot team to achieve this competitively in the institution. However, the barbaric Turkish invasion of <b>1974</b> and its consequences cut short this journey, depriving APOEL of the chance to continue in Greek A the following season.<br><br>European recognition had already begun in <b>1963</b>, when APOEL made its European debut against Norwegian side <b>Gjøvik-Lyn</b> in the European Cup Winners\' Cup, achieving the first European qualification of a Greek team to a second round.<br><br>Decades later, APOEL established itself in Europe\'s top competitions, with <b>nine appearances</b> in Group and League Phases:<br>• <b>UEFA Champions League:</b> 2009–2010, 2011–2012, 2014–2015 and 2017–2018<br>• <b>UEFA Europa League:</b> 2013–2014, 2015–2016, 2016–2017 and 2019–2020<br>• <b>UEFA Conference League:</b> 2024–2025<br><br>Two European runs hold a special place in every APOEL fan\'s heart. The <b>2016–2017</b> period, when APOEL reached the Europa League last 16, eliminating Spanish side <b>Athletic Bilbao</b>, and the pinnacle moment when in <b>2011–2012</b>, as group winner in the Champions League, it eliminated French <b>Lyon</b> in the last 16 and reached the quarter-finals against <b>Real Madrid</b>.<br><br>From the old GSP and Makario Stadium, to the new GSP and Europe\'s biggest venues, APOEL\'s football section carries a century of history, conquests and European exceedances.'
-    },
-    {el:'Καλαθόσφαιρα',en:'Basketball',titles:[{n:11,el:'Πρωταθλήματα',en:'Titles'},{n:12,el:'Κύπελλα',en:'Cups'},{n:11,el:'Ασπίδες',en:'Super Cups'}],
-      note:'Ανδρών & Γυναικών',note_en:'Men\'s & Women\'s',
-      desc:'Η Καλαθόσφαιρα αποτελεί ένα από τα ιστορικότερα τμήματα του ΑΠΟΕΛ. Η διαδρομή της ξεκινά το <b>1948</b>, όταν οι <b>Δημοσθένης Συμεωνίδης</b> και <b>Γεώργιος Πούλιας</b> προσκαλούν στην Κύπρο τον Αλεξανδρινό καλαθοσφαιριστή <b>Βάγγο Ανδρεάδη</b>, με στόχο την εισαγωγή και ανάπτυξη του αθλήματος στο Σωματείο.<br><br>Στις δεκαετίες που ακολούθησαν, ο ΑΠΟΕΛ καθιερώθηκε ανάμεσα στις πρωταγωνίστριες δυνάμεις της κυπριακής καλαθόσφαιρας, γράφοντας τη δική του ιστορία εντός και εκτός συνόρων. Ξεχωριστή θέση στην ευρωπαϊκή του διαδρομή κατέχει η περίοδος <b>2005–2006</b>, όταν έφτασε μέχρι τα <b>προημιτελικά του FIBA EuroCup Challenge</b>, έχοντας προηγουμένως πετύχει μία από τις πιο αξέχαστες ευρωπαϊκές του νίκες, με <b>100–66 απέναντι στην Μπάνβιτ</b> στο κατάμεστο «Ελευθέρια».<br><br>Σημαντικό κεφάλαιο αποτελεί και η <b>Καλαθόσφαιρα Γυναικών</b>, με τον ΑΠΟΕΛ να διατηρεί γυναικείο τμήμα τη δεκαετία του 1990 μέχρι τις αρχές του 2000. Το <b>2026</b>, το τμήμα επαναλειτουργεί, σηματοδοτώντας την επιστροφή του ΑΠΟΕΛ στη γυναικεία καλαθόσφαιρα.<br><br>Διαχρονικά, σημαντικό ρόλο στη διαδρομή του τμήματος αποτελούν και οι <b>Ακαδημίες</b>, μέσα από τις οποίες γενιές παιδιών έκαναν τα πρώτα τους βήματα με τη γαλαζοκίτρινη φανέλα.',
-      desc_en:'Basketball is one of APOEL\'s most historic sections. Its journey begins in <b>1948</b>, when <b>Dimosthenis Symeonidis</b> and <b>Georgios Poulias</b> invite to Cyprus the Alexandrian basketball player <b>Vangos Andreadis</b>, aiming to introduce and develop the sport within the Club.<br><br>In the decades that followed, APOEL established itself among the leading forces of Cypriot basketball, writing its own history at home and abroad. A special place in its European journey belongs to the <b>2005–2006</b> period, when it reached the <b>FIBA EuroCup Challenge quarter-finals</b>, having previously delivered one of its most memorable European victories, <b>100–66 against Banvit</b> at a packed "Eleftheria" arena.<br><br>An important chapter is also the <b>Women\'s Basketball</b>, with APOEL maintaining a women\'s team from the 1990s to the early 2000s. In <b>2026</b>, the section is reactivated, marking APOEL\'s return to women\'s basketball.<br><br>Throughout the years, the <b>Academies</b> have played a key role, through which generations of children took their first steps in the blue-and-yellow jersey.'
-    },
-    {el:'Πετόσφαιρα',en:'Volleyball',titles:[{n:11,el:'Πρωταθλήματα',en:'Titles'},{n:5,el:'Κύπελλα',en:'Cups'},{n:1,el:'Κύπελλο Γυναικών',en:'Women\'s Cup'}],
-      note:'Ανδρών & Γυναικών',note_en:'Men\'s & Women\'s',
-      desc:'Η Πετόσφαιρα αποτελεί ένα από τα παλαιότερα τμήματα του ΑΠΟΕΛ, με τη διαδρομή της να ξεκινά το <b>1928</b>, μόλις δύο χρόνια μετά την ίδρυση του Σωματείου και την ίδια χρονιά που ο ΠΟΕΛ μετονομάστηκε σε ΑΠΟΕΛ, διευρύνοντας τη δράση του πέραν από το Ποδόσφαιρο.<br><br>Στα χρόνια που ακολούθησαν, το τμήμα ανέπτυξε σταθερή παρουσία στις εγχώριες διοργανώσεις, με την πρώτη μεγάλη επιτυχία να έρχεται το <b>1954</b>, όταν ο ΑΠΟΕΛ κατακτά το πρώτο του πρωτάθλημα. Ιδιαίτερα λαμπρή υπήρξε η περίοδος από τα τέλη της <b>δεκαετίας του 1960</b> μέχρι τα μέσα της <b>δεκαετίας του 1980</b>, κατά την οποία ο ΑΠΟΕΛ καθιερώθηκε ανάμεσα στις πρωταγωνίστριες δυνάμεις του αθλήματος, δημιουργώντας μία σημαντική παράδοση τίτλων και διακρίσεων.<br><br>Ξεχωριστή θέση στην ιστορία του τμήματος κατέχει και η <b>Πετόσφαιρα Γυναικών</b>, η οποία είχε τη δική της πρωταγωνιστική παρουσία και έφτασε στην κατάκτηση του <b>Κυπέλλου το 1977</b>. Σήμερα, η παράδοση αυτή αποκτά ξανά προοπτική μέσα από τις <b>Ακαδημίες</b> του ΑΠΟΕΛ, όπου έχουν δημιουργηθεί και γυναικεία τμήματα, με στόχο την ανάπτυξη νέων αθλητριών και, σταδιακά, την επιστροφή της γυναικείας ομάδας στο αγωνιστικό προσκήνιο.',
-      desc_en:'Volleyball is one of APOEL\'s oldest sections, with its journey beginning in <b>1928</b>, just two years after the Club\'s founding and the same year POEL was renamed to APOEL, expanding its activities beyond Football.<br><br>In the years that followed, the section developed a steady presence in domestic competitions, with the first major success coming in <b>1954</b>, when APOEL won its first championship. Particularly bright was the period from the late <b>1960s</b> to the mid-<b>1980s</b>, during which APOEL established itself among the leading forces of the sport, creating an important tradition of titles and distinctions.<br><br>A special place in the section\'s history is also held by <b>Women\'s Volleyball</b>, which had its own leading presence and reached the <b>Cup win in 1977</b>. Today, this tradition regains momentum through APOEL\'s <b>Academies</b>, where women\'s sections have been created, aiming at developing new athletes and, gradually, returning the women\'s team to the competitive scene.'
-    },
-    {el:'Χειροσφαίριση',en:'Handball',titles:[],
-      note:'Ανδρών & Γυναικών',note_en:'Men\'s & Women\'s',
-      extra_titles_label:'Παράκτια Χειροσφαίριση',extra_titles_label_en:'Beach Handball',
-      extra_titles:[{n:2,el:'Πρωταθλήματα',en:'Titles'},{n:1,el:'Διεθνές Τουρνουά',en:'Int\'l Tournament'},{n:1,el:'Πρωτ. Γυναικών',en:'Women\'s Title'}],
-      desc:'Το Τμήμα Χειροσφαίρισης δημιουργήθηκε το <b>2014</b>, μέσα από τη συγχώνευση του ΑΠΟΕΛ με τη <b>ΣΠΕ Στροβόλου</b>, διευρύνοντας ακόμη περισσότερο την παρουσία του ΑΠΟΕΛ στον κυπριακό αθλητισμό. Επικεφαλής του νέου εγχειρήματος είχαν τεθεί οι <b>Γιώργος Κρασιάς</b> και <b>Ανδρέας Μαρκίδης</b>, αναλαμβάνοντας την οργάνωση και ανάπτυξη του τμήματος.<br><br>Από τα πρώτα του βήματα, το τμήμα επέλεξε μία σταθερή και μεθοδική πορεία ανάπτυξης, με ιδιαίτερη έμφαση στις <b>Ακαδημίες</b> και στη δημιουργία των βάσεων που θα εξασφαλίσουν τη μακροχρόνια παρουσία του ΑΠΟΕΛ στο άθλημα.<br><br>Σημαντικός σταθμός στην ιστορία του αποτέλεσε το <b>2021</b>, όταν ο ΑΠΟΕΛ κατέγραψε την πρώτη του ευρωπαϊκή παρουσία στη Χειροσφαίριση, αντιμετωπίζοντας την τσεχική <b>Zubří</b> στο πλαίσιο του EHF European Cup.<br><br>Ξεχωριστή θέση στην πορεία του τμήματος κατέχει η <b>Παράκτια Χειροσφαίριση</b>, όπου ο ΑΠΟΕΛ έχει αναπτύξει έντονη αγωνιστική παρουσία και έχει καταγράψει σημαντικές επιτυχίες. Το τμήμα έχει φτάσει στην κατάκτηση <b>δύο πρωταθλημάτων</b> και <b>ενός διεθνούς τουρνουά ανδρών</b>, καθώς και <b>ενός πρωταθλήματος γυναικών</b>, επιβεβαιώνοντας τη δυναμική του τόσο στο ανδρικό όσο και στο γυναικείο επίπεδο.',
-      desc_en:'The Handball Department was created in <b>2014</b>, through the merger of APOEL with <b>SPE Strovolou</b>, further expanding APOEL\'s presence in Cypriot sport. At the head of the new venture were <b>Georgios Krasias</b> and <b>Andreas Markidis</b>, undertaking the organisation and development of the section.<br><br>From its first steps, the section chose a steady and methodical path of development, with particular emphasis on the <b>Academies</b> and on creating the foundations that would secure APOEL\'s long-term presence in the sport.<br><br>An important milestone came in <b>2021</b>, when APOEL made its first European handball appearance, facing Czech side <b>Zubří</b> in the EHF European Cup.<br><br>A special place in the section\'s journey belongs to <b>Beach Handball</b>, where APOEL has developed strong competitive presence and recorded significant successes. The section has won <b>two championships</b> and <b>one international men\'s tournament</b>, as well as <b>one women\'s championship</b>, confirming its dynamic both at men\'s and women\'s level.'
-    },
-    {el:'Κολύμβηση/Υδατοσφαίριση',en:'Swimming/Water Polo',titles:[{n:6,el:'Πρωτ. Υδατοσφ.',en:'W. Polo Titles'},{n:7,el:'Κύπελλα Υδατοσφ.',en:'W. Polo Cups'},{n:2,el:'Ασπίδες',en:'Super Cups'},{n:3,el:'Πρωτ. Κολύμβησης',en:'Swim Titles'}],
-      desc:'Το Τμήμα Κολύμβησης και Υδατοσφαίρισης ξεκίνησε την πορεία του το <b>2013</b>, με πρωτοβουλία του <b>Γιώργου Ζαννέτου</b>, σηματοδοτώντας την οργανωμένη παρουσία του ΑΠΟΕΛ στον υγρό στίβο. Έκτοτε, συμμετέχει ανελλιπώς στις διοργανώσεις της ΚΟΕΚ.<br><br>Η πρώτη μεγάλη επιτυχία ήρθε το <b>2018</b>, με την κατάκτηση του Κυπέλλου στην Υδατοσφαίριση. Έναν χρόνο αργότερα, το <b>2019</b>, ο ΑΠΟΕΛ κατακτά το πρώτο του νταμπλ και γράφει ιστορία, καθώς γίνεται <b>η πρώτη κυπριακή ομάδα που συμμετέχει σε ευρωπαϊκή διοργάνωση υδατοσφαίρισης</b>, αγωνιζόμενος στο <b>Euro Cup</b>.<br><br>Έκτοτε, η Υδατοσφαίριση καθιερώνεται ανάμεσα στις πρωταγωνίστριες δυνάμεις του αθλήματος στην Κύπρο, με συνεχή παρουσία στις κατακτήσεις και με ένα αναπτυξιακό πλάνο που στηρίζεται σε μεγάλο βαθμό στις <b>Ακαδημίες</b> του.<br><br>Την ίδια φιλοσοφία ακολούθησε και η Κολύμβηση, με τη συστηματική επένδυση στις νεότερες ηλικίες να αποδίδει καρπούς. Μία δεκαετία μετά την έναρξη της προσπάθειας, το τμήμα έφτασε στην κορυφή και κατέκτησε <b>τρία συνεχόμενα πρωταθλήματα</b>, επιβεβαιώνοντας τη δυναμική παρουσία του ΑΠΟΕΛ στον υγρό στίβο.',
-      desc_en:'The Swimming and Water Polo Department began its journey in <b>2013</b>, on the initiative of <b>Georgios Zannetos</b>, marking APOEL\'s organised presence in aquatic sports. Since then, it has participated continuously in KOEK competitions.<br><br>The first major success came in <b>2018</b>, with the Water Polo Cup win. A year later, in <b>2019</b>, APOEL won its first double and made history, becoming <b>the first Cypriot team to compete in a European water polo competition</b>, playing in the <b>Euro Cup</b>.<br><br>Since then, Water Polo has been established among the leading forces of the sport in Cyprus, with continuous presence among the winners and a development plan largely based on its <b>Academies</b>.<br><br>Swimming followed the same philosophy, with systematic investment in younger ages bearing fruit. A decade after the effort began, the section reached the top and won <b>three consecutive championships</b>, confirming APOEL\'s dynamic presence in aquatic sports.'
-    },
-    {el:'Φούτσαλ',en:'Futsal',titles:[{n:7,el:'Πρωταθλήματα',en:'Titles'},{n:5,el:'Κύπελλα',en:'Cups'},{n:1,el:'Ασπίδα',en:'Super Cup'}],
-      desc:'Το Τμήμα Ποδοσφαίρου Σάλας συστάθηκε το <b>2012</b>, μέσα από τη συγχώνευση με τη <b>City Futsal</b> και τη δημιουργία του ΑΠΟΕΛ City. Από την επόμενη αγωνιστική περίοδο συνέχισε την πορεία του ως ΑΠΟΕΛ και πολύ γρήγορα καθιερώθηκε ανάμεσα στους πρωταγωνιστές του αθλήματος στην Κύπρο.<br><br>Η πρώτη μεγάλη επιτυχία ήρθε το <b>2014</b>, όταν ο ΑΠΟΕΛ κατέκτησε τόσο το πρωτάθλημα όσο και το κύπελλο. Την αμέσως επόμενη περίοδο, το τμήμα έγραφε ιστορία, εκπροσωπώντας για πρώτη φορά τον ΑΠΟΕΛ σε ευρωπαϊκή διοργάνωση.<br><br>Στα χρόνια που ακολούθησαν, ο ΑΠΟΕΛ διατήρησε σταθερά πρωταγωνιστικό ρόλο, δημιουργώντας μία σημαντική παράδοση τίτλων και διακρίσεων. Το <b>2024</b>, οικονομικές δυσκολίες οδήγησαν στην αναστολή της λειτουργίας του τμήματος, όμως η απουσία αποδείχθηκε προσωρινή.<br><br>Το <b>2025</b>, με επικεφαλής τον <b>Χάρη Βασιλείου</b> και τη στήριξη του <b>ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ</b>, το τμήμα επαναδραστηριοποιήθηκε και η επιστροφή του ήταν εντυπωσιακή, εφόσον από την πρώτη κιόλας χρονιά βρέθηκε ξανά στην κορυφή, συνεχίζοντας από εκεί όπου είχε σταματήσει.',
-      desc_en:'The Futsal Department was founded in <b>2012</b>, through a merger with <b>City Futsal</b> and the creation of APOEL City. From the following season, it continued its journey as APOEL and very quickly established itself among the sport\'s leaders in Cyprus.<br><br>The first major success came in <b>2014</b>, when APOEL won both the championship and the cup. The very next season, the section made history, representing APOEL for the first time in a European competition.<br><br>In the years that followed, APOEL maintained a consistent leading role, creating an important tradition of titles and distinctions. In <b>2024</b>, financial difficulties led to a suspension of operations, but the absence proved temporary.<br><br>In <b>2025</b>, headed by <b>Charis Vasileiou</b> and supported by <b>PAN.SY.FI. APOEL</b>, the section was reactivated and its return was impressive, as from its very first season it was again at the top, continuing right where it had left off.'
-    },
+    {el:'Ποδόσφαιρο',en:'Football',titles:[{n:29,el:'Πρωταθλήματα',en:'Titles'},{n:21,el:'Κύπελλα',en:'Cups'},{n:15,el:'Ασπίδες',en:'Super Cups'}]},
+    {el:'Καλαθόσφαιρα',en:'Basketball',titles:[{n:11,el:'Πρωταθλήματα',en:'Titles'},{n:12,el:'Κύπελλα',en:'Cups'},{n:11,el:'Ασπίδες',en:'Super Cups'}]},
+    {el:'Πετόσφαιρα',en:'Volleyball',titles:[{n:11,el:'Πρωταθλήματα',en:'Titles'},{n:5,el:'Κύπελλα',en:'Cups'}]},
+    {el:'Πετόσφαιρα Γυναικών',en:'Womens Volleyball',titles:[{n:1,el:'Κύπελλο',en:'Cup'}]},
+    {el:'Χειροσφαίριση',en:'Handball',titles:[]},
+    {el:'Χειροσφαίριση Γυναικών',en:'Womens Handball',titles:[]},
+    {el:'Κολύμβηση/Υδατοσφαίριση',en:'Swimming/Water Polo',titles:[{n:6,el:'Πρωτ. Υδατοσφ.',en:'W. Polo Titles'},{n:7,el:'Κύπελλα Υδατοσφ.',en:'W. Polo Cups'},{n:2,el:'Ασπίδες',en:'Super Cups'},{n:3,el:'Πρωτ. Κολύμβησης',en:'Swim Titles'}]},
+    {el:'Φούτσαλ',en:'Futsal',titles:[{n:7,el:'Πρωταθλήματα',en:'Titles'},{n:5,el:'Κύπελλα',en:'Cups'},{n:1,el:'Ασπίδα',en:'Super Cup'}]},
   ];
   const deptsOther=[
-    {el:'Δρομείς',en:'Runners',titles:[],
-      desc:'Το Τμήμα Δρομέων του ΑΠΟΕΛ συστάθηκε το <b>2013</b> με πρωτοβουλία του <b>Χρυσόστομου Ηλιάδη</b>, ο οποίος παραμένει επικεφαλής του μέχρι σήμερα. Αποτελώντας συνέχεια της μακράς παράδοσης του ΑΠΟΕΛ στον στίβο, το τμήμα εξελίχθηκε σε μία μεγάλη και δραστήρια αθλητική κοινότητα, αριθμώντας σήμερα περί τους <b>400 αθλητές</b>.<br><br>Με τα γαλαζοκίτρινα χρώματα, οι αθλητές του ΑΠΟΕΛ έχουν παρουσία σε <b>μαραθωνίους, αγώνες δρόμου και διοργανώσεις Iron Man</b> σε όλα τα μήκη και πλάτη του κόσμου, μεταφέροντας την ασπίδα του Σωματείου σε διαδρομές και διοργανώσεις εκτός Κύπρου.<br><br>Ξεχωριστή θέση στη δράση του τμήματος κατέχει η <b>διοργάνωση διαδρομής από το οίκημα του ΑΠΟΕΛ στη Λεωφόρο Κένεντυ μέχρι τον Τύμβο της Μακεδονίτισσας</b>, στο πλαίσιο των αντικατοχικών εκδηλώσεων. Μία δράση που συνδέει τον αθλητισμό με τη μνήμη, διατρανώνοντας το μήνυμα πως ο ΑΠΟΕΛ «δεν ξεχνά» και απαιτεί την επιστροφή όλων των προσφύγων στις πατρογονικές τους εστίες.',
-      desc_en:'The APOEL Runners Department was established in <b>2013</b> at the initiative of <b>Chrysostomos Iliadis</b>, who remains its head to this day. Continuing APOEL\'s long tradition in athletics, the section evolved into a large and active sporting community, currently numbering around <b>400 athletes</b>.<br><br>In blue-and-yellow colours, APOEL athletes are present in <b>marathons, road races and Iron Man events</b> all over the world, carrying the Club\'s shield to routes and events beyond Cyprus.<br><br>A special place in the section\'s activities is the <b>organised run from the APOEL premises on Kennedy Avenue to the Makedonitissa Tomb</b>, as part of the anti-occupation events. An activity that connects sport with memory, proclaiming that APOEL "does not forget" and demands the return of all refugees to their ancestral homes.'
-    },
-    {el:'Ποδηλασία',en:'Cycling',titles:[{n:36,el:'Πρωταθλήματα',en:'Titles'},{n:20,el:'Κύπελλα',en:'Cups'}],
-      desc:'Η Ποδηλασία αποτελεί ένα από τα πλέον επιτυχημένα τμήματα του ΑΠΟΕΛ. Η πορεία της ξεκινά το <b>1970</b> και έκτοτε το τμήμα καθιερώθηκε ως μία από τις μεγάλες δυνάμεις της κυπριακής ποδηλασίας, δημιουργώντας μία μακρά παράδοση επιτυχιών και διακρίσεων.<br><br>Ξεχωριστή θέση στην ιστορία κατέχει η <b>οικογένεια Αγρότη</b>, με τα τρία αδέλφια, <b>Μιχάλη, Σπύρο και Ανδρέα</b>, να έχουν ενεργή και σημαντική παρουσία στο τμήμα, συμβάλλοντας στις επιτυχίες του. Κορυφαία στιγμή αποτέλεσε το γεγονός ότι, ο <b>Σπύρος Αγρότης</b>, έφτασε μέχρι την κορυφαία σκηνή του παγκόσμιου αθλητισμού, τους <b>Ολυμπιακούς Αγώνες του Λος Άντζελες</b>, χαρίζοντας στον ΑΠΟΕΛ την τιμή να βλέπει έναν δικό του αθλητή να αγωνίζεται ανάμεσα στους κορυφαίους του κόσμου.<br><br>Μέσα στις δεκαετίες, η Ποδηλασία δημιούργησε μία εντυπωσιακή παράδοση κατακτήσεων σε διαφορετικές μορφές του αθλήματος, καθιερώνοντας το ως ένα από τα πλέον διακεκριμένα τμήματα του ΑΠΟΕΛ.<br><br>Σήμερα, υπό την επίβλεψη των <b>Μιχάλη Πουμπουρή</b> και <b>Κωνσταντίνου Αντωνίου</b>, το τμήμα δραστηριοποιείται σε όλες τις κατηγορίες και ηλικίες, επενδύοντας παράλληλα στην ανάπτυξη νέων αθλητών. Η διαχρονική του προσφορά αναγνωρίζεται και από την Κυπριακή Ομοσπονδία Ποδηλασίας, επιβεβαιώνοντας τη σημαντική θέση του ΑΠΟΕΛ στην ιστορία και την εξέλιξη του αθλήματος στην Κύπρο.',
-      desc_en:'Cycling is one of APOEL\'s most successful sections. Its journey begins in <b>1970</b> and since then the section has established itself as one of the great forces of Cypriot cycling, creating a long tradition of successes and distinctions.<br><br>A special place in the history is held by the <b>Agrotis family</b>, with the three brothers, <b>Michalis, Spyros and Andreas</b>, having an active and significant presence in the section, contributing to its successes. A crowning moment was the fact that <b>Spyros Agrotis</b> reached the top stage of world athletics, the <b>Los Angeles Olympic Games</b>, giving APOEL the honour of seeing one of its own athletes competing among the world\'s best.<br><br>Through the decades, Cycling created an impressive tradition of conquests in different forms of the sport, establishing it as one of APOEL\'s most distinguished sections.<br><br>Today, under the supervision of <b>Michalis Poumbouris</b> and <b>Konstantinos Antoniou</b>, the section is active in all categories and ages, while also investing in the development of new athletes. Its long-standing contribution is recognised also by the Cyprus Cycling Federation, confirming APOEL\'s important place in the history and evolution of the sport in Cyprus.'
-    },
-    {el:'Μπόουλιγκ',en:'Bowling',titles:[{n:1,el:'Κύπελλο',en:'Cup'}],
-      desc:'Το Τμήμα Μπόουλινγκ ιδρύθηκε το <b>2014</b>, διευρύνοντας ακόμη περισσότερο τον πολυαθλητικό χαρακτήρα του ΑΠΟΕΛ, προσθέτοντας ακόμη ένα άθλημα στη μεγάλη γαλαζοκίτρινη οικογένεια.<br><br>Σημαντική συμβολή στην ανάπτυξη και την πορεία του τμήματος είχε ο <b>Κώστας Μίτσιγκας</b>, ο οποίος διετέλεσε προπονητής μέχρι το <b>2022</b>, όταν τη σκυτάλη ανέλαβε η <b>Γιόλα Παστού</b>, συνεχίζοντας την προσπάθεια για την εξέλιξη και αγωνιστική παρουσία του ΑΠΟΕΛ στο άθλημα.<br><br>Σήμερα, το τμήμα αποτελούν <b>περίπου 60 μέλη-αθλητές</b> και συμμετέχει σταθερά στις διοργανώσεις της Κυπριακής Ομοσπονδίας Μπόουλινγκ, διατηρώντας ενεργή παρουσία στον χώρο.',
-      desc_en:'The Bowling Department was founded in <b>2014</b>, further expanding APOEL\'s multi-sport character by adding another sport to the large blue-and-yellow family.<br><br>A significant contribution to the development and progress of the section was made by <b>Kostas Mitsigas</b>, who served as coach until <b>2022</b>, when the baton was taken over by <b>Giola Pastou</b>, continuing the effort for APOEL\'s development and competitive presence in the sport.<br><br>Today, the section comprises <b>around 60 member-athletes</b> and participates steadily in the competitions of the Cyprus Bowling Federation, maintaining active presence in the field.'
-    },
-    {el:'Πινγκ-Πονγκ',en:'Table Tennis',titles:[{n:15,el:'Πρωταθλήματα',en:'Titles'},{n:11,el:'Κύπελλα',en:'Cups'}],
-      desc:'Η Επιτραπέζια Αντισφαίριση αποτελεί, επίσης, ένα από τα παλαιότερα τμήματα του ΑΠΟΕΛ, με την παρουσία της να ξεκινά το <b>1928</b>, στα πρώτα κιόλας χρόνια της ζωής του Σωματείου. Από τη <b>δεκαετία του 1930</b> ο ΑΠΟΕΛ αρχίζει να συμμετέχει και να διοργανώνει αγώνες και τουρνουά, ενώ τις επόμενες δεκαετίες το τμήμα αναπτύσσεται και καθιερώνεται ανάμεσα στις πρωταγωνίστριες δυνάμεις του αθλήματος στην Κύπρο.<br><br>Τη μακρά αυτή διαδρομή σημάδεψαν σημαντικές μορφές, όπως οι <b>Βάγγος Ανδρεάδης</b>, <b>Λέλλος Γεωργιάδης</b>, <b>Δώρος Διονυσιάδης</b>, <b>Ανδρέας Σταύρου</b>, <b>Μιχάλης Φιλιππίδης</b> και <b>Σταύρος Λούρας</b> και, αργότερα, οι <b>Μιχάλης Ζάμπας</b> (έπεσε ηρωικός μαχόμενος κατά την τουρκική εισβολή), <b>Χρίστος Παπούτσας</b>, <b>Ανδρέας Γεωργίου</b>, <b>Νίκος Σοφοκλέους</b> και <b>Κάτια Γεωργίου Παντζιαρά</b>. Άνθρωποι διαφορετικών γενεών που συνέβαλαν στη δημιουργία μιας σημαντικής παράδοσης επιτυχιών και διακρίσεων.<br><br>Σήμερα, τη σκυτάλη έχουν πάρει νεότεροι αθλητές, όπως οι <b>Τζόζεφ Ηλία</b>, <b>Σιαρπέλ Ηλία</b>, <b>Χρίστος Σάββα</b>, <b>Χρίστος Θεοφάνους</b> και <b>Ανδρέας Χριστοφή</b> ανάμεσα σε άλλους, συνεχίζοντας με διακρίσεις την πορεία των προηγούμενων γενεών.<br><br>Με υπεύθυνο του τμήματος τον <b>Ανδρέα Γεωργίου</b>, η Επιτραπέζια Αντισφαίριση του ΑΠΟΕΛ συνεχίζει να πρωταγωνιστεί, διατηρώντας ζωντανή μια παράδοση που πλησιάζει πλέον τον έναν αιώνα.',
-      desc_en:'Table Tennis is also one of APOEL\'s oldest sections, with its presence beginning in <b>1928</b>, in the very first years of the Club\'s life. From the <b>1930s</b>, APOEL began to participate in and organise matches and tournaments, while in the following decades the section developed and established itself among the leading forces of the sport in Cyprus.<br><br>This long journey was marked by significant figures, such as <b>Vangos Andreadis</b>, <b>Lellos Georgiadis</b>, <b>Doros Dionysiadis</b>, <b>Andreas Stavrou</b>, <b>Michalis Filippidis</b> and <b>Stavros Louras</b>, and later, <b>Michalis Zambas</b> (who fell heroically in combat during the Turkish invasion), <b>Christos Papoutsas</b>, <b>Andreas Georgiou</b>, <b>Nikos Sofokleous</b> and <b>Katia Georgiou Pantziara</b>. People of different generations who contributed to creating an important tradition of successes and distinctions.<br><br>Today, the torch has been passed to younger athletes, such as <b>Joseph Ilia</b>, <b>Charpel Ilia</b>, <b>Christos Savva</b>, <b>Christos Theophanous</b> and <b>Andreas Christofi</b> among others, continuing with distinction the path of previous generations.<br><br>With <b>Andreas Georgiou</b> as head of the section, APOEL\'s Table Tennis continues to lead, keeping alive a tradition that now approaches an entire century.'
-    },
+    {el:'Δρομείς',en:'Runners',titles:[]},
+    {el:'Ποδηλασία',en:'Cycling',titles:[{n:36,el:'Πρωταθλήματα',en:'Titles'},{n:20,el:'Κύπελλα',en:'Cups'}]},
+    {el:'Μπόουλιγκ',en:'Bowling',titles:[{n:1,el:'Κύπελλο',en:'Cup'}]},
+    {el:'Πινγκ-Πονγκ',en:'Table Tennis',titles:[{n:15,el:'Πρωταθλήματα',en:'Titles'},{n:11,el:'Κύπελλα',en:'Cups'}]},
     {el:'Πυγμαχία',en:'Boxing',titles:[],
       desc:'Η Πυγμαχία αποτελεί ένα από τα ιστορικά τμήματα του ΑΠΟΕΛ, με τις ρίζες της να φτάνουν στις πρώτες δεκαετίες ζωής του Ομίλου. Ήδη από το <b>1930</b>, μέλη του ΑΠΟΕΛ μυούνται στο άθλημα από τον Έλληνα πρωτοπυγμάχο <b>Μαζλουμίδη</b>, ανάμεσα τους οι <b>Κουβής Ιωαννίδης</b>, <b>Πετράκης Λοϊζίδης</b> και <b>Κοκής Μιχαηλίδης</b>.<br><br>Η επίσημη ίδρυση του τμήματος ανακοινώνεται στη <b>Γενική Συνέλευση της 10ης Σεπτεμβρίου 1934</b> από τον τότε πρόεδρο, <b>Γεώργιο Πούλια</b>. Η δημιουργία του Τμήματος Πυγμαχίας επιβεβαίωνε ήδη από τα πρώτα χρόνια τον πολυαθλητικό χαρακτήρα και το ευρύτερο όραμα του ΑΠΟΕΛ.<br><br>Σχεδόν εννέα δεκαετίες αργότερα, η ιστορία συνεχίζεται. Με πρωτοβουλία του <b>ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ</b>, το τμήμα επαναδραστηριοποιείται και οι νέες εγκαταστάσεις του εγκαινιάζονται στις <b>8 Νοεμβρίου 2023</b>, συμβολικά ανήμερα των γενεθλίων του ΑΠΟΕΛ.<br><br>Σήμερα, η Πυγμαχία αναπτύσσεται ξανά μέσα από τις ακαδημίες και την αγωνιστική της παρουσία, ενώ η προσθήκη του <b>Muay Thai</b> ανοίγει ένα νέο κεφάλαιο στα μαχητικά αθλήματα του ΑΠΟΕΛ.',
       desc_en:'Boxing is one of APOEL\'s historic departments, with roots reaching back to the Club\'s first decades. As early as <b>1930</b>, APOEL members were being trained in the sport by the Greek pioneer boxer <b>Mazloumidis</b>, among them <b>Kouvis Ioannidis</b>, <b>Petrakis Loizidis</b> and <b>Kokis Michailidis</b>.<br><br>The official founding of the department was announced at the <b>General Assembly of 10 September 1934</b> by the then president, <b>Georgios Poulias</b>. The creation of the Boxing Department confirmed from its earliest years the multi-sport character and broader vision of APOEL.<br><br>Nearly nine decades later, the story continues. At the initiative of <b>PAN.SY.FI. APOEL</b>, the department was reactivated and its new facilities were inaugurated on <b>8 November 2023</b>, symbolically on APOEL\'s birthday.<br><br>Today, Boxing is once again developing through its academies and competitive presence, while the addition of <b>Muay Thai</b> opens a new chapter in APOEL\'s combat sports.'
     },
-    {el:'E-Sports',en:'E-Sports',titles:[]},
   ];
   function deptCard(d,group,idx){
     const name=LANG==='en'?d.en:d.el;
@@ -1736,15 +1401,7 @@ footer{
       honours='<div class="dept-titles">'+d.titles.map(t=>
         `<div class="dt-badge"><b>${t.n}</b><span>${LANG==='en'?t.en:t.el}</span></div>`).join('')+'</div>';
     }
-    let extras='';
-    if(d.extra_titles&&d.extra_titles.length){
-      const lbl=LANG==='en'&&d.extra_titles_label_en?d.extra_titles_label_en:d.extra_titles_label;
-      extras='<div class="dept-extras">'+(lbl?`<div class="dept-extras-label">${lbl}</div>`:'')+
-        '<div class="dept-titles dept-titles-extra">'+d.extra_titles.map(t=>
-        `<div class="dt-badge dt-badge-extra"><b>${t.n}</b><span>${LANG==='en'?t.en:t.el}</span></div>`).join('')+'</div></div>';
-    }
-    const note=d.note?`<div class="dept-note">${LANG==='en'&&d.note_en?d.note_en:d.note}</div>`:'';
-    return `<div class="dept" data-dept-group="${group}" data-dept-idx="${idx}" role="button" tabindex="0"><span class="dept-more" aria-hidden="true">›</span><span class="dept-mark"></span><h3>${name}</h3>${note}${honours}${extras}</div>`;
+    return `<div class="dept" data-dept-group="${group}" data-dept-idx="${idx}" role="button" tabindex="0"><span class="dept-more" aria-hidden="true">›</span><span class="dept-mark"></span><h3>${name}</h3>${honours}</div>`;
   }
   function renderDepts(){
     document.getElementById('deptsMain').innerHTML=deptsMain.map((d,i)=>deptCard(d,'main',i)).join('');
@@ -1774,7 +1431,7 @@ footer{
       ${founded}
       <div class="em-desc em-dept-desc">${descHTML}</div>
       ${honoursHTML}`;
-    em.classList.add('open');document.body.style.overflow='hidden';modalOpened(em);
+    em.classList.add('open');document.body.style.overflow='hidden';
   }
   ['deptsMain','deptsOther'].forEach(id=>{
     const el=document.getElementById(id);if(!el)return;
@@ -1846,22 +1503,9 @@ footer{
     }
   }
   function stopVideo(){lbVideo.src='';}
-  function openLb(f){order=photos.slice();const i=order.findIndex(p=>p.f===f);show(i<0?0:i);lb.classList.remove('single');lb.classList.add('open');modalOpened(lb);}
-  // A single photo (e.g. one attached to a fan story) — no prev/next, no gallery order
-  function openSinglePhoto(src,cap){
-    const img=document.getElementById('lbImg'),vid=document.getElementById('lbVideo'),
-          lv=document.getElementById('lbLocalVideo'),bd=document.getElementById('lbBadge'),
-          cp=document.getElementById('lbCap');
-    if(vid){vid.style.display='none';vid.src='about:blank';}
-    if(lv){lv.style.display='none';try{lv.pause();}catch(e){}}
-    if(bd)bd.style.display='none';
-    if(cp)cp.textContent=cap||'';
-    img.style.display='';img.src=src;
-    lb.classList.add('single','open');
-    modalOpened(lb);
-  }
+  function openLb(f){order=photos.slice();const i=order.findIndex(p=>p.f===f);show(i<0?0:i);lb.classList.add('open');}
   document.addEventListener('click',e=>{const t=e.target.closest('[data-photo]');if(t)openLb(t.dataset.photo);});
-  function closeLb(){lb.classList.remove('open');lb.classList.remove('single');modalClosed(lb);lbVideo.src='about:blank';lbLocalVideo.pause();lbLocalVideo.removeAttribute('src');lbLocalVideo.load();}
+  function closeLb(){lb.classList.remove('open');lbVideo.src='about:blank';lbLocalVideo.pause();lbLocalVideo.removeAttribute('src');lbLocalVideo.load();}
   document.getElementById('lbx').onclick=closeLb;
   document.getElementById('lbPrev').onclick=()=>show((cur-1+order.length)%order.length);
   document.getElementById('lbNext').onclick=()=>show((cur+1)%order.length);
@@ -1924,8 +1568,7 @@ footer{
       info_en:[],
       album:'Epeteiako-sima',
       videos:[
-        {yt:'607B3E4hiiI'},
-        {yt:'DrQOmIBh5XA'}
+        {yt:'607B3E4hiiI'}
       ]},
     {d:'01',m:'Σεπ',m_en:'SEP',d2:'01',m2:'Σεπ',m2_en:'SEP',iso:'2026-09-01T18:00:00',status:'Προσεχώς',status_en:'Upcoming',img:'tba',t:'Ο Θρύλος έχει την δική του Ιστορία',t_en:'The Legend Has Its Own Story',p:'Κάποιος την έγραψε στον τοίχο με μπογιά.',p_en:'Someone wrote it on the wall in paint.',pin:'Μακάρειο Στάδιο · 01/09/2026',cta:'Πληροφορίες',cta_en:'Info',
       full:'01 Σεπτεμβρίου 2026',full_en:'01 September 2026',time:'Θα ανακοινωθεί',time_en:'To be announced',venue:'Μακάρειο Στάδιο, Λευκωσία',venue_en:'Makario Stadium, Nicosia',
@@ -2255,7 +1898,7 @@ footer{
       <h3 class="em-title">${L(a,'title')}</h3>
       ${a.image?`<div class="em-newsimg" style="background-image:url('./${a.image}')"></div>`:''}
       <div class="em-desc">${L(a,'body')}</div>`;
-    em.classList.add('open');document.body.style.overflow='hidden';modalOpened(em);
+    em.classList.add('open');document.body.style.overflow='hidden';
   }
   newsList.addEventListener('click',e=>{const c=e.target.closest('[data-news]');if(c)openNews(+c.dataset.news);});
   newsList.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.closest('[data-news]')){e.preventDefault();openNews(+e.target.closest('[data-news]').dataset.news);}});
@@ -2284,7 +1927,6 @@ footer{
         <div class="em-row"><span class="em-k">${lbl[1]}</span><span class="em-v">${L(e,'time')}</span></div>
         <div class="em-row"><span class="em-k">${lbl[2]}</span><span class="em-v">${L(e,'venue')}</span></div>
       </div>
-      ${eventActions(e,i)}
       <p class="em-desc">${L(e,'desc')}</p>
       <ul class="em-list">${info.map(x=>`<li>${x}</li>`).join('')}</ul>
       <div class="em-share">
@@ -2296,68 +1938,8 @@ footer{
           <button class="em-share-btn" data-share="instagram" data-idx="${i}" title="Instagram" aria-label="Instagram">${ic.instagram}</button>
         </div>
       </div>`;
-    em.classList.add('open');document.body.style.overflow='hidden';modalOpened(em);
+    em.classList.add('open');document.body.style.overflow='hidden';
   }
-  /* ---- CALENDAR (.ics) + DIRECTIONS ---- */
-  const isTextTBA=v=>!v||/ανακοινωθ|announc|σύντομα|soon|^—$/i.test(String(v).trim());
-  function eventActions(e,i){
-    const L=(o,k)=>LANG==='en'&&o[k+'_en']?o[k+'_en']:o[k];
-    const venue=L(e,'venue')||'';
-    const placeholderDate=!e.iso||e.iso.slice(0,4)==='2099';
-    const parts=[];
-    if(!placeholderDate){
-      parts.push('<button class="em-action" type="button" data-ics="'+i+'">'+(LANG==='el'?'Πρόσθεσε στο ημερολόγιο':'Add to calendar')+'</button>');
-    }
-    return parts.length?'<div class="em-actions">'+parts.join('')+'</div>':'';
-  }
-  function icsPad(n){return String(n).padStart(2,'0');}
-  function icsUTC(d){return d.getUTCFullYear()+icsPad(d.getUTCMonth()+1)+icsPad(d.getUTCDate())+'T'+icsPad(d.getUTCHours())+icsPad(d.getUTCMinutes())+'00Z';}
-  function icsDate(d){return d.getFullYear()+icsPad(d.getMonth()+1)+icsPad(d.getDate());}
-  function icsEsc(s){return String(s||'').replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\r?\n/g,'\\n');}
-  function plain(s){const d=document.createElement('div');d.innerHTML=String(s||'');return (d.textContent||'').replace(/\s+/g,' ').trim();}
-  function downloadIcs(i){
-    const e=events[i];if(!e||!e.iso)return;
-    const L=(o,k)=>LANG==='en'&&o[k+'_en']?o[k+'_en']:o[k];
-    const start=new Date(e.iso);
-    if(isNaN(start.getTime()))return;
-    const allDay=isTextTBA(L(e,'time'));
-    let dtLines;
-    if(allDay){
-      // No time announced yet, and possibly a two-day event → all-day VEVENT
-      const end=new Date(start);
-      const span=(e.d2&&e.d&&e.d2!==e.d)?(parseInt(e.d2,10)-parseInt(e.d,10)+1):1;
-      end.setDate(end.getDate()+(isNaN(span)||span<1?1:span));
-      dtLines='DTSTART;VALUE=DATE:'+icsDate(start)+'\r\nDTEND;VALUE=DATE:'+icsDate(end);
-    } else {
-      const end=new Date(start.getTime()+3*60*60*1000);
-      dtLines='DTSTART:'+icsUTC(start)+'\r\nDTEND:'+icsUTC(end);
-    }
-    const venue=L(e,'venue')||'';
-    const body=[
-      'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//APOEL 100//Celebrations//EL','CALSCALE:GREGORIAN','METHOD:PUBLISH',
-      'BEGIN:VEVENT',
-      'UID:apoel100-'+i+'-'+icsDate(start)+'@apoel100years.org',
-      'DTSTAMP:'+icsUTC(new Date()),
-      dtLines,
-      'SUMMARY:'+icsEsc(L(e,'t')),
-      'DESCRIPTION:'+icsEsc(plain(L(e,'desc')).slice(0,600)+' — '+SITE_URL),
-      isTextTBA(venue)?'':'LOCATION:'+icsEsc(venue),
-      'URL:'+SITE_URL,
-      'BEGIN:VALARM','TRIGGER:-P1D','ACTION:DISPLAY','DESCRIPTION:'+icsEsc(L(e,'t')),'END:VALARM',
-      'END:VEVENT','END:VCALENDAR'
-    ].filter(Boolean).join('\r\n');
-    const blob=new Blob([body],{type:'text/calendar;charset=utf-8'});
-    const url=URL.createObjectURL(blob);
-    const a=document.createElement('a');
-    a.href=url;a.download='apoel100-'+icsDate(start)+'.ics';
-    document.body.appendChild(a);a.click();a.remove();
-    setTimeout(()=>URL.revokeObjectURL(url),2000);
-  }
-  document.getElementById('emBody').addEventListener('click',ev=>{
-    const b=ev.target.closest('[data-ics]');
-    if(b)downloadIcs(+b.dataset.ics);
-  });
-
   /* ---- SHARE EVENT ---- */
   const SITE_URL='https://www.apoel100years.org';
   function shareEvent(platform,i){
@@ -2393,7 +1975,7 @@ footer{
     if(url)window.open(url,'_blank','noopener,noreferrer');
   }
   document.addEventListener('click',e=>{const b=e.target.closest('.em-share-btn');if(b){shareEvent(b.dataset.share,+b.dataset.idx);}});
-  function closeEvent(){em.classList.remove('open');document.body.style.overflow='';modalClosed(em);}
+  function closeEvent(){em.classList.remove('open');document.body.style.overflow='';}
   /* ---- OPEN EVENT PHOTOS IN LIGHTBOX ---- */
   const albumModal=document.getElementById('albumModal');
   const albumGrid=document.getElementById('albumGrid');
@@ -2406,7 +1988,6 @@ footer{
     albumGrid.innerHTML=`<div class="album-loading">${LANG==='el'?'Φόρτωση…':'Loading…'}</div>`;
     albumModal.classList.add('open');
     document.body.style.overflow='hidden';
-    modalOpened(albumModal);
     // Build photo items: prefer folder-based (album), fallback to inline (photos)
     let photoItems=[];
     let localVideoItems=[];
@@ -2447,12 +2028,11 @@ footer{
   function closeAlbum(){
     albumModal.classList.remove('open');
     document.body.style.overflow='';
-    modalClosed(albumModal);
   }
   albumGrid.addEventListener('click',e=>{
     const b=e.target.closest('[data-album-idx]');if(!b)return;
     const idx=+b.dataset.albumIdx;
-    show(idx);lb.classList.remove('single');lb.classList.add('open');modalOpened(lb);
+    show(idx);lb.classList.add('open');
   });
   document.getElementById('albumClose').addEventListener('click',closeAlbum);
   albumModal.addEventListener('click',e=>{if(e.target===albumModal)closeAlbum();});
@@ -2512,7 +2092,6 @@ footer{
     return `
     <div class="post" style="--tilt:${tiltForStory(s)}deg" data-post="${idxInLoaded}">
       <div class="who"><span class="quote">“</span>${esc(s.who)}</div>
-      ${s.photo?`<img class="post-photo" loading="lazy" alt="" src="${SB_URL}/storage/v1/object/public/story-photos/${encodeURIComponent(s.photo)}" data-story-photo="1">`:''}
       <div class="txt">${esc(s.txt)}</div>
       <div class="post-share">
         <span class="post-share-label">${shareLbl}</span>
@@ -2531,9 +2110,9 @@ footer{
     p.set('order','created_at.desc');
     p.set('limit',String(PAGE_SIZE));
     p.set('offset',String(offset));
-    p.set('select','id,who,txt,created_at,photo');
+    p.set('select','id,who,txt,created_at');
     if(query&&query.trim()){
-      const q=query.trim().replace(/[%*(),]/g,'');
+      const q=query.trim().replace(/[%*]/g,'');
       p.set('or',`(who.ilike.*${q}*,txt.ilike.*${q}*)`);
     }
     const res=await fetch(`${SB_URL}/rest/v1/stories?${p}`,{
@@ -2616,13 +2195,6 @@ footer{
     if(url)window.open(url,'_blank','noopener,noreferrer');
   }
   wall.addEventListener('click',e=>{const b=e.target.closest('.pshare');if(b)shareStory(b.dataset.storyShare,+b.dataset.idx);});
-  wall.addEventListener('click',e=>{
-    const ph=e.target.closest('[data-story-photo]');
-    if(!ph)return;
-    const card=ph.closest('.post');
-    const who=card?card.querySelector('.who'):null;
-    openSinglePhoto(ph.getAttribute('src'),who?who.textContent.replace(/^[“"]/,''):'');
-  });
   // Live character counter for the story textarea
   (function(){
     const ta=document.getElementById('text');
@@ -2638,59 +2210,6 @@ footer{
     ta.addEventListener('input',update);
     update();
   })();
-  /* ---- STORY PHOTO (Supabase Storage) ---- */
-  const PHOTO_BUCKET='story-photos';
-  let storyPhotoFile=null;
-  const photoInput=document.getElementById('storyPhoto');
-  const photoPrev=document.getElementById('storyPhotoPreview');
-  const photoImgEl=document.getElementById('storyPhotoImg');
-  function clearStoryPhoto(){
-    storyPhotoFile=null;
-    if(photoInput)photoInput.value='';
-    if(photoPrev)photoPrev.classList.remove('on');
-    if(photoImgEl)photoImgEl.removeAttribute('src');
-  }
-  if(photoInput){
-    photoInput.addEventListener('change',()=>{
-      const f=photoInput.files&&photoInput.files[0];
-      if(!f){clearStoryPhoto();return;}
-      if(!/^image\//.test(f.type)){
-        showFormStatus(LANG==='el'?'⚠ Επιλέξτε αρχείο εικόνας.':'⚠ Please choose an image file.','error');clearStoryPhoto();return;}
-      if(f.size>8*1024*1024){
-        showFormStatus(LANG==='el'?'⚠ Η εικόνα ξεπερνά τα 8MB.':'⚠ The image is larger than 8MB.','error');clearStoryPhoto();return;}
-      storyPhotoFile=f;
-      photoImgEl.src=URL.createObjectURL(f);
-      photoPrev.classList.add('on');
-    });
-    document.getElementById('storyPhotoClear').addEventListener('click',clearStoryPhoto);
-  }
-  // Downscale in the browser: a 12MP phone photo would otherwise cost the visitor their data plan
-  function shrinkImage(file,max,quality){
-    max=max||1600;quality=quality||.82;
-    return new Promise((resolve,reject)=>{
-      const img=new Image();
-      img.onload=()=>{
-        const scale=Math.min(1,max/Math.max(img.width,img.height));
-        const w=Math.round(img.width*scale),h2=Math.round(img.height*scale);
-        const c=document.createElement('canvas');c.width=w;c.height=h2;
-        c.getContext('2d').drawImage(img,0,0,w,h2);
-        c.toBlob(b=>{URL.revokeObjectURL(img.src);b?resolve(b):reject(new Error('encode failed'));},'image/jpeg',quality);
-      };
-      img.onerror=()=>{URL.revokeObjectURL(img.src);reject(new Error('decode failed'));};
-      img.src=URL.createObjectURL(file);
-    });
-  }
-  async function uploadStoryPhoto(file){
-    const blob=await shrinkImage(file);
-    const path=Date.now()+'-'+Math.random().toString(36).slice(2,8)+'.jpg';
-    const res=await fetch(SB_URL+'/storage/v1/object/'+PHOTO_BUCKET+'/'+path,{
-      method:'POST',
-      headers:{apikey:SB_ANON,Authorization:'Bearer '+SB_ANON,'Content-Type':'image/jpeg','cache-control':'3600'},
-      body:blob
-    });
-    if(!res.ok)throw new Error(await res.text());
-    return path;
-  }
   document.getElementById('postBtn').addEventListener('click',async()=>{
     const btn=document.getElementById('postBtn');
     const spanEl=btn.querySelector('span');
@@ -2702,19 +2221,13 @@ footer{
     if(!t){textEl.focus();return;}
     btn.disabled=true;spanEl.textContent=LANG==='el'?'Αποστολή…':'Sending…';
     try{
-      let photoPath=null;
-      if(storyPhotoFile){
-        spanEl.textContent=LANG==='el'?'Ανέβασμα φωτογραφίας…':'Uploading photo…';
-        photoPath=await uploadStoryPhoto(storyPhotoFile);
-        spanEl.textContent=LANG==='el'?'Αποστολή…':'Sending…';
-      }
       const res=await fetch(`${SB_URL}/rest/v1/stories`,{
         method:'POST',
         headers:{apikey:SB_ANON,Authorization:`Bearer ${SB_ANON}`,'Content-Type':'application/json',Prefer:'return=minimal'},
-        body:JSON.stringify(photoPath?{who:n,txt:t,photo:photoPath}:{who:n,txt:t})
+        body:JSON.stringify({who:n,txt:t})
       });
       if(!res.ok)throw new Error(await res.text());
-      nameEl.value='';textEl.value='';clearStoryPhoto();
+      nameEl.value='';textEl.value='';
       showFormStatus(LANG==='el'?'✓ Ευχαριστούμε! Η ιστορία σας θα εμφανιστεί μετά από έγκριση.':'✓ Thank you! Your story will appear after approval.','success');
     }catch(err){
       console.error(err);
@@ -2770,7 +2283,7 @@ footer{
         setStatus(LANG==='el'?'✓ Ευχαριστούμε! Θα επικοινωνήσουμε σύντομα μαζί σας.':'✓ Thank you! We will contact you soon.','success');
       }catch(err){
         console.error(err);
-        setStatus(LANG==='el'?'⚠ Παρουσιάστηκε σφάλμα. Δοκιμάστε ξανά ή στείλτε email στο info@apoel100years.org.':'⚠ Error occurred. Try again or email info@apoel100years.org.','error');
+        setStatus(LANG==='el'?'⚠ Παρουσιάστηκε σφάλμα. Δοκιμάστε ξανά ή στείλτε email στο info@apoelultras.net.':'⚠ Error occurred. Try again or email info@apoelultras.net.','error');
       }finally{
         btn.disabled=false;btn.querySelector('span').textContent=origLabel;
       }
@@ -2807,8 +2320,8 @@ footer{
   function obs(){document.querySelectorAll('.panel.active .reveal').forEach(r=>io.observe(r));}
   document.querySelectorAll('[data-jump]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const b=document.querySelector(`nav button[data-tab="${a.dataset.jump}"]`);if(b)b.click();}));
   btns.forEach(b=>b.addEventListener('click',()=>{
-    btns.forEach(x=>{x.classList.remove('active');x.setAttribute('aria-selected','false');});panels.forEach(p=>p.classList.remove('active'));
-    b.classList.add('active');b.setAttribute('aria-selected','true');
+    btns.forEach(x=>x.classList.remove('active'));panels.forEach(p=>p.classList.remove('active'));
+    b.classList.add('active');
     const panel=document.getElementById(b.dataset.tab);
     panel.classList.add('active');
     document.querySelectorAll('.reveal').forEach(r=>r.classList.remove('in'));
@@ -2826,7 +2339,6 @@ footer{
     if(l===LANG)return;
     LANG=l;
     document.documentElement.lang=l;
-    try{localStorage.setItem('apoel100_lang',l);}catch(err){}
     // toggle button state
     document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.lang===l));
     // swap static texts
@@ -2835,21 +2347,12 @@ footer{
     // aria labels for lightbox/modal
     const A=(id,el_,en_)=>{const x=document.getElementById(id);if(x)x.setAttribute('aria-label',l==='en'?en_:el_);};
     A('lbx','Κλείσιμο','Close');A('lbPrev','Προηγούμενη','Previous');A('lbNext','Επόμενη','Next');A('emClose','Κλείσιμο','Close');
-    A('albumClose','Κλείσιμο','Close');A('audioBtn','Ενεργοποίηση/απενεργοποίηση ύμνου','Toggle the anthem');
-    A('storyPhotoClear','Αφαίρεση φωτογραφίας','Remove photo');A('accessBtn','Είσοδος','Enter');
-    document.querySelectorAll('nav[role=tablist]').forEach(n=>n.setAttribute('aria-label',l==='en'?'Sections':'Ενότητες'));
     // re-run dynamic renders
-    renderGtools();drawGallery(curDecade);renderHistory();renderSpotlight();renderDepts();renderNextEvent();renderLedger();renderNews();render();
+    renderGtools();drawGallery(curDecade);renderHistory();renderDepts();renderNextEvent();renderLedger();renderNews();render();
     // keep active gallery chip highlighted
     document.querySelectorAll('.gchip').forEach(c=>c.classList.toggle('on',c.dataset.d===curDecade));
   }
   document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
-  // Restore the visitor's last choice (and honour an English browser on a first visit)
-  (function(){
-    let saved=null;
-    try{saved=localStorage.getItem('apoel100_lang');}catch(err){}
-    if(saved==='en')setLang('en');
-  })();
 
   /* ---- REVEAL COUNTDOWN (until 26/07/2026) ---- */
   (function(){
@@ -2905,7 +2408,7 @@ footer{
     const p=new URLSearchParams();
     if(status)p.set('status',`eq.${status}`);
     p.set('order','created_at.desc');
-    p.set('select','id,who,txt,status,created_at,photo');
+    p.set('select','id,who,txt,status,created_at');
     p.set('limit','200');
     const res=await fetch(`${SB_URL}/rest/v1/stories?${p}`,{
       headers:{apikey:SB_ANON,Authorization:`Bearer ${token}`,Prefer:'count=exact'}
@@ -2938,7 +2441,7 @@ footer{
     });
     if(!res.ok)throw new Error(await res.text());
   }
-  function fmtDate(s){try{const loc=LANG==='en'?'en-GB':'el-GR';const d=new Date(s);return d.toLocaleDateString(loc,{day:'2-digit',month:'2-digit',year:'numeric'})+' '+d.toLocaleTimeString(loc,{hour:'2-digit',minute:'2-digit'});}catch{return s;}}
+  function fmtDate(s){try{const d=new Date(s);return d.toLocaleDateString('el-GR',{day:'2-digit',month:'2-digit',year:'numeric'})+' '+d.toLocaleTimeString('el-GR',{hour:'2-digit',minute:'2-digit'});}catch{return s;}}
   async function refreshAdminCounts(){
     const t=loadAdminSession();if(!t)return;
     try{
@@ -2967,7 +2470,6 @@ footer{
           </div>
           <div class="admin-item-actions">${actions.join('')}</div>
           <div class="admin-item-txt">${esc(s.txt)}</div>
-          ${s.photo?`<div class="admin-item-photo"><a href="${SB_URL}/storage/v1/object/public/story-photos/${encodeURIComponent(s.photo)}" target="_blank" rel="noopener"><img src="${SB_URL}/storage/v1/object/public/story-photos/${encodeURIComponent(s.photo)}" alt="" loading="lazy"></a></div>`:''}
         </div>`;
       }).join('');
     }catch(e){
@@ -2999,11 +2501,11 @@ footer{
   function showAdminLogin(){adminLoginView.style.display='';adminMainView.style.display='none';setTimeout(()=>document.getElementById('adminEmail').focus(),80);}
   function showAdminMain(){adminLoginView.style.display='none';adminMainView.style.display='';renderAdminList();refreshAdminCounts();}
   function openAdmin(){
-    adminOverlay.classList.add('open');document.body.style.overflow='hidden';modalOpened(adminOverlay);
+    adminOverlay.classList.add('open');document.body.style.overflow='hidden';
     if(loadAdminSession())showAdminMain();else showAdminLogin();
   }
   function closeAdmin(){
-    adminOverlay.classList.remove('open');document.body.style.overflow='';modalClosed(adminOverlay);
+    adminOverlay.classList.remove('open');document.body.style.overflow='';
     if(location.hash==='#admin')history.replaceState(null,'',location.pathname+location.search);
   }
   document.getElementById('adminCloseBtn').addEventListener('click',closeAdmin);
@@ -3064,13 +2566,34 @@ footer{
       btn.classList.toggle('playing',!muted);
       btn.setAttribute('aria-pressed',String(!muted));
     }
-    // Σιωπή από προεπιλογή. Ο ύμνος παίζει μόνο αν το ζητήσει ο επισκέπτης (εικονίδιο ή προηγούμενη επίσκεψη).
+    // Try to autoplay with sound (usually blocked). If blocked, unmute on first user interaction.
     const pref=localStorage.getItem(PREF_KEY);
-    if(pref==='on'){
-      audio.muted=false;updateUI(false);
-      audio.play().catch(()=>{audio.muted=true;updateUI(true);});
-    } else {
+    const userSaidMute=(pref==='off');
+    if(userSaidMute){
       audio.muted=true;updateUI(true);
+      audio.play().catch(()=>{});
+    } else {
+      // Try direct autoplay first
+      audio.muted=false;updateUI(false);
+      audio.play().catch(()=>{
+        // Blocked → silent play + unmute on first interaction
+        audio.muted=true;updateUI(true);
+        audio.play().catch(()=>{});
+        let armed=true;
+        const unmute=()=>{
+          if(!armed)return;armed=false;
+          audio.muted=false;updateUI(false);
+          audio.play().catch(()=>{});
+          document.removeEventListener('click',unmute,true);
+          document.removeEventListener('touchstart',unmute,true);
+          document.removeEventListener('keydown',unmute,true);
+          document.removeEventListener('scroll',unmute,true);
+        };
+        document.addEventListener('click',unmute,{capture:true,passive:true});
+        document.addEventListener('touchstart',unmute,{capture:true,passive:true});
+        document.addEventListener('keydown',unmute,{capture:true,passive:true});
+        document.addEventListener('scroll',unmute,{capture:true,passive:true});
+      });
     }
     // Manual toggle from the icon
     btn.addEventListener('click',()=>{
