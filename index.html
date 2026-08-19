@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <meta name="googlebot" content="noindex, nofollow">
+<!-- ΠΡΟΣΟΧΗ: αφαίρεσε τα δύο noindex meta tags παραπάνω την ημέρα της κυκλοφορίας -->
+<meta name="description" content="100 Χρόνια ΑΠΟΕΛ · 1926–2026. Το πρόγραμμα των εορτασμών, η ιστορία, τα τμήματα και οι ιστορίες των φιλάθλων του Θρύλου.">
+<meta name="theme-color" content="#001b35">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ΑΠΟΕΛ · Ένας Αιώνας">
+<meta property="og:title" content="ΑΠΟΕΛ · ΕΝΑΣ ΑΙΩΝΑΣ · 1926–2026">
+<meta property="og:description" content="Το πρόγραμμα των εορτασμών, η ιστορία, τα τμήματα και οι ιστορίες των φιλάθλων του Θρύλου.">
+<meta property="og:image" content="./emblem_reveal.jpg">
+<meta property="og:locale" content="el_GR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <title>ΑΠΟΕΛ · ΕΝΑΣ ΑΙΩΝΑΣ · 1926–2026</title>
 <style>
   :root{
@@ -18,7 +29,7 @@
     /* the variable names below are reused everywhere as "accent" — repurposed to the badge gold */
     --gold:#e0b53a;          /* laurel gold */
     --gold-bright:#f6d873;   /* bright gold highlight */
-    --gold-deep:#a07d1f;     /* deep gold */
+    --gold-deep:#c9a13a;     /* deep gold */
     --gold-dim:rgba(224,181,58,.32);
     --ash:#cdd9e6;           /* soft blue-white text */
     --hair:rgba(224,181,58,.18);
@@ -33,7 +44,7 @@
   .serif{font-family:"Bodoni MT","Didot",Georgia,serif;}
 
   /* HERO */
-  #hero{position:relative;height:100vh;min-height:620px;display:flex;flex-direction:column;
+  #hero{position:relative;height:100vh;height:100dvh;min-height:620px;display:flex;flex-direction:column;
     align-items:center;justify-content:center;text-align:center;overflow:hidden;}
   #goldCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;}
   .hero-inner{position:relative;z-index:3;}
@@ -52,7 +63,7 @@
     -webkit-mask-image:radial-gradient(ellipse at center,#000 45%,transparent 92%);
     mask-image:radial-gradient(ellipse at center,#000 45%,transparent 92%);}
   /* Background anthem toggle button */
-  .audio-btn{position:fixed;top:14px;right:130px;z-index:65;
+  .audio-btn{position:fixed;top:calc(14px + env(safe-area-inset-top));right:calc(130px + env(safe-area-inset-right));z-index:65;
     width:38px;height:38px;border-radius:50%;padding:0;
     background:rgba(0,12,26,.6);border:1px solid var(--hair);
     color:var(--ash);cursor:pointer;
@@ -65,8 +76,8 @@
   .audio-btn .audio-hint{display:none;}
   @keyframes audioPulse{0%,100%{box-shadow:0 0 0 0 rgba(201,159,43,.4);}50%{box-shadow:0 0 0 8px rgba(201,159,43,0);}}
   @media(max-width:560px){
-    .audio-btn{top:16px;right:110px;width:34px;height:34px;}
-    .audio-btn .audio-icon{width:14px;height:14px;}
+    .audio-btn{top:calc(16px + env(safe-area-inset-top));right:calc(110px + env(safe-area-inset-right));width:44px;height:44px;}
+    .audio-btn .audio-icon{width:16px;height:16px;}
   }
   /* REVEAL PLACEHOLDER (until 26/07/2026) */
   .logo-reveal{position:relative;width:clamp(240px,40vw,420px);aspect-ratio:1/1;margin:0 auto 1.6em;
@@ -270,7 +281,7 @@
   .lb img{max-width:100%;max-height:78vh;border:1px solid var(--hair);box-shadow:0 20px 60px rgba(0,0,0,.6);}
   .lb figcaption{margin-top:16px;font-family:"Bodoni MT",serif;font-style:italic;color:var(--gold-bright);font-size:1.2rem;}
   .lb .lbyr{color:var(--gold-deep);font-style:normal;letter-spacing:.2em;font-size:.8rem;margin-right:.8em;}
-  .lb-x{position:fixed;top:22px;right:28px;background:none;border:none;color:var(--ash);font-size:1.8rem;cursor:pointer;z-index:111;}
+  .lb-x{position:fixed;top:calc(22px + env(safe-area-inset-top));right:calc(28px + env(safe-area-inset-right));background:none;border:none;color:var(--ash);font-size:1.8rem;cursor:pointer;z-index:111;width:44px;height:44px;display:flex;align-items:center;justify-content:center;line-height:1;padding:0;}
   .lb-x:hover{color:var(--gold-bright)}
   .lb-nav{position:fixed;top:50%;transform:translateY(-50%);
     background:rgba(0,12,26,.75);border:1px solid rgba(201,159,43,.4);color:var(--gold-bright);
@@ -280,10 +291,10 @@
     -webkit-tap-highlight-color:transparent;touch-action:manipulation;transition:.25s;}
   @media (hover:hover){.lb-nav:hover{background:var(--gold);color:#070707;border-color:var(--gold);}}
   .lb-nav:active{background:var(--gold);color:#070707;border-color:var(--gold);}
-  #lbPrev{left:24px} #lbNext{right:24px}
+  #lbPrev{left:calc(24px + env(safe-area-inset-left))} #lbNext{right:calc(24px + env(safe-area-inset-right))}
   @media(max-width:600px){
     .lb-nav{width:44px;height:44px;font-size:1.2rem;}
-    #lbPrev{left:10px} #lbNext{right:10px}
+    #lbPrev{left:calc(10px + env(safe-area-inset-left))} #lbNext{right:calc(10px + env(safe-area-inset-right))}
   }
   /* ---- ALBUM GRID MODAL ---- */
   .album-modal{position:fixed;inset:0;background:rgba(2,10,22,.96);z-index:100;
@@ -291,7 +302,7 @@
     backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);}
   .album-modal.open{display:block;}
   .album-inner{max-width:1200px;margin:0 auto;position:relative;}
-  .album-close{position:fixed;top:18px;right:22px;z-index:5;
+  .album-close{position:fixed;top:calc(18px + env(safe-area-inset-top));right:calc(22px + env(safe-area-inset-right));z-index:5;
     background:rgba(0,12,26,.75);border:1px solid rgba(201,159,43,.4);color:var(--gold-bright);
     width:42px;height:42px;border-radius:50%;font-size:1.5rem;cursor:pointer;
     display:flex;align-items:center;justify-content:center;line-height:1;
@@ -499,7 +510,7 @@
   .vf-label{font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-deep);
     font-weight:600;}
   .vf-field input,.vf-field textarea{background:rgba(0,12,26,.5);border:1px solid var(--hair);
-    color:var(--gold-bright);font-family:inherit;font-size:.95rem;padding:12px 14px;
+    color:var(--gold-bright);font-family:inherit;font-size:1rem;padding:12px 14px;
     transition:border-color .25s,background .25s;-webkit-tap-highlight-color:transparent;}
   .vf-field input:focus,.vf-field textarea:focus{outline:none;border-color:var(--gold);
     background:rgba(0,12,26,.7);}
@@ -680,8 +691,35 @@
   footer b{color:var(--gold-bright);font-family:"Bodoni MT",serif;font-style:italic;font-weight:700;letter-spacing:.1em;}
   footer .footer-tags{display:inline-block;margin-top:10px;font-size:.6rem;letter-spacing:.22em;color:var(--gold-deep);opacity:.75;}
 
+  /* ---- STORY PHOTO UPLOAD ---- */
+  .story-file{margin-top:24px;position:relative;}
+  .story-file-btn{display:inline-flex;align-items:center;gap:10px;background:transparent;
+    border:1px dashed rgba(201,159,43,.45);color:var(--gold-bright);font-family:inherit;
+    font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;padding:14px 18px;
+    cursor:pointer;transition:.25s;min-height:44px;}
+  .story-file-btn:hover{border-color:var(--gold);background:rgba(224,181,58,.06);}
+  .story-file input[type=file]{position:absolute;width:1px;height:1px;opacity:0;}
+  .story-file-hint{margin-top:10px;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep);}
+  .story-file-preview{margin-top:14px;position:relative;display:none;max-width:300px;}
+  .story-file-preview.on{display:block;}
+  .story-file-preview img{max-width:100%;max-height:220px;border:1px solid var(--hair);display:block;}
+  .story-file-clear{position:absolute;top:8px;right:8px;width:34px;height:34px;border-radius:50%;
+    background:rgba(0,12,26,.82);border:1px solid rgba(201,159,43,.5);color:var(--gold-bright);
+    cursor:pointer;font-family:inherit;font-size:1.1rem;line-height:1;padding:0;}
+  .post-photo{margin:12px 0 6px;display:block;width:100%;border:1px solid var(--hair);cursor:pointer;}
+  .admin-item-photo{grid-column:1/-1;}
+  .admin-item-photo img{max-width:170px;border:1px solid rgba(201,159,43,.2);display:block;}
+  .lb.single .lb-nav{display:none;}
+  /* ---- EVENT ACTIONS: calendar + directions ---- */
+  .em-actions{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0 6px;}
+  .em-action{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:12px 18px;
+    background:transparent;border:1px solid rgba(201,159,43,.45);color:var(--gold-bright);
+    font-family:inherit;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;
+    cursor:pointer;text-decoration:none;transition:.25s;}
+  .em-action:hover{border-color:var(--gold);background:rgba(224,181,58,.08);color:var(--gold-bright);}
+
   /* LANGUAGE SWITCH */
-  .lang{position:fixed;top:16px;right:18px;z-index:60;display:flex;border:1px solid var(--hair);
+  .lang{position:fixed;top:calc(16px + env(safe-area-inset-top));right:calc(18px + env(safe-area-inset-right));z-index:60;display:flex;border:1px solid var(--hair);
     border-radius:30px;overflow:hidden;background:rgba(0,12,26,.6);backdrop-filter:blur(8px);}
   /* ACCESS GATE — hides the site until password entered */
   html.gated body > *:not(#accessGate){display:none!important;}
@@ -1131,7 +1169,7 @@ footer{
   <canvas id="goldCanvas"></canvas>
   <div class="hero-inner">
     <img class="emblem-banner" src="./emblem_reveal.jpg?v=2" alt="Αποκάλυψη Επετειακού Σήματος — Σύντομα · Anniversary Emblem Reveal — Soon">
-    <div class="eyebrow" data-el="Αθλητικός Ποδοσφαιρικός Όμιλος Ελλήνων Λευκωσίας" data-en="Αθλητικός Ποδοσφαιρικός Όμιλος Ελλήνων Λευκωσίας">Αθλητικός Ποδοσφαιρικός Όμιλος Ελλήνων Λευκωσίας</div>
+    <div class="eyebrow" data-el="Αθλητικός Ποδοσφαιρικός Όμιλος Ελλήνων Λευκωσίας" data-en="Athletic Football Club of Greeks of Nicosia">Αθλητικός Ποδοσφαιρικός Όμιλος Ελλήνων Λευκωσίας</div>
     <div class="span-years" data-el="08 · Νοεμβρίου · 1926" data-en="08 · November · 1926">08 · Νοεμβρίου · 1926</div>
     <div class="hero-actions">
       <a class="hero-btn" href="#events" data-jump="events" data-el="Πρόγραμμα Εορτασμών" data-en="Programme">Πρόγραμμα Εορτασμών</a>
@@ -1141,14 +1179,14 @@ footer{
 </section>
 
 <div id="navAnchor" aria-hidden="true"></div>
-<nav>
-  <button class="active" data-tab="events" data-el="Πρόγραμμα" data-en="Programme">Πρόγραμμα</button>
-  <button data-tab="news" data-el="Ανακοινώσεις" data-en="Announcements">Ανακοινώσεις</button>
-  <button data-tab="history" data-el="Ιστορία" data-en="History">Ιστορία</button>
-  <button data-tab="depts" data-el="Τμήματα" data-en="Departments">Τμήματα</button>
-  <button data-tab="gallery" data-el="Φωτογραφίες" data-en="Photos" style="display:none">Φωτογραφίες</button>
-  <button data-tab="stories" data-el="Οι Ιστορίες σας" data-en="Your Stories">Οι Ιστορίες σας</button>
-  <button data-tab="contact" data-el="Επικοινωνία" data-en="Contact">Επικοινωνία</button>
+<nav role="tablist" aria-label="Ενότητες">
+  <button role="tab" aria-selected="true" aria-controls="events" class="active" data-tab="events" data-el="Πρόγραμμα" data-en="Programme">Πρόγραμμα</button>
+  <button role="tab" aria-selected="false" aria-controls="news" data-tab="news" data-el="Ανακοινώσεις" data-en="Announcements">Ανακοινώσεις</button>
+  <button role="tab" aria-selected="false" aria-controls="history" data-tab="history" data-el="Ιστορία" data-en="History">Ιστορία</button>
+  <button role="tab" aria-selected="false" aria-controls="depts" data-tab="depts" data-el="Τμήματα" data-en="Departments">Τμήματα</button>
+  <button role="tab" aria-selected="false" aria-controls="gallery" data-tab="gallery" data-el="Φωτογραφίες" data-en="Photos" style="display:none">Φωτογραφίες</button>
+  <button role="tab" aria-selected="false" aria-controls="stories" data-tab="stories" data-el="Οι Ιστορίες σας" data-en="Your Stories">Οι Ιστορίες σας</button>
+  <button role="tab" aria-selected="false" aria-controls="contact" data-tab="contact" data-el="Επικοινωνία" data-en="Contact">Επικοινωνία</button>
 </nav>
 
 <main>
@@ -1258,6 +1296,15 @@ footer{
           <label for="text" data-el="Η ανάμνησή σας" data-en="Your memory">Η ανάμνησή σας</label>
           <textarea id="text" placeholder="Η στιγμή που δεν θα ξεχάσετε ποτέ…" data-ph-el="Η στιγμή που δεν θα ξεχάσετε ποτέ…" data-ph-en="The moment you will never forget…" maxlength="500"></textarea>
           <div class="char-counter" id="charCounter"><span id="charCount">0</span> / 500</div>
+          <div class="story-file">
+            <label class="story-file-btn" for="storyPhoto" data-el="Πρόσθεσε φωτογραφία" data-en="Add a photo">Πρόσθεσε φωτογραφία</label>
+            <input type="file" id="storyPhoto" accept="image/*">
+            <div class="story-file-hint" data-el="Προαιρετικό · μία εικόνα · έως 8MB" data-en="Optional · one image · up to 8MB">Προαιρετικό · μία εικόνα · έως 8MB</div>
+            <div class="story-file-preview" id="storyPhotoPreview">
+              <img id="storyPhotoImg" alt="">
+              <button type="button" class="story-file-clear" id="storyPhotoClear" aria-label="Αφαίρεση φωτογραφίας">×</button>
+            </div>
+          </div>
           <button class="submit" id="postBtn"><span data-el="Δημοσίευση στον τοίχο" data-en="Post to the wall">Δημοσίευση στον τοίχο</span></button>
         </div>
       </div>
@@ -1313,12 +1360,13 @@ footer{
           </div>
           <label class="vf-field">
             <span class="vf-label" data-el="Πώς μπορείς να βοηθήσεις; (προαιρετικό)" data-en="How can you help? (optional)">Πώς μπορείς να βοηθήσεις; (προαιρετικό)</span>
-            <textarea id="vfMessage" rows="3" maxlength="500" placeholder="π.χ. φωτογράφιση, οργάνωση, υποδοχή, ασφάλεια, οικονομική βοήθεια…"></textarea>
+            <textarea id="vfMessage" rows="3" maxlength="500" placeholder="π.χ. φωτογράφιση, οργάνωση, υποδοχή, ασφάλεια, οικονομική βοήθεια…" data-ph-el="π.χ. φωτογράφιση, οργάνωση, υποδοχή, ασφάλεια, οικονομική βοήθεια…" data-ph-en="e.g. photography, organising, reception, security, financial support…"></textarea>
           </label>
           <label class="vf-consent">
             <input type="checkbox" id="vfConsent" required>
             <span data-el="Συμφωνώ να χρησιμοποιηθούν τα στοιχεία μου αποκλειστικά για επικοινωνία σχετικά με τους εορτασμούς." data-en="I agree that my data will only be used for communication regarding the celebrations.">Συμφωνώ να χρησιμοποιηθούν τα στοιχεία μου αποκλειστικά για επικοινωνία σχετικά με τους εορτασμούς.</span>
           </label>
+          <p style="margin-top:2px;font-size:.7rem;line-height:1.5;color:var(--ash);opacity:.75;" data-el="Υπεύθυνος επεξεργασίας: Επιτροπή Εορτασμών 100 Χρόνων ΑΠΟΕΛ. Τα στοιχεία χρησιμοποιούνται μόνο για την οργάνωση των εκδηλώσεων, δεν κοινοποιούνται σε τρίτους και διαγράφονται μετά το τέλος των εορτασμών. Για διαγραφή ή διόρθωση: info@apoel100years.org" data-en="Data controller: APOEL 100 Years Celebrations Committee. Your details are used only to organise the events, are not shared with third parties, and are deleted after the celebrations end. To request deletion or correction: info@apoel100years.org">Υπεύθυνος επεξεργασίας: Επιτροπή Εορτασμών 100 Χρόνων ΑΠΟΕΛ. Τα στοιχεία χρησιμοποιούνται μόνο για την οργάνωση των εκδηλώσεων, δεν κοινοποιούνται σε τρίτους και διαγράφονται μετά το τέλος των εορτασμών. Για διαγραφή ή διόρθωση: info@apoel100years.org</p>
           <button type="submit" class="vf-submit" id="vfSubmit">
             <span data-el="Καταχώρηση" data-en="Submit">Καταχώρηση</span>
           </button>
@@ -1362,7 +1410,7 @@ footer{
 
 
 <!-- BACKGROUND ANTHEM -->
-<audio id="bgAudio" preload="auto">
+<audio id="bgAudio" preload="none">
   <source src="./apoel-anthem.mp3" type="audio/mpeg">
 </audio>
 <button id="audioBtn" class="audio-btn" aria-label="Ενεργοποίηση/απενεργοποίηση ύμνου" title="Ύμνος ΑΠΟΕΛ">
@@ -1408,6 +1456,44 @@ footer{
 <script>
   const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
   let LANG='el';
+
+  /* ---- MODAL FOCUS MANAGEMENT (trap + return) ---- */
+  const FOCUSABLE='a[href],button:not([disabled]),input:not([disabled]):not([type=hidden]),select:not([disabled]),textarea:not([disabled]),video[controls],[tabindex]:not([tabindex="-1"])';
+  const modalReturn=new WeakMap();
+  let trapEl=null,trapHandler=null;
+  function focusablesIn(el){return Array.prototype.filter.call(el.querySelectorAll(FOCUSABLE),x=>x.offsetWidth||x.offsetHeight||x===document.activeElement);}
+  function armTrap(el){
+    disarmTrap();
+    trapEl=el;
+    trapHandler=ev=>{
+      if(ev.key!=='Tab'||!trapEl||!trapEl.classList.contains('open'))return;
+      const f=focusablesIn(trapEl);if(!f.length)return;
+      const first=f[0],last=f[f.length-1];
+      if(!trapEl.contains(document.activeElement)){ev.preventDefault();first.focus();}
+      else if(ev.shiftKey&&document.activeElement===first){ev.preventDefault();last.focus();}
+      else if(!ev.shiftKey&&document.activeElement===last){ev.preventDefault();first.focus();}
+    };
+    document.addEventListener('keydown',trapHandler,true);
+  }
+  function disarmTrap(){
+    if(trapHandler)document.removeEventListener('keydown',trapHandler,true);
+    trapHandler=null;trapEl=null;
+  }
+  function modalOpened(el){
+    if(!el)return;
+    if(!modalReturn.has(el))modalReturn.set(el,document.activeElement);
+    armTrap(el);
+    setTimeout(()=>{const f=focusablesIn(el)[0];if(f)f.focus({preventScroll:true});},60);
+  }
+  function modalClosed(el){
+    disarmTrap();
+    const back=el?modalReturn.get(el):null;
+    if(el)modalReturn.delete(el);
+    if(back&&document.contains(back)&&back.focus)back.focus({preventScroll:true});
+    // a modal may still be open underneath (album behind the lightbox) — re-arm it
+    const open=document.querySelectorAll('.lb.open,.album-modal.open,.em.open,.admin-overlay.open');
+    if(open.length)armTrap(open[open.length-1]);
+  }
 
   /* ---- PHOTO DATA (file -> year, caption) ---- */
   const photos=[
@@ -1687,7 +1773,7 @@ footer{
       ${founded}
       <div class="em-desc em-dept-desc">${descHTML}</div>
       ${honoursHTML}`;
-    em.classList.add('open');document.body.style.overflow='hidden';
+    em.classList.add('open');document.body.style.overflow='hidden';modalOpened(em);
   }
   ['deptsMain','deptsOther'].forEach(id=>{
     const el=document.getElementById(id);if(!el)return;
@@ -1759,9 +1845,22 @@ footer{
     }
   }
   function stopVideo(){lbVideo.src='';}
-  function openLb(f){order=photos.slice();const i=order.findIndex(p=>p.f===f);show(i<0?0:i);lb.classList.add('open');}
+  function openLb(f){order=photos.slice();const i=order.findIndex(p=>p.f===f);show(i<0?0:i);lb.classList.remove('single');lb.classList.add('open');modalOpened(lb);}
+  // A single photo (e.g. one attached to a fan story) — no prev/next, no gallery order
+  function openSinglePhoto(src,cap){
+    const img=document.getElementById('lbImg'),vid=document.getElementById('lbVideo'),
+          lv=document.getElementById('lbLocalVideo'),bd=document.getElementById('lbBadge'),
+          cp=document.getElementById('lbCap');
+    if(vid){vid.style.display='none';vid.src='about:blank';}
+    if(lv){lv.style.display='none';try{lv.pause();}catch(e){}}
+    if(bd)bd.style.display='none';
+    if(cp)cp.textContent=cap||'';
+    img.style.display='';img.src=src;
+    lb.classList.add('single','open');
+    modalOpened(lb);
+  }
   document.addEventListener('click',e=>{const t=e.target.closest('[data-photo]');if(t)openLb(t.dataset.photo);});
-  function closeLb(){lb.classList.remove('open');lbVideo.src='about:blank';lbLocalVideo.pause();lbLocalVideo.removeAttribute('src');lbLocalVideo.load();}
+  function closeLb(){lb.classList.remove('open');lb.classList.remove('single');modalClosed(lb);lbVideo.src='about:blank';lbLocalVideo.pause();lbLocalVideo.removeAttribute('src');lbLocalVideo.load();}
   document.getElementById('lbx').onclick=closeLb;
   document.getElementById('lbPrev').onclick=()=>show((cur-1+order.length)%order.length);
   document.getElementById('lbNext').onclick=()=>show((cur+1)%order.length);
@@ -2155,7 +2254,7 @@ footer{
       <h3 class="em-title">${L(a,'title')}</h3>
       ${a.image?`<div class="em-newsimg" style="background-image:url('./${a.image}')"></div>`:''}
       <div class="em-desc">${L(a,'body')}</div>`;
-    em.classList.add('open');document.body.style.overflow='hidden';
+    em.classList.add('open');document.body.style.overflow='hidden';modalOpened(em);
   }
   newsList.addEventListener('click',e=>{const c=e.target.closest('[data-news]');if(c)openNews(+c.dataset.news);});
   newsList.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.closest('[data-news]')){e.preventDefault();openNews(+e.target.closest('[data-news]').dataset.news);}});
@@ -2184,6 +2283,7 @@ footer{
         <div class="em-row"><span class="em-k">${lbl[1]}</span><span class="em-v">${L(e,'time')}</span></div>
         <div class="em-row"><span class="em-k">${lbl[2]}</span><span class="em-v">${L(e,'venue')}</span></div>
       </div>
+      ${eventActions(e,i)}
       <p class="em-desc">${L(e,'desc')}</p>
       <ul class="em-list">${info.map(x=>`<li>${x}</li>`).join('')}</ul>
       <div class="em-share">
@@ -2195,8 +2295,72 @@ footer{
           <button class="em-share-btn" data-share="instagram" data-idx="${i}" title="Instagram" aria-label="Instagram">${ic.instagram}</button>
         </div>
       </div>`;
-    em.classList.add('open');document.body.style.overflow='hidden';
+    em.classList.add('open');document.body.style.overflow='hidden';modalOpened(em);
   }
+  /* ---- CALENDAR (.ics) + DIRECTIONS ---- */
+  const isTextTBA=v=>!v||/ανακοινωθ|announc|σύντομα|soon|^—$/i.test(String(v).trim());
+  function eventActions(e,i){
+    const L=(o,k)=>LANG==='en'&&o[k+'_en']?o[k+'_en']:o[k];
+    const venue=L(e,'venue')||'';
+    const placeholderDate=!e.iso||e.iso.slice(0,4)==='2099';
+    const parts=[];
+    if(!placeholderDate){
+      parts.push('<button class="em-action" type="button" data-ics="'+i+'">'+(LANG==='el'?'Πρόσθεσε στο ημερολόγιο':'Add to calendar')+'</button>');
+    }
+    if(!isTextTBA(venue)&&!/online/i.test(venue)){
+      const q=encodeURIComponent((e.addr||venue)+', '+(LANG==='el'?'Κύπρος':'Cyprus'));
+      parts.push('<a class="em-action" href="https://www.google.com/maps/search/?api=1&query='+q+'" target="_blank" rel="noopener">'+(LANG==='el'?'Οδηγίες πρόσβασης':'Directions')+'</a>');
+    }
+    return parts.length?'<div class="em-actions">'+parts.join('')+'</div>':'';
+  }
+  function icsPad(n){return String(n).padStart(2,'0');}
+  function icsUTC(d){return d.getUTCFullYear()+icsPad(d.getUTCMonth()+1)+icsPad(d.getUTCDate())+'T'+icsPad(d.getUTCHours())+icsPad(d.getUTCMinutes())+'00Z';}
+  function icsDate(d){return d.getFullYear()+icsPad(d.getMonth()+1)+icsPad(d.getDate());}
+  function icsEsc(s){return String(s||'').replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\r?\n/g,'\\n');}
+  function plain(s){const d=document.createElement('div');d.innerHTML=String(s||'');return (d.textContent||'').replace(/\s+/g,' ').trim();}
+  function downloadIcs(i){
+    const e=events[i];if(!e||!e.iso)return;
+    const L=(o,k)=>LANG==='en'&&o[k+'_en']?o[k+'_en']:o[k];
+    const start=new Date(e.iso);
+    if(isNaN(start.getTime()))return;
+    const allDay=isTextTBA(L(e,'time'));
+    let dtLines;
+    if(allDay){
+      // No time announced yet, and possibly a two-day event → all-day VEVENT
+      const end=new Date(start);
+      const span=(e.d2&&e.d&&e.d2!==e.d)?(parseInt(e.d2,10)-parseInt(e.d,10)+1):1;
+      end.setDate(end.getDate()+(isNaN(span)||span<1?1:span));
+      dtLines='DTSTART;VALUE=DATE:'+icsDate(start)+'\r\nDTEND;VALUE=DATE:'+icsDate(end);
+    } else {
+      const end=new Date(start.getTime()+3*60*60*1000);
+      dtLines='DTSTART:'+icsUTC(start)+'\r\nDTEND:'+icsUTC(end);
+    }
+    const venue=L(e,'venue')||'';
+    const body=[
+      'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//APOEL 100//Celebrations//EL','CALSCALE:GREGORIAN','METHOD:PUBLISH',
+      'BEGIN:VEVENT',
+      'UID:apoel100-'+i+'-'+icsDate(start)+'@apoel100years.org',
+      'DTSTAMP:'+icsUTC(new Date()),
+      dtLines,
+      'SUMMARY:'+icsEsc(L(e,'t')),
+      'DESCRIPTION:'+icsEsc(plain(L(e,'desc')).slice(0,600)+' — '+SITE_URL),
+      isTextTBA(venue)?'':'LOCATION:'+icsEsc(venue),
+      'URL:'+SITE_URL,
+      'BEGIN:VALARM','TRIGGER:-P1D','ACTION:DISPLAY','DESCRIPTION:'+icsEsc(L(e,'t')),'END:VALARM',
+      'END:VEVENT','END:VCALENDAR'
+    ].filter(Boolean).join('\r\n');
+    const blob=new Blob([body],{type:'text/calendar;charset=utf-8'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url;a.download='apoel100-'+icsDate(start)+'.ics';
+    document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),2000);
+  }
+  document.getElementById('emBody').addEventListener('click',ev=>{
+    const b=ev.target.closest('[data-ics]');
+    if(b)downloadIcs(+b.dataset.ics);
+  });
+
   /* ---- SHARE EVENT ---- */
   const SITE_URL='https://www.apoel100years.org';
   function shareEvent(platform,i){
@@ -2232,7 +2396,7 @@ footer{
     if(url)window.open(url,'_blank','noopener,noreferrer');
   }
   document.addEventListener('click',e=>{const b=e.target.closest('.em-share-btn');if(b){shareEvent(b.dataset.share,+b.dataset.idx);}});
-  function closeEvent(){em.classList.remove('open');document.body.style.overflow='';}
+  function closeEvent(){em.classList.remove('open');document.body.style.overflow='';modalClosed(em);}
   /* ---- OPEN EVENT PHOTOS IN LIGHTBOX ---- */
   const albumModal=document.getElementById('albumModal');
   const albumGrid=document.getElementById('albumGrid');
@@ -2245,6 +2409,7 @@ footer{
     albumGrid.innerHTML=`<div class="album-loading">${LANG==='el'?'Φόρτωση…':'Loading…'}</div>`;
     albumModal.classList.add('open');
     document.body.style.overflow='hidden';
+    modalOpened(albumModal);
     // Build photo items: prefer folder-based (album), fallback to inline (photos)
     let photoItems=[];
     let localVideoItems=[];
@@ -2285,11 +2450,12 @@ footer{
   function closeAlbum(){
     albumModal.classList.remove('open');
     document.body.style.overflow='';
+    modalClosed(albumModal);
   }
   albumGrid.addEventListener('click',e=>{
     const b=e.target.closest('[data-album-idx]');if(!b)return;
     const idx=+b.dataset.albumIdx;
-    show(idx);lb.classList.add('open');
+    show(idx);lb.classList.remove('single');lb.classList.add('open');modalOpened(lb);
   });
   document.getElementById('albumClose').addEventListener('click',closeAlbum);
   albumModal.addEventListener('click',e=>{if(e.target===albumModal)closeAlbum();});
@@ -2349,6 +2515,7 @@ footer{
     return `
     <div class="post" style="--tilt:${tiltForStory(s)}deg" data-post="${idxInLoaded}">
       <div class="who"><span class="quote">“</span>${esc(s.who)}</div>
+      ${s.photo?`<img class="post-photo" loading="lazy" alt="" src="${SB_URL}/storage/v1/object/public/story-photos/${encodeURIComponent(s.photo)}" data-story-photo="1">`:''}
       <div class="txt">${esc(s.txt)}</div>
       <div class="post-share">
         <span class="post-share-label">${shareLbl}</span>
@@ -2367,9 +2534,9 @@ footer{
     p.set('order','created_at.desc');
     p.set('limit',String(PAGE_SIZE));
     p.set('offset',String(offset));
-    p.set('select','id,who,txt,created_at');
+    p.set('select','id,who,txt,created_at,photo');
     if(query&&query.trim()){
-      const q=query.trim().replace(/[%*]/g,'');
+      const q=query.trim().replace(/[%*(),]/g,'');
       p.set('or',`(who.ilike.*${q}*,txt.ilike.*${q}*)`);
     }
     const res=await fetch(`${SB_URL}/rest/v1/stories?${p}`,{
@@ -2452,6 +2619,13 @@ footer{
     if(url)window.open(url,'_blank','noopener,noreferrer');
   }
   wall.addEventListener('click',e=>{const b=e.target.closest('.pshare');if(b)shareStory(b.dataset.storyShare,+b.dataset.idx);});
+  wall.addEventListener('click',e=>{
+    const ph=e.target.closest('[data-story-photo]');
+    if(!ph)return;
+    const card=ph.closest('.post');
+    const who=card?card.querySelector('.who'):null;
+    openSinglePhoto(ph.getAttribute('src'),who?who.textContent.replace(/^[“"]/,''):'');
+  });
   // Live character counter for the story textarea
   (function(){
     const ta=document.getElementById('text');
@@ -2467,6 +2641,59 @@ footer{
     ta.addEventListener('input',update);
     update();
   })();
+  /* ---- STORY PHOTO (Supabase Storage) ---- */
+  const PHOTO_BUCKET='story-photos';
+  let storyPhotoFile=null;
+  const photoInput=document.getElementById('storyPhoto');
+  const photoPrev=document.getElementById('storyPhotoPreview');
+  const photoImgEl=document.getElementById('storyPhotoImg');
+  function clearStoryPhoto(){
+    storyPhotoFile=null;
+    if(photoInput)photoInput.value='';
+    if(photoPrev)photoPrev.classList.remove('on');
+    if(photoImgEl)photoImgEl.removeAttribute('src');
+  }
+  if(photoInput){
+    photoInput.addEventListener('change',()=>{
+      const f=photoInput.files&&photoInput.files[0];
+      if(!f){clearStoryPhoto();return;}
+      if(!/^image\//.test(f.type)){
+        showFormStatus(LANG==='el'?'⚠ Επιλέξτε αρχείο εικόνας.':'⚠ Please choose an image file.','error');clearStoryPhoto();return;}
+      if(f.size>8*1024*1024){
+        showFormStatus(LANG==='el'?'⚠ Η εικόνα ξεπερνά τα 8MB.':'⚠ The image is larger than 8MB.','error');clearStoryPhoto();return;}
+      storyPhotoFile=f;
+      photoImgEl.src=URL.createObjectURL(f);
+      photoPrev.classList.add('on');
+    });
+    document.getElementById('storyPhotoClear').addEventListener('click',clearStoryPhoto);
+  }
+  // Downscale in the browser: a 12MP phone photo would otherwise cost the visitor their data plan
+  function shrinkImage(file,max,quality){
+    max=max||1600;quality=quality||.82;
+    return new Promise((resolve,reject)=>{
+      const img=new Image();
+      img.onload=()=>{
+        const scale=Math.min(1,max/Math.max(img.width,img.height));
+        const w=Math.round(img.width*scale),h2=Math.round(img.height*scale);
+        const c=document.createElement('canvas');c.width=w;c.height=h2;
+        c.getContext('2d').drawImage(img,0,0,w,h2);
+        c.toBlob(b=>{URL.revokeObjectURL(img.src);b?resolve(b):reject(new Error('encode failed'));},'image/jpeg',quality);
+      };
+      img.onerror=()=>{URL.revokeObjectURL(img.src);reject(new Error('decode failed'));};
+      img.src=URL.createObjectURL(file);
+    });
+  }
+  async function uploadStoryPhoto(file){
+    const blob=await shrinkImage(file);
+    const path=Date.now()+'-'+Math.random().toString(36).slice(2,8)+'.jpg';
+    const res=await fetch(SB_URL+'/storage/v1/object/'+PHOTO_BUCKET+'/'+path,{
+      method:'POST',
+      headers:{apikey:SB_ANON,Authorization:'Bearer '+SB_ANON,'Content-Type':'image/jpeg','cache-control':'3600'},
+      body:blob
+    });
+    if(!res.ok)throw new Error(await res.text());
+    return path;
+  }
   document.getElementById('postBtn').addEventListener('click',async()=>{
     const btn=document.getElementById('postBtn');
     const spanEl=btn.querySelector('span');
@@ -2478,13 +2705,19 @@ footer{
     if(!t){textEl.focus();return;}
     btn.disabled=true;spanEl.textContent=LANG==='el'?'Αποστολή…':'Sending…';
     try{
+      let photoPath=null;
+      if(storyPhotoFile){
+        spanEl.textContent=LANG==='el'?'Ανέβασμα φωτογραφίας…':'Uploading photo…';
+        photoPath=await uploadStoryPhoto(storyPhotoFile);
+        spanEl.textContent=LANG==='el'?'Αποστολή…':'Sending…';
+      }
       const res=await fetch(`${SB_URL}/rest/v1/stories`,{
         method:'POST',
         headers:{apikey:SB_ANON,Authorization:`Bearer ${SB_ANON}`,'Content-Type':'application/json',Prefer:'return=minimal'},
-        body:JSON.stringify({who:n,txt:t})
+        body:JSON.stringify(photoPath?{who:n,txt:t,photo:photoPath}:{who:n,txt:t})
       });
       if(!res.ok)throw new Error(await res.text());
-      nameEl.value='';textEl.value='';
+      nameEl.value='';textEl.value='';clearStoryPhoto();
       showFormStatus(LANG==='el'?'✓ Ευχαριστούμε! Η ιστορία σας θα εμφανιστεί μετά από έγκριση.':'✓ Thank you! Your story will appear after approval.','success');
     }catch(err){
       console.error(err);
@@ -2577,8 +2810,8 @@ footer{
   function obs(){document.querySelectorAll('.panel.active .reveal').forEach(r=>io.observe(r));}
   document.querySelectorAll('[data-jump]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const b=document.querySelector(`nav button[data-tab="${a.dataset.jump}"]`);if(b)b.click();}));
   btns.forEach(b=>b.addEventListener('click',()=>{
-    btns.forEach(x=>x.classList.remove('active'));panels.forEach(p=>p.classList.remove('active'));
-    b.classList.add('active');
+    btns.forEach(x=>{x.classList.remove('active');x.setAttribute('aria-selected','false');});panels.forEach(p=>p.classList.remove('active'));
+    b.classList.add('active');b.setAttribute('aria-selected','true');
     const panel=document.getElementById(b.dataset.tab);
     panel.classList.add('active');
     document.querySelectorAll('.reveal').forEach(r=>r.classList.remove('in'));
@@ -2596,6 +2829,7 @@ footer{
     if(l===LANG)return;
     LANG=l;
     document.documentElement.lang=l;
+    try{localStorage.setItem('apoel100_lang',l);}catch(err){}
     // toggle button state
     document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.lang===l));
     // swap static texts
@@ -2604,12 +2838,21 @@ footer{
     // aria labels for lightbox/modal
     const A=(id,el_,en_)=>{const x=document.getElementById(id);if(x)x.setAttribute('aria-label',l==='en'?en_:el_);};
     A('lbx','Κλείσιμο','Close');A('lbPrev','Προηγούμενη','Previous');A('lbNext','Επόμενη','Next');A('emClose','Κλείσιμο','Close');
+    A('albumClose','Κλείσιμο','Close');A('audioBtn','Ενεργοποίηση/απενεργοποίηση ύμνου','Toggle the anthem');
+    A('storyPhotoClear','Αφαίρεση φωτογραφίας','Remove photo');A('accessBtn','Είσοδος','Enter');
+    document.querySelectorAll('nav[role=tablist]').forEach(n=>n.setAttribute('aria-label',l==='en'?'Sections':'Ενότητες'));
     // re-run dynamic renders
     renderGtools();drawGallery(curDecade);renderHistory();renderSpotlight();renderDepts();renderNextEvent();renderLedger();renderNews();render();
     // keep active gallery chip highlighted
     document.querySelectorAll('.gchip').forEach(c=>c.classList.toggle('on',c.dataset.d===curDecade));
   }
   document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+  // Restore the visitor's last choice (and honour an English browser on a first visit)
+  (function(){
+    let saved=null;
+    try{saved=localStorage.getItem('apoel100_lang');}catch(err){}
+    if(saved==='en')setLang('en');
+  })();
 
   /* ---- REVEAL COUNTDOWN (until 26/07/2026) ---- */
   (function(){
@@ -2665,7 +2908,7 @@ footer{
     const p=new URLSearchParams();
     if(status)p.set('status',`eq.${status}`);
     p.set('order','created_at.desc');
-    p.set('select','id,who,txt,status,created_at');
+    p.set('select','id,who,txt,status,created_at,photo');
     p.set('limit','200');
     const res=await fetch(`${SB_URL}/rest/v1/stories?${p}`,{
       headers:{apikey:SB_ANON,Authorization:`Bearer ${token}`,Prefer:'count=exact'}
@@ -2698,7 +2941,7 @@ footer{
     });
     if(!res.ok)throw new Error(await res.text());
   }
-  function fmtDate(s){try{const d=new Date(s);return d.toLocaleDateString('el-GR',{day:'2-digit',month:'2-digit',year:'numeric'})+' '+d.toLocaleTimeString('el-GR',{hour:'2-digit',minute:'2-digit'});}catch{return s;}}
+  function fmtDate(s){try{const loc=LANG==='en'?'en-GB':'el-GR';const d=new Date(s);return d.toLocaleDateString(loc,{day:'2-digit',month:'2-digit',year:'numeric'})+' '+d.toLocaleTimeString(loc,{hour:'2-digit',minute:'2-digit'});}catch{return s;}}
   async function refreshAdminCounts(){
     const t=loadAdminSession();if(!t)return;
     try{
@@ -2727,6 +2970,7 @@ footer{
           </div>
           <div class="admin-item-actions">${actions.join('')}</div>
           <div class="admin-item-txt">${esc(s.txt)}</div>
+          ${s.photo?`<div class="admin-item-photo"><a href="${SB_URL}/storage/v1/object/public/story-photos/${encodeURIComponent(s.photo)}" target="_blank" rel="noopener"><img src="${SB_URL}/storage/v1/object/public/story-photos/${encodeURIComponent(s.photo)}" alt="" loading="lazy"></a></div>`:''}
         </div>`;
       }).join('');
     }catch(e){
@@ -2758,11 +3002,11 @@ footer{
   function showAdminLogin(){adminLoginView.style.display='';adminMainView.style.display='none';setTimeout(()=>document.getElementById('adminEmail').focus(),80);}
   function showAdminMain(){adminLoginView.style.display='none';adminMainView.style.display='';renderAdminList();refreshAdminCounts();}
   function openAdmin(){
-    adminOverlay.classList.add('open');document.body.style.overflow='hidden';
+    adminOverlay.classList.add('open');document.body.style.overflow='hidden';modalOpened(adminOverlay);
     if(loadAdminSession())showAdminMain();else showAdminLogin();
   }
   function closeAdmin(){
-    adminOverlay.classList.remove('open');document.body.style.overflow='';
+    adminOverlay.classList.remove('open');document.body.style.overflow='';modalClosed(adminOverlay);
     if(location.hash==='#admin')history.replaceState(null,'',location.pathname+location.search);
   }
   document.getElementById('adminCloseBtn').addEventListener('click',closeAdmin);
@@ -2823,34 +3067,13 @@ footer{
       btn.classList.toggle('playing',!muted);
       btn.setAttribute('aria-pressed',String(!muted));
     }
-    // Try to autoplay with sound (usually blocked). If blocked, unmute on first user interaction.
+    // Σιωπή από προεπιλογή. Ο ύμνος παίζει μόνο αν το ζητήσει ο επισκέπτης (εικονίδιο ή προηγούμενη επίσκεψη).
     const pref=localStorage.getItem(PREF_KEY);
-    const userSaidMute=(pref==='off');
-    if(userSaidMute){
-      audio.muted=true;updateUI(true);
-      audio.play().catch(()=>{});
-    } else {
-      // Try direct autoplay first
+    if(pref==='on'){
       audio.muted=false;updateUI(false);
-      audio.play().catch(()=>{
-        // Blocked → silent play + unmute on first interaction
-        audio.muted=true;updateUI(true);
-        audio.play().catch(()=>{});
-        let armed=true;
-        const unmute=()=>{
-          if(!armed)return;armed=false;
-          audio.muted=false;updateUI(false);
-          audio.play().catch(()=>{});
-          document.removeEventListener('click',unmute,true);
-          document.removeEventListener('touchstart',unmute,true);
-          document.removeEventListener('keydown',unmute,true);
-          document.removeEventListener('scroll',unmute,true);
-        };
-        document.addEventListener('click',unmute,{capture:true,passive:true});
-        document.addEventListener('touchstart',unmute,{capture:true,passive:true});
-        document.addEventListener('keydown',unmute,{capture:true,passive:true});
-        document.addEventListener('scroll',unmute,{capture:true,passive:true});
-      });
+      audio.play().catch(()=>{audio.muted=true;updateUI(true);});
+    } else {
+      audio.muted=true;updateUI(true);
     }
     // Manual toggle from the icon
     btn.addEventListener('click',()=>{
