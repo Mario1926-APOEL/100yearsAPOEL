@@ -2308,10 +2308,6 @@ footer{
     if(!placeholderDate){
       parts.push('<button class="em-action" type="button" data-ics="'+i+'">'+(LANG==='el'?'Πρόσθεσε στο ημερολόγιο':'Add to calendar')+'</button>');
     }
-    if(!isTextTBA(venue)&&!/online/i.test(venue)){
-      const q=encodeURIComponent((e.addr||venue)+', '+(LANG==='el'?'Κύπρος':'Cyprus'));
-      parts.push('<a class="em-action" href="https://www.google.com/maps/search/?api=1&query='+q+'" target="_blank" rel="noopener">'+(LANG==='el'?'Οδηγίες πρόσβασης':'Directions')+'</a>');
-    }
     return parts.length?'<div class="em-actions">'+parts.join('')+'</div>':'';
   }
   function icsPad(n){return String(n).padStart(2,'0');}
