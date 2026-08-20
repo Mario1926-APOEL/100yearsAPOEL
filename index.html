@@ -2597,7 +2597,7 @@ footer{
     const dateLabel=LANG==='el'?'Ημερομηνία':'Date';
     const venueLabel=LANG==='el'?'Τοποθεσία':'Location';
     const eventUrl=`${SITE_URL}?event=${encodeURIComponent(i)}`;
-    const text=`${eventLabel}: ${title}\n${dateLabel}: ${weekday} ${shortDate}\n${venueLabel}: ${venue}\n${hashtag}\n${eventUrl}\ninfo@apoel100years.org`;
+    const text=`${eventLabel}: ${title}\n${dateLabel}: ${weekday} ${shortDate}\n${venueLabel}: ${venue}\n${hashtag}\ninfo@apoel100years.org\n\n${eventUrl}`;
     const enc=encodeURIComponent;
     let url='';
     if(platform==='whatsapp'){
@@ -2828,7 +2828,7 @@ footer{
     const title=LANG==='el'?'Οι Ιστορίες Σας':'Your Stories';
     const hashtag='#ONECENTURYONELEGEND #monoAPOEL #APOEL100';
     const storyUrl=`${SITE_URL}?story=${encodeURIComponent(s.id)}`;
-    const text=`Οι Ιστορίες Σας / Your Stories\n${s.txt}\n— ${s.who}\n\n${hashtag}\n${storyUrl}\ninfo@apoel100years.org`;
+    const text=`Οι Ιστορίες Σας / Your Stories:\n${s.txt}\n— ${s.who}\n${hashtag}\ninfo@apoel100years.org\n\n${storyUrl}`;
     const enc=encodeURIComponent;
     let url='';
     if(platform==='whatsapp'){url=`https://wa.me/?text=${enc(text)}`;}
