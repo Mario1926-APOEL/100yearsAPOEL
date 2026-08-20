@@ -2586,15 +2586,18 @@ footer{
     const L=(o,k)=>LANG==='en'&&o[k+'_en']?o[k+'_en']:o[k];
     const title=L(e,'t');
     const fullDate=L(e,'full')||'';
-    const weekday=fullDate.split(' ')[0]||'';
-    const isoDate=(e.iso||'').slice(0,10).split('-');
+    const isoYmd=(e.iso||'').slice(0,10);
+    const isoDate=isoYmd.split('-');
     const shortDate=isoDate.length===3?`${isoDate[2]}.${isoDate[1]}.${isoDate[0].slice(-2)}`:fullDate;
+    const weekdayRaw=isoYmd?new Intl.DateTimeFormat(LANG==='el'?'el-GR':'en-GB',{weekday:'long',timeZone:'UTC'}).format(new Date(`${isoYmd}T12:00:00Z`)):'';
+    const weekday=weekdayRaw?weekdayRaw.charAt(0).toUpperCase()+weekdayRaw.slice(1):'';
     const venue=L(e,'venue')||'';
     const hashtag='#ONECENTURYONELEGEND #monoAPOEL #APOEL100';
     const eventLabel=LANG==='el'?'Εκδήλωση':'Event';
     const dateLabel=LANG==='el'?'Ημερομηνία':'Date';
     const venueLabel=LANG==='el'?'Τοποθεσία':'Location';
-    const text=`${eventLabel}: ${title}\n${dateLabel}: ${weekday} ${shortDate}\n${venueLabel}: ${venue}\n${hashtag}\n${SITE_URL}\ninfo@apoel100years.org`;
+    const eventUrl=`${SITE_URL}?event=${encodeURIComponent(i)}`;
+    const text=`${eventLabel}: ${title}\n${dateLabel}: ${weekday} ${shortDate}\n${venueLabel}: ${venue}\n${hashtag}\n${eventUrl}\ninfo@apoel100years.org`;
     const enc=encodeURIComponent;
     let url='';
     if(platform==='whatsapp'){
@@ -2737,7 +2740,7 @@ footer{
   };
   function postCard(s,idxInLoaded,shareLbl){
     return `
-    <div class="post" style="--tilt:${tiltForStory(s)}deg" data-post="${idxInLoaded}">
+    <div class="post" style="--tilt:${tiltForStory(s)}deg" data-post="${idxInLoaded}" data-story-id="${esc(s.id||'')}">
       <div class="who"><span class="quote">“</span>${esc(s.who)}</div>
       ${s.photo?`<img class="post-photo" loading="lazy" alt="" src="${SB_URL}/storage/v1/object/public/story-photos/${encodeURIComponent(s.photo)}" data-story-photo="1">`:''}
       <div class="txt">${esc(s.txt)}</div>
@@ -2822,18 +2825,19 @@ footer{
   });
   function shareStory(platform,idx){
     const s=stories[idx];if(!s)return;
-    const title=LANG==='el'?'Η ιστορία μου με τον ΑΠΟΕΛ':'My APOEL story';
+    const title=LANG==='el'?'Οι Ιστορίες Σας':'Your Stories';
     const hashtag='#ONECENTURYONELEGEND #monoAPOEL #APOEL100';
-    const text=`"${s.txt}"\n— ${s.who}\n\n${hashtag}`;
+    const storyUrl=`${SITE_URL}?story=${encodeURIComponent(s.id)}`;
+    const text=`Οι Ιστορίες Σας / Your Stories\n${s.txt}\n— ${s.who}\n\n${hashtag}\n${storyUrl}\ninfo@apoel100years.org`;
     const enc=encodeURIComponent;
     let url='';
-    if(platform==='whatsapp'){url=`https://wa.me/?text=${enc(text+'\n'+SITE_URL)}`;}
-    else if(platform==='viber'){url=`viber://forward?text=${enc(text+'\n'+SITE_URL)}`;}
-    else if(platform==='twitter'){url=`https://twitter.com/intent/tweet?text=${enc(text)}&url=${enc(SITE_URL)}`;}
+    if(platform==='whatsapp'){url=`https://wa.me/?text=${enc(text)}`;}
+    else if(platform==='viber'){url=`viber://forward?text=${enc(text)}`;}
+    else if(platform==='twitter'){url=`https://twitter.com/intent/tweet?text=${enc(text)}`;}
     else if(platform==='instagram'){
-      const payload={title:title,text:text+'\n'+SITE_URL,url:SITE_URL};
+      const payload={title:title,text:text};
       if(navigator.share){navigator.share(payload).catch(()=>{});}
-      else if(navigator.clipboard){navigator.clipboard.writeText(text+'\n'+SITE_URL).then(()=>{
+      else if(navigator.clipboard){navigator.clipboard.writeText(text).then(()=>{
         const btn=document.querySelector(`.pshare[data-story-share="instagram"][data-idx="${idx}"]`);
         if(btn){btn.classList.add('copied');setTimeout(()=>btn.classList.remove('copied'),1800);}
         alert(LANG==='el'?'Το κείμενο αντιγράφηκε. Άνοιξε το Instagram και επικόλλησέ το.':'Text copied. Open Instagram and paste.');
@@ -2959,7 +2963,39 @@ footer{
     el.textContent=msg;el.className='form-status '+type;el.style.display='block';
     clearTimeout(el._t);el._t=setTimeout(()=>{el.style.display='none';},6000);
   }
-  renderFresh();
+async function openSharedContentFromUrl(){
+    const params=new URLSearchParams(location.search);
+    const eventParam=params.get('event');
+    if(eventParam!==null){
+      const eventIndex=Number(eventParam);
+      if(Number.isInteger(eventIndex)&&events[eventIndex]){
+        const eventTab=document.querySelector('nav button[data-tab="events"]');
+        if(eventTab)eventTab.click();
+        openEvent(eventIndex);
+      }
+      return;
+    }
+    const storyId=params.get('story');
+    if(!storyId)return;
+    const storyTab=document.querySelector('nav button[data-tab="stories"]');
+    if(storyTab)storyTab.click();
+    let target=stories.find(s=>s.id===storyId);
+    if(!target){
+      try{
+        const p=new URLSearchParams({id:`eq.${storyId}`,status:'eq.approved',select:'id,who,txt,created_at,photo'});
+        const res=await fetch(`${SB_URL}/rest/v1/stories?${p}`,{headers:{apikey:SB_ANON,Authorization:`Bearer ${SB_ANON}`}});
+        if(res.ok){const data=await res.json();target=data[0];}
+        if(target){stories.unshift(target);wall.innerHTML=stories.map((s,i)=>postCard(s,i,LANG==='el'?'Μοιράσου':'Share')).join('');}
+      }catch(err){console.error('Shared story load error',err);}
+    }
+    if(target){
+      requestAnimationFrame(()=>{
+        const card=wall.querySelector(`[data-story-id="${CSS.escape(storyId)}"]`);
+        if(card){card.style.outline='2px solid rgba(201,159,43,.85)';card.style.outlineOffset='4px';card.scrollIntoView({behavior:'smooth',block:'center'});}
+      });
+    }
+  }
+  renderFresh().then(openSharedContentFromUrl);
 
   // ---- VOLUNTEER FORM ----
   (function(){
