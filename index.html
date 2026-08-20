@@ -1242,6 +1242,22 @@ footer{
 
     <!-- SPOTLIGHT SECTIONS -->
     <div class="hsub-wrap">
+      <div id="hsubPansyfi" class="hsub" data-open="false">
+        <button class="hsub-head" type="button" aria-expanded="false">
+          <img class="hsub-bg-img" src="./pansyfi_bg.jpg" alt="" aria-hidden="true">
+          <span class="hsub-bg-tint"></span>
+          <span class="hsub-mark"></span>
+          <div class="hsub-title-wrap">
+            <h3 class="hsub-title serif" data-el="ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ" data-en="PAN.SY.FI. APOEL">ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ</h3>
+            <span class="hsub-count"></span>
+          </div>
+          <span class="hsub-chevron" aria-hidden="true">▾</span>
+        </button>
+        <div class="hsub-body">
+          <div id="hpansyfiArticle" class="pf-article"></div>
+        </div>
+      </div>
+
       <div id="hsubFigures" class="hsub" data-open="false">
         <button class="hsub-head" type="button" aria-expanded="false">
           <img class="hsub-bg-img" src="./historic_bw.jpg" alt="" aria-hidden="true">
@@ -1256,22 +1272,6 @@ footer{
         <div class="hsub-body">
           <p class="hsub-lead" data-el="Πίσω από κάθε τρόπαιο, κάθε νίκη και κάθε στιγμή θυσίας βρίσκονται άνθρωποι που σφράγισαν την πορεία του Θρύλου." data-en="Behind every trophy, every victory and every moment of sacrifice stand people who shaped the Legend.">Πίσω από κάθε τρόπαιο, κάθε νίκη και κάθε στιγμή θυσίας βρίσκονται άνθρωποι που σφράγισαν την πορεία του Θρύλου.</p>
           <div class="hcard-grid" id="hgridFigures"></div>
-        </div>
-      </div>
-
-      <div id="hsubPansyfi" class="hsub" data-open="false">
-        <button class="hsub-head" type="button" aria-expanded="false">
-          <img class="hsub-bg-img" src="./pansyfi_bg.jpg" alt="" aria-hidden="true">
-          <span class="hsub-bg-tint"></span>
-          <span class="hsub-mark"></span>
-          <div class="hsub-title-wrap">
-            <h3 class="hsub-title serif" data-el="ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ" data-en="PAN.SY.FI. APOEL">ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ</h3>
-            <span class="hsub-count"></span>
-          </div>
-          <span class="hsub-chevron" aria-hidden="true">▾</span>
-        </button>
-        <div class="hsub-body">
-          <div id="hpansyfiArticle" class="pf-article"></div>
         </div>
       </div>
 
@@ -2585,25 +2585,31 @@ footer{
     const e=events[i];if(!e)return;
     const L=(o,k)=>LANG==='en'&&o[k+'_en']?o[k+'_en']:o[k];
     const title=L(e,'t');
-    const date=L(e,'full');
-    const desc=L(e,'p');
+    const fullDate=L(e,'full')||'';
+    const weekday=fullDate.split(' ')[0]||'';
+    const isoDate=(e.iso||'').slice(0,10).split('-');
+    const shortDate=isoDate.length===3?`${isoDate[2]}.${isoDate[1]}.${isoDate[0].slice(-2)}`:fullDate;
+    const venue=L(e,'venue')||'';
     const hashtag='#ONECENTURYONELEGEND #monoAPOEL #APOEL100';
-    const text=`${title}\n${date}\n${desc}\n\n${hashtag}`;
+    const eventLabel=LANG==='el'?'Εκδήλωση':'Event';
+    const dateLabel=LANG==='el'?'Ημερομηνία':'Date';
+    const venueLabel=LANG==='el'?'Τοποθεσία':'Location';
+    const text=`${eventLabel}: ${title}\n${dateLabel}: ${weekday} ${shortDate}\n${venueLabel}: ${venue}\n${hashtag}\n${SITE_URL}\ninfo@apoel100years.org`;
     const enc=encodeURIComponent;
     let url='';
     if(platform==='whatsapp'){
-      url=`https://wa.me/?text=${enc(text+'\n'+SITE_URL)}`;
+      url=`https://wa.me/?text=${enc(text)}`;
     } else if(platform==='viber'){
-      url=`viber://forward?text=${enc(text+'\n'+SITE_URL)}`;
+      url=`viber://forward?text=${enc(text)}`;
     } else if(platform==='twitter'){
-      url=`https://twitter.com/intent/tweet?text=${enc(text)}&url=${enc(SITE_URL)}`;
+      url=`https://twitter.com/intent/tweet?text=${enc(text)}`;
     } else if(platform==='instagram'){
       // Instagram has no web share URL; use native share sheet or clipboard fallback
-      const payload={title:title,text:text+'\n'+SITE_URL,url:SITE_URL};
+      const payload={title:title,text:text};
       if(navigator.share){
         navigator.share(payload).catch(()=>{});
       } else if(navigator.clipboard){
-        navigator.clipboard.writeText(text+'\n'+SITE_URL).then(()=>{
+        navigator.clipboard.writeText(text).then(()=>{
           const btn=document.querySelector(`.em-share-btn[data-share="instagram"][data-idx="${i}"]`);
           if(btn){btn.classList.add('copied');setTimeout(()=>btn.classList.remove('copied'),1800);}
           alert(LANG==='el'?'Το κείμενο αντιγράφηκε. Άνοιξε το Instagram και επικόλλησέ το.':'Text copied. Open Instagram and paste.');
