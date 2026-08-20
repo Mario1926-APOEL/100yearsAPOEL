@@ -1135,6 +1135,13 @@ footer{
 #hsubPansyfi .hsub-head:hover{background:transparent;}
 #hsubPansyfi .hsub-bg-img{filter:contrast(1.08) brightness(.85) saturate(.9);opacity:.75;}
 #hsubPansyfi .hsub-bg-tint{background:linear-gradient(90deg,rgba(0,19,38,.72) 0%,rgba(0,11,24,.45) 55%,rgba(0,11,24,.3) 100%);}
+#hsubSociety{border:none;box-shadow:0 0 0 1px rgba(201,159,43,.18);}
+#hsubSociety[data-open="true"]{box-shadow:0 0 0 1px rgba(201,159,43,.45);}
+#hsubSociety .hsub-head{position:relative;overflow:hidden;border-radius:8px 8px 0 0;}
+#hsubSociety[data-open="false"] .hsub-head{border-radius:8px;}
+#hsubSociety .hsub-head:hover{background:transparent;}
+#hsubSociety .hsub-bg-img{filter:contrast(1.06) brightness(.82) saturate(.9);opacity:.78;}
+#hsubSociety .hsub-bg-tint{background:linear-gradient(90deg,rgba(0,19,38,.76) 0%,rgba(0,11,24,.5) 55%,rgba(0,11,24,.34) 100%);}
 
 /* Shared background image + tint styling */
 .hsub-bg-img{position:absolute;top:0;left:0;width:100%;height:100%;
@@ -1142,7 +1149,8 @@ footer{
   display:block;border:none;-webkit-user-drag:none;user-select:none;}
 .hsub-bg-tint{position:absolute;inset:0;z-index:1;pointer-events:none;}
 #hsubFigures .hsub-head > *:not(.hsub-bg-img):not(.hsub-bg-tint),
-#hsubPansyfi .hsub-head > *:not(.hsub-bg-img):not(.hsub-bg-tint){position:relative;z-index:2;}
+#hsubPansyfi .hsub-head > *:not(.hsub-bg-img):not(.hsub-bg-tint),
+#hsubSociety .hsub-head > *:not(.hsub-bg-img):not(.hsub-bg-tint){position:relative;z-index:2;}
 @media(max-width:560px){
   #hero::after{font-size:3.1rem;letter-spacing:.04em;}
   .logo-reveal{width:clamp(235px,78vw,340px);}
@@ -1269,6 +1277,8 @@ footer{
 
       <div id="hsubSociety" class="hsub" data-open="false">
         <button class="hsub-head" type="button" aria-expanded="false">
+          <img class="hsub-bg-img" src="./ethnikoi_agwnes.jpg" alt="" aria-hidden="true">
+          <span class="hsub-bg-tint"></span>
           <span class="hsub-mark"></span>
           <div class="hsub-title-wrap">
             <h3 class="hsub-title serif" data-el="Κοινωνική Παρουσία / Εθνικοί Αγώνες" data-en="Social Presence / National Struggles">Κοινωνική Παρουσία / Εθνικοί Αγώνες</h3>
