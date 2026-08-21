@@ -467,6 +467,10 @@
     color:var(--gold-deep);box-shadow:none;font-weight:700;}
   .cal-day.today{opacity:1;color:#fff;font-weight:800;box-shadow:inset 0 0 0 1px rgba(255,255,255,.65);}
   .cal-day.today.ev{color:#000b18;box-shadow:0 0 0 2px rgba(255,255,255,.8),0 4px 14px rgba(0,0,0,.35);}
+  .cal-today-btn{display:block;margin:12px auto 0;background:none;border:1px solid rgba(201,159,43,.32);
+    color:var(--gold-deep);font-family:inherit;font-size:.56rem;letter-spacing:.22em;
+    text-transform:uppercase;padding:7px 14px;cursor:pointer;transition:color .25s,border-color .25s;}
+  .cal-today-btn:hover{color:var(--gold-bright);border-color:var(--gold);}
   .cal-today-note{margin-top:12px;text-align:center;font-size:.56rem;letter-spacing:.22em;
     text-transform:uppercase;color:var(--gold-deep);}
   .cal-tba{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px;}
@@ -2514,20 +2518,12 @@ footer{
         else{const n=new Date(y,m+1,1);for(let d=1;d<=d2;d++)add(n.getFullYear(),n.getMonth(),d,i);}
       }
     });
-    const months=[...new Set(Object.keys(marks).map(k=>k.split('-').slice(0,2).join('-')))]
-      .sort((a,b)=>new Date(a+'-01')-new Date(b+'-01'));
     const now=new Date();
     const todayKey=now.getFullYear()+'-'+now.getMonth()+'-'+now.getDate();
     const nowMonthKey=now.getFullYear()+'-'+now.getMonth();
-    if(!renderCalendar._init){
-      let start=months.indexOf(nowMonthKey);
-      if(start<0)start=months.findIndex(k=>new Date(k+'-01')>=new Date(now.getFullYear(),now.getMonth(),1));
-      CAL_MONTH=start<0?0:start;
-      renderCalendar._init=1;
-    }
-    CAL_MONTH=Math.max(0,Math.min(months.length-1,CAL_MONTH));
+    // CAL_MONTH is an offset in months from the current month — the calendar runs forever
+    const shown=new Date(now.getFullYear(),now.getMonth()+CAL_MONTH,1);
     const monthHTML=(key=>{
-      if(!key)return '';
       const [y,m]=key.split('-').map(Number);
       const first=(new Date(y,m,1).getDay()+6)%7;
       const total=new Date(y,m+1,0).getDate();
@@ -2544,15 +2540,15 @@ footer{
       }
       const todayNote=key===nowMonthKey
         ?'<div class="cal-today-note">'+(LANG==='el'?'Σήμερα: '+now.getDate()+' '+MN[now.getMonth()]:'Today: '+MN[now.getMonth()]+' '+now.getDate())+'</div>'
-        :'';
+        :'<button class="cal-today-btn" type="button" data-cal-today="1">'+(LANG==='el'?'Σήμερα':'Today')+'</button>';
       return '<div class="cal-head">'
-        +'<button class="cal-arrow" type="button" data-cal-nav="-1"'+(CAL_MONTH<=0?' disabled':'')+' aria-label="'+(LANG==='el'?'Προηγούμενος μήνας':'Previous month')+'">‹</button>'
+        +'<button class="cal-arrow" type="button" data-cal-nav="-1" aria-label="'+(LANG==='el'?'Προηγούμενος μήνας':'Previous month')+'">‹</button>'
         +'<div class="cal-head-label">'+MN[m]+' '+y+'</div>'
-        +'<button class="cal-arrow" type="button" data-cal-nav="1"'+(CAL_MONTH>=months.length-1?' disabled':'')+' aria-label="'+(LANG==='el'?'Επόμενος μήνας':'Next month')+'">›</button></div>'
+        +'<button class="cal-arrow" type="button" data-cal-nav="1" aria-label="'+(LANG==='el'?'Επόμενος μήνας':'Next month')+'">›</button></div>'
         +'<div class="cal-month">'
         +'<div class="cal-dow" aria-hidden="true">'+DOW.map(x=>'<span>'+x+'</span>').join('')+'</div>'
         +'<div class="cal-days">'+cells+'</div>'+todayNote+'</div>';
-    })(months[CAL_MONTH]);
+    })(shown.getFullYear()+'-'+shown.getMonth());
     const tbaHTML=tba.length
       ?'<div class="cal-tba"><span class="cal-tba-k">'+(LANG==='el'?'Χωρίς ημερομηνία':'Date TBA')+'</span>'
         +tba.map(i=>'<button type="button" data-cal-event="'+i+'">'+L(events[i],'t')+'</button>').join('')+'</div>'
@@ -2563,6 +2559,7 @@ footer{
   document.getElementById('calendar').addEventListener('click',e=>{
     const nav=e.target.closest('[data-cal-nav]');
     if(nav){CAL_MONTH+=+nav.dataset.calNav;renderCalendar();return;}
+    if(e.target.closest('[data-cal-today]')){CAL_MONTH=0;renderCalendar();return;}
     const b=e.target.closest('[data-cal-event]');
     if(b)openEvent(+b.dataset.calEvent);
   });
@@ -2818,10 +2815,18 @@ footer{
       'BEGIN:VALARM','TRIGGER:-P1D','ACTION:DISPLAY','DESCRIPTION:'+icsEsc(L(e,'t')),'END:VALARM',
       'END:VEVENT','END:VCALENDAR'
     ].filter(Boolean).join('\r\n');
+    const fname='apoel100-'+icsDate(start)+'.ics';
+    const iOS=/iP(hone|ad|od)/.test(navigator.userAgent)
+      ||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+    if(iOS){
+      // Safari/iOS ignores blob downloads — a data: URI hands the file to Apple Calendar
+      window.location.href='data:text/calendar;charset=utf-8,'+encodeURIComponent(body);
+      return;
+    }
     const blob=new Blob([body],{type:'text/calendar;charset=utf-8'});
     const url=URL.createObjectURL(blob);
     const a=document.createElement('a');
-    a.href=url;a.download='apoel100-'+icsDate(start)+'.ics';
+    a.href=url;a.download=fname;
     document.body.appendChild(a);a.click();a.remove();
     setTimeout(()=>URL.revokeObjectURL(url),2000);
   }
