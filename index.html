@@ -1260,7 +1260,20 @@ footer{
 }
 
 </style>
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script>
+  // Explicit render, not implicit (class="cf-turnstile") — implicit widgets can't reliably be
+  // queried by their container's HTML id via turnstile.getResponse()/reset() (known Cloudflare
+  // API gotcha). Keeping the returned widgetId around is the only supported way to do that.
+  window.turnstileWidgetId = null;
+  window.onTurnstileLoad = function(){
+    if (typeof turnstile === 'undefined') return;
+    window.turnstileWidgetId = turnstile.render('#storyTurnstile', {
+      sitekey: '0x4AAAAAAEX9CYlypVRjt-cv',
+      theme: 'dark'
+    });
+  };
+</script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoad" async defer></script>
 </head>
 <body>
 
@@ -1446,7 +1459,7 @@ footer{
               <button type="button" class="story-file-clear" id="storyPhotoClear" aria-label="Αφαίρεση φωτογραφίας">×</button>
             </div>
           </div>
-          <div class="cf-turnstile" id="storyTurnstile" data-sitekey="0x4AAAAAAEX9CYlypVRjt-cv" data-theme="dark" style="margin:14px 0"></div>
+          <div id="storyTurnstile" style="margin:14px 0"></div>
           <button class="submit" id="postBtn"><span data-el="Δημοσίευση στον τοίχο" data-en="Post to the wall">Δημοσίευση στον τοίχο</span></button>
         </div>
       </div>
@@ -3190,15 +3203,17 @@ footer{
       img.src=URL.createObjectURL(file);
     });
   }
-  // Turnstile widget lives at #storyTurnstile (rendered by the api.js script tag in <head>).
+  // Turnstile widget lives at #storyTurnstile (explicitly rendered by onTurnstileLoad() in <head>,
+  // which stores the internal widgetId on window.turnstileWidgetId — that widgetId, not the
+  // container's HTML id, is what getResponse()/reset() actually need).
   // The token is single-use: every submit attempt (success or failure) must reset it before the next try.
   function getTurnstileToken(){
-    if(typeof turnstile==='undefined')return '';
-    try{return turnstile.getResponse('storyTurnstile')||'';}catch(err){return '';}
+    if(typeof turnstile==='undefined'||!window.turnstileWidgetId)return '';
+    try{return turnstile.getResponse(window.turnstileWidgetId)||'';}catch(err){return '';}
   }
   function resetTurnstile(){
-    if(typeof turnstile==='undefined')return;
-    try{turnstile.reset('storyTurnstile');}catch(err){}
+    if(typeof turnstile==='undefined'||!window.turnstileWidgetId)return;
+    try{turnstile.reset(window.turnstileWidgetId);}catch(err){}
   }
   const UPLOAD_ERROR_MSG={
     rate_limited:{el:'⚠ Πολλές προσπάθειες. Δοκιμάστε ξανά σε λίγο.',en:'⚠ Too many attempts. Try again shortly.'},
