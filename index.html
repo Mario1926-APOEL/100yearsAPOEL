@@ -1260,6 +1260,7 @@ footer{
 }
 
 </style>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
 
@@ -1445,6 +1446,7 @@ footer{
               <button type="button" class="story-file-clear" id="storyPhotoClear" aria-label="Αφαίρεση φωτογραφίας">×</button>
             </div>
           </div>
+          <div class="cf-turnstile" id="storyTurnstile" data-sitekey="0x4AAAAAAAEX9CY1ypVRjt-cv" data-theme="dark" style="margin:14px 0"></div>
           <button class="submit" id="postBtn"><span data-el="Δημοσίευση στον τοίχο" data-en="Post to the wall">Δημοσίευση στον τοίχο</span></button>
         </div>
       </div>
@@ -2976,6 +2978,13 @@ footer{
   // SUPABASE CONFIG
   const SB_URL='https://lgfzmutslgiwlufeqgrj.supabase.co';
   const SB_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxnZnptdXRzbGdpd2x1ZmVxZ3JqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUwODczMzcsImV4cCI6MjEwMDY2MzMzN30.eL8x7SicnTsKwm-jkWs0nYM3kp7dNyxukVsHkJ70vQQ';
+  // ---- R2 photo storage (replaces Supabase Storage for story photos) ----
+  // Public read domain connected to the R2 bucket (Cloudflare dashboard → R2 → bucket → Custom Domains)
+  const R2_PHOTO_BASE='https://photos.apoel100years.org/';
+  // Upload endpoint of the Cloudflare Worker in front of the R2 bucket (see worker.js). Replace with your
+  // deployed *.workers.dev URL, or a custom route (e.g. https://upload.apoel100years.org/upload), after `wrangler deploy`.
+  const WORKER_UPLOAD_URL='https://apoel100-photo-upload.mariosefthym.workers.dev/upload';
+  const photoUrl=p=>R2_PHOTO_BASE+encodeURIComponent(p);
   const stories=[];
   const wall=document.getElementById('wall');
   const esc=t=>t.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
@@ -3013,7 +3022,7 @@ footer{
     return `
     <div class="post" style="--tilt:${tiltForStory(s)}deg" data-post="${idxInLoaded}" data-story-id="${esc(s.id||'')}">
       <div class="who"><span class="quote">“</span>${esc(s.who)}</div>
-      ${s.photo?`<img class="post-photo" loading="lazy" alt="" src="${SB_URL}/storage/v1/object/public/story-photos/${encodeURIComponent(s.photo)}" data-story-photo="1">`:''}
+      ${s.photo?`<img class="post-photo" loading="lazy" alt="" src="${photoUrl(s.photo)}" data-story-photo="1">`:''}
       <div class="txt">${esc(s.txt)}</div>
       <div class="post-share">
         <span class="post-share-label">${shareLbl}</span>
@@ -3140,8 +3149,7 @@ footer{
     ta.addEventListener('input',update);
     update();
   })();
-  /* ---- STORY PHOTO (Supabase Storage) ---- */
-  const PHOTO_BUCKET='story-photos';
+  /* ---- STORY PHOTO (Cloudflare R2 via Worker) ---- */
   let storyPhotoFile=null;
   const photoInput=document.getElementById('storyPhoto');
   const photoPrev=document.getElementById('storyPhotoPreview');
@@ -3182,16 +3190,35 @@ footer{
       img.src=URL.createObjectURL(file);
     });
   }
-  async function uploadStoryPhoto(file){
+  // Turnstile widget lives at #storyTurnstile (rendered by the api.js script tag in <head>).
+  // The token is single-use: every submit attempt (success or failure) must reset it before the next try.
+  function getTurnstileToken(){
+    if(typeof turnstile==='undefined')return '';
+    try{return turnstile.getResponse('storyTurnstile')||'';}catch(err){return '';}
+  }
+  function resetTurnstile(){
+    if(typeof turnstile==='undefined')return;
+    try{turnstile.reset('storyTurnstile');}catch(err){}
+  }
+  const UPLOAD_ERROR_MSG={
+    rate_limited:{el:'⚠ Πολλές προσπάθειες. Δοκιμάστε ξανά σε λίγο.',en:'⚠ Too many attempts. Try again shortly.'},
+    captcha_failed:{el:'⚠ Η επαλήθευση απέτυχε. Δοκιμάστε ξανά.',en:'⚠ Verification failed. Please try again.'},
+    missing_captcha:{el:'⚠ Περιμένετε να ολοκληρωθεί η επαλήθευση και δοκιμάστε ξανά.',en:'⚠ Wait for verification to finish, then try again.'}
+  };
+  async function uploadStoryPhoto(file,token){
     const blob=await shrinkImage(file);
-    const path=Date.now()+'-'+Math.random().toString(36).slice(2,8)+'.jpg';
-    const res=await fetch(SB_URL+'/storage/v1/object/'+PHOTO_BUCKET+'/'+path,{
+    const res=await fetch(WORKER_UPLOAD_URL+'?token='+encodeURIComponent(token),{
       method:'POST',
-      headers:{apikey:SB_ANON,Authorization:'Bearer '+SB_ANON,'Content-Type':'image/jpeg','cache-control':'3600'},
+      headers:{'Content-Type':'image/jpeg'},
       body:blob
     });
-    if(!res.ok)throw new Error(await res.text());
-    return path;
+    if(!res.ok){
+      let code='upload_failed';
+      try{code=(await res.json()).error||code;}catch(err){}
+      throw new Error(code);
+    }
+    const data=await res.json();
+    return data.path;
   }
   document.getElementById('postBtn').addEventListener('click',async()=>{
     const btn=document.getElementById('postBtn');
@@ -3202,12 +3229,17 @@ footer{
     const n=nameEl.value.trim()||(LANG==='el'?'Φίλαθλος':'Fan');
     const t=textEl.value.trim();
     if(!t){textEl.focus();return;}
+    const token=getTurnstileToken();
+    if(!token){
+      showFormStatus(UPLOAD_ERROR_MSG.missing_captcha[LANG]||UPLOAD_ERROR_MSG.missing_captcha.en,'error');
+      return;
+    }
     btn.disabled=true;spanEl.textContent=LANG==='el'?'Αποστολή…':'Sending…';
     try{
       let photoPath=null;
       if(storyPhotoFile){
         spanEl.textContent=LANG==='el'?'Ανέβασμα φωτογραφίας…':'Uploading photo…';
-        photoPath=await uploadStoryPhoto(storyPhotoFile);
+        photoPath=await uploadStoryPhoto(storyPhotoFile,token);
         spanEl.textContent=LANG==='el'?'Αποστολή…':'Sending…';
       }
       const res=await fetch(`${SB_URL}/rest/v1/stories`,{
@@ -3220,8 +3252,10 @@ footer{
       showFormStatus(LANG==='el'?'✓ Ευχαριστούμε! Η ιστορία σας θα εμφανιστεί μετά από έγκριση.':'✓ Thank you! Your story will appear after approval.','success');
     }catch(err){
       console.error(err);
-      showFormStatus(LANG==='el'?'⚠ Παρουσιάστηκε σφάλμα. Δοκιμάστε ξανά.':'⚠ An error occurred. Try again.','error');
+      const msg=UPLOAD_ERROR_MSG[err.message];
+      showFormStatus(msg?(msg[LANG]||msg.en):(LANG==='el'?'⚠ Παρουσιάστηκε σφάλμα. Δοκιμάστε ξανά.':'⚠ An error occurred. Try again.'),'error');
     }finally{
+      resetTurnstile();
       btn.disabled=false;spanEl.textContent=origLabel;
     }
   });
@@ -3502,7 +3536,7 @@ async function openSharedContentFromUrl(){
           </div>
           <div class="admin-item-actions">${actions.join('')}</div>
           <div class="admin-item-txt">${esc(s.txt)}</div>
-          ${s.photo?`<div class="admin-item-photo"><a href="${SB_URL}/storage/v1/object/public/story-photos/${encodeURIComponent(s.photo)}" target="_blank" rel="noopener"><img src="${SB_URL}/storage/v1/object/public/story-photos/${encodeURIComponent(s.photo)}" alt="" loading="lazy"></a></div>`:''}
+          ${s.photo?`<div class="admin-item-photo"><a href="${photoUrl(s.photo)}" target="_blank" rel="noopener"><img src="${photoUrl(s.photo)}" alt="" loading="lazy"></a></div>`:''}
         </div>`;
       }).join('');
     }catch(e){
