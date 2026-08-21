@@ -2539,7 +2539,7 @@ footer{
         }
       }
       const todayNote=key===nowMonthKey
-        ?'<div class="cal-today-note">'+(LANG==='el'?'Σήμερα: '+now.getDate()+' '+MN[now.getMonth()]:'Today: '+MN[now.getMonth()]+' '+now.getDate())+'</div>'
+        ?'<div class="cal-today-note">'+(LANG==='el'?'Σήμερα':'Today')+': '+String(now.getDate()).padStart(2,'0')+'.'+String(now.getMonth()+1).padStart(2,'0')+'.'+now.getFullYear()+'</div>'
         :'<button class="cal-today-btn" type="button" data-cal-today="1">'+(LANG==='el'?'Σήμερα':'Today')+'</button>';
       return '<div class="cal-head">'
         +'<button class="cal-arrow" type="button" data-cal-nav="-1" aria-label="'+(LANG==='el'?'Προηγούμενος μήνας':'Previous month')+'">‹</button>'
