@@ -1259,6 +1259,35 @@ footer{
   .lrow{min-height:405px;}
 }
 
+
+/* Desktop hero: keep large artwork, allow lower hero content to continue below first viewport */
+@media (min-width: 921px){
+  #hero{
+    height:auto;
+    min-height:100vh;
+    min-height:100dvh;
+    overflow:visible;
+    justify-content:flex-start;
+    padding-top:0;
+    padding-bottom:54px;
+  }
+  .hero-inner{
+    width:100%;
+    padding-top:0;
+  }
+  .emblem-banner{
+    width:clamp(760px,64vw,880px);
+    max-width:64vw;
+    height:auto;
+    margin:0 auto 1.4em;
+  }
+  .scroll-hint{
+    position:static;
+    transform:none;
+    margin:20px auto 0;
+  }
+}
+
 </style>
 <script>
   // Explicit render, not implicit (class="cf-turnstile") — implicit widgets can't reliably be
