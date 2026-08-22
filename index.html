@@ -1289,36 +1289,64 @@ footer{
 }
 
 
-/* Mobile/tablet nav scroll hint */
+
+/* Mobile/tablet nav directional scroll hints */
 @media (max-width:920px){
+  nav{position:sticky;}
+  nav::before,
   nav::after{
-    content:"›";
     position:sticky;
-    right:0;
-    margin-left:-34px;
-    flex:0 0 34px;
+    top:0;
+    width:34px;
+    min-width:34px;
     height:54px;
     align-self:center;
     display:flex;
     align-items:center;
     justify-content:center;
-    z-index:5;
+    z-index:6;
     pointer-events:none;
     color:var(--gold-bright);
     font-family:Georgia,serif;
     font-size:1.65rem;
     line-height:1;
-    text-shadow:-8px 0 12px rgba(0,11,24,.95),-16px 0 18px rgba(0,11,24,.85);
-    background:linear-gradient(90deg,transparent,rgba(0,11,24,.92) 55%);
-    animation:navSwipeHint 1.8s ease-in-out infinite;
+    opacity:0;
+    transition:opacity .22s ease;
+  }
+  nav::before{
+    content:"‹";
+    left:0;
+    margin-right:-34px;
+    background:linear-gradient(90deg,rgba(0,11,24,.94) 45%,transparent);
+    text-shadow:8px 0 12px rgba(0,11,24,.95);
+  }
+  nav::after{
+    content:"›";
+    right:0;
+    margin-left:-34px;
+    background:linear-gradient(90deg,transparent,rgba(0,11,24,.94) 55%);
+    text-shadow:-8px 0 12px rgba(0,11,24,.95);
+  }
+  nav.nav-has-left::before{
+    opacity:1;
+    animation:navHintLeft 1.8s ease-in-out infinite;
+  }
+  nav.nav-has-right::after{
+    opacity:1;
+    animation:navHintRight 1.8s ease-in-out infinite;
   }
 }
-@keyframes navSwipeHint{
+@keyframes navHintLeft{
+  0%,100%{transform:translateX(3px);opacity:.48;}
+  50%{transform:translateX(-3px);opacity:1;}
+}
+@keyframes navHintRight{
   0%,100%{transform:translateX(-3px);opacity:.48;}
   50%{transform:translateX(3px);opacity:1;}
 }
 @media (prefers-reduced-motion:reduce){
-  nav::after{animation:none;}
+  nav.nav-has-left::before,
+  nav.nav-has-right::after{animation:none;}
 }
 
 </style>
@@ -3780,5 +3808,29 @@ async function openSharedContentFromUrl(){
     }
   })();
 </script>
+
+<script>
+(function(){
+  const nav = document.querySelector('nav');
+  if(!nav) return;
+
+  function updateNavScrollHints(){
+    if(window.innerWidth > 920){
+      nav.classList.remove('nav-has-left','nav-has-right');
+      return;
+    }
+    const maxScroll = nav.scrollWidth - nav.clientWidth;
+    const x = nav.scrollLeft;
+    nav.classList.toggle('nav-has-left', x > 4);
+    nav.classList.toggle('nav-has-right', x < maxScroll - 4);
+  }
+
+  nav.addEventListener('scroll', updateNavScrollHints, {passive:true});
+  window.addEventListener('resize', updateNavScrollHints);
+  window.addEventListener('load', updateNavScrollHints);
+  requestAnimationFrame(updateNavScrollHints);
+})();
+</script>
+
 </body>
 </html>
