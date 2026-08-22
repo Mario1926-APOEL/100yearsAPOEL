@@ -1259,6 +1259,53 @@ footer{
   .lrow{min-height:405px;}
 }
 
+
+/* Laptop / short viewport hero fix: preserve the original scale as much as possible at 100% zoom */
+@media (min-width: 921px) and (max-height: 900px){
+  #hero{
+    min-height:0;
+    height:100vh;
+    height:100dvh;
+    padding-top:8px;
+    padding-bottom:8px;
+  }
+  .hero-inner{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-height:0;
+  }
+  .emblem-banner{
+    width:min(64vw,880px);
+    max-height:74vh;
+    object-fit:contain;
+    margin-bottom:.7em;
+  }
+  .eyebrow{margin-bottom:.7em;}
+  .span-years{margin-top:.5em;}
+  .hero-actions{margin-top:1.35em;}
+  .scroll-hint{bottom:10px;}
+}
+
+@media (min-width: 921px) and (max-height: 760px){
+  .emblem-banner{
+    width:min(62vw,850px);
+    max-height:70vh;
+  }
+  .eyebrow{font-size:.63rem;letter-spacing:.52em;}
+  .span-years{font-size:.8rem;margin-top:.35em;}
+  .hero-actions{margin-top:1em;}
+  .hero-btn{padding:13px 22px;}
+  .scroll-hint{display:none;}
+}
+
+/* Desktop/laptop: hide hero Programme CTA; keep it on mobile */
+@media (min-width: 921px){
+  #hero .hero-actions{display:none;}
+}
+
 </style>
 <script>
   // Explicit render, not implicit (class="cf-turnstile") — implicit widgets can't reliably be
