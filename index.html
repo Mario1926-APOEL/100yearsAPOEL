@@ -1349,6 +1349,30 @@ footer{
   nav.nav-has-right::after{animation:none;}
 }
 
+
+/* PHOTOS — two automatic GitHub albums */
+.photo-albums{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;}
+.photo-album-card{position:relative;min-height:440px;padding:0;border:1px solid var(--hair);
+  background:var(--navy-deep);overflow:hidden;cursor:pointer;text-align:left;font-family:inherit;
+  color:#fff;transition:transform .4s,border-color .4s,box-shadow .4s;}
+.photo-album-card:hover,.photo-album-card:focus-visible{transform:translateY(-5px);border-color:var(--gold);
+  box-shadow:0 18px 50px rgba(0,0,0,.5),0 0 30px rgba(63,160,224,.15);outline:none;}
+.photo-album-cover{position:absolute;inset:0;background-position:center;background-size:cover;background-repeat:no-repeat;
+  transform:scale(1.01);transition:transform .7s,filter .7s;filter:grayscale(.18) contrast(1.04) brightness(.88);}
+.photo-album-card:hover .photo-album-cover{transform:scale(1.055);filter:grayscale(0) contrast(1.04) brightness(.94);}
+.photo-album-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,11,24,.08) 20%,rgba(0,11,24,.35) 55%,rgba(0,11,24,.94) 100%);}
+.photo-album-content{position:absolute;z-index:2;left:0;right:0;bottom:0;padding:30px 28px 28px;}
+.photo-album-k{display:block;color:var(--gold);font-size:.6rem;font-weight:700;letter-spacing:.25em;margin-bottom:8px;}
+.photo-album-content h3{font-family:"Bodoni MT","Didot",Georgia,serif;color:var(--gold-bright);
+  font-size:clamp(1.65rem,3vw,2.5rem);line-height:1.05;margin-bottom:14px;}
+.photo-album-open{font-size:.66rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#fff;}
+.photo-album-card.is-empty .photo-album-cover{background:linear-gradient(145deg,var(--bg2),var(--navy-deep));}
+@media(max-width:760px){
+  .photo-albums{grid-template-columns:1fr;gap:16px;}
+  .photo-album-card{min-height:340px;}
+  .photo-album-content{padding:24px 22px;}
+}
+
 </style>
 <script>
   // Explicit render, not implicit (class="cf-turnstile") — implicit widgets can't reliably be
@@ -1426,7 +1450,7 @@ footer{
   <button role="tab" aria-selected="false" aria-controls="news" data-tab="news" data-el="Ανακοινώσεις" data-en="Announcements">Ανακοινώσεις</button>
   <button role="tab" aria-selected="false" aria-controls="history" data-tab="history" data-el="Ιστορία" data-en="History">Ιστορία</button>
   <button role="tab" aria-selected="false" aria-controls="depts" data-tab="depts" data-el="Τμήματα" data-en="Departments">Τμήματα</button>
-  <button role="tab" aria-selected="false" aria-controls="gallery" data-tab="gallery" data-el="Φωτογραφίες" data-en="Photos" style="display:none">Φωτογραφίες</button>
+  <button role="tab" aria-selected="false" aria-controls="gallery" data-tab="gallery" data-el="Φωτογραφίες" data-en="Photos">Φωτογραφίες</button>
   <button role="tab" aria-selected="false" aria-controls="stories" data-tab="stories" data-el="Οι Ιστορίες σας" data-en="Your Stories">Οι Ιστορίες σας</button>
   <button role="tab" aria-selected="false" aria-controls="contact" data-tab="contact" data-el="Επικοινωνία" data-en="Contact">Επικοινωνία</button>
 </nav>
@@ -1513,11 +1537,32 @@ footer{
     </div>
   </section>
 
-  <section id="gallery" class="panel" style="display:none">
-    <div class="sec-head"><div class="k" data-el="Αναμνήσεις" data-en="Memories">Αναμνήσεις</div><h2 class="serif" data-el="Φωτογραφίες" data-en="Photos">Φωτογραφίες</h2>
-      <p class="lead" data-el="Εικόνες ενός αιώνα — από το 1926 ως σήμερα. Πατήστε για μεγέθυνση." data-en="Images of a century — from 1926 to today. Click to enlarge.">Εικόνες ενός αιώνα — από το 1926 ως σήμερα. Πατήστε για μεγέθυνση.</p></div>
-    <div class="gtools reveal" id="gtools"></div>
-    <div class="mosaic reveal" id="mosaic"></div>
+  <section id="gallery" class="panel">
+    <div class="sec-head">
+      <div class="k" data-el="Ένας Αιώνας σε Εικόνες" data-en="A Century in Images">Ένας Αιώνας σε Εικόνες</div>
+      <h2 class="serif" data-el="Φωτογραφίες" data-en="Photos">Φωτογραφίες</h2>
+      <p class="lead" data-el="Δύο όψεις της ίδιας ιστορίας — μέσα στους αγωνιστικούς χώρους και στις κερκίδες." data-en="Two sides of the same story — on the field and in the stands.">Δύο όψεις της ίδιας ιστορίας — μέσα στους αγωνιστικούς χώρους και στις κερκίδες.</p>
+    </div>
+    <div class="photo-albums reveal">
+      <button class="photo-album-card" type="button" data-gallery-album="agonistikes" data-title-el="Αγωνιστικές Φωτογραφίες" data-title-en="Match Photos">
+        <div class="photo-album-cover" data-album-cover="agonistikes"></div>
+        <div class="photo-album-shade"></div>
+        <div class="photo-album-content">
+          <span class="photo-album-k" data-el="ΣΤΟΝ ΑΓΩΝΙΣΤΙΚΟ ΧΩΡΟ" data-en="ON THE FIELD">ΣΤΟΝ ΑΓΩΝΙΣΤΙΚΟ ΧΩΡΟ</span>
+          <h3 data-el="Αγωνιστικές Φωτογραφίες" data-en="Match Photos">Αγωνιστικές Φωτογραφίες</h3>
+          <span class="photo-album-open" data-el="Δείτε το άλμπουμ →" data-en="View album →">Δείτε το άλμπουμ →</span>
+        </div>
+      </button>
+      <button class="photo-album-card" type="button" data-gallery-album="kosmos" data-title-el="Ο Κόσμος του ΑΠΟΕΛ" data-title-en="The APOEL Supporters">
+        <div class="photo-album-cover" data-album-cover="kosmos"></div>
+        <div class="photo-album-shade"></div>
+        <div class="photo-album-content">
+          <span class="photo-album-k" data-el="Η ΨΥΧΗ ΤΟΥ ΘΡΥΛΟΥ" data-en="THE SOUL OF THE LEGEND">Η ΨΥΧΗ ΤΟΥ ΘΡΥΛΟΥ</span>
+          <h3 data-el="Ο Κόσμος του ΑΠΟΕΛ" data-en="The APOEL Supporters">Ο Κόσμος του ΑΠΟΕΛ</h3>
+          <span class="photo-album-open" data-el="Δείτε το άλμπουμ →" data-en="View album →">Δείτε το άλμπουμ →</span>
+        </div>
+      </button>
+    </div>
   </section>
 
   <section id="events" class="panel active">
@@ -2234,12 +2279,13 @@ footer{
     gtools.innerHTML=`<button class="gchip on" data-d="all">${LANG==='el'?'Όλα':'All'}</button>`+
       decades.map(d=>`<button class="gchip" data-d="${d}">${d}s</button>`).join('');
   }
-  renderGtools();
+  if(gtools)renderGtools();
   const mosaic=document.getElementById('mosaic');
   let curDecade='all';
   function drawGallery(d='all'){
     curDecade=d;
     const list=d==='all'?photos:photos.filter(p=>decadeOf(p.y)===+d);
+    if(!mosaic)return;
     mosaic.innerHTML=list.map(p=>`
       <figure class="frame" data-photo="${p.f}">
         <span class="yr">${p.y}</span>
@@ -2248,7 +2294,7 @@ footer{
       </figure>`).join('');
   }
   drawGallery();
-  gtools.addEventListener('click',e=>{const b=e.target.closest('.gchip');if(!b)return;
+  if(gtools)gtools.addEventListener('click',e=>{const b=e.target.closest('.gchip');if(!b)return;
     document.querySelectorAll('.gchip').forEach(c=>c.classList.remove('on'));b.classList.add('on');drawGallery(b.dataset.d);});
 
   /* ---- LIGHTBOX ---- */
@@ -3090,6 +3136,59 @@ footer{
     });
     albumGrid.innerHTML=html;
   }
+
+  async function openGalleryAlbum(folder,title){
+    albumTitle.textContent=title;
+    albumGrid.innerHTML=`<div class="album-loading">${LANG==='el'?'Φόρτωση…':'Loading…'}</div>`;
+    albumModal.classList.add('open');
+    document.body.style.overflow='hidden';
+    modalOpened(albumModal);
+
+    const items=await loadAlbumFolder(folder);
+    const photoItems=items.filter(i=>!i.isVideo).map(i=>({src:i.src,c:''}));
+    const videoItems=items.filter(i=>i.isVideo).map(i=>({localVideo:i.src,c:''}));
+    order=[...photoItems,...videoItems];
+
+    if(!order.length){
+      albumGrid.innerHTML=`<div class="album-loading">${LANG==='el'?'Δεν βρέθηκαν φωτογραφίες ακόμη.':'No photos found yet.'}</div>`;
+      return;
+    }
+
+    let html='';
+    photoItems.forEach((p,idx)=>{
+      const origUrl=`./${p.src}`;
+      html+=`<button class="album-thumb" data-album-idx="${idx}" type="button" aria-label="Photo ${idx+1}"><img src="${thumbUrl(p.src)}" data-fallback="${origUrl}" alt="" loading="lazy" decoding="async" onerror="if(!this.dataset.tried){this.dataset.tried=1;this.src=this.dataset.fallback;}else{this.style.opacity=.15;}"></button>`;
+    });
+    if(videoItems.length&&photoItems.length)html+=`<div class="album-divider"><span>${LANG==='el'?'Βίντεο':'Videos'}</span></div>`;
+    videoItems.forEach((v,idx)=>{
+      const realIdx=photoItems.length+idx;
+      html+=`<button class="album-thumb video" data-album-idx="${realIdx}" type="button" aria-label="Video ${idx+1}"><video src="./${v.localVideo}#t=0.5" preload="metadata" muted playsinline></video></button>`;
+    });
+    albumGrid.innerHTML=html;
+  }
+
+  document.querySelectorAll('[data-gallery-album]').forEach(card=>{
+    card.addEventListener('click',()=>{
+      const title=LANG==='en'?card.dataset.titleEn:card.dataset.titleEl;
+      openGalleryAlbum(card.dataset.galleryAlbum,title);
+    });
+  });
+
+  async function loadGalleryCovers(){
+    for(const card of document.querySelectorAll('[data-gallery-album]')){
+      const folder=card.dataset.galleryAlbum;
+      const cover=card.querySelector('[data-album-cover]');
+      const items=await loadAlbumFolder(folder);
+      const first=items.find(i=>!i.isVideo);
+      if(first&&cover){
+        cover.style.backgroundImage=`url("${thumbUrl(first.src)}")`;
+      }else{
+        card.classList.add('is-empty');
+      }
+    }
+  }
+  loadGalleryCovers();
+
   function closeAlbum(){
     albumModal.classList.remove('open');
     document.body.style.overflow='';
