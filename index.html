@@ -1288,6 +1288,39 @@ footer{
   }
 }
 
+
+/* Mobile/tablet nav scroll hint */
+@media (max-width:920px){
+  nav::after{
+    content:"›";
+    position:sticky;
+    right:0;
+    margin-left:-34px;
+    flex:0 0 34px;
+    height:54px;
+    align-self:center;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:5;
+    pointer-events:none;
+    color:var(--gold-bright);
+    font-family:Georgia,serif;
+    font-size:1.65rem;
+    line-height:1;
+    text-shadow:-8px 0 12px rgba(0,11,24,.95),-16px 0 18px rgba(0,11,24,.85);
+    background:linear-gradient(90deg,transparent,rgba(0,11,24,.92) 55%);
+    animation:navSwipeHint 1.8s ease-in-out infinite;
+  }
+}
+@keyframes navSwipeHint{
+  0%,100%{transform:translateX(-3px);opacity:.48;}
+  50%{transform:translateX(3px);opacity:1;}
+}
+@media (prefers-reduced-motion:reduce){
+  nav::after{animation:none;}
+}
+
 </style>
 <script>
   // Explicit render, not implicit (class="cf-turnstile") — implicit widgets can't reliably be
