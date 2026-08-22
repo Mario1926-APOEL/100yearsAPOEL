@@ -1267,13 +1267,11 @@ footer{
   window.turnstileWidgetId = null;
   window.onTurnstileLoad = function(){
     if (typeof turnstile === 'undefined') return;
-    window.onTurnstileLoad = function(){
-    if (typeof turnstile === 'undefined') return;
     window.turnstileWidgetId = turnstile.render('#storyTurnstile', {
-      sitekey: 'YOUR_REAL_SITE_KEY_HERE',
+      sitekey: '0x4AAAAAAEYPGOBQgXcAHYYm', // TEMPORARY: Cloudflare's official "always passes" test key — remove once diagnosis is done
       theme: 'dark'
     });
-};
+  };
 </script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoad" async defer></script>
 </head>
