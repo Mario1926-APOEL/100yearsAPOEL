@@ -1545,7 +1545,7 @@ footer{
     </div>
     <div class="photo-albums reveal">
       <button class="photo-album-card" type="button" data-gallery-album="agonistikes" data-title-el="Αγωνιστικές Φωτογραφίες" data-title-en="Match Photos">
-        <div class="photo-album-cover" data-album-cover="agonistikes"></div>
+        <div class="photo-album-cover" data-album-cover="agonistikes" style="background-image:url('./albums/agonistikes/images (2).jfif')"></div>
         <div class="photo-album-shade"></div>
         <div class="photo-album-content">
           <span class="photo-album-k" data-el="ΣΤΟΝ ΑΓΩΝΙΣΤΙΚΟ ΧΩΡΟ" data-en="ON THE FIELD">ΣΤΟΝ ΑΓΩΝΙΣΤΙΚΟ ΧΩΡΟ</span>
@@ -1554,7 +1554,7 @@ footer{
         </div>
       </button>
       <button class="photo-album-card" type="button" data-gallery-album="kosmos" data-title-el="Ο Κόσμος του ΑΠΟΕΛ" data-title-en="The APOEL Supporters">
-        <div class="photo-album-cover" data-album-cover="kosmos"></div>
+        <div class="photo-album-cover" data-album-cover="kosmos" style="background-image:url('./albums/kosmos/1.jfif')"></div>
         <div class="photo-album-shade"></div>
         <div class="photo-album-content">
           <span class="photo-album-k" data-el="Η ΨΥΧΗ ΤΟΥ ΘΡΥΛΟΥ" data-en="THE SOUL OF THE LEGEND">Η ΨΥΧΗ ΤΟΥ ΘΡΥΛΟΥ</span>
@@ -3178,6 +3178,7 @@ footer{
     for(const card of document.querySelectorAll('[data-gallery-album]')){
       const folder=card.dataset.galleryAlbum;
       const cover=card.querySelector('[data-album-cover]');
+      if(folder==='kosmos' || folder==='agonistikes') continue;
       const items=await loadAlbumFolder(folder);
       const first=items.find(i=>!i.isVideo);
       if(first&&cover){
