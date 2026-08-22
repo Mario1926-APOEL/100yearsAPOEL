@@ -3,9 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
-<meta name="googlebot" content="noindex, nofollow">
-<!-- ΠΡΟΣΟΧΗ: αφαίρεσε τα δύο noindex meta tags παραπάνω την ημέρα της κυκλοφορίας -->
 <meta name="description" content="100 Χρόνια ΑΠΟΕΛ · 1926–2026. Το πρόγραμμα των εορτασμών, η ιστορία, τα τμήματα και οι ιστορίες των φιλάθλων του Θρύλου.">
 <meta name="theme-color" content="#001b35">
 <meta property="og:type" content="website">
@@ -1268,7 +1265,7 @@ footer{
   window.onTurnstileLoad = function(){
     if (typeof turnstile === 'undefined') return;
     window.turnstileWidgetId = turnstile.render('#storyTurnstile', {
-      sitekey: '0x4AAAAAAEYPGOBQgXcAHYYm', // TEMPORARY: Cloudflare's official "always passes" test key — remove once diagnosis is done
+      sitekey: '0x4AAAAAAEYPGOBQgXcAHYYm', 
       theme: 'dark'
     });
   };
@@ -2374,9 +2371,23 @@ footer{
   function hasAlbum(e){return typeof e.album==='string' && e.album.length>0;}
   function hasMedia(e){return hasPhotos(e) || hasVideos(e) || hasAlbum(e);}
 
-  // ---- ALBUM FOLDER LOADER (GitHub API) ----
+  // ---- ALBUM FOLDER LOADER ----
+  // Primary source: jsDelivr's Data API, which mirrors the GitHub repo through jsDelivr's CDN
+  // (cached at the edge, no per-visitor rate limit — unlike calling api.github.com directly).
+  // The whole repo file tree is fetched ONCE per page load and reused for every album, instead
+  // of firing one GitHub API request per album opened.
+  // Fallback: if jsDelivr is ever unreachable or returns something unexpected, we transparently
+  // fall back to the original api.github.com per-folder call, so an album never fails to load —
+  // worst case we're back to the old (rate-limited) behaviour for that one folder.
+  //
+  // NOTE: jsDelivr caches branch-based content for a while, so newly-pushed albums may take some
+  // time to appear. To force an immediate refresh after adding photos, purge the branch cache at
+  // https://www.jsdelivr.com/tools/purge (path: gh/REPO@main) or POST to
+  // https://purge.jsdelivr.net/gh/REPO@main/
   const REPO='Mario1926-APOEL/100yearsAPOEL';
+  const REPO_REF='main';
   const albumCache={};
+  let repoTreePromise=null;
   // Generate small thumbnail URL via weserv.nl (free image CDN) — original stays for lightbox
   function thumbUrl(path){
     if(location.protocol==='file:'||location.hostname==='localhost'||location.hostname==='127.0.0.1'){
@@ -2385,23 +2396,49 @@ footer{
     const abs=`${location.origin}/${path}`;
     return `https://wsrv.nl/?url=${encodeURIComponent(abs)}&w=500&h=500&fit=cover&q=72&we`;
   }
+  function loadRepoTree(){
+    if(repoTreePromise)return repoTreePromise;
+    repoTreePromise=fetch(`https://data.jsdelivr.com/v1/packages/gh/${REPO}@${REPO_REF}/flat`)
+      .then(res=>{if(!res.ok)throw new Error('HTTP '+res.status);return res.json();})
+      .then(data=>{
+        if(!data||!Array.isArray(data.files))throw new Error('Unexpected jsDelivr response shape');
+        return data.files; // [{name:'/albums/2011-mari/photo1.jpg', hash, size}, ...]
+      })
+      .catch(err=>{console.error('jsDelivr tree fetch failed, will fall back per-album:',err);repoTreePromise=null;return null;});
+    return repoTreePromise;
+  }
+  async function loadAlbumFolderViaGithub(folder,encoded){
+    const url=`https://api.github.com/repos/${REPO}/contents/albums/${encoded}?ref=${REPO_REF}`;
+    const res=await fetch(url);
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const files=await res.json();
+    const isImg=/\.(jpe?g|png|webp)$/i;
+    const isVid=/\.(mp4|mov|webm|m4v)$/i;
+    return (Array.isArray(files)?files:[])
+      .filter(f=>f.type==='file'&&(isImg.test(f.name)||isVid.test(f.name)))
+      .sort((a,b)=>a.name.localeCompare(b.name,undefined,{numeric:true,sensitivity:'base'}))
+      .map(f=>({src:`albums/${encoded}/${encodeURIComponent(f.name)}`,isVideo:isVid.test(f.name)}));
+  }
   async function loadAlbumFolder(folder){
     if(albumCache[folder])return albumCache[folder];
+    const encoded=folder.split('/').map(encodeURIComponent).join('/');
+    const isImg=/\.(jpe?g|png|webp)$/i;
+    const isVid=/\.(mp4|mov|webm|m4v)$/i;
     try{
-      const encoded=folder.split('/').map(encodeURIComponent).join('/');
-      const url=`https://api.github.com/repos/${REPO}/contents/albums/${encoded}?ref=main`;
-      const res=await fetch(url);
-      if(!res.ok)throw new Error('HTTP '+res.status);
-      const files=await res.json();
-      const isImg=/\.(jpe?g|png|webp)$/i;
-      const isVid=/\.(mp4|mov|webm|m4v)$/i;
-      const items=(Array.isArray(files)?files:[])
-        .filter(f=>f.type==='file'&&(isImg.test(f.name)||isVid.test(f.name)))
-        .sort((a,b)=>a.name.localeCompare(b.name,undefined,{numeric:true,sensitivity:'base'}))
-        .map(f=>({
-          src:`albums/${encoded}/${encodeURIComponent(f.name)}`,
-          isVideo:isVid.test(f.name)
-        }));
+      const tree=await loadRepoTree();
+      if(tree){
+        const prefix=`/albums/${folder}/`;
+        const items=tree
+          .filter(f=>typeof f.name==='string'&&f.name.startsWith(prefix))
+          .map(f=>f.name.slice(prefix.length))
+          .filter(name=>!name.includes('/')&&(isImg.test(name)||isVid.test(name)))
+          .sort((a,b)=>a.localeCompare(b,undefined,{numeric:true,sensitivity:'base'}))
+          .map(name=>({src:`albums/${encoded}/${encodeURIComponent(name)}`,isVideo:isVid.test(name)}));
+        albumCache[folder]=items;
+        return items;
+      }
+      // jsDelivr unavailable this session — fall back to the original per-folder GitHub call.
+      const items=await loadAlbumFolderViaGithub(folder,encoded);
       albumCache[folder]=items;
       return items;
     }catch(err){console.error('Album fetch failed:',err);return [];}
