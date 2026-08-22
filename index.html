@@ -1388,6 +1388,24 @@ footer{
   };
 </script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoad" async defer></script>
+
+<script>
+(function(){
+  try{
+    if('scrollRestoration' in history){
+      history.scrollRestoration='manual';
+    }
+    const navEntry = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    const isReload = navEntry && navEntry.type === 'reload';
+    if(isReload && !location.hash){
+      window.addEventListener('load',()=>{
+        requestAnimationFrame(()=>window.scrollTo(0,0));
+      },{once:true});
+    }
+  }catch(e){}
+})();
+</script>
+
 </head>
 <body>
 
