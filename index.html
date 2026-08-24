@@ -3130,8 +3130,16 @@ footer{
     const eventLabel=LANG==='el'?'Εκδήλωση':'Event';
     const dateLabel=LANG==='el'?'Ημερομηνία':'Date';
     const venueLabel=LANG==='el'?'Τοποθεσία':'Location';
-    const eventUrl=`${SITE_URL}?event=${encodeURIComponent(i)}`;
-    const text=`${eventLabel}: ${title}\n${dateLabel}: ${weekday} ${shortDate}\n${venueLabel}: ${venue}\n${hashtag}\ninfo@apoel100years.org\n\n${eventUrl}`;
+    // Event 4 uses the short /e/4 share URL, which resolves through Cloudflare
+    // to the event-specific Open Graph preview (flyer + metadata).
+    const isGraffitiEvent=i===4;
+    const shareTitle=isGraffitiEvent
+      ? (LANG==='el'?'Graffiti Day & Μουσική Βραδιά':'Graffiti Day & Music Night')
+      : title;
+    const eventUrl=isGraffitiEvent
+      ? `${SITE_URL}/e/4`
+      : `${SITE_URL}?event=${encodeURIComponent(i)}`;
+    const text=`${eventLabel}: ${shareTitle}\n\n${dateLabel}: ${weekday} ${shortDate}\n\n${venueLabel}: ${venue}\n\n${hashtag}\n\ninfo@apoel100years.org\n\n${eventUrl}`;
     const enc=encodeURIComponent;
     let url='';
     if(platform==='whatsapp'){
