@@ -656,6 +656,22 @@
   .em-share-btn svg{width:20px;height:20px;fill:currentColor;}
   .em-share-btn.copied{background:rgba(76,175,80,.2);border-color:rgba(76,175,80,.6);color:#8dd68f;}
 
+  /* Compact icon-only share rows — same visual language as the event modal */
+  .card-share{position:relative;z-index:4;display:flex;justify-content:center;gap:9px;
+    margin:-6px 22px 18px;padding-top:13px;border-top:1px solid rgba(201,159,43,.15);}
+  .card-share .em-share-btn{width:36px;height:36px;}
+  .card-share .em-share-btn svg{width:17px;height:17px;}
+  .lb-share{display:flex;justify-content:center;gap:10px;margin:15px auto 0;}
+  .lb-share .em-share-btn{width:40px;height:40px;}
+  .lb-share .em-share-btn svg{width:18px;height:18px;}
+  @media(max-width:600px){
+    .card-share{margin:-5px 18px 16px;padding-top:11px;gap:8px;}
+    .card-share .em-share-btn{width:35px;height:35px;}
+    .lb-share{gap:8px;margin-top:13px;}
+    .lb-share .em-share-btn{width:38px;height:38px;}
+  }
+
+
   /* STORIES */
   .wrap2{display:grid;grid-template-columns:1fr 1fr;gap:40px;}
   /* Stories - scrapbook wall style */
@@ -1706,6 +1722,8 @@ footer{
     <video id="lbLocalVideo" style="display:none" controls playsinline preload="metadata"></video>
     <span class="lb-badge" id="lbBadge" style="display:none">▶ VIDEO</span>
     <figcaption id="lbCap"></figcaption>
+    <div class="lb-share" id="lbShare" aria-label="Share">
+    </div>
   </figure>
 </div>
 
@@ -2118,6 +2136,7 @@ footer{
     });
     if(inFinal)parts.push('</div>');
     if(inClose)parts.push('</div>');
+    parts.push(`<div class="card-share" aria-label="${LANG==='el'?'Κοινοποίηση ΠΑΝ.ΣΥ.ΦΙ.':'Share PAN.SY.FI.'}">${pageShareIcons(LANG==='el'?'ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ':'PAN.SY.FI. APOEL',`${location.origin}#history`)}</div>`);
     c.innerHTML=parts.join('');
   }
 
@@ -2140,7 +2159,8 @@ footer{
         <h4 class="hcard-title">${L(f,'name')}</h4>
         <p class="hcard-role">${L(f,'role')}</p>
         <p class="hcard-desc">${L(f,'desc')}</p>
-      </article>`).join('');
+      </article>`).join('')+
+      `<div class="card-share" style="grid-column:1/-1" aria-label="${LANG==='el'?'Κοινοποίηση Θρύλων':'Share Legends'}">${pageShareIcons(LANG==='el'?'Οι Θρύλοι του ΑΠΟΕΛ':'APOEL Legends',`${location.origin}#history`)}</div>`;
     // PANSYFI article (renders long-form essay)
     renderPansyfiArticle();
     // Society moments
@@ -2149,7 +2169,8 @@ footer{
         <div class="hcard-year">${m.y}</div>
         <h4 class="hcard-title">${L(m,'t')}</h4>
         <p class="hcard-desc">${L(m,'desc')}</p>
-      </article>`).join('');
+      </article>`).join('')+
+      `<div class="card-share" style="grid-column:1/-1" aria-label="${LANG==='el'?'Κοινοποίηση κοινωνικής παρουσίας':'Share social presence'}">${pageShareIcons(LANG==='el'?'Κοινωνική Παρουσία / Εθνικοί Αγώνες':'Social Presence / National Struggles',`${location.origin}#history`)}</div>`;
     // Counts removed per user preference
   }
 
@@ -2324,6 +2345,8 @@ footer{
   let order=[],cur=0;
   function byFile(f){return photos.find(p=>p.f===f);}
   const lbLocalVideo=document.getElementById('lbLocalVideo');
+  const lbShare=document.getElementById('lbShare');
+  if(lbShare)lbShare.innerHTML=compactShareIcons('media');
   function show(i){
     const p=order[i];if(!p)return;cur=i;
     // Reset all media
@@ -2361,6 +2384,7 @@ footer{
     if(bd)bd.style.display='none';
     if(cp)cp.textContent=cap||'';
     img.style.display='';img.src=src;
+    order=[{src:src,c:cap||''}];cur=0;
     lb.classList.add('single','open');
     modalOpened(lb);
   }
@@ -2604,6 +2628,27 @@ footer{
     }catch(err){console.error('Album fetch failed:',err);return [];}
   }
 
+
+  function compactShareIcons(kind,idx=''){
+    const icons={
+      whatsapp:'<svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.437-9.884 9.888-9.884a9.825 9.825 0 016.988 2.898 9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884M20.463 3.488A11.815 11.815 0 0012.05.001C5.495.001.16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.892a11.821 11.821 0 00-3.48-8.414z"/></svg>',
+      viber:'<svg viewBox="0 0 24 24"><path d="M5 2h14a3 3 0 0 1 3 3v11a3 3 0 0 1-3 3h-5.6l-4.4 4v-4H5a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3zm11.9 12.1c-.2.6-1.1 1.2-1.7 1.3-.5.1-1.1.1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.8-4.2-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9 1-2.2.3-.3.5-.3.7-.3h.5c.2 0 .4-.1.7.5.2.6.8 2.1.9 2.3.1.2.1.3 0 .5s-.2.3-.3.4c-.2.2-.3.4-.5.5-.2.2-.3.3-.1.6.2.3.9 1.4 1.9 2.3 1.3 1.1 2.4 1.5 2.7 1.6.3.1.5.1.7-.1.2-.2.8-.9 1-1.2.2-.3.4-.2.6-.1.2.1 1.7.8 2 1 .3.1.5.2.6.3.1.2.1.8-.1 1.5z"/></svg>',
+      twitter:'<svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>',
+      instagram:'<svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>'
+    };
+    const attr=kind==='event'?` data-share-event="${idx}"`:' data-share-media="1"';
+    return ['whatsapp','viber','twitter','instagram'].map(p=>
+      `<button class="em-share-btn" type="button" data-share="${p}"${attr} title="${p==='twitter'?'X':p.charAt(0).toUpperCase()+p.slice(1)}" aria-label="${p==='twitter'?'X':p}">${icons[p]}</button>`
+    ).join('');
+  }
+
+  function pageShareIcons(title,url){
+    const safeTitle=String(title||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+    const safeUrl=String(url||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+    return compactShareIcons('media')
+      .replaceAll('data-share-media="1"',`data-share-page="1" data-share-title="${safeTitle}" data-share-url="${safeUrl}"`);
+  }
+
   function renderLedger(){
   const L=(o,k)=>LANG==='en'&&o[k+'_en']?o[k+'_en']:o[k];
   const now=new Date();
@@ -2648,6 +2693,9 @@ footer{
       ${statusHTML}
       <div class="ti"><h3>${L(e,'t')}</h3><p>${L(e,'p')}</p></div>
       ${buttonsHTML}
+      <div class="card-share" aria-label="${LANG==='el'?'Κοινοποίηση εκδήλωσης':'Share event'}">
+        ${compactShareIcons('event',i)}
+      </div>
     </div>`;
   };
   const upcomingHTML=upcomingIdx.map(renderCard).join('');
@@ -2937,6 +2985,9 @@ footer{
           <h3 class="news-title">${L(a,'title')}</h3>
           <p class="news-excerpt">${L(a,'excerpt')}</p>
           <div class="news-more">${LANG==='el'?'Διάβασε':'Read more'} <span>→</span></div>
+          <div class="card-share" aria-label="${LANG==='el'?'Κοινοποίηση ανακοίνωσης':'Share announcement'}">
+            ${pageShareIcons(L(a,'title'),`${location.origin}?news=${i}`)}
+          </div>
         </div>
       </article>`).join('');
   }
@@ -2952,7 +3003,7 @@ footer{
       <div class="em-desc">${L(a,'body')}</div>`;
     em.classList.add('open');document.body.style.overflow='hidden';modalOpened(em);
   }
-  newsList.addEventListener('click',e=>{const c=e.target.closest('[data-news]');if(c)openNews(+c.dataset.news);});
+  newsList.addEventListener('click',e=>{if(e.target.closest('.card-share'))return;const c=e.target.closest('[data-news]');if(c)openNews(+c.dataset.news);});
   newsList.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.closest('[data-news]')){e.preventDefault();openNews(+e.target.closest('[data-news]').dataset.news);}});
   renderNews();
   setupLedgerCarousels();
@@ -3105,7 +3156,77 @@ footer{
     }
     if(url)window.open(url,'_blank','noopener,noreferrer');
   }
-  document.addEventListener('click',e=>{const b=e.target.closest('.em-share-btn');if(b){shareEvent(b.dataset.share,+b.dataset.idx);}});
+  function sharePageItem(platform,title,url){
+    const shareUrl=url||location.href;
+    const shareTitle=title||document.title;
+    const message=`${shareTitle}\n#ONECENTURYONELEGEND #monoAPOEL #APOEL100\n\n${shareUrl}`;
+    const enc=encodeURIComponent;
+    let target='';
+    if(platform==='whatsapp')target=`https://wa.me/?text=${enc(message)}`;
+    else if(platform==='viber')target=`viber://forward?text=${enc(message)}`;
+    else if(platform==='twitter')target=`https://twitter.com/intent/tweet?text=${enc(message)}`;
+    else if(platform==='instagram'){
+      if(navigator.share)navigator.share({title:shareTitle,text:message,url:shareUrl}).catch(()=>{});
+      else if(navigator.clipboard)navigator.clipboard.writeText(message).then(()=>alert(LANG==='el'?'Το κείμενο αντιγράφηκε. Άνοιξε το Instagram και επικόλλησέ το.':'Text copied. Open Instagram and paste.'));
+      return;
+    }
+    if(target)window.open(target,'_blank','noopener,noreferrer');
+  }
+
+  function shareMedia(platform){
+    const p=order[cur];if(!p)return;
+    let mediaUrl='';
+    let title='';
+    if(p.yt){
+      mediaUrl=`https://youtu.be/${p.yt}`;
+      title=capOf(p)||(LANG==='el'?'Βίντεο ΑΠΟΕΛ':'APOEL Video');
+    }else if(p.localVideo){
+      mediaUrl=new URL(p.localVideo,SITE_URL+'/').href;
+      title=capOf(p)||(LANG==='el'?'Βίντεο ΑΠΟΕΛ':'APOEL Video');
+    }else{
+      const rel=p.src||src(p);
+      mediaUrl=new URL(rel,SITE_URL+'/').href;
+      title=capOf(p)||(LANG==='el'?'Φωτογραφία ΑΠΟΕΛ':'APOEL Photo');
+    }
+    const text=`${title}\n#ONECENTURYONELEGEND #monoAPOEL #APOEL100\n\n${mediaUrl}`;
+    const enc=encodeURIComponent;
+    let url='';
+    if(platform==='whatsapp'){
+      url=`https://wa.me/?text=${enc(text)}`;
+    }else if(platform==='viber'){
+      url=`viber://forward?text=${enc(text)}`;
+    }else if(platform==='twitter'){
+      url=`https://twitter.com/intent/tweet?text=${enc(text)}`;
+    }else if(platform==='instagram'){
+      const payload={title:title,text:text,url:mediaUrl};
+      if(navigator.share){
+        navigator.share(payload).catch(()=>{});
+      }else if(navigator.clipboard){
+        navigator.clipboard.writeText(text).then(()=>{
+          alert(LANG==='el'?'Το κείμενο αντιγράφηκε. Άνοιξε το Instagram και επικόλλησέ το.':'Text copied. Open Instagram and paste.');
+        });
+      }
+      return;
+    }
+    if(url)window.open(url,'_blank','noopener,noreferrer');
+  }
+
+  document.addEventListener('click',e=>{
+    const b=e.target.closest('.em-share-btn');
+    if(!b)return;
+    e.preventDefault();
+    e.stopPropagation();
+    if(b.hasAttribute('data-share-media')){
+      shareMedia(b.dataset.share);
+      return;
+    }
+    if(b.hasAttribute('data-share-page')){
+      sharePageItem(b.dataset.share,b.dataset.shareTitle,b.dataset.shareUrl);
+      return;
+    }
+    const eventIdx=b.hasAttribute('data-share-event')?+b.dataset.shareEvent:+b.dataset.idx;
+    if(Number.isFinite(eventIdx))shareEvent(b.dataset.share,eventIdx);
+  });
   function closeEvent(){em.classList.remove('open');document.body.style.overflow='';modalClosed(em);}
   /* ---- OPEN EVENT PHOTOS IN LIGHTBOX ---- */
   const albumModal=document.getElementById('albumModal');
@@ -3225,6 +3346,7 @@ footer{
   albumModal.addEventListener('click',e=>{if(e.target===albumModal)closeAlbum();});
   addEventListener('keydown',e=>{if(e.key==='Escape'&&albumModal.classList.contains('open')&&!lb.classList.contains('open'))closeAlbum();});
   document.getElementById('ledger').addEventListener('click',e=>{
+    if(e.target.closest('.card-share'))return;
     const pb=e.target.closest('button[data-action="photos"]');
     if(pb){e.stopPropagation();const r=pb.closest('[data-event]');if(r)openEventAlbum(+r.dataset.event);return;}
     const r=e.target.closest('[data-event]');if(r)openEvent(+r.dataset.event);
