@@ -3079,19 +3079,8 @@ footer{
     const eventLabel=LANG==='el'?'Εκδήλωση':'Event';
     const dateLabel=LANG==='el'?'Ημερομηνία':'Date';
     const venueLabel=LANG==='el'?'Τοποθεσία':'Location';
-    // Share through the Cloudflare /share endpoint so social apps can read
-    // event-specific Open Graph metadata and the event flyer.
-    const imageFile=(e.img && e.img!=='tba') ? `${e.img}.jpg` : 'emblem_reveal.jpg';
-    const shareParams=new URLSearchParams({
-      event:String(i),
-      title:title,
-      date:`${weekday} ${shortDate}`.trim(),
-      time:L(e,'time')||'',
-      venue:venue,
-      image:imageFile
-    });
-    const eventUrl=`${SITE_URL}/share?${shareParams.toString()}`;
-    const text=`🔵🟡 *100 ΧΡΟΝΙΑ ΑΠΟΕΛ* 🟡🔵\n\n*${title}*\n\n📅 ${weekday} ${shortDate}${L(e,'time')?` · ${L(e,'time')}`:''}\n📍 ${venue}\n\n${hashtag}\n\ninfo@apoel100years.org\n\n🔗 ${eventUrl}`;
+    const eventUrl=`${SITE_URL}?event=${encodeURIComponent(i)}`;
+    const text=`${eventLabel}: ${title}\n${dateLabel}: ${weekday} ${shortDate}\n${venueLabel}: ${venue}\n${hashtag}\ninfo@apoel100years.org\n\n${eventUrl}`;
     const enc=encodeURIComponent;
     let url='';
     if(platform==='whatsapp'){
