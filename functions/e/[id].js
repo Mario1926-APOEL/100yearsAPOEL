@@ -1,5 +1,5 @@
 const EVENTS = {
-  "1": {
+  "4": {
     title: "Graffiti Day & Μουσική Βραδιά",
     description: "Τρίτη 01.09.26 · ΠΑΝ.ΣΥ.ΦΙ ΑΠΟΕΛ",
     image: "IMG-99e8a16c72aa7cde08be3d74dacfcbbd-V.jpg",
