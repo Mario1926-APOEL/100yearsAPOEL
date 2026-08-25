@@ -2688,7 +2688,7 @@ footer{
     const res=await fetch(url);
     if(!res.ok)throw new Error('HTTP '+res.status);
     const files=await res.json();
-    const isImg=/\.(jpe?g|png|webp)$/i;
+    const isImg=/\.(jpe?g|jfif|png|webp)$/i;
     const isVid=/\.(mp4|mov|webm|m4v)$/i;
     return (Array.isArray(files)?files:[])
       .filter(f=>f.type==='file'&&(isImg.test(f.name)||isVid.test(f.name)))
@@ -2698,7 +2698,7 @@ footer{
   async function loadAlbumFolder(folder){
     if(albumCache[folder])return albumCache[folder];
     const encoded=folder.split('/').map(encodeURIComponent).join('/');
-    const isImg=/\.(jpe?g|png|webp)$/i;
+    const isImg=/\.(jpe?g|jfif|png|webp)$/i;
     const isVid=/\.(mp4|mov|webm|m4v)$/i;
     try{
       const tree=await loadRepoTree();
