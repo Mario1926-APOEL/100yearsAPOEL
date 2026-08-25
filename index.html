@@ -120,25 +120,35 @@
   .hero-btn.secondary{border-color:var(--hair);color:var(--ash)}
   .hero-btn.secondary:hover{color:#070707;background:var(--gold-bright)}
 
+  /* Μία χαμηλή οριζόντια λωρίδα: κλειδί · τίτλος · στοιχεία · countdown · κουμπί */
   .next-event{border:1px solid var(--hair);background:linear-gradient(160deg,var(--bg2),var(--navy-deep));
-    margin-bottom:34px;padding:28px 30px;display:grid;grid-template-columns:1.25fr 1fr;gap:24px;align-items:center;
+    margin-bottom:20px;padding:9px 14px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;
     position:relative;overflow:hidden;}
-  .next-event::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,var(--gold-deep),var(--gold-bright),var(--gold-deep));}
-  .next-k{font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:8px;}
-  .next-title{font-family:"Bodoni MT","Didot",Georgia,serif;color:var(--gold-bright);font-size:clamp(1.7rem,4vw,2.8rem);line-height:1.05;}
-  .next-meta{color:var(--ash);margin-top:10px;font-weight:300;}
-  .next-info{margin-top:18px;display:inline-block;background:linear-gradient(135deg,var(--gold-bright),var(--gold));
-    color:var(--navy-deep);text-decoration:none;font-size:.72rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
-    padding:12px 26px;border:none;cursor:pointer;font-family:inherit;
+  .next-event::before{content:"";position:absolute;inset:0 0 auto 0;height:2px;background:linear-gradient(90deg,var(--gold-deep),var(--gold-bright),var(--gold-deep));}
+  .ne-main{flex:1 1 260px;min-width:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:3px 10px;}
+  .next-k{flex:0 0 auto;margin:0;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-bright);
+    border:1px solid var(--gold-deep);padding:3px 8px;}
+  .next-title{font-family:"Bodoni MT","Didot",Georgia,serif;color:var(--gold-bright);font-size:clamp(.98rem,2vw,1.3rem);line-height:1.15;}
+  .next-meta{color:var(--ash);margin:0;font-weight:300;font-size:.84rem;}
+  .next-info{flex:0 0 auto;margin:0;display:inline-block;background:linear-gradient(135deg,var(--gold-bright),var(--gold));
+    color:var(--navy-deep);text-decoration:none;font-size:.58rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+    padding:6px 14px;border:none;cursor:pointer;font-family:inherit;
     transition:transform .3s,box-shadow .3s,filter .3s;}
   .next-info:hover{filter:brightness(1.08);box-shadow:0 8px 22px rgba(224,181,58,.35);transform:translateY(-2px);}
-  .countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
-  .cd-box{border:1px solid var(--hair);padding:16px 10px;text-align:center;background:rgba(212,175,55,.04);}
-  .cd-box b{display:block;font-family:"Bodoni MT",serif;color:var(--gold-bright);font-size:2rem;line-height:1;}
-  .cd-box span{display:block;margin-top:7px;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-deep);}
-  .event-status{display:inline-block;margin-bottom:12px;border:1px solid var(--gold-deep);color:var(--gold-bright);
-    padding:5px 9px;font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;}
-  @media(max-width:760px){.next-event{grid-template-columns:1fr}.countdown{grid-template-columns:repeat(2,1fr)}}
+  /* Διακριτικό countdown: μία σειρά, χωρίς πλαίσια, ώστε να μην επισκιάζει την εκδήλωση. */
+  .countdown{flex:0 0 auto;display:flex;align-items:baseline;gap:0;}
+  .cd-box{position:relative;border:none;background:none;padding:0 11px;text-align:center;}
+  .cd-box+.cd-box::before{content:"";position:absolute;left:0;top:6%;bottom:26%;width:1px;background:var(--hair);opacity:.65;}
+  .cd-box b{display:block;font-family:"Bodoni MT",serif;color:var(--gold-bright);font-size:1.7rem;line-height:1;font-variant-numeric:tabular-nums;}
+  .cd-box span{display:block;margin-top:3px;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-deep);opacity:.85;}
+  .event-status{display:inline-block;margin-bottom:8px;border:1px solid var(--gold-deep);color:var(--gold-bright);
+    padding:3px 7px;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;}
+  @media(max-width:760px){.next-event{padding:9px 12px;gap:7px 12px;margin-bottom:16px;}
+    .ne-main{flex:1 1 100%;}
+    .countdown{flex:1 1 auto;justify-content:flex-start;}
+    .cd-box{flex:1;padding:0 5px;}
+    .cd-box b{font-size:1.5rem;}
+    .cd-box span{font-size:.5rem;}}
 
   @keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
   @keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
@@ -2537,7 +2547,7 @@ footer{
         {yt:'607B3E4hiiI'},
         {yt:'DrQOmIBh5XA'}
       ]},
-    {d:'01',m:'Σεπ',m_en:'SEP',d2:'01',m2:'Σεπ',m2_en:'SEP',iso:'2026-09-01T18:00:00',status:'Προσεχώς',status_en:'Upcoming',img:'graffiti_day_2026',t:'Graffiti Day & Μουσική Βραδιά 100 Χρόνων',t_en:'100 Years Graffiti Day & Music Night',p:'Graffiti, ζωντανή λαϊκή μουσική και DJ set στον Κεντρικό Σύνδεσμο.',p_en:'Graffiti, live Laiki music and a DJ set at the Central Supporters Club.',pin:'ΠΑΝ.ΣΥ.ΦΙ ΑΠΟΕΛ · 01/09/2026',cta:'Πληροφορίες',cta_en:'Info',
+    {d:'01',m:'Σεπ',m_en:'SEP',d2:'01',m2:'Σεπ',m2_en:'SEP',iso:'2026-09-01T18:00:00',status:'Προσεχώς',status_en:'Upcoming',img:'graffiti_day_2026',t:'1.9.26 GRAFFITI DAY & ΜΟΥΣΙΚΗ ΒΡΑΔΙΑ',t_en:'1.9.26 GRAFFITI DAY & MUSIC NIGHT',p:'Graffiti, ζωντανή λαϊκή μουσική και DJ set στον Κεντρικό Σύνδεσμο.',p_en:'Graffiti, live Laiki music and a DJ set at the Central Supporters Club.',pin:'ΠΑΝ.ΣΥ.ΦΙ ΑΠΟΕΛ · 01/09/2026',cta:'Πληροφορίες',cta_en:'Info',
       full:'Τρίτη 01 Σεπτεμβρίου 2026',full_en:'Tuesday 01 September 2026',time:'18:00',time_en:'18:00',venue:'Κεντρικός Σύνδεσμος ΠΑΝ.ΣΥ.ΦΙ ΑΠΟΕΛ',venue_en:'PAN.SY.FI. APOEL Central Supporters Club',
       desc:'<b>GRAFFITI DAY &amp; ΜΟΥΣΙΚΗ ΒΡΑΔΙΑ 100 ΧΡΟΝΩΝ — 1/9/26</b><br><br>Προσκαλούμε τους απανταχού αδελφούς ΑΠΟΕΛίστες σε ακόμα μία μέρα εορτασμού για τα 100 χρόνια του Θρύλου. Η εκδήλωση θα πραγματοποιηθεί στον Κεντρικό Σύνδεσμο την Τρίτη, με συμβολική ημερομηνία, <b>1/9/26</b>.<br><br>Η αρχή θα γίνει με τον σχεδιασμό Graffiti συνδεδεμένο με τα 100 Χρόνια του Θρύλου και άλλου οπαδικού υλικού. Η εκδήλωση θα ολοκληρωθεί με την <b>Μουσική Βραδιά με Ζωντανή Λαϊκή Μουσική</b>, ενώ κατά την διάρκεια όλης της εκδήλωσης θα υπάρχει <b>DJ set</b>. Προφανώς και στην εκδήλωση θα υπάρχει άφθονο ποτό και φαγητό για όλους.<br><br>Ενημερώνουμε επίσης ότι στο χώρο θα υπάρχουν συνεργεία <b>εγγραφών μελών του Συνδέσμου</b>, καθώς και αγορές <b>εισιτηρίων διαρκείας του Φούτσαλ</b> και <b>εγγραφές του Σωματείου</b>. Παράλληλα θα διατίθενται λαχνοί στην τιμή των <b>€10</b>, τα οποία θα κληρωθούν με τους νικητές να κερδίζουν πλούσια δώρα. Επίσης, στην εκδήλωση θα βραβευτούν από τον Σύνδεσμο <b>Ιστορικές προσωπικότητες του ΑΠΟΕΛ</b>.<br><br><i>ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ</i>',
       desc_en:'<b>100 YEARS GRAFFITI DAY &amp; MUSIC NIGHT — 1/9/26</b><br><br>We invite APOEL brothers everywhere to one more day of celebration for the Legend\'s 100 years. The event will take place at the Central Supporters Club on Tuesday, on the symbolic date of <b>1/9/26</b>.<br><br>It begins with Graffiti design tied to the 100 Years of the Legend, along with other fan material. The event closes with a <b>Music Night featuring live Laiki music</b>, while a <b>DJ set</b> runs throughout. Plenty of food and drink will be available for everyone.<br><br>There will also be desks for <b>Supporters Club membership registrations</b>, <b>Futsal season ticket</b> purchases and <b>Club registrations</b>. Raffle tickets will be sold at <b>€10</b>, with winners taking rich prizes. The Supporters Club will also honour <b>historic APOEL personalities</b> during the event.<br><br><i>PAN.SY.FI. APOEL</i>',
@@ -2614,10 +2624,10 @@ footer{
     const cdL=LANG==='el'?['Ημέρες','Ώρες','Λεπτά','Δευτ.']:['Days','Hours','Min','Sec'];
     const kLabel=upcoming?(LANG==='el'?'Επόμενη εκδήλωση':'Next event'):(LANG==='el'?'Πρόγραμμα εορτασμών':'Anniversary programme');
     const infoLbl=LANG==='el'?'Πληροφορίες':'Info';
-    box.innerHTML=`<div><div class="next-k">${kLabel}</div>
-      <div class="next-title">${L(featured,'t')}</div><div class="next-meta">${L(featured,'full')} · ${L(featured,'time')} · ${L(featured,'venue')}</div>
-      <button class="next-info" type="button" data-next-info="${featured.idx}">${infoLbl}</button></div>
-      <div class="countdown" id="countdown"><div class="cd-box"><b>—</b><span>${cdL[0]}</span></div><div class="cd-box"><b>—</b><span>${cdL[1]}</span></div><div class="cd-box"><b>—</b><span>${cdL[2]}</span></div><div class="cd-box"><b>—</b><span>${cdL[3]}</span></div></div>`;
+    box.innerHTML=`<div class="ne-main"><span class="next-k">${kLabel}</span>
+      <span class="next-title">${L(featured,'t')}</span><span class="next-meta">${L(featured,'full')} · ${L(featured,'time')} · ${L(featured,'venue')}</span></div>
+      <div class="countdown" id="countdown"><div class="cd-box"><b>—</b><span>${cdL[0]}</span></div><div class="cd-box"><b>—</b><span>${cdL[1]}</span></div><div class="cd-box"><b>—</b><span>${cdL[2]}</span></div><div class="cd-box"><b>—</b><span>${cdL[3]}</span></div></div>
+      <button class="next-info" type="button" data-next-info="${featured.idx}">${infoLbl}</button>`;
     if(!upcoming)return;
     const tick=()=>{
       const diff=Math.max(0,featured.date-new Date());
