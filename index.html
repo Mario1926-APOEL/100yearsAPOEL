@@ -1783,6 +1783,77 @@ footer{
   const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
   let LANG='el';
 
+  /* ---- SHARE CORE (hoisted so every renderer can build absolute, canonical links) ---- */
+  const SITE_URL='https://www.apoel100years.org';
+  const HASHTAGS='#ONECENTURYONELEGEND #monoAPOEL #APOEL100';
+  const SHARE_MAIL='info@apoel100years.org';
+  const DEFAULT_SHARE_IMG=SITE_URL+'/emblem_reveal.jpg';
+  const absUrl=u=>{if(!u)return '';try{return new URL(u,SITE_URL+'/').href;}catch(_){return u;}};
+  const copiedFx=btn=>{if(!btn)return;btn.classList.add('copied');setTimeout(()=>btn.classList.remove('copied'),1800);};
+
+  // Pull the media down so the native share sheet can attach the REAL file
+  // (this is the only way a recipient gets an actual photo rather than a link preview).
+  async function shareFileFor(url){
+    if(!url||!navigator.canShare||!navigator.share)return null;
+    try{
+      const res=await fetch(url,{mode:'cors'});
+      if(!res.ok)return null;
+      const blob=await res.blob();
+      if(!blob.size||blob.size>15*1024*1024)return null;          // skip huge videos
+      if(!/^(image|video)\//.test(blob.type||''))return null;
+      let name=(url.split('/').pop()||'apoel100').split('?')[0];
+      if(!/\.\w{3,4}$/.test(name))name+='.'+((blob.type.split('/')[1]||'jpg').split('+')[0]);
+      const file=new File([blob],decodeURIComponent(name),{type:blob.type});
+      return navigator.canShare({files:[file]})?file:null;
+    }catch(_){return null;}
+  }
+
+  // X counts every link as 23 chars. Trim the longest free-text line instead of letting X reject the tweet.
+  function fitTweet(text){
+    const LIMIT=280,URL_COST=23;
+    const urls=text.match(/https?:\/\/\S+/g)||[];
+    let cost=text.length;
+    urls.forEach(u=>{cost-=u.length;cost+=URL_COST;});
+    if(cost<=LIMIT)return text;
+    const over=cost-LIMIT+1;
+    const lines=text.split('\n');
+    let li=-1,max=0;
+    lines.forEach((l,i)=>{if(!/https?:\/\//.test(l)&&l.length>max){max=l.length;li=i;}});
+    if(li<0)return text;
+    lines[li]=lines[li].slice(0,Math.max(20,lines[li].length-over-1)).trimEnd()+'…';
+    return lines.join('\n');
+  }
+
+  /* Single dispatcher for every share button on the site.
+     message = the exact text the recipient reads (already ends with the page link)
+     imageUrl = photo/cover to show. It is placed on the FIRST line because WhatsApp,
+     Viber and Messenger build their preview from the first link in the message. */
+  async function runShare(platform,{title,message,imageUrl,attachUrl,pageUrl,btn}){
+    const media=absUrl(imageUrl);
+    const body=media?media+'\n\n'+message:message;
+    const enc=encodeURIComponent;
+    if(platform==='whatsapp'){window.open('https://wa.me/?text='+enc(body),'_blank','noopener,noreferrer');return;}
+    if(platform==='viber'){window.open('viber://forward?text='+enc(body),'_blank','noopener,noreferrer');return;}
+    if(platform==='twitter'){window.open('https://twitter.com/intent/tweet?text='+enc(fitTweet(body)),'_blank','noopener,noreferrer');return;}
+    // Instagram / native: try to attach the real file first, then plain sheet, then clipboard
+    const file=await shareFileFor(absUrl(attachUrl)||media);
+    if(file){
+      try{await navigator.share({title:title,text:message,files:[file]});return;}
+      catch(err){if(err&&err.name==='AbortError')return;}
+    }
+    if(navigator.share){
+      try{await navigator.share({title:title,text:body,url:pageUrl||undefined});return;}
+      catch(err){if(err&&err.name==='AbortError')return;}
+    }
+    if(navigator.clipboard){
+      try{
+        await navigator.clipboard.writeText(body);
+        copiedFx(btn);
+        alert(LANG==='el'?'Το κείμενο αντιγράφηκε. Άνοιξε το Instagram και επικόλλησέ το.':'Text copied. Open Instagram and paste.');
+      }catch(_){}
+    }
+  }
+
   /* ---- MODAL FOCUS MANAGEMENT (trap + return) ---- */
   const FOCUSABLE='a[href],button:not([disabled]),input:not([disabled]):not([type=hidden]),select:not([disabled]),textarea:not([disabled]),video[controls],[tabindex]:not([tabindex="-1"])';
   const modalReturn=new WeakMap();
@@ -2136,7 +2207,7 @@ footer{
     });
     if(inFinal)parts.push('</div>');
     if(inClose)parts.push('</div>');
-    parts.push(`<div class="card-share" aria-label="${LANG==='el'?'Κοινοποίηση ΠΑΝ.ΣΥ.ΦΙ.':'Share PAN.SY.FI.'}">${pageShareIcons(LANG==='el'?'ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ':'PAN.SY.FI. APOEL',`${location.origin}#history`)}</div>`);
+    parts.push(`<div class="card-share" aria-label="${LANG==='el'?'Κοινοποίηση ΠΑΝ.ΣΥ.ΦΙ.':'Share PAN.SY.FI.'}">${pageShareIcons(LANG==='el'?'ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ':'PAN.SY.FI. APOEL',`${SITE_URL}/#history`,DEFAULT_SHARE_IMG)}</div>`);
     c.innerHTML=parts.join('');
   }
 
@@ -2160,7 +2231,7 @@ footer{
         <p class="hcard-role">${L(f,'role')}</p>
         <p class="hcard-desc">${L(f,'desc')}</p>
       </article>`).join('')+
-      `<div class="card-share" style="grid-column:1/-1" aria-label="${LANG==='el'?'Κοινοποίηση Θρύλων':'Share Legends'}">${pageShareIcons(LANG==='el'?'Οι Θρύλοι του ΑΠΟΕΛ':'APOEL Legends',`${location.origin}#history`)}</div>`;
+      `<div class="card-share" style="grid-column:1/-1" aria-label="${LANG==='el'?'Κοινοποίηση Θρύλων':'Share Legends'}">${pageShareIcons(LANG==='el'?'Οι Θρύλοι του ΑΠΟΕΛ':'APOEL Legends',`${SITE_URL}/#history`,DEFAULT_SHARE_IMG)}</div>`;
     // PANSYFI article (renders long-form essay)
     renderPansyfiArticle();
     // Society moments
@@ -2170,7 +2241,7 @@ footer{
         <h4 class="hcard-title">${L(m,'t')}</h4>
         <p class="hcard-desc">${L(m,'desc')}</p>
       </article>`).join('')+
-      `<div class="card-share" style="grid-column:1/-1" aria-label="${LANG==='el'?'Κοινοποίηση κοινωνικής παρουσίας':'Share social presence'}">${pageShareIcons(LANG==='el'?'Κοινωνική Παρουσία / Εθνικοί Αγώνες':'Social Presence / National Struggles',`${location.origin}#history`)}</div>`;
+      `<div class="card-share" style="grid-column:1/-1" aria-label="${LANG==='el'?'Κοινοποίηση κοινωνικής παρουσίας':'Share social presence'}">${pageShareIcons(LANG==='el'?'Κοινωνική Παρουσία / Εθνικοί Αγώνες':'Social Presence / National Struggles',`${SITE_URL}/#history`,DEFAULT_SHARE_IMG)}</div>`;
     // Counts removed per user preference
   }
 
@@ -2201,8 +2272,8 @@ footer{
   /* ---- DEPARTMENTS / SPORTS ---- */
   const deptsMain=[
     {el:'Ποδόσφαιρο',en:'Football',titles:[{n:29,el:'Πρωταθλήματα',en:'Titles'},{n:21,el:'Κύπελλα',en:'Cups'},{n:15,el:'Ασπίδες',en:'Super Cups'}],
-      desc:'Στις <b>8 Νοεμβρίου 1926</b>, γράφεται η πρώτη σελίδα μιας ιστορίας που συμπληρώνει πλέον έναν ολόκληρο αιώνα. Περίπου 35–40 άτομα συμμετέχουν στην ιδρυτική συνέλευση του Ποδοσφαιρικού Ομίλου Ελλήνων Λευκωσίας (ΠΟΕΛ), υλοποιώντας την επιμονή του <b>Διομήδη Συμεωνίδη</b> για τη δημιουργία ενός καθαρά ελληνικού ποδοσφαιρικού σωματείου στη Λευκωσία. Δύο χρόνια αργότερα, τον Ιανουάριο του 1928, ο Όμιλος μετονομάστηκε σε Αθλητικός Ποδοσφαιρικός Όμιλος Ελλήνων Λευκωσίας (ΑΠΟΕΛ), με την προσθήκη του όρου «Αθλητικός» για να ανοίξει τον δρόμο στην καλλιέργεια και άλλων αθλημάτων υπό τη σκέπη του.<br><br>Το Τμήμα Ποδοσφαίρου παραμένει η αφετηρία της εκατοντάχρονης διαδρομής. Από την κατάκτηση του <b>πρώτου επίσημου Πρωταθλήματος</b> υπό την αιγίδα της ΚΟΠ το <b>1936</b>, μέχρι σήμερα, γενιές ποδοσφαιριστών φόρεσαν τη γαλαζοκίτρινη φανέλα, συνδέοντας το όνομά τους με τίτλους, μεγάλες διακρίσεις και ιστορικές στιγμές που σημάδεψαν όχι μόνο την πορεία του ΑΠΟΕΛ, αλλά και την ιστορία του κυπριακού ποδοσφαίρου.<br><br>Ξεχωριστό κεφάλαιο αποτελεί η παρουσία του ΑΠΟΕΛ στην <b>Α΄ Εθνική Κατηγορία της Ελλάδας</b>. Την περίοδο <b>1973–1974</b>, ο ΑΠΟΕΛ τερμάτισε στη 13η θέση και εξασφάλισε την παραμονή του, αποτελώντας τη μοναδική κυπριακή ομάδα που πέτυχε αγωνιστικά κάτι τέτοιο στον θεσμό. Όμως, η βάρβαρη τουρκική εισβολή του <b>1974</b> και οι συνέπειές της ανέκοψαν την πορεία αυτή, στερώντας από τον ΑΠΟΕΛ τη δυνατότητα να συνεχίσει στην Α΄ Εθνική την επόμενη περίοδο.<br><br>Παράλληλα, η ευρωπαϊκή καταξίωση είχε ήδη αρχίσει από το <b>1963</b>, όταν ο ΑΠΟΕΛ πραγματοποίησε την παρθενική του συμμετοχή στις ευρωπαϊκές διοργανώσεις απέναντι στη νορβηγική <b>Gjøvik-Lyn</b>, για τον θεσμό του Κυπέλλου Κυπελλούχων Ευρώπης, πετυχαίνοντας την πρώτη ευρωπαϊκή πρόκριση ελληνικής ομάδας σε δεύτερο γύρο.<br><br>Δεκαετίες αργότερα, ο ΑΠΟΕΛ καθιερώνεται στις κορυφαίες ευρωπαϊκές διοργανώσεις, με <b>εννέα παρουσίες</b> σε Φάσεις Ομίλων και League Phase:<br>• <b>UEFA Champions League:</b> 2009–2010, 2011–2012, 2014–2015 και 2017–2018<br>• <b>UEFA Europa League:</b> 2013–2014, 2015–2016, 2016–2017 και 2019–2020<br>• <b>UEFA Conference League:</b> 2024–2025<br><br>Δύο ευρωπαϊκές πορείες κατέχουν ξεχωριστή θέση στην καρδιά κάθε ΑΠΟΕΛίστα. Η περίοδος <b>2016–2017</b>, όταν ο ΑΠΟΕΛ προχώρησε μέχρι τη φάση των «16» του Europa League, αποκλείοντας την ισπανική <b>Athletic Bilbao</b>, καθώς και η κορυφαία στιγμή, όταν το <b>2011–2012</b>, ως πρώτος στον Όμιλό του στο Champions League, απέκλεισε την γαλλική <b>Lyon</b> στη φάση των «16» και έφτασε μέχρι τα προημιτελικά, όπου αντιμετώπισε τη <b>Real Madrid</b>.<br><br>Από το παλαιό ΓΣΠ και το Μακάριο Στάδιο, στο νέο ΓΣΠ και στα μεγαλύτερα γήπεδα της Ευρώπης, το τμήμα ποδοσφαίρου του ΑΠΟΕΛ κουβαλά έναν αιώνα ιστορίας, κατακτήσεων και ευρωπαϊκών υπερβάσεων.',
-      desc_en:'On <b>8 November 1926</b>, the first page is written of a story that now spans an entire century. About 35–40 people attend the founding assembly of the Football Club of Greeks of Nicosia (POEL), realising the persistence of <b>Diomidis Symeonidis</b> for the creation of a purely Greek football club in Nicosia. Two years later, in January 1928, the Club was renamed to the Athletic Football Club of Greeks of Nicosia (APOEL), with the addition of "Athletic" to open the way for cultivating other sports under its umbrella.<br><br>The Football Department remains the starting point of the century-long journey. From winning the <b>first official Championship</b> under CFA in <b>1936</b> to today, generations of footballers wore the blue-and-yellow jersey, linking their names to titles, major distinctions and historic moments that marked not only APOEL\'s path but Cypriot football itself.<br><br>A special chapter is APOEL\'s presence in the <b>Greek First Division</b>. In <b>1973–1974</b>, APOEL finished 13th and secured survival, becoming the only Cypriot team to achieve this competitively in the institution. However, the barbaric Turkish invasion of <b>1974</b> and its consequences cut short this journey, depriving APOEL of the chance to continue in Greek A the following season.<br><br>European recognition had already begun in <b>1963</b>, when APOEL made its European debut against Norwegian side <b>Gjøvik-Lyn</b> in the European Cup Winners\' Cup, achieving the first European qualification of a Greek team to a second round.<br><br>Decades later, APOEL established itself in Europe\'s top competitions, with <b>nine appearances</b> in Group and League Phases:<br>• <b>UEFA Champions League:</b> 2009–2010, 2011–2012, 2014–2015 and 2017–2018<br>• <b>UEFA Europa League:</b> 2013–2014, 2015–2016, 2016–2017 and 2019–2020<br>• <b>UEFA Conference League:</b> 2024–2025<br><br>Two European runs hold a special place in every APOEL fan\'s heart. The <b>2016–2017</b> period, when APOEL reached the Europa League last 16, eliminating Spanish side <b>Athletic Bilbao</b>, and the pinnacle moment when in <b>2011–2012</b>, as group winner in the Champions League, it eliminated French <b>Lyon</b> in the last 16 and reached the quarter-finals against <b>Real Madrid</b>.<br><br>From the old GSP and Makario Stadium, to the new GSP and Europe\'s biggest venues, APOEL\'s football section carries a century of history, conquests and European exceedances.'
+      desc:'Στις <b>8 Νοεμβρίου 1926</b>, γράφεται η πρώτη σελίδα μιας ιστορίας που συμπληρώνει πλέον έναν ολόκληρο αιώνα. Περίπου 35–40 άτομα συμμετέχουν στην ιδρυτική συνέλευση του Ποδοσφαιρικού Ομίλου Ελλήνων Λευκωσίας (ΠΟΕΛ), υλοποιώντας την επιμονή του <b>Διομήδη Συμεωνίδη</b> για τη δημιουργία ενός καθαρά ελληνικού ποδοσφαιρικού σωματείου στη Λευκωσία. Δύο χρόνια αργότερα, τον Ιανουάριο του 1928, ο Όμιλος μετονομάστηκε σε Αθλητικός Ποδοσφαιρικός Όμιλος Ελλήνων Λευκωσίας (ΑΠΟΕΛ), με την προσθήκη του όρου «Αθλητικός» για να ανοίξει τον δρόμο στην καλλιέργεια και άλλων αθλημάτων υπό τη σκέπη του.<br><br>Το Τμήμα Ποδοσφαίρου παραμένει η αφετηρία της εκατοντάχρονης διαδρομής. Από την κατάκτηση του <b>πρώτου επίσημου Πρωταθλήματος</b> υπό την αιγίδα της ΚΟΠ το <b>1936</b>, μέχρι σήμερα, γενιές ποδοσφαιριστών φόρεσαν τη γαλαζοκίτρινη φανέλα, συνδέοντας το όνομά τους με τίτλους, μεγάλες διακρίσεις και ιστορικές στιγμές που σημάδεψαν όχι μόνο την πορεία του ΑΠΟΕΛ, αλλά και την ιστορία του κυπριακού ποδοσφαίρου.<br><br>Ξεχωριστό κεφάλαιο αποτελεί η παρουσία του ΑΠΟΕΛ στην <b>Α΄ Εθνική Κατηγορία της Ελλάδας</b>. Την περίοδο <b>1973–1974</b>, ο ΑΠΟΕΛ τερμάτισε στη 13η θέση και εξασφάλισε την παραμονή του, αποτελώντας τη μοναδική κυπριακή ομάδα που πέτυχε αγωνιστικά κάτι τέτοιο στον θεσμό. Όμως, η βάρβαρη τουρκική εισβολή του <b>1974</b> και οι συνέπειές της ανέκοψαν την πορεία αυτή, στερώντας από τον ΑΠΟΕΛ τη δυνατότητα να συνεχίσει στην Α΄ Εθνική την επόμενη περίοδο.<br><br>Παράλληλα, η ευρωπαϊκή καταξίωση είχε ήδη αρχίσει από το <b>1963</b>, όταν ο ΑΠΟΕΛ πραγματοποίησε την παρθενική του συμμετοχή στις ευρωπαϊκές διοργανώσεις απέναντι στη νορβηγική <b>Gjøvik-Lyn</b>, για τον θεσμό του Κυπέλλου Κυπελλούχων Ευρώπης, πετυχαίνοντας την πρώτη ευρωπαϊκή πρόκριση ελληνικής ομάδας σε δεύτερο γύρο.<br><br>Δεκαετίες αργότερα, ο ΑΠΟΕΛ καθιερώνεται στις κορυφαίες ευρωπαϊκές διοργανώσεις, με <b>εννέα παρουσίες</b> σε Φάσεις Ομίλων και League Phase:<br>• <b>UEFA Champions League:</b> 2009–2010, 2011–2012, 2014–2015 και 2017–2018<br>• <b>UEFA Europa League:</b> 2013–2014, 2015–2016, 2016–2017 και 2019–2020<br>• <b>UEFA Conference League:</b> 2024–2025<br><br>Δύο ευρωπαϊκές πορείες κατέχουν ξεχωριστή θέση στην καρδιά κάθε ΑΠΟΕΛίστα. Η περίοδος <b>2016–2017</b>, όταν ο ΑΠΟΕΛ προχώρησε μέχρι τη φάση των «16» του Europa League, αποκλείοντας την ισπανική <b>Athletic Bilbao</b>, καθώς και η κορυφαία στιγμή, όταν το <b>2011–2012</b>, ως πρώτος στον Όμιλό του στο Champions League, απέκλεισε την γαλλική <b>Lyon</b> στη φάση των «16» και έφτασε μέχρι τα προημιτελικά, όπου αντιμετώπισε τη <b>Real Madrid</b>.<br><br>Αξιοσημείωτο, επίσης, γεγονός είναι ότι το <b>2026</b>, χρονιά κατά την οποία ο ΑΠΟΕΛ συμπληρώνει έναν αιώνα ζωής, ανοίγει ένα νέο κεφάλαιο στην ποδοσφαιρική του ιστορία με τη δημιουργία <b>γυναικείου τμήματος ποδοσφαίρου</b>, το οποίο θα συμμετέχει στις διοργανώσεις της ΚΟΠ.<br><br>Από το παλαιό ΓΣΠ και το Μακάριο, στο νέο ΓΣΠ και στα μεγαλύτερα γήπεδα της Ευρώπης, το Ποδόσφαιρο του ΑΠΟΕΛ κουβαλά έναν αιώνα ιστορίας, κατακτήσεων και ευρωπαϊκών υπερβάσεων, συνεχίζοντας να ανοίγει νέους δρόμους για τις επόμενες γενιές.',
+      desc_en:'On <b>8 November 1926</b>, the first page is written of a story that now spans an entire century. About 35–40 people attend the founding assembly of the Football Club of Greeks of Nicosia (POEL), realising the persistence of <b>Diomidis Symeonidis</b> for the creation of a purely Greek football club in Nicosia. Two years later, in January 1928, the Club was renamed to the Athletic Football Club of Greeks of Nicosia (APOEL), with the addition of "Athletic" to open the way for cultivating other sports under its umbrella.<br><br>The Football Department remains the starting point of the century-long journey. From winning the <b>first official Championship</b> under CFA in <b>1936</b> to today, generations of footballers wore the blue-and-yellow jersey, linking their names to titles, major distinctions and historic moments that marked not only APOEL\'s path but Cypriot football itself.<br><br>A special chapter is APOEL\'s presence in the <b>Greek First Division</b>. In <b>1973–1974</b>, APOEL finished 13th and secured survival, becoming the only Cypriot team to achieve this competitively in the institution. However, the barbaric Turkish invasion of <b>1974</b> and its consequences cut short this journey, depriving APOEL of the chance to continue in Greek A the following season.<br><br>European recognition had already begun in <b>1963</b>, when APOEL made its European debut against Norwegian side <b>Gjøvik-Lyn</b> in the European Cup Winners\' Cup, achieving the first European qualification of a Greek team to a second round.<br><br>Decades later, APOEL established itself in Europe\'s top competitions, with <b>nine appearances</b> in Group and League Phases:<br>• <b>UEFA Champions League:</b> 2009–2010, 2011–2012, 2014–2015 and 2017–2018<br>• <b>UEFA Europa League:</b> 2013–2014, 2015–2016, 2016–2017 and 2019–2020<br>• <b>UEFA Conference League:</b> 2024–2025<br><br>Two European runs hold a special place in every APOEL fan\'s heart. The <b>2016–2017</b> period, when APOEL reached the Europa League last 16, eliminating Spanish side <b>Athletic Bilbao</b>, and the pinnacle moment when in <b>2011–2012</b>, as group winner in the Champions League, it eliminated French <b>Lyon</b> in the last 16 and reached the quarter-finals against <b>Real Madrid</b>.<br><br>It is also notable that in <b>2026</b>, the year APOEL completes a century of life, a new chapter opens in its football history with the creation of a <b>women\'s football section</b>, which will compete in CFA competitions.<br><br>From the old GSP and Makario, to the new GSP and Europe\'s biggest venues, APOEL Football carries a century of history, conquests and European exceedances, continuing to open new paths for the generations to come.'
     },
     {el:'Καλαθόσφαιρα',en:'Basketball',titles:[{n:11,el:'Πρωταθλήματα',en:'Titles'},{n:12,el:'Κύπελλα',en:'Cups'},{n:11,el:'Ασπίδες',en:'Super Cups'}],
       note:'Ανδρών & Γυναικών',note_en:'Men\'s & Women\'s',
@@ -2211,8 +2282,8 @@ footer{
     },
     {el:'Πετόσφαιρα',en:'Volleyball',titles:[{n:11,el:'Πρωταθλήματα',en:'Titles'},{n:5,el:'Κύπελλα',en:'Cups'},{n:1,el:'Κύπελλο Γυναικών',en:'Women\'s Cup'}],
       note:'Ανδρών & Γυναικών',note_en:'Men\'s & Women\'s',
-      desc:'Η Πετόσφαιρα αποτελεί ένα από τα παλαιότερα τμήματα του ΑΠΟΕΛ, με τη διαδρομή της να ξεκινά το <b>1928</b>, μόλις δύο χρόνια μετά την ίδρυση του Σωματείου και την ίδια χρονιά που ο ΠΟΕΛ μετονομάστηκε σε ΑΠΟΕΛ, διευρύνοντας τη δράση του πέραν από το Ποδόσφαιρο.<br><br>Στα χρόνια που ακολούθησαν, το τμήμα ανέπτυξε σταθερή παρουσία στις εγχώριες διοργανώσεις, με την πρώτη μεγάλη επιτυχία να έρχεται το <b>1954</b>, όταν ο ΑΠΟΕΛ κατακτά το πρώτο του πρωτάθλημα. Ιδιαίτερα λαμπρή υπήρξε η περίοδος από τα τέλη της <b>δεκαετίας του 1960</b> μέχρι τα μέσα της <b>δεκαετίας του 1980</b>, κατά την οποία ο ΑΠΟΕΛ καθιερώθηκε ανάμεσα στις πρωταγωνίστριες δυνάμεις του αθλήματος, δημιουργώντας μία σημαντική παράδοση τίτλων και διακρίσεων.<br><br>Ξεχωριστή θέση στην ιστορία του τμήματος κατέχει και η <b>Πετόσφαιρα Γυναικών</b>, η οποία είχε τη δική της πρωταγωνιστική παρουσία και έφτασε στην κατάκτηση του <b>Κυπέλλου το 1977</b>. Σήμερα, η παράδοση αυτή αποκτά ξανά προοπτική μέσα από τις <b>Ακαδημίες</b> του ΑΠΟΕΛ, όπου έχουν δημιουργηθεί και γυναικεία τμήματα, με στόχο την ανάπτυξη νέων αθλητριών και, σταδιακά, την επιστροφή της γυναικείας ομάδας στο αγωνιστικό προσκήνιο.',
-      desc_en:'Volleyball is one of APOEL\'s oldest sections, with its journey beginning in <b>1928</b>, just two years after the Club\'s founding and the same year POEL was renamed to APOEL, expanding its activities beyond Football.<br><br>In the years that followed, the section developed a steady presence in domestic competitions, with the first major success coming in <b>1954</b>, when APOEL won its first championship. Particularly bright was the period from the late <b>1960s</b> to the mid-<b>1980s</b>, during which APOEL established itself among the leading forces of the sport, creating an important tradition of titles and distinctions.<br><br>A special place in the section\'s history is also held by <b>Women\'s Volleyball</b>, which had its own leading presence and reached the <b>Cup win in 1977</b>. Today, this tradition regains momentum through APOEL\'s <b>Academies</b>, where women\'s sections have been created, aiming at developing new athletes and, gradually, returning the women\'s team to the competitive scene.'
+      desc:'Η Πετόσφαιρα αποτελεί ένα από τα παλαιότερα τμήματα του ΑΠΟΕΛ, με τη διαδρομή της να ξεκινά το <b>1928</b>, μόλις δύο χρόνια μετά την ίδρυση του Σωματείου και την ίδια χρονιά που ο ΠΟΕΛ μετονομάστηκε σε ΑΠΟΕΛ, διευρύνοντας τη δράση του πέραν από το Ποδόσφαιρο.<br><br>Στα χρόνια που ακολούθησαν, το τμήμα ανέπτυξε σταθερή παρουσία στις εγχώριες διοργανώσεις, με την πρώτη μεγάλη επιτυχία να έρχεται το <b>1954</b>, όταν ο ΑΠΟΕΛ κατακτά το πρώτο του πρωτάθλημα. Ιδιαίτερα λαμπρή υπήρξε η περίοδος από τα τέλη της <b>δεκαετίας του 1960</b> μέχρι τα μέσα της <b>δεκαετίας του 1980</b>, κατά την οποία ο ΑΠΟΕΛ καθιερώθηκε ανάμεσα στις πρωταγωνίστριες δυνάμεις του αθλήματος, δημιουργώντας μία σημαντική παράδοση τίτλων και διακρίσεων.<br><br>Έπειτα από μία μακρά διαδρομή, το τμήμα ανέστειλε τη λειτουργία του από το <b>2009 μέχρι το 2012</b>, προτού επιστρέψει ξανά στην αγωνιστική δράση. Έκτοτε, με σταθερά και μεθοδικά βήματα, επιχειρεί να ξαναχτίσει τη δυναμική του και να επιστρέψει σταδιακά στην κορυφή της κυπριακής πετόσφαιρας, εκεί όπου πρωταγωνίστησε για πολλές δεκαετίες.<br><br>Ξεχωριστή θέση στην ιστορία του τμήματος κατέχει και η <b>Πετόσφαιρα Γυναικών</b>, η οποία είχε τη δική της πρωταγωνιστική παρουσία και έφτασε στην κατάκτηση του <b>Κυπέλλου το 1977</b>. Σήμερα, η παράδοση αυτή αποκτά ξανά προοπτική μέσα από τις <b>Ακαδημίες</b> του ΑΠΟΕΛ, όπου έχουν δημιουργηθεί και γυναικεία τμήματα, με στόχο την ανάπτυξη νέων αθλητριών και, σταδιακά, την επιστροφή της γυναικείας ομάδας στο αγωνιστικό προσκήνιο.',
+      desc_en:'Volleyball is one of APOEL\'s oldest sections, with its journey beginning in <b>1928</b>, just two years after the Club\'s founding and the same year POEL was renamed to APOEL, expanding its activities beyond Football.<br><br>In the years that followed, the section developed a steady presence in domestic competitions, with the first major success coming in <b>1954</b>, when APOEL won its first championship. Particularly bright was the period from the late <b>1960s</b> to the mid-<b>1980s</b>, during which APOEL established itself among the leading forces of the sport, creating an important tradition of titles and distinctions.<br><br>After a long journey, the section suspended its operation from <b>2009 to 2012</b>, before returning to competitive action. Since then, with steady and methodical steps, it has been rebuilding its momentum and working to gradually return to the top of Cypriot volleyball, where it starred for many decades.<br><br>A special place in the section\'s history is also held by <b>Women\'s Volleyball</b>, which had its own leading presence and reached the <b>Cup win in 1977</b>. Today, this tradition regains momentum through APOEL\'s <b>Academies</b>, where women\'s sections have been created, aiming at developing new athletes and, gradually, returning the women\'s team to the competitive scene.'
     },
     {el:'Χειροσφαίριση',en:'Handball',titles:[],
       note:'Ανδρών & Γυναικών',note_en:'Men\'s & Women\'s',
@@ -2251,7 +2322,12 @@ footer{
       desc:'Η Πυγμαχία αποτελεί ένα από τα ιστορικά τμήματα του ΑΠΟΕΛ, με τις ρίζες της να φτάνουν στις πρώτες δεκαετίες ζωής του Ομίλου. Ήδη από το <b>1930</b>, μέλη του ΑΠΟΕΛ μυούνται στο άθλημα από τον Έλληνα πρωτοπυγμάχο <b>Μαζλουμίδη</b>, ανάμεσα τους οι <b>Κουβής Ιωαννίδης</b>, <b>Πετράκης Λοϊζίδης</b> και <b>Κοκής Μιχαηλίδης</b>.<br><br>Η επίσημη ίδρυση του τμήματος ανακοινώνεται στη <b>Γενική Συνέλευση της 10ης Σεπτεμβρίου 1934</b> από τον τότε πρόεδρο, <b>Γεώργιο Πούλια</b>. Η δημιουργία του Τμήματος Πυγμαχίας επιβεβαίωνε ήδη από τα πρώτα χρόνια τον πολυαθλητικό χαρακτήρα και το ευρύτερο όραμα του ΑΠΟΕΛ.<br><br>Σχεδόν εννέα δεκαετίες αργότερα, η ιστορία συνεχίζεται. Με πρωτοβουλία του <b>ΠΑΝ.ΣΥ.ΦΙ. ΑΠΟΕΛ</b>, το τμήμα επαναδραστηριοποιείται και οι νέες εγκαταστάσεις του εγκαινιάζονται στις <b>8 Νοεμβρίου 2023</b>, συμβολικά ανήμερα των γενεθλίων του ΑΠΟΕΛ.<br><br>Σήμερα, η Πυγμαχία αναπτύσσεται ξανά μέσα από τις ακαδημίες και την αγωνιστική της παρουσία, ενώ η προσθήκη του <b>Muay Thai</b> ανοίγει ένα νέο κεφάλαιο στα μαχητικά αθλήματα του ΑΠΟΕΛ.',
       desc_en:'Boxing is one of APOEL\'s historic departments, with roots reaching back to the Club\'s first decades. As early as <b>1930</b>, APOEL members were being trained in the sport by the Greek pioneer boxer <b>Mazloumidis</b>, among them <b>Kouvis Ioannidis</b>, <b>Petrakis Loizidis</b> and <b>Kokis Michailidis</b>.<br><br>The official founding of the department was announced at the <b>General Assembly of 10 September 1934</b> by the then president, <b>Georgios Poulias</b>. The creation of the Boxing Department confirmed from its earliest years the multi-sport character and broader vision of APOEL.<br><br>Nearly nine decades later, the story continues. At the initiative of <b>PAN.SY.FI. APOEL</b>, the department was reactivated and its new facilities were inaugurated on <b>8 November 2023</b>, symbolically on APOEL\'s birthday.<br><br>Today, Boxing is once again developing through its academies and competitive presence, while the addition of <b>Muay Thai</b> opens a new chapter in APOEL\'s combat sports.'
     },
-    {el:'E-Sports',en:'E-Sports',titles:[]},
+    {el:'E-Sports',en:'E-Sports',titles:[],
+      extra_titles_label:'Διακρίσεις',extra_titles_label_en:'Honours',
+      extra_titles:[{n:1,el:'Champions League',en:'Champions League'},{n:1,el:'European Super Cup',en:'European Super Cup'},{n:1,el:'UK Championship',en:'UK Championship'},{n:2,el:'Πρωταθλήματα',en:'Championships'},{n:3,el:'Κύπελλα',en:'Cups'}],
+      desc:'Το <b>APOEL FC Esports</b> αποτελεί τη σύγχρονη παρουσία του ΑΠΟΕΛ στον ταχύτατα αναπτυσσόμενο χώρο του ηλεκτρονικού αθλητισμού, μεταφέροντας τα γαλαζοκίτρινα χρώματα σε ένα νέο και διεθνές πεδίο ανταγωνισμού.<br><br>Ήδη από το <b>2019</b>, ο <b>Μάριος Αργυρίδης</b> καταγράφεται ως ο πρώτος Κύπριος Pro Gamer που αγωνίστηκε με τα χρώματα του ΑΠΟΕΛ, σηματοδοτώντας τα πρώτα βήματα του σωματείου στον χώρο.<br><br>Σημαντικός σταθμός θεωρείται το <b>2021</b>, όταν ο ΑΠΟΕΛ έγινε η <b>πρώτη κυπριακή ομάδα που υπέγραψε συμφωνία με την EA Sports</b>, αποκτώντας επίσημη παρουσία στο <b>FIFA 22</b> και τοποθετώντας το όνομα και το έμβλημά του δίπλα σε κορυφαίους ποδοσφαιρικούς συλλόγους του κόσμου.<br><br>Το <b>2022</b> γράφτηκε ακόμη μία πρωτιά, με τον APOEL FC Esports να γίνεται η <b>πρώτη κυπριακή ομάδα στην ιστορία του ηλεκτρονικού ποδοσφαίρου</b> που εξασφάλισε επίσημη πιστοποίηση (verification) και δικαίωμα συμμετοχής στο <b>FIFAe Club Series 2023</b>.<br><br>Με παρουσία πλέον και στον ψηφιακό αθλητισμό, ο ΑΠΟΕΛ συνεχίζει να εξελίσσεται, συνδέοντας την εκατοντάχρονη αθλητική του παράδοση με τις νέες μορφές ανταγωνισμού της σύγχρονης εποχής.',
+      desc_en:'<b>APOEL FC Esports</b> is APOEL\'s modern presence in the fast-growing world of electronic sport, carrying the blue-and-yellow colours into a new and international field of competition.<br><br>As early as <b>2019</b>, <b>Marios Argyridis</b> is recorded as the first Cypriot Pro Gamer to compete in APOEL\'s colours, marking the club\'s first steps in the field.<br><br>An important milestone came in <b>2021</b>, when APOEL became the <b>first Cypriot team to sign an agreement with EA Sports</b>, gaining an official presence in <b>FIFA 22</b> and placing its name and emblem alongside the world\'s leading football clubs.<br><br>In <b>2022</b> another first was written, with APOEL FC Esports becoming the <b>first Cypriot team in the history of electronic football</b> to secure official verification and the right to compete in the <b>FIFAe Club Series 2023</b>.<br><br>Now present in digital sport too, APOEL continues to evolve, connecting its century-long sporting tradition with the new forms of competition of the modern era.'
+    },
   ];
   function deptCard(d,group,idx){
     const name=LANG==='en'?d.en:d.el;
@@ -2290,6 +2366,12 @@ footer{
     if(d.titles&&d.titles.length){
       honoursHTML='<div class="em-dept-honours"><h4>'+(LANG==='en'?'Honours':'Τίτλοι')+'</h4><div class="dept-titles">'+
         d.titles.map(t=>`<div class="dt-badge"><b>${t.n}</b><span>${LANG==='en'?t.en:t.el}</span></div>`).join('')+
+        '</div></div>';
+    }
+    if(d.extra_titles&&d.extra_titles.length){
+      const xlbl=LANG==='en'&&d.extra_titles_label_en?d.extra_titles_label_en:d.extra_titles_label;
+      honoursHTML+='<div class="em-dept-honours">'+(xlbl?`<h4>${xlbl}</h4>`:'')+'<div class="dept-titles">'+
+        d.extra_titles.map(t=>`<div class="dt-badge dt-badge-extra"><b>${t.n}</b><span>${LANG==='en'?t.en:t.el}</span></div>`).join('')+
         '</div></div>';
     }
     const descHTML=desc||`<i>${LANG==='en'?'Content coming soon.':'Το περιεχόμενο θα προστεθεί σύντομα.'}</i>`;
@@ -2642,11 +2724,12 @@ footer{
     ).join('');
   }
 
-  function pageShareIcons(title,url){
+  function pageShareIcons(title,url,image){
     const safeTitle=String(title||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;');
     const safeUrl=String(url||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+    const safeImg=String(image||DEFAULT_SHARE_IMG).replace(/&/g,'&amp;').replace(/"/g,'&quot;');
     return compactShareIcons('media')
-      .replaceAll('data-share-media="1"',`data-share-page="1" data-share-title="${safeTitle}" data-share-url="${safeUrl}"`);
+      .replaceAll('data-share-media="1"',`data-share-page="1" data-share-title="${safeTitle}" data-share-url="${safeUrl}" data-share-img="${safeImg}"`);
   }
 
   function renderLedger(){
@@ -2999,7 +3082,7 @@ footer{
           <p class="news-excerpt">${L(a,'excerpt')}</p>
           <div class="news-more">${LANG==='el'?'Διάβασε':'Read more'} <span>→</span></div>
           <div class="card-share" aria-label="${LANG==='el'?'Κοινοποίηση ανακοίνωσης':'Share announcement'}">
-            ${pageShareIcons(L(a,'title'),`${location.origin}?news=${i}`)}
+            ${compactShareIcons('media').replaceAll('data-share-media="1"',`data-share-news="${i}"`)}
           </div>
         </div>
       </article>`).join('');
@@ -3009,7 +3092,7 @@ footer{
       const items=await loadAlbumFolder(a.album);
       const first=items.find(x=>!x.isVideo);
       const cover=newsList.querySelector(`[data-news-cover="${i}"]`);
-      if(first&&cover)cover.style.backgroundImage=`url('./${first.src}')`;
+      if(first){a._cover='./'+first.src;if(cover)cover.style.backgroundImage=`url('./${first.src}')`;}
     });
   }
   function openNews(i){
@@ -3169,8 +3252,7 @@ footer{
   });
 
   /* ---- SHARE EVENT ---- */
-  const SITE_URL='https://www.apoel100years.org';
-  function shareEvent(platform,i){
+  function shareEvent(platform,i,btn){
     const e=events[i];if(!e)return;
     const L=(o,k)=>LANG==='en'&&o[k+'_en']?o[k+'_en']:o[k];
     const title=L(e,'t');
@@ -3185,85 +3267,56 @@ footer{
     const eventLabel=LANG==='el'?'Εκδήλωση':'Event';
     const dateLabel=LANG==='el'?'Ημερομηνία':'Date';
     const venueLabel=LANG==='el'?'Τοποθεσία':'Location';
-    const eventUrl=`${SITE_URL}?event=${encodeURIComponent(i)}`;
-    const text=`${eventLabel}: ${title}\n${dateLabel}: ${weekday} ${shortDate}\n${venueLabel}: ${venue}\n${hashtag}\ninfo@apoel100years.org\n\n${eventUrl}`;
-    const enc=encodeURIComponent;
-    let url='';
-    if(platform==='whatsapp'){
-      url=`https://wa.me/?text=${enc(text)}`;
-    } else if(platform==='viber'){
-      url=`viber://forward?text=${enc(text)}`;
-    } else if(platform==='twitter'){
-      url=`https://twitter.com/intent/tweet?text=${enc(text)}`;
-    } else if(platform==='instagram'){
-      // Instagram has no web share URL; use native share sheet or clipboard fallback
-      const payload={title:title,text:text};
-      if(navigator.share){
-        navigator.share(payload).catch(()=>{});
-      } else if(navigator.clipboard){
-        navigator.clipboard.writeText(text).then(()=>{
-          const btn=document.querySelector(`.em-share-btn[data-share="instagram"][data-idx="${i}"]`);
-          if(btn){btn.classList.add('copied');setTimeout(()=>btn.classList.remove('copied'),1800);}
-          alert(LANG==='el'?'Το κείμενο αντιγράφηκε. Άνοιξε το Instagram και επικόλλησέ το.':'Text copied. Open Instagram and paste.');
-        });
-      }
-      return;
-    }
-    if(url)window.open(url,'_blank','noopener,noreferrer');
+    const eventUrl=`${SITE_URL}/?event=${encodeURIComponent(i)}`;
+    const image=e.img?`${SITE_URL}/${e.img}.jpg`:DEFAULT_SHARE_IMG;
+    const text=`${eventLabel}: ${title}\n${dateLabel}: ${weekday} ${shortDate}\n${venueLabel}: ${venue}\n${hashtag}\n${SHARE_MAIL}\n\n${eventUrl}`;
+    runShare(platform,{title:title,message:text,imageUrl:image,pageUrl:eventUrl,btn:btn});
   }
-  function sharePageItem(platform,title,url){
+  function sharePageItem(platform,title,url,image,btn){
     const shareUrl=url||location.href;
     const shareTitle=title||document.title;
-    const message=`${shareTitle}\n#ONECENTURYONELEGEND #monoAPOEL #APOEL100\n\n${shareUrl}`;
-    const enc=encodeURIComponent;
-    let target='';
-    if(platform==='whatsapp')target=`https://wa.me/?text=${enc(message)}`;
-    else if(platform==='viber')target=`viber://forward?text=${enc(message)}`;
-    else if(platform==='twitter')target=`https://twitter.com/intent/tweet?text=${enc(message)}`;
-    else if(platform==='instagram'){
-      if(navigator.share)navigator.share({title:shareTitle,text:message,url:shareUrl}).catch(()=>{});
-      else if(navigator.clipboard)navigator.clipboard.writeText(message).then(()=>alert(LANG==='el'?'Το κείμενο αντιγράφηκε. Άνοιξε το Instagram και επικόλλησέ το.':'Text copied. Open Instagram and paste.'));
-      return;
-    }
-    if(target)window.open(target,'_blank','noopener,noreferrer');
+    const message=`${shareTitle}\n${HASHTAGS}\n\n${shareUrl}`;
+    runShare(platform,{title:shareTitle,message:message,imageUrl:image||DEFAULT_SHARE_IMG,pageUrl:shareUrl,btn:btn});
   }
 
-  function shareMedia(platform){
+  /* Announcements resolve their cover late (folder-backed albums), so look it up at click time. */
+  function shareNews(platform,i,btn){
+    const a=announcements[i];if(!a)return;
+    const L=(o,k)=>LANG==='en'&&o[k+'_en']?o[k+'_en']:o[k];
+    let cover=a.image||a._cover||'';
+    if(!cover){
+      const el=document.querySelector(`[data-news-cover="${i}"]`);
+      const bg=el?getComputedStyle(el).backgroundImage:'';
+      const m=bg&&bg.match(/url\(["']?(.+?)["']?\)/);
+      if(m)cover=m[1];
+    }
+    sharePageItem(platform,L(a,'title'),`${SITE_URL}/?news=${i}`,cover?absUrl(cover):DEFAULT_SHARE_IMG,btn);
+  }
+
+  function shareMedia(platform,btn){
     const p=order[cur];if(!p)return;
     let mediaUrl='';
     let title='';
+    let attach='';
+    const fallbackTitle=LANG==='el'?'ΑΠΟΕΛ 100 Χρόνια':'APOEL 100 Years';
     if(p.yt){
       mediaUrl=`https://youtu.be/${p.yt}`;
-      title=capOf(p)||(LANG==='el'?'Βίντεο ΑΠΟΕΛ':'APOEL Video');
+      // YouTube links already unfurl with their own thumbnail — no second image needed
+      title=capOf(p)||fallbackTitle;
     }else if(p.localVideo){
       mediaUrl=new URL(p.localVideo,SITE_URL+'/').href;
-      title=capOf(p)||(LANG==='el'?'Βίντεο ΑΠΟΕΛ':'APOEL Video');
+      attach=mediaUrl;
+      title=capOf(p)||fallbackTitle;
     }else{
       const rel=p.src||src(p);
       mediaUrl=new URL(rel,SITE_URL+'/').href;
-      title=capOf(p)||(LANG==='el'?'Φωτογραφία ΑΠΟΕΛ':'APOEL Photo');
+      attach=mediaUrl;   // the link IS the photo, so it previews on its own
+      title=capOf(p)||fallbackTitle;
     }
-    const text=`${title}\n#ONECENTURYONELEGEND #monoAPOEL #APOEL100\n\n${mediaUrl}`;
-    const enc=encodeURIComponent;
-    let url='';
-    if(platform==='whatsapp'){
-      url=`https://wa.me/?text=${enc(text)}`;
-    }else if(platform==='viber'){
-      url=`viber://forward?text=${enc(text)}`;
-    }else if(platform==='twitter'){
-      url=`https://twitter.com/intent/tweet?text=${enc(text)}`;
-    }else if(platform==='instagram'){
-      const payload={title:title,text:text,url:mediaUrl};
-      if(navigator.share){
-        navigator.share(payload).catch(()=>{});
-      }else if(navigator.clipboard){
-        navigator.clipboard.writeText(text).then(()=>{
-          alert(LANG==='el'?'Το κείμενο αντιγράφηκε. Άνοιξε το Instagram και επικόλλησέ το.':'Text copied. Open Instagram and paste.');
-        });
-      }
-      return;
-    }
-    if(url)window.open(url,'_blank','noopener,noreferrer');
+    const text=`${title}\n${HASHTAGS}\n\n${mediaUrl}`;
+    // The media URL is already the last line of the message, so don't prepend it again —
+    // but still hand the real file to the native share sheet where that is supported.
+    runShare(platform,{title:title,message:text,imageUrl:'',attachUrl:attach,pageUrl:mediaUrl,btn:btn});
   }
 
   document.addEventListener('click',e=>{
@@ -3272,15 +3325,19 @@ footer{
     e.preventDefault();
     e.stopPropagation();
     if(b.hasAttribute('data-share-media')){
-      shareMedia(b.dataset.share);
+      shareMedia(b.dataset.share,b);
+      return;
+    }
+    if(b.hasAttribute('data-share-news')){
+      shareNews(b.dataset.share,+b.dataset.shareNews,b);
       return;
     }
     if(b.hasAttribute('data-share-page')){
-      sharePageItem(b.dataset.share,b.dataset.shareTitle,b.dataset.shareUrl);
+      sharePageItem(b.dataset.share,b.dataset.shareTitle,b.dataset.shareUrl,b.dataset.shareImg,b);
       return;
     }
     const eventIdx=b.hasAttribute('data-share-event')?+b.dataset.shareEvent:+b.dataset.idx;
-    if(Number.isFinite(eventIdx))shareEvent(b.dataset.share,eventIdx);
+    if(Number.isFinite(eventIdx))shareEvent(b.dataset.share,eventIdx,b);
   });
   function closeEvent(){em.classList.remove('open');document.body.style.overflow='';modalClosed(em);}
   /* ---- OPEN EVENT PHOTOS IN LIGHTBOX ---- */
@@ -3544,30 +3601,15 @@ footer{
     clearTimeout(searchTimer);
     searchTimer=setTimeout(()=>{searchQuery=e.target.value;renderFresh();},300);
   });
-  function shareStory(platform,idx){
+  function shareStory(platform,idx,btn){
     const s=stories[idx];if(!s)return;
     const title=LANG==='el'?'Οι Ιστορίες Σας':'Your Stories';
-    const hashtag='#ONECENTURYONELEGEND #monoAPOEL #APOEL100';
-    const storyUrl=`${SITE_URL}?story=${encodeURIComponent(s.id)}`;
-    const text=`Οι Ιστορίες Σας / Your Stories:\n${s.txt}\n— ${s.who}\n${hashtag}\ninfo@apoel100years.org\n\n${storyUrl}`;
-    const enc=encodeURIComponent;
-    let url='';
-    if(platform==='whatsapp'){url=`https://wa.me/?text=${enc(text)}`;}
-    else if(platform==='viber'){url=`viber://forward?text=${enc(text)}`;}
-    else if(platform==='twitter'){url=`https://twitter.com/intent/tweet?text=${enc(text)}`;}
-    else if(platform==='instagram'){
-      const payload={title:title,text:text};
-      if(navigator.share){navigator.share(payload).catch(()=>{});}
-      else if(navigator.clipboard){navigator.clipboard.writeText(text).then(()=>{
-        const btn=document.querySelector(`.pshare[data-story-share="instagram"][data-idx="${idx}"]`);
-        if(btn){btn.classList.add('copied');setTimeout(()=>btn.classList.remove('copied'),1800);}
-        alert(LANG==='el'?'Το κείμενο αντιγράφηκε. Άνοιξε το Instagram και επικόλλησέ το.':'Text copied. Open Instagram and paste.');
-      });}
-      return;
-    }
-    if(url)window.open(url,'_blank','noopener,noreferrer');
+    const storyUrl=`${SITE_URL}/?story=${encodeURIComponent(s.id)}`;
+    const image=s.photo?photoUrl(s.photo):'';
+    const text=`${title}:\n${s.txt}\n— ${s.who}\n${HASHTAGS}\n${SHARE_MAIL}\n\n${storyUrl}`;
+    runShare(platform,{title:title,message:text,imageUrl:image,pageUrl:storyUrl,btn:btn});
   }
-  wall.addEventListener('click',e=>{const b=e.target.closest('.pshare');if(b)shareStory(b.dataset.storyShare,+b.dataset.idx);});
+  wall.addEventListener('click',e=>{const b=e.target.closest('.pshare');if(b)shareStory(b.dataset.storyShare,+b.dataset.idx,b);});
   wall.addEventListener('click',e=>{
     const ph=e.target.closest('[data-story-photo]');
     if(!ph)return;
@@ -3711,8 +3753,29 @@ footer{
     el.textContent=msg;el.className='form-status '+type;el.style.display='block';
     clearTimeout(el._t);el._t=setTimeout(()=>{el.style.display='none';},6000);
   }
+  const HASH_TABS={'#events':'events','#news':'news','#history':'history','#depts':'depts','#gallery':'gallery','#stories':'stories','#contact':'contact'};
+  function openTabFromHash(){
+    const tab=HASH_TABS[(location.hash||'').toLowerCase()];
+    if(!tab)return false;
+    const b=document.querySelector(`nav button[data-tab="${tab}"]`);
+    if(!b)return false;
+    b.click();
+    return true;
+  }
+  window.addEventListener('hashchange',openTabFromHash);
+
 async function openSharedContentFromUrl(){
     const params=new URLSearchParams(location.search);
+    const newsParam=params.get('news');
+    if(newsParam!==null){
+      const newsIndex=Number(newsParam);
+      if(Number.isInteger(newsIndex)&&announcements[newsIndex]){
+        const newsTab=document.querySelector('nav button[data-tab="news"]');
+        if(newsTab)newsTab.click();
+        openNews(newsIndex);
+      }
+      return;
+    }
     const eventParam=params.get('event');
     if(eventParam!==null){
       const eventIndex=Number(eventParam);
@@ -3743,7 +3806,8 @@ async function openSharedContentFromUrl(){
       });
     }
   }
-  renderFresh().then(openSharedContentFromUrl);
+  renderFresh().then(openSharedContentFromUrl).catch(err=>console.error('Shared content error',err))
+    .then(()=>{if(!location.search)openTabFromHash();});
 
   // ---- VOLUNTEER FORM ----
   (function(){
