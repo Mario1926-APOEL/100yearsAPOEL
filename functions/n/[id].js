@@ -35,30 +35,84 @@ function splitArray(html, name) {
   return m[1].split(/\n    (?=\{)/).map(s => s.trim()).filter(s => s.startsWith('{'));
 }
 
+/* Αν η εγγραφή δεν έχει δικό της image, παίρνουμε το πρώτο αρχείο του φακέλου
+   του άλμπουμ — ίδια λογική και ίδια ταξινόμηση με το site. */
+async function albumCover(html, folder, origin) {
+  if (!folder) return '';
+  const repo = (html.match(/const REPO='([^']+)'/) || [])[1];
+  const ref  = (html.match(/const REPO_REF='([^']+)'/) || [])[1] || 'main';
+  if (!repo) return '';
+  const enc = folder.split('/').map(encodeURIComponent).join('/');
+  const isImg = /\.(jpe?g|png|webp)$/i;
+  const pick = names => {
+    const first = names
+      .filter(n => n && !n.includes('/') && isImg.test(n))
+      .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }))[0];
+    return first ? `${origin}/albums/${enc}/${encodeURIComponent(first)}` : '';
+  };
+
+  try {
+    const r = await fetch(`https://data.jsdelivr.com/v1/packages/gh/${repo}@${ref}/flat`,
+                          { cf: { cacheTtl: 1800, cacheEverything: true } });
+    if (r.ok) {
+      const data = await r.json();
+      const prefix = `/albums/${folder}/`;
+      const hit = pick((data.files || [])
+        .map(f => (typeof f.name === 'string' && f.name.startsWith(prefix)) ? f.name.slice(prefix.length) : ''));
+      if (hit) return hit;
+    }
+  } catch (_) {}
+
+  try {
+    const r = await fetch(`https://api.github.com/repos/${repo}/contents/albums/${enc}?ref=${ref}`,
+                          { headers: { 'user-agent': 'apoel100-og' }, cf: { cacheTtl: 1800 } });
+    if (r.ok) {
+      const files = await r.json();
+      const hit = pick((Array.isArray(files) ? files : [])
+        .filter(f => f.type === 'file').map(f => f.name));
+      if (hit) return hit;
+    }
+  } catch (_) {}
+
+  return '';
+}
+
 export async function onRequest(context) {
   const { request, params } = context;
   const url = new URL(request.url);
   const origin = url.origin;
-  const id = String(params.id || '').replace(/[^0-9]/g, '');
-  const target = `${origin}/?news=${id}`;
+  // Δέχεται είτε σταθερό id (π.χ. home-kit-2026-27) είτε παλιό αριθμητικό index
+  const id = String(params.id || '').replace(/[^A-Za-z0-9._-]/g, '').slice(0, 80);
+  const target = `${origin}/?news=${encodeURIComponent(id)}`;
 
   let title = SITE_NAME, desc = '', image = origin + DEFAULT_IMG, titleEn = '', descEn = '';
 
   try {
     const res = await fetch(`${origin}/index.html`, {
-      cf: { cacheTtl: 600, cacheEverything: true }
+      cf: { cacheTtl: 60, cacheEverything: true }
     });
     if (res.ok) {
       const html = await res.text();
-      const list = splitArray(html, 'announcements');
-      const a = list[Number(id)];
+      // Το site ταξινομεί τις ανακοινώσεις κατά ημερομηνία φθίνουσα πριν τις εμφανίσει,
+      // οπότε κάνουμε το ίδιο — αλλιώς τα παλιά αριθμητικά links δείχνουν σε λάθος άρθρο.
+      const list = splitArray(html, 'announcements')
+        .map((o, n) => ({ o, n, d: Date.parse(field(o, 'date')) || 0 }))
+        .sort((x, y) => (y.d - x.d) || (x.n - y.n))
+        .map(x => x.o);
+      const a = list.find(o => field(o, 'id') === id)
+             || (/^\d+$/.test(id) ? list[Number(id)] : null);
       if (a) {
         title   = esc(field(a, 'title')) || title;
         titleEn = esc(field(a, 'title_en')) || title;
         desc    = clamp(esc(field(a, 'excerpt')) || title, 200);
         descEn  = clamp(esc(field(a, 'excerpt_en')) || desc, 200);
         const img = field(a, 'image');
-        if (img) image = `${origin}/${img}`;
+        if (img) {
+          image = `${origin}/${img}`;
+        } else {
+          const cover = await albumCover(html, field(a, 'album'), origin);
+          if (cover) image = cover;
+        }
       }
     }
   } catch (_) { /* κρατάμε τα defaults και απλώς προωθούμε */ }
@@ -106,7 +160,7 @@ export async function onRequest(context) {
   return new Response(page, {
     headers: {
       'content-type': 'text/html; charset=utf-8',
-      'cache-control': 'public, max-age=300'
+      'cache-control': 'public, max-age=120'
     }
   });
 }
