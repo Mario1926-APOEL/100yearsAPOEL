@@ -537,11 +537,11 @@
   .em-desc a{color:var(--gold-bright);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;transition:color .2s;}
   .em-desc a:hover{color:#fff;}
   /* CTA-style link button inside event description */
-  .em-desc a.em-cta{display:inline-block;text-decoration:none;margin-top:8px;
+  .em-desc a.em-cta,.em-cta{display:inline-block;text-decoration:none;margin-top:8px;
     background:linear-gradient(135deg,var(--gold-bright),var(--gold));color:var(--navy-deep);
     padding:12px 24px;font-size:.72rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
     font-family:inherit;transition:transform .3s,box-shadow .3s,filter .3s;}
-  .em-desc a.em-cta:hover{filter:brightness(1.08);box-shadow:0 8px 22px rgba(224,181,58,.35);transform:translateY(-2px);color:var(--navy-deep);}
+  .em-desc a.em-cta:hover,.em-cta:hover{filter:brightness(1.08);box-shadow:0 8px 22px rgba(224,181,58,.35);transform:translateY(-2px);color:var(--navy-deep);}
   /* ---- NEWS / ANNOUNCEMENTS ---- */
   .news-list{display:flex;flex-direction:column;gap:22px;}
   .news-card{display:grid;grid-template-columns:280px 1fr;gap:26px;padding:20px;
@@ -2851,6 +2851,19 @@ footer{
   // ---- ANNOUNCEMENTS ----
   const announcements=[
     {
+      id:'home-kit-2026-27',
+      date:'2026-08-25',
+      category:'Φανέλα',category_en:'Kit',
+      image:'',
+      album:'home kit',
+      title:'Εντός Έδρας Εμφάνιση / Home Kit 2026/27',
+      title_en:'Home Kit 2026/27',
+      excerpt:'«Μία φανέλα. Δύο γενιές. 53 χρόνια μετά». Η νέα εντός έδρας εμφάνιση του ΑΠΟΕΛ για τη σεζόν 2026/27 είναι εμπνευσμένη από τη φανέλα της περιόδου 1973/74.',
+      excerpt_en:'«One jersey. Two generations. 53 years later.» APOEL’s new 2026/27 Home Kit is inspired by the shirt worn during the 1973/74 season.',
+      body:'<b>«Μία φανέλα. Δύο γενιές. 53 χρόνια μετά»</b><br><br>Μια φανέλα που ανήκει στη χρυσή ιστορία του ΑΠΟΕΛ επιστρέφει στον αγωνιστικό χώρο 53 χρόνια αργότερα. Ο ΑΠΟΕΛ και η Macron παρουσιάζουν τη νέα <b>Εντός Έδρας εμφάνιση 2026/27</b>, εμπνευσμένη από τη φανέλα που φορούσε η ομάδα κατά τη σεζόν <b>1973/74</b>, όταν αγωνιζόταν στην Α’ Εθνική Ελλάδας.<br><br>Το παραδοσιακό κίτρινο και μπλε αναδεικνύονται μέσα από sublimated ρίγες και το νέο ύφασμα <b>Eco 3D Knit – Weave</b>. Στο στήθος τοποθετούνται το Macron Hero και το έμβλημα του ΑΠΟΕΛ FC, ενώ ανάμεσά τους δεσπόζει το <b>επετειακό λογότυπο των 100 χρόνων</b>.<br><br>Η εμφάνιση ολοκληρώνεται με μπλε σορτς με κίτρινο κορδόνι και μπλε-κίτρινες κάλτσες. Η φανέλα και το σορτς κατασκευάζονται από υφάσματα Eco Fabric, από 100% πολυεστέρα προερχόμενο από ανακυκλωμένο πλαστικό μετά την κατανάλωση.<br><br><b>Η νέα εμφάνιση είναι άμεσα διαθέσιμη στο Orange Shop.</b><br><br><a class="em-cta" href="https://apoelfc.com.cy/article/entos-edras-emfanisihome-kit-202627" target="_blank" rel="noopener">Διάβασε στο apoelfc.com.cy →</a>',
+      body_en:'<b>«One jersey. Two generations. 53 years later.»</b><br><br>A jersey that belongs to APOEL FC’s history returns to the pitch 53 years later. APOEL and Macron unveil the new <b>2026/27 Home Kit</b>, inspired by the shirt worn during the <b>1973/74</b> season, when APOEL competed in the Greek First Division.<br><br>The traditional yellow and blue are enhanced by sublimated stripes and the new <b>Eco 3D Knit – Weave</b> fabric. The Macron Hero and APOEL FC crest sit on the chest, with the <b>100-year anniversary logo</b> positioned between them.<br><br>The kit is completed by blue shorts with a yellow drawstring and blue-yellow socks. The shirt and shorts use Eco Fabric made from 100% polyester derived from post-consumer recycled plastic.<br><br><b>The new Home Kit is available now at the Orange Shop.</b><br><br><a class="em-cta" href="https://apoelfc.com.cy/article/entos-edras-emfanisihome-kit-202627" target="_blank" rel="noopener">Read at apoelfc.com.cy →</a>'
+    },
+    {
       id:'petevinos-10-aspides',
       date:'2026-08-09',
       category:'Ιστορία',category_en:'History',
@@ -2977,7 +2990,7 @@ footer{
     const L=(o,k)=>LANG==='en'&&o[k+'_en']?o[k+'_en']:o[k];
     newsList.innerHTML=announcements.map((a,i)=>`
       <article class="news-card" data-news="${i}" role="button" tabindex="0">
-        <div class="news-img" style="background-image:url('./${a.image}')"></div>
+        <div class="news-img" data-news-cover="${i}" ${a.image?`style="background-image:url('./${a.image}')"`:''}></div>
         <div class="news-body">
           <div class="news-meta">
             <time class="news-date">${fmtNewsDate(a.date)}</time>
@@ -2990,6 +3003,14 @@ footer{
           </div>
         </div>
       </article>`).join('');
+    // Folder-backed announcements: automatically use the first image found as cover.
+    announcements.forEach(async(a,i)=>{
+      if(!a.album||a.image)return;
+      const items=await loadAlbumFolder(a.album);
+      const first=items.find(x=>!x.isVideo);
+      const cover=newsList.querySelector(`[data-news-cover="${i}"]`);
+      if(first&&cover)cover.style.backgroundImage=`url('./${first.src}')`;
+    });
   }
   function openNews(i){
     const a=announcements[i];if(!a)return;
@@ -3000,11 +3021,45 @@ footer{
       </div>
       <h3 class="em-title">${L(a,'title')}</h3>
       ${a.image?`<div class="em-newsimg" style="background-image:url('./${a.image}')"></div>`:''}
-      <div class="em-desc">${L(a,'body')}</div>`;
+      <div class="em-desc">${L(a,'body')}</div>
+      ${a.album?`<button class="em-cta" type="button" data-news-album="${i}">${LANG==='el'?'Δείτε το άλμπουμ →':'View album →'}</button>`:''}`;
     em.classList.add('open');document.body.style.overflow='hidden';modalOpened(em);
   }
   newsList.addEventListener('click',e=>{if(e.target.closest('.card-share'))return;const c=e.target.closest('[data-news]');if(c)openNews(+c.dataset.news);});
   newsList.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.closest('[data-news]')){e.preventDefault();openNews(+e.target.closest('[data-news]').dataset.news);}});
+  document.getElementById('eventModal').addEventListener('click',e=>{
+    const b=e.target.closest('[data-news-album]');
+    if(b)openNewsAlbum(+b.dataset.newsAlbum);
+  });
+  async function openNewsAlbum(i){
+    const a=announcements[i];if(!a||!a.album)return;
+    const L=(o,k)=>LANG==='en'&&o[k+'_en']?o[k+'_en']:o[k];
+    albumTitle.textContent=L(a,'title');
+    albumGrid.innerHTML=`<div class="album-loading">${LANG==='el'?'Φόρτωση…':'Loading…'}</div>`;
+    em.classList.remove('open');
+    albumModal.classList.add('open');
+    document.body.style.overflow='hidden';
+    const items=await loadAlbumFolder(a.album);
+    const photoItems=items.filter(x=>!x.isVideo).map(x=>({src:x.src,c:''}));
+    const videoItems=items.filter(x=>x.isVideo).map(x=>({localVideo:x.src,c:''}));
+    order=[...photoItems,...videoItems];
+    if(!order.length){
+      albumGrid.innerHTML=`<div class="album-loading">${LANG==='el'?'Δεν βρέθηκαν αρχεία.':'No files found.'}</div>`;
+      return;
+    }
+    let html='';
+    photoItems.forEach((p,idx)=>{
+      const origUrl=`./${p.src}`;
+      const thumb=thumbUrl(p.src);
+      html+=`<button class="album-thumb" data-album-idx="${idx}" type="button" aria-label="Photo ${idx+1}"><img src="${thumb}" data-fallback="${origUrl}" alt="" loading="lazy" decoding="async" onerror="if(!this.dataset.tried){this.dataset.tried=1;this.src=this.dataset.fallback;}else{this.style.opacity=0.15;}"></button>`;
+    });
+    if(videoItems.length&&photoItems.length)html+=`<div class="album-divider"><span>${LANG==='el'?'Βίντεο':'Videos'}</span></div>`;
+    videoItems.forEach((v,idx)=>{
+      const realIdx=photoItems.length+idx;
+      html+=`<button class="album-thumb video" data-album-idx="${realIdx}" type="button" aria-label="Video ${idx+1}"><video src="./${v.localVideo}#t=0.5" preload="metadata" muted playsinline></video></button>`;
+    });
+    albumGrid.innerHTML=html;
+  }
   renderNews();
   setupLedgerCarousels();
 
