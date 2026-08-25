@@ -3292,7 +3292,7 @@ footer{
       const m=bg&&bg.match(/url\(["']?(.+?)["']?\)/);
       if(m)cover=m[1];
     }
-    sharePageItem(platform,L(a,'title'),`${SITE_URL}/n/${i}`,cover?absUrl(cover):DEFAULT_SHARE_IMG,btn);
+    sharePageItem(platform,L(a,'title'),`${SITE_URL}/n/${encodeURIComponent(a.id||i)}`,cover?absUrl(cover):DEFAULT_SHARE_IMG,btn);
   }
 
   function shareMedia(platform,btn){
@@ -3770,8 +3770,9 @@ async function openSharedContentFromUrl(){
     const params=new URLSearchParams(location.search);
     const newsParam=params.get('news');
     if(newsParam!==null){
-      const newsIndex=Number(newsParam);
-      if(Number.isInteger(newsIndex)&&announcements[newsIndex]){
+      let newsIndex=announcements.findIndex(a=>a.id===newsParam);
+      if(newsIndex<0&&/^\d+$/.test(newsParam))newsIndex=Number(newsParam);
+      if(Number.isInteger(newsIndex)&&newsIndex>=0&&announcements[newsIndex]){
         const newsTab=document.querySelector('nav button[data-tab="news"]');
         if(newsTab)newsTab.click();
         openNews(newsIndex);
