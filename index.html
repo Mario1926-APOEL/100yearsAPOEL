@@ -2556,7 +2556,7 @@ footer{
     const kLabel=upcoming?(LANG==='el'?'Επόμενη εκδήλωση':'Next event'):(LANG==='el'?'Πρόγραμμα εορτασμών':'Anniversary programme');
     const infoLbl=LANG==='el'?'Πληροφορίες':'Info';
     box.innerHTML=`<div class="ne-main"><span class="next-k">${kLabel}</span>
-      <span class="next-title">${L(featured,'t')}</span><span class="next-meta">${L(featured,'full')} · ${L(featured,'time')} · ${L(featured,'venue')}</span></div>
+      <span class="next-title">${L(featured,'t')}</span><span class="next-meta">${(()=>{const tbaRe=/ανακοινωθ|announc/i,timeTxt=L(featured,'time'),venueTxt=L(featured,'venue');const parts=[L(featured,'full'),timeTxt];if(venueTxt&&!(tbaRe.test(timeTxt)&&tbaRe.test(venueTxt)))parts.push(venueTxt);return parts.filter(Boolean).join(' · ');})()}</span></div>
       <div class="countdown" id="countdown"><div class="cd-box"><b>—</b><span>${cdL[0]}</span></div><div class="cd-box"><b>—</b><span>${cdL[1]}</span></div><div class="cd-box"><b>—</b><span>${cdL[2]}</span></div><div class="cd-box"><b>—</b><span>${cdL[3]}</span></div></div>
       <button class="next-info" type="button" data-next-info="${featured.idx}">${infoLbl}</button>`;
     if(!upcoming)return;
