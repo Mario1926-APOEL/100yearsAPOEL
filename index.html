@@ -1620,8 +1620,8 @@ footer{
             </label>
           </div>
           <label class="vf-field">
-            <span class="vf-label" data-el="Πώς μπορείς να βοηθήσεις; (προαιρετικό)" data-en="How can you help? (optional)">Πώς μπορείς να βοηθήσεις; (προαιρετικό)</span>
-            <textarea id="vfMessage" rows="3" maxlength="500" placeholder="π.χ. φωτογράφιση, οργάνωση, οικονομική βοήθεια…" data-ph-el="π.χ. φωτογράφιση, οργάνωση, οικονομική βοήθεια…" data-ph-en="e.g. photography, organising, financial support…"></textarea>
+            <span class="vf-label" data-el="Πώς μπορείς να βοηθήσεις;" data-en="How can you help?">Πώς μπορείς να βοηθήσεις;</span>
+            <textarea id="vfMessage" rows="3" maxlength="500" required placeholder="π.χ. φωτογράφιση, οργάνωση, οικονομική βοήθεια…" data-ph-el="π.χ. φωτογράφιση, οργάνωση, οικονομική βοήθεια…" data-ph-en="e.g. photography, organising, financial support…"></textarea>
           </label>
           <label class="vf-consent">
             <input type="checkbox" id="vfConsent" required>
@@ -3785,6 +3785,7 @@ async function openSharedContentFromUrl(){
       // Validation
       if(!name){setStatus(LANG==='el'?'⚠ Συμπληρώστε το ονοματεπώνυμο.':'⚠ Please enter your name.','error');return;}
       if(!email||!isEmail(email)){setStatus(LANG==='el'?'⚠ Δώστε έγκυρο email.':'⚠ Enter a valid email.','error');return;}
+      if(!message){setStatus(LANG==='el'?'⚠ Γράψτε πώς μπορείς να βοηθήσεις.':'⚠ Please tell us how you can help.','error');return;}
       if(!consent){setStatus(LANG==='el'?'⚠ Παρακαλώ αποδεχτείτε τους όρους.':'⚠ Please accept the terms.','error');return;}
       const origLabel=btn.querySelector('span').textContent;
       btn.disabled=true;btn.querySelector('span').textContent=LANG==='el'?'Αποστολή…':'Sending…';
