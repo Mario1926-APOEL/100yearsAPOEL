@@ -1613,14 +1613,10 @@ footer{
               <input type="text" id="vfName" required maxlength="80" autocomplete="name">
             </label>
           </div>
-          <div class="vf-row vf-row-2">
+          <div class="vf-row">
             <label class="vf-field">
               <span class="vf-label" data-el="Email" data-en="Email">Email</span>
               <input type="email" id="vfEmail" required maxlength="120" autocomplete="email">
-            </label>
-            <label class="vf-field">
-              <span class="vf-label" data-el="Τηλέφωνο" data-en="Phone">Τηλέφωνο</span>
-              <input type="tel" id="vfPhone" required maxlength="30" autocomplete="tel">
             </label>
           </div>
           <label class="vf-field">
@@ -1728,6 +1724,9 @@ footer{
   const SITE_URL='https://www.apoel100years.org';
   const HASHTAGS='#ONECENTURYONELEGEND #monoAPOEL #APOEL100';
   const SHARE_MAIL='info@apoel100years.org';
+  // Web3Forms access key — free, public-safe by design (like a reCAPTCHA site key), tied to info@apoel100years.org.
+  // Get yours at https://web3forms.com and paste it here to enable the volunteer-form email notification.
+  const WEB3FORMS_KEY='cba1116b-9503-4fd5-a12a-d734a41e9f24';
   const DEFAULT_SHARE_IMG=SITE_URL+'/emblem_reveal.jpg';
   const absUrl=u=>{if(!u)return '';try{return new URL(u,SITE_URL+'/').href;}catch(_){return u;}};
   const copiedFx=btn=>{if(!btn)return;btn.classList.add('copied');setTimeout(()=>btn.classList.remove('copied'),1800);};
@@ -3782,13 +3781,11 @@ async function openSharedContentFromUrl(){
       e.preventDefault();
       const name=document.getElementById('vfName').value.trim();
       const email=document.getElementById('vfEmail').value.trim();
-      const phone=document.getElementById('vfPhone').value.trim();
       const message=document.getElementById('vfMessage').value.trim();
       const consent=document.getElementById('vfConsent').checked;
       // Validation
       if(!name){setStatus(LANG==='el'?'⚠ Συμπληρώστε το ονοματεπώνυμο.':'⚠ Please enter your name.','error');return;}
       if(!email||!isEmail(email)){setStatus(LANG==='el'?'⚠ Δώστε έγκυρο email.':'⚠ Enter a valid email.','error');return;}
-      if(!phone||phone.length<6){setStatus(LANG==='el'?'⚠ Δώστε έγκυρο τηλέφωνο.':'⚠ Enter a valid phone.','error');return;}
       if(!consent){setStatus(LANG==='el'?'⚠ Παρακαλώ αποδεχτείτε τους όρους.':'⚠ Please accept the terms.','error');return;}
       const origLabel=btn.querySelector('span').textContent;
       btn.disabled=true;btn.querySelector('span').textContent=LANG==='el'?'Αποστολή…':'Sending…';
@@ -3796,9 +3793,23 @@ async function openSharedContentFromUrl(){
         const res=await fetch(`${SB_URL}/rest/v1/volunteers`,{
           method:'POST',
           headers:{apikey:SB_ANON,Authorization:`Bearer ${SB_ANON}`,'Content-Type':'application/json',Prefer:'return=minimal'},
-          body:JSON.stringify({name,email,phone,message:message||null})
+          body:JSON.stringify({name,email,phone:null,message:message||null})
         });
         if(!res.ok)throw new Error(await res.text());
+        // Best-effort email notification (does not block success if it fails — the record is already saved above).
+        if(WEB3FORMS_KEY&&WEB3FORMS_KEY!=='PASTE_YOUR_WEB3FORMS_ACCESS_KEY_HERE'){
+          fetch('https://api.web3forms.com/submit',{
+            method:'POST',
+            headers:{'Content-Type':'application/json',Accept:'application/json'},
+            body:JSON.stringify({
+              access_key:WEB3FORMS_KEY,
+              subject:'Νέα εγγραφή εθελοντή — APOEL100',
+              from_name:'APOEL100 · Φόρμα Εθελοντών',
+              name:name,email:email,
+              message:message||'(χωρίς μήνυμα)'
+            })
+          }).catch(err=>console.error('Web3Forms notify failed:',err));
+        }
         form.reset();
         setStatus(LANG==='el'?'✓ Ευχαριστούμε! Θα επικοινωνήσουμε σύντομα μαζί σας.':'✓ Thank you! We will contact you soon.','success');
       }catch(err){
