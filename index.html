@@ -490,6 +490,41 @@
   .cal-tba button:hover{color:var(--gold-bright);border-color:var(--gold);}
   .cal-tba .cal-tba-k{align-self:center;font-size:.58rem;letter-spacing:.24em;
     text-transform:uppercase;color:var(--gold-deep);}
+
+  /* ---- VIDEO WALL (carousel, plays inline — no popup) ---- */
+  .video-wall{margin-bottom:52px;}
+  .video-wall-rule{height:1px;margin:0 0 34px;
+    background:linear-gradient(90deg,transparent,var(--gold) 20%,var(--gold) 80%,transparent);}
+  .video-wall-carousel{position:relative;display:flex;align-items:center;gap:12px;}
+  .video-wall-track{display:flex;gap:22px;overflow-x:auto;overflow-y:hidden;flex:1;min-width:0;
+    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;
+    scrollbar-width:none;padding:4px 2px 6px;}
+  .video-wall-track::-webkit-scrollbar{display:none;}
+  .video-wall-card{position:relative;flex:0 0 min(340px,78vw);scroll-snap-align:start;aspect-ratio:16/9;
+    background:#000;border:1px solid var(--hair);cursor:pointer;overflow:hidden;}
+  .video-wall-card img,.video-wall-card video{width:100%;height:100%;object-fit:cover;opacity:.78;transition:.3s;display:block;}
+  .video-wall-card:hover img,.video-wall-card:hover video:not([controls]){opacity:1;transform:scale(1.04);}
+  .video-wall-card video[controls]{opacity:1;}
+  .video-wall-card iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+  .video-wall-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+  .video-wall-play span{width:50px;height:50px;border-radius:50%;background:rgba(0,10,20,.55);
+    border:1px solid var(--gold-bright);display:flex;align-items:center;justify-content:center;transition:.25s;}
+  .video-wall-card:hover .video-wall-play span{background:var(--gold);border-color:var(--gold-bright);}
+  .video-wall-play svg{width:18px;height:18px;fill:var(--gold-bright);margin-left:2px;transition:.25s;}
+  .video-wall-card:hover .video-wall-play svg{fill:var(--navy-deep);}
+  .video-wall-label{position:absolute;left:0;right:0;bottom:0;padding:10px 12px;font-size:.64rem;
+    letter-spacing:.12em;text-transform:uppercase;color:#fff;background:linear-gradient(0deg,rgba(0,0,0,.8),transparent);}
+  .video-wall-arrow{flex:0 0 40px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;
+    background:rgba(0,12,26,.5);border:1px solid rgba(201,159,43,.32);color:var(--gold-bright);
+    font-size:1.2rem;line-height:1;cursor:pointer;transition:background .25s,border-color .25s,opacity .25s;}
+  .video-wall-arrow:hover{background:rgba(201,159,43,.16);border-color:var(--gold);}
+  .video-wall-arrow:disabled{opacity:.3;cursor:default;}
+  .video-wall-dots{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:16px;}
+  .video-wall-dot{width:7px;height:7px;border:none;padding:0;border-radius:50%;cursor:pointer;
+    background:rgba(201,159,43,.3);transition:width .3s,border-radius .3s,background .3s;}
+  .video-wall-dot.on{width:22px;border-radius:4px;background:linear-gradient(90deg,#f2d46f,#c99f2b);}
+  @media(max-width:560px){.video-wall-arrow{display:none;}}
+
   @media(max-width:760px){
     .cal{margin-top:44px;}
     .cal-month{padding:14px 10px 12px;}
@@ -1551,6 +1586,15 @@ footer{
       <p class="lead" data-el="Όλες οι εκδηλώσεις για τον επετειακό εορτασμό των 100 χρόνων του ΑΠΟΕΛ!" data-en="All the events for the 100-year anniversary celebration of APOEL!">Όλες οι εκδηλώσεις για τον επετειακό εορτασμό των 100 χρόνων του ΑΠΟΕΛ!</p></div>
     <div class="next-event reveal" id="nextEvent"></div>
     <div class="ledger reveal" id="ledger"></div>
+    <div class="video-wall reveal">
+      <div class="video-wall-rule"></div>
+      <div class="video-wall-carousel">
+        <button class="video-wall-arrow prev" id="videoWallPrev" type="button" aria-label="Previous">‹</button>
+        <div class="video-wall-track" id="videoWallGrid"></div>
+        <button class="video-wall-arrow next" id="videoWallNext" type="button" aria-label="Next">›</button>
+      </div>
+      <div class="video-wall-dots" id="videoWallDots"></div>
+    </div>
     <div class="cal reveal" id="calendar"></div>
   </section>
 
@@ -2885,6 +2929,90 @@ footer{
   });
   renderLedger();
 
+  // ---- VIDEO WALL (carousel, plays inline in its own card — no popup) ----
+  // Add more videos here later — each just needs a YouTube id (yt) or a local file (localVideo) + a caption.
+  // Ordered oldest → most recent.
+  const videoWallItems=[
+    {yt:'QCKx00LI4DE',c:'1.9.26'},
+    {localVideo:'site_presentation.mp4',c:'Παρουσίαση Ιστοσελίδας apoel100years.org'},
+    {yt:'9Gf9BgrPsic',c:'Σύνθημα "Για τα 100 σου Χρόνια Ιστορία"'},
+    {yt:'DrQOmIBh5XA',c:'Παρουσίαση Επετειακού Λογότυπου'},
+    {yt:'607B3E4hiiI',c:'Επετειακό Λογότυπο 100 Χρόνων'},
+    {yt:'HdDxEIn6pfc',c:'Μοτοπορεία 100 Χρόνων — 31/07/2026'}
+  ];
+  function renderVideoWall(){
+    const grid=document.getElementById('videoWallGrid');
+    if(!grid)return;
+    grid.innerHTML=videoWallItems.map((v,i)=>`
+      <div class="video-wall-card" data-video-wall-idx="${i}">
+        ${v.localVideo
+          ?`<video src="./${v.localVideo}#t=0.5" preload="metadata" muted playsinline></video>`
+          :`<img src="https://img.youtube.com/vi/${v.yt}/hqdefault.jpg" alt="" loading="lazy">`}
+        <span class="video-wall-play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
+        ${v.c?`<span class="video-wall-label">${v.c}</span>`:''}
+      </div>`).join('');
+    const dots=document.getElementById('videoWallDots');
+    const multi=videoWallItems.length>1;
+    if(dots){
+      dots.style.display=multi?'':'none';
+      dots.innerHTML=multi?videoWallItems.map((_,i)=>
+        '<button class="video-wall-dot'+(i?'':' on')+'" type="button" tabindex="-1" aria-label="'+(i+1)+'"></button>').join(''):'';
+      [...dots.children].forEach((dot,i)=>dot.addEventListener('click',()=>scrollVideoWallTo(i)));
+    }
+    const prevBtn=document.getElementById('videoWallPrev'),nextBtn=document.getElementById('videoWallNext');
+    if(prevBtn)prevBtn.style.display=multi?'':'none';
+    if(nextBtn)nextBtn.style.display=multi?'':'none';
+    updateVideoWallNav();
+  }
+  function scrollVideoWallTo(i){
+    const grid=document.getElementById('videoWallGrid');
+    const card=grid.children[i];
+    if(card)grid.scrollTo({left:card.offsetLeft-(grid.clientWidth-card.offsetWidth)/2,behavior:'smooth'});
+  }
+  function updateVideoWallNav(){
+    const grid=document.getElementById('videoWallGrid');
+    const dots=document.getElementById('videoWallDots');
+    const prevBtn=document.getElementById('videoWallPrev'),nextBtn=document.getElementById('videoWallNext');
+    if(!grid)return;
+    const cards=[...grid.children];
+    if(!cards.length)return;
+    const mid=grid.scrollLeft+grid.clientWidth/2;
+    let best=0,bestD=Infinity;
+    cards.forEach((c,i)=>{const d=Math.abs(c.offsetLeft+c.offsetWidth/2-mid);if(d<bestD){bestD=d;best=i;}});
+    if(dots)[...dots.children].forEach((dot,i)=>dot.classList.toggle('on',i===best));
+    if(prevBtn)prevBtn.disabled=grid.scrollLeft<=2;
+    if(nextBtn)nextBtn.disabled=grid.scrollLeft>=grid.scrollWidth-grid.clientWidth-2;
+  }
+  renderVideoWall();
+  (function(){
+    const grid=document.getElementById('videoWallGrid');
+    if(!grid)return;
+    grid.addEventListener('click',e=>{
+      const card=e.target.closest('.video-wall-card');
+      if(!card||card.querySelector('iframe'))return;
+      const idx=+card.dataset.videoWallIdx;
+      const v=videoWallItems[idx];
+      if(!v)return;
+      if(v.localVideo){
+        card.innerHTML=`<video src="./${v.localVideo}" controls autoplay playsinline></video>`;
+      }else{
+        card.innerHTML=`<iframe src="https://www.youtube.com/embed/${v.yt}?autoplay=1&rel=0&modestbranding=1" title="${v.c||''}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+      }
+    });
+    let raf=null;
+    grid.addEventListener('scroll',()=>{if(raf)return;raf=requestAnimationFrame(()=>{raf=null;updateVideoWallNav();});},{passive:true});
+    const prevBtn=document.getElementById('videoWallPrev'),nextBtn=document.getElementById('videoWallNext');
+    if(prevBtn)prevBtn.addEventListener('click',()=>{
+      const card=grid.querySelector('.video-wall-card');
+      if(card)grid.scrollBy({left:-(card.offsetWidth+22),behavior:'smooth'});
+    });
+    if(nextBtn)nextBtn.addEventListener('click',()=>{
+      const card=grid.querySelector('.video-wall-card');
+      if(card)grid.scrollBy({left:card.offsetWidth+22,behavior:'smooth'});
+    });
+    addEventListener('resize',()=>{clearTimeout(grid._vwResizeT);grid._vwResizeT=setTimeout(updateVideoWallNav,120);});
+  })();
+
   // ---- ANNOUNCEMENTS ----
   const announcements=[
     {
@@ -3896,7 +4024,7 @@ async function openSharedContentFromUrl(){
     A('storyPhotoClear','Αφαίρεση φωτογραφίας','Remove photo');
     document.querySelectorAll('nav[role=tablist]').forEach(n=>n.setAttribute('aria-label',l==='en'?'Sections':'Ενότητες'));
     // re-run dynamic renders
-    if(gtools)renderGtools();drawGallery(curDecade);renderHistory();renderSpotlight();renderDepts();renderNextEvent();renderLedger();renderNews();render();
+    if(gtools)renderGtools();drawGallery(curDecade);renderHistory();renderSpotlight();renderDepts();renderNextEvent();renderLedger();renderVideoWall();renderNews();render();
     setupLedgerCarousels();
     // keep active gallery chip highlighted
     document.querySelectorAll('.gchip').forEach(c=>c.classList.toggle('on',c.dataset.d===curDecade));
