@@ -818,6 +818,12 @@
   footer b{color:var(--gold-bright);font-family:"Bodoni MT",serif;font-style:italic;font-weight:700;letter-spacing:.1em;}
   footer .footer-tags{display:inline-block;margin-top:10px;font-size:.6rem;letter-spacing:.22em;color:var(--gold-deep);opacity:.75;}
 
+  .footer-logos{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:34px;margin:0 0 38px;}
+  .footer-logo-item{display:flex;align-items:center;justify-content:center;width:96px;height:96px;transition:.25s;}
+  .footer-logo-item:hover{transform:translateY(-2px);}
+  .footer-logo-item img{width:100%;height:100%;object-fit:contain;display:block;}
+  @media(max-width:560px){.footer-logos{gap:22px;}.footer-logo-item{width:74px;height:74px;}}
+
   /* ---- STORY PHOTO UPLOAD ---- */
   .story-file{margin-top:24px;position:relative;}
   .story-file-btn{display:inline-flex;align-items:center;gap:10px;background:transparent;
@@ -1638,7 +1644,13 @@ footer{
   </section>
 </main>
 
-<footer><span data-el="Ένας Αιώνας Μαζί · " data-en="One Century Together · ">Ένας Αιώνας Μαζί · </span><b>ΑΠΟΕΛ</b> · 1926 — 2026<br><span class="footer-tags">#ONECENTURYONELEGEND #monoAPOEL #APOEL100</span></footer>
+<footer>
+<div class="footer-logos">
+  <a class="footer-logo-item" href="https://apoelfc.com.cy/" target="_blank" rel="noopener" aria-label="APOEL FC"><img src="./logo_apoelfc.png" alt="APOEL FC" loading="lazy"></a>
+  <a class="footer-logo-item" href="https://apoel.com.cy/" target="_blank" rel="noopener" aria-label="Σωματείο ΑΠΟΕΛ"><img src="./logo_somateio.png" alt="Σωματείο ΑΠΟΕΛ" loading="lazy"></a>
+  <a class="footer-logo-item" href="https://www.facebook.com/apoelultras.official/?locale=el_GR" target="_blank" rel="noopener" aria-label="ΠΑΝ.ΣΥ.ΦΙ."><img src="./logo_pansyfi.png" alt="ΠΑΝ.ΣΥ.ΦΙ." loading="lazy"></a>
+</div>
+<span data-el="Ένας Αιώνας Μαζί · " data-en="One Century Together · ">Ένας Αιώνας Μαζί · </span><b>ΑΠΟΕΛ</b> · 1926 — 2026<br><span class="footer-tags">#ONECENTURYONELEGEND #monoAPOEL #APOEL100</span></footer>
 
 <!-- ALBUM GRID MODAL -->
 <div class="album-modal" id="albumModal" role="dialog" aria-modal="true">
@@ -2483,7 +2495,8 @@ footer{
       desc_en:'<b>100 YEARS GRAFFITI DAY &amp; MUSIC NIGHT — 1/9/26</b><br><br>We invite APOEL brothers everywhere to one more day of celebration for the Legend\'s 100 years. The event will take place at the Central Supporters Club on Tuesday, on the symbolic date of <b>1/9/26</b>.<br><br>It begins with Graffiti design tied to the 100 Years of the Legend, along with other fan material. The event closes with a <b>Music Night featuring live Laiki music</b>, while a <b>DJ set</b> runs throughout. Plenty of food and drink will be available for everyone.<br><br>There will also be desks for <b>Supporters Club membership registrations</b>, <b>Futsal season ticket</b> purchases and <b>Club registrations</b>. Raffle tickets will be sold at <b>€10</b>, with winners taking rich prizes. The Supporters Club will also honour <b>historic APOEL personalities</b> during the event.<br><br><i>PAN.SY.FI. APOEL</i><br><br><b>Recap</b><br><br>We thank everyone from the LEGEND who attended yet another event held by the Supporters Club, part of the celebrations for the 100 Years of APOEL.<br><br>Our goal is for this year to be filled with celebrations and events, through which we will honour the greatness of our team.<br><br><b>LONG LIVE THE LEGEND!</b>',
       info:[],
       info_en:[],
-      album:'1.9.26'},
+      album:'1.9.26',
+      videos:['QCKx00LI4DE']},
     {d:'05',m:'Οκτ',m_en:'OCT',d2:'05',m2:'Οκτ',m2_en:'OCT',iso:'2026-10-05T19:00:00',hidden:true,status:'Προσεχώς',status_en:'Upcoming',img:'tba',t:'Παρουσίαση Λευκώματος «100 Χρόνια ΑΠΟΕΛ»',t_en:'Presentation of the "100 Years APOEL" Commemorative Book',p:'Ο αιώνας του Θρύλου σε ένα λεύκωμα.',p_en:'A century of the Legend in one book.',pin:'05/10/2026',cta:'Πληροφορίες',cta_en:'Info',
       full:'05 Οκτωβρίου 2026',full_en:'05 October 2026',time:'Θα ανακοινωθεί',time_en:'To be announced',venue:'Θα ανακοινωθεί',venue_en:'To be announced',
       desc:'Επίσημη παρουσίαση του επετειακού λευκώματος «100 Χρόνια ΑΠΟΕΛ», με ιστορικό υλικό, φωτογραφίες, αφηγήσεις και τιμητικές αναφορές που συνθέτουν έναν αιώνα ζωής του Θρύλου. Ο χώρος και η ώρα θα ανακοινωθούν αργότερα.',
