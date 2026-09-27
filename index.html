@@ -3044,9 +3044,9 @@ footer{
       date:'2026-09-25',
       category:'Ρεκόρ',category_en:'Record',
       image:'season_tickets_record_2026.jpg',
-      title:'Νέο Ρεκόρ Διαρκείας — 9,202 Διαρκείς Κάρτες',
+      title:'Νέο Ρεκόρ Διαρκείας — 9202 Διαρκείας',
       title_en:'New Season Ticket Record — 9,202 Season Tickets',
-      excerpt:'Ο κόσμος του ΑΠΟΕΛ γράφει ιστορία: 9,202 διαρκείς κάρτες, νέο ρεκόρ για τα 100 χρόνια του Σωματείου.',
+      excerpt:'Ο κόσμος του ΑΠΟΕΛ γράφει ιστορία: 9202 διαρκείας, νέο ρεκόρ στα 100 χρόνια του Α.Π.Ο.Ε.Λ.',
       excerpt_en:'APOEL\'s fans write history: 9,202 season tickets, a new record for the Club\'s 100th anniversary year.',
       body:'Η συμβολικότητα της χρονιάς δεν θα μπορούσε να μην συνοδευτεί και από μια ιστορική επίδοση.<br><br>Ο κόσμος του ΑΠΟΕΛ σημειώνει νέο ρεκόρ φθάνοντας τα 9,202 διαρκείας.<br><br>Κάθε επόμενο εισιτήριο είναι πλέον και ένα νέο ρεκόρ.<br><br>Συνεχίζουμε να προσθέτουμε στην παρουσία του κόσμου, δίπλα στην ομάδα.<br><br>Για τα 100 σου, χρόνια ιστορίας. Για το Μπλε, το Κίτρινο και το Πορτοκαλί 🔵🟡🟠<br><br>#ONECENTURYONELEGEND #APOELFC #monoAPOEL',
       body_en:'The symbolism of this year could not go without a historic achievement of its own.<br><br>APOEL\'s people set a new record, reaching <b>9,202 season tickets</b>. From now on, every next ticket is itself a new record.<br><br>We keep adding to our people\'s presence, right beside the team.<br><br>For your 100 years of history. For the Blue, the Yellow and the Orange 🔵🟡🟠<br><br>#ONECENTURYONELEGEND #APOELFC #monoAPOEL'
@@ -3057,7 +3057,7 @@ footer{
       category:'Φώτο',category_en:'Photos',
       image:'',
       album:'apollwna-apoel-19.09.2026',
-      title:'Απόλλωνα - ΑΠΟΕΛ 19.09.2026 - Θα καεί, θα καεί, όλο το νησί!',
+      title:'Απόλλωνας - ΑΠΟΕΛ 19.09.2026 - Θα καεί, θα καεί, όλο το νησί!',
       title_en:'Apollon - APOEL 19.09.2026 - The whole island will burn!',
       excerpt:'',
       excerpt_en:'',
@@ -3303,8 +3303,15 @@ footer{
       </div>`;
     em.classList.add('open');document.body.style.overflow='hidden';modalOpened(em);
   }
-  newsList.addEventListener('click',e=>{if(e.target.closest('.card-share'))return;const c=e.target.closest('[data-news]');if(c)openNews(+c.dataset.news);});
-  newsList.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.closest('[data-news]')){e.preventDefault();openNews(+e.target.closest('[data-news]').dataset.news);}});
+  function openNewsSmart(i){
+    const a=announcements[i];if(!a)return;
+    // Photo-only announcements (album set, no article text) skip straight to the photo grid —
+    // no separate "View album" click needed.
+    if(a.album&&!a.body&&!a.body_en){openNewsAlbum(i);return;}
+    openNews(i);
+  }
+  newsList.addEventListener('click',e=>{if(e.target.closest('.card-share'))return;const c=e.target.closest('[data-news]');if(c)openNewsSmart(+c.dataset.news);});
+  newsList.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.closest('[data-news]')){e.preventDefault();openNewsSmart(+e.target.closest('[data-news]').dataset.news);}});
   document.getElementById('eventModal').addEventListener('click',e=>{
     const b=e.target.closest('[data-news-album]');
     if(b)openNewsAlbum(+b.dataset.newsAlbum);
