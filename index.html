@@ -3410,7 +3410,8 @@ footer{
           <button class="em-share-btn" data-share="twitter" data-idx="${i}" title="X (Twitter)" aria-label="X">${ic.twitter}</button>
           <button class="em-share-btn" data-share="instagram" data-idx="${i}" title="Instagram" aria-label="Instagram">${ic.instagram}</button>
         </div>
-      </div>`;
+      </div>
+      ${hasMedia(e)?`<div class="em-actions"><button class="em-action" type="button" data-event-album="${i}">${LANG==='el'?'Άλμπουμ':'Album'}</button></div>`:''}`;
     em.classList.add('open');document.body.style.overflow='hidden';modalOpened(em);
   }
   /* ---- CALENDAR (.ics) + DIRECTIONS ---- */
@@ -3479,6 +3480,8 @@ footer{
   document.getElementById('emBody').addEventListener('click',ev=>{
     const b=ev.target.closest('[data-ics]');
     if(b)downloadIcs(+b.dataset.ics);
+    const ab=ev.target.closest('[data-event-album]');
+    if(ab){closeEvent();openEventAlbum(+ab.dataset.eventAlbum);}
   });
 
   /* ---- SHARE EVENT ---- */
